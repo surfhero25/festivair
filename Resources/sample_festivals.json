@@ -1,0 +1,139 @@
+{
+  "events": [
+    {
+      "id": "edc-lv-2026",
+      "name": "EDC Las Vegas 2026",
+      "venue": "Las Vegas Motor Speedway",
+      "city": "Las Vegas, NV",
+      "startDate": "2026-05-15T18:00:00Z",
+      "endDate": "2026-05-18T06:00:00Z",
+      "imageUrl": "https://example.com/edc-lv.jpg",
+      "websiteUrl": "https://lasvegas.electricdaisycarnival.com",
+      "stages": [
+        {
+          "id": "kinetic-field",
+          "name": "kineticFIELD",
+          "color": "#8B5CF6"
+        },
+        {
+          "id": "circuit-grounds",
+          "name": "circuitGROUNDS",
+          "color": "#06B6D4"
+        },
+        {
+          "id": "cosmic-meadow",
+          "name": "cosmicMEADOW",
+          "color": "#10B981"
+        },
+        {
+          "id": "bass-pod",
+          "name": "bassPOD",
+          "color": "#EF4444"
+        },
+        {
+          "id": "neon-garden",
+          "name": "neonGARDEN",
+          "color": "#F59E0B"
+        },
+        {
+          "id": "quantum-valley",
+          "name": "quantumVALLEY",
+          "color": "#EC4899"
+        },
+        {
+          "id": "wasteland",
+          "name": "wasteLAND",
+          "color": "#6B7280"
+        },
+        {
+          "id": "stereobloom",
+          "name": "stereoBLOOM",
+          "color": "#3B82F6"
+        }
+      ],
+      "setTimes": [
+        {
+          "artistName": "Skrillex",
+          "stageId": "kinetic-field",
+          "startTime": "2026-05-16T02:30:00Z",
+          "endTime": "2026-05-16T04:00:00Z"
+        },
+        {
+          "artistName": "Charlotte de Witte",
+          "stageId": "circuit-grounds",
+          "startTime": "2026-05-16T00:00:00Z",
+          "endTime": "2026-05-16T01:30:00Z"
+        },
+        {
+          "artistName": "Subtronics",
+          "stageId": "bass-pod",
+          "startTime": "2026-05-16T01:00:00Z",
+          "endTime": "2026-05-16T02:30:00Z"
+        },
+        {
+          "artistName": "Kaskade",
+          "stageId": "cosmic-meadow",
+          "startTime": "2026-05-16T03:00:00Z",
+          "endTime": "2026-05-16T04:30:00Z"
+        },
+        {
+          "artistName": "Rezz",
+          "stageId": "neon-garden",
+          "startTime": "2026-05-15T23:00:00Z",
+          "endTime": "2026-05-16T00:30:00Z"
+        },
+        {
+          "artistName": "Illenium",
+          "stageId": "kinetic-field",
+          "startTime": "2026-05-16T00:30:00Z",
+          "endTime": "2026-05-16T02:00:00Z"
+        },
+        {
+          "artistName": "Fisher",
+          "stageId": "stereobloom",
+          "startTime": "2026-05-16T01:30:00Z",
+          "endTime": "2026-05-16T03:00:00Z"
+        },
+        {
+          "artistName": "Excision",
+          "stageId": "bass-pod",
+          "startTime": "2026-05-16T03:00:00Z",
+          "endTime": "2026-05-16T04:30:00Z"
+        }
+      ]
+    },
+    {
+      "id": "ultra-miami-2026",
+      "name": "Ultra Music Festival 2026",
+      "venue": "Bayfront Park",
+      "city": "Miami, FL",
+      "startDate": "2026-03-27T16:00:00Z",
+      "endDate": "2026-03-30T00:00:00Z",
+      "imageUrl": "https://example.com/ultra.jpg",
+      "websiteUrl": "https://ultramusicfestival.com",
+      "stages": [
+        {
+          "id": "main-stage",
+          "name": "Main Stage",
+          "color": "#8B5CF6"
+        },
+        {
+          "id": "live-stage",
+          "name": "LIVE Stage",
+          "color": "#06B6D4"
+        },
+        {
+          "id": "resistance",
+          "name": "RESISTANCE",
+          "color": "#EF4444"
+        },
+        {
+          "id": "worldwide",
+          "name": "Worldwide Stage",
+          "color": "#10B981"
+        }
+      ],
+      "setTimes": []
+    }
+  ]
+}

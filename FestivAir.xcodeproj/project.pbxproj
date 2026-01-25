@@ -1,0 +1,641 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		FA000001 /* FestivAirApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100001 /* FestivAirApp.swift */; };
+		FA000002 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100002 /* AppDelegate.swift */; };
+		FA000003 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100003 /* User.swift */; };
+		FA000004 /* Squad.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100004 /* Squad.swift */; };
+		FA000005 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100005 /* Event.swift */; };
+		FA000006 /* SetTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100006 /* SetTime.swift */; };
+		FA000007 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100007 /* ChatMessage.swift */; };
+		FA000008 /* MeshNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100008 /* MeshNetworkManager.swift */; };
+		FA000009 /* MeshCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100009 /* MeshCoordinator.swift */; };
+		FA000010 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100010 /* LocationManager.swift */; };
+		FA000011 /* GatewayManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100011 /* GatewayManager.swift */; };
+		FA000012 /* CloudKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100012 /* CloudKitService.swift */; };
+		FA000013 /* SyncEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100013 /* SyncEngine.swift */; };
+		FA000014 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100014 /* NotificationManager.swift */; };
+		FA000015 /* PeerTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100015 /* PeerTracker.swift */; };
+		FA000016 /* SquadViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100016 /* SquadViewModel.swift */; };
+		FA000017 /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100017 /* ChatViewModel.swift */; };
+		FA000018 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100018 /* MapViewModel.swift */; };
+		FA000019 /* SetTimesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100019 /* SetTimesViewModel.swift */; };
+		FA000020 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100020 /* ContentView.swift */; };
+		FA000021 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100021 /* OnboardingView.swift */; };
+		FA000022 /* SquadMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100022 /* SquadMapView.swift */; };
+		FA000023 /* MemberListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100023 /* MemberListView.swift */; };
+		FA000024 /* JoinSquadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100024 /* JoinSquadView.swift */; };
+		FA000025 /* QRCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100025 /* QRCodeView.swift */; };
+		FA000026 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100026 /* ChatView.swift */; };
+		FA000027 /* SetTimesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100027 /* SetTimesView.swift */; };
+		FA000028 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100028 /* SettingsView.swift */; };
+		FA000029 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100029 /* Constants.swift */; };
+		FA000030 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100030 /* Extensions.swift */; };
+		FA000031 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA100031 /* Assets.xcassets */; };
+		FA000032 /* sample_festivals.json in Resources */ = {isa = PBXBuildFile; fileRef = FA100032 /* sample_festivals.json */; };
+		FA000033 /* ImageCacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100035 /* ImageCacheService.swift */; };
+		FA000034 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100036 /* ProfileView.swift */; };
+		FA000035 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100037 /* EditProfileView.swift */; };
+		FA000036 /* SubscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100038 /* SubscriptionManager.swift */; };
+		FA000037 /* PaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100039 /* PaywallView.swift */; };
+		FA000038 /* Party.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100040 /* Party.swift */; };
+		FA000039 /* PartyAttendee.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100041 /* PartyAttendee.swift */; };
+		FA000040 /* PartiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100042 /* PartiesViewModel.swift */; };
+		FA000041 /* PartiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100043 /* PartiesView.swift */; };
+		FA000042 /* PartyDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100044 /* PartyDetailView.swift */; };
+		FA000043 /* CreatePartyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100045 /* CreatePartyView.swift */; };
+		FA000044 /* HostDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100046 /* HostDashboardView.swift */; };
+		FA000045 /* SponsorActivation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100047 /* SponsorActivation.swift */; };
+		FA000046 /* SponsorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100048 /* SponsorService.swift */; };
+		FA000047 /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100049 /* AnalyticsService.swift */; };
+		FA000048 /* FestivalSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100050 /* FestivalSummaryView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		FA100001 /* FestivAirApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FestivAirApp.swift; sourceTree = "<group>"; };
+		FA100002 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		FA100003 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		FA100004 /* Squad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Squad.swift; sourceTree = "<group>"; };
+		FA100005 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		FA100006 /* SetTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetTime.swift; sourceTree = "<group>"; };
+		FA100007 /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
+		FA100008 /* MeshNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeshNetworkManager.swift; sourceTree = "<group>"; };
+		FA100009 /* MeshCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeshCoordinator.swift; sourceTree = "<group>"; };
+		FA100010 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		FA100011 /* GatewayManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GatewayManager.swift; sourceTree = "<group>"; };
+		FA100012 /* CloudKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitService.swift; sourceTree = "<group>"; };
+		FA100013 /* SyncEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncEngine.swift; sourceTree = "<group>"; };
+		FA100014 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		FA100015 /* PeerTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeerTracker.swift; sourceTree = "<group>"; };
+		FA100016 /* SquadViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquadViewModel.swift; sourceTree = "<group>"; };
+		FA100017 /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
+		FA100018 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		FA100019 /* SetTimesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetTimesViewModel.swift; sourceTree = "<group>"; };
+		FA100020 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		FA100021 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		FA100022 /* SquadMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquadMapView.swift; sourceTree = "<group>"; };
+		FA100023 /* MemberListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberListView.swift; sourceTree = "<group>"; };
+		FA100024 /* JoinSquadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinSquadView.swift; sourceTree = "<group>"; };
+		FA100025 /* QRCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeView.swift; sourceTree = "<group>"; };
+		FA100026 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		FA100027 /* SetTimesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetTimesView.swift; sourceTree = "<group>"; };
+		FA100028 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		FA100029 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		FA100030 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		FA100031 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FA100032 /* sample_festivals.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sample_festivals.json; sourceTree = "<group>"; };
+		FA100033 /* FestivAir.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FestivAir.entitlements; sourceTree = "<group>"; };
+		FA100034 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FA100035 /* ImageCacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheService.swift; sourceTree = "<group>"; };
+		FA100036 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		FA100037 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
+		FA100038 /* SubscriptionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionManager.swift; sourceTree = "<group>"; };
+		FA100039 /* PaywallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaywallView.swift; sourceTree = "<group>"; };
+		FA100040 /* Party.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Party.swift; sourceTree = "<group>"; };
+		FA100041 /* PartyAttendee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartyAttendee.swift; sourceTree = "<group>"; };
+		FA100042 /* PartiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartiesViewModel.swift; sourceTree = "<group>"; };
+		FA100043 /* PartiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartiesView.swift; sourceTree = "<group>"; };
+		FA100044 /* PartyDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartyDetailView.swift; sourceTree = "<group>"; };
+		FA100045 /* CreatePartyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePartyView.swift; sourceTree = "<group>"; };
+		FA100046 /* HostDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostDashboardView.swift; sourceTree = "<group>"; };
+		FA100047 /* SponsorActivation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorActivation.swift; sourceTree = "<group>"; };
+		FA100048 /* SponsorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorService.swift; sourceTree = "<group>"; };
+		FA100049 /* AnalyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
+		FA100050 /* FestivalSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FestivalSummaryView.swift; sourceTree = "<group>"; };
+		FA200000 /* FestivAir.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FestivAir.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FA300000 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		FA400000 = {
+			isa = PBXGroup;
+			children = (
+				FA400001 /* App */,
+				FA400002 /* Models */,
+				FA400003 /* Services */,
+				FA400004 /* ViewModels */,
+				FA400005 /* Views */,
+				FA400006 /* Utilities */,
+				FA400007 /* Resources */,
+				FA400099 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		FA400001 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				FA100001 /* FestivAirApp.swift */,
+				FA100002 /* AppDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		FA400002 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				FA100003 /* User.swift */,
+				FA100004 /* Squad.swift */,
+				FA100005 /* Event.swift */,
+				FA100006 /* SetTime.swift */,
+				FA100007 /* ChatMessage.swift */,
+				FA100040 /* Party.swift */,
+				FA100041 /* PartyAttendee.swift */,
+				FA100047 /* SponsorActivation.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		FA400003 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				FA100008 /* MeshNetworkManager.swift */,
+				FA100009 /* MeshCoordinator.swift */,
+				FA100010 /* LocationManager.swift */,
+				FA100011 /* GatewayManager.swift */,
+				FA100012 /* CloudKitService.swift */,
+				FA100013 /* SyncEngine.swift */,
+				FA100014 /* NotificationManager.swift */,
+				FA100015 /* PeerTracker.swift */,
+				FA100035 /* ImageCacheService.swift */,
+				FA100038 /* SubscriptionManager.swift */,
+				FA100048 /* SponsorService.swift */,
+				FA100049 /* AnalyticsService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		FA400004 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				FA100016 /* SquadViewModel.swift */,
+				FA100017 /* ChatViewModel.swift */,
+				FA100018 /* MapViewModel.swift */,
+				FA100019 /* SetTimesViewModel.swift */,
+				FA100042 /* PartiesViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		FA400005 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				FA100020 /* ContentView.swift */,
+				FA400010 /* Onboarding */,
+				FA400011 /* Squad */,
+				FA400012 /* SetTimes */,
+				FA400013 /* Settings */,
+				FA400014 /* Profile */,
+				FA400015 /* Premium */,
+				FA400016 /* Parties */,
+				FA400017 /* Analytics */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		FA400014 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				FA100036 /* ProfileView.swift */,
+				FA100037 /* EditProfileView.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		FA400015 /* Premium */ = {
+			isa = PBXGroup;
+			children = (
+				FA100039 /* PaywallView.swift */,
+			);
+			path = Premium;
+			sourceTree = "<group>";
+		};
+		FA400016 /* Parties */ = {
+			isa = PBXGroup;
+			children = (
+				FA100043 /* PartiesView.swift */,
+				FA100044 /* PartyDetailView.swift */,
+				FA100045 /* CreatePartyView.swift */,
+				FA100046 /* HostDashboardView.swift */,
+			);
+			path = Parties;
+			sourceTree = "<group>";
+		};
+		FA400017 /* Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				FA100050 /* FestivalSummaryView.swift */,
+			);
+			path = Analytics;
+			sourceTree = "<group>";
+		};
+		FA400006 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				FA100029 /* Constants.swift */,
+				FA100030 /* Extensions.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		FA400007 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				FA100031 /* Assets.xcassets */,
+				FA100032 /* sample_festivals.json */,
+				FA100033 /* FestivAir.entitlements */,
+				FA100034 /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		FA400010 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				FA100021 /* OnboardingView.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		FA400011 /* Squad */ = {
+			isa = PBXGroup;
+			children = (
+				FA100022 /* SquadMapView.swift */,
+				FA100023 /* MemberListView.swift */,
+				FA100024 /* JoinSquadView.swift */,
+				FA100025 /* QRCodeView.swift */,
+				FA100026 /* ChatView.swift */,
+			);
+			path = Squad;
+			sourceTree = "<group>";
+		};
+		FA400012 /* SetTimes */ = {
+			isa = PBXGroup;
+			children = (
+				FA100027 /* SetTimesView.swift */,
+			);
+			path = SetTimes;
+			sourceTree = "<group>";
+		};
+		FA400013 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				FA100028 /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		FA400099 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FA200000 /* FestivAir.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FA500000 /* FestivAir */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FA700000 /* Build configuration list for PBXNativeTarget "FestivAir" */;
+			buildPhases = (
+				FA500001 /* Sources */,
+				FA300000 /* Frameworks */,
+				FA500002 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FestivAir;
+			productName = FestivAir;
+			productReference = FA200000 /* FestivAir.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FA600000 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 2620;
+				TargetAttributes = {
+					FA500000 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = FA700001 /* Build configuration list for PBXProject "FestivAir" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = FA400000;
+			productRefGroup = FA400099 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FA500000 /* FestivAir */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FA500002 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA000031 /* Assets.xcassets in Resources */,
+				FA000032 /* sample_festivals.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FA500001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA000001 /* FestivAirApp.swift in Sources */,
+				FA000002 /* AppDelegate.swift in Sources */,
+				FA000003 /* User.swift in Sources */,
+				FA000004 /* Squad.swift in Sources */,
+				FA000005 /* Event.swift in Sources */,
+				FA000006 /* SetTime.swift in Sources */,
+				FA000007 /* ChatMessage.swift in Sources */,
+				FA000008 /* MeshNetworkManager.swift in Sources */,
+				FA000009 /* MeshCoordinator.swift in Sources */,
+				FA000010 /* LocationManager.swift in Sources */,
+				FA000011 /* GatewayManager.swift in Sources */,
+				FA000012 /* CloudKitService.swift in Sources */,
+				FA000013 /* SyncEngine.swift in Sources */,
+				FA000014 /* NotificationManager.swift in Sources */,
+				FA000015 /* PeerTracker.swift in Sources */,
+				FA000016 /* SquadViewModel.swift in Sources */,
+				FA000017 /* ChatViewModel.swift in Sources */,
+				FA000018 /* MapViewModel.swift in Sources */,
+				FA000019 /* SetTimesViewModel.swift in Sources */,
+				FA000020 /* ContentView.swift in Sources */,
+				FA000021 /* OnboardingView.swift in Sources */,
+				FA000022 /* SquadMapView.swift in Sources */,
+				FA000023 /* MemberListView.swift in Sources */,
+				FA000024 /* JoinSquadView.swift in Sources */,
+				FA000025 /* QRCodeView.swift in Sources */,
+				FA000026 /* ChatView.swift in Sources */,
+				FA000027 /* SetTimesView.swift in Sources */,
+				FA000028 /* SettingsView.swift in Sources */,
+				FA000029 /* Constants.swift in Sources */,
+				FA000030 /* Extensions.swift in Sources */,
+				FA000033 /* ImageCacheService.swift in Sources */,
+				FA000034 /* ProfileView.swift in Sources */,
+				FA000035 /* EditProfileView.swift in Sources */,
+				FA000036 /* SubscriptionManager.swift in Sources */,
+				FA000037 /* PaywallView.swift in Sources */,
+				FA000038 /* Party.swift in Sources */,
+				FA000039 /* PartyAttendee.swift in Sources */,
+				FA000040 /* PartiesViewModel.swift in Sources */,
+				FA000041 /* PartiesView.swift in Sources */,
+				FA000042 /* PartyDetailView.swift in Sources */,
+				FA000043 /* CreatePartyView.swift in Sources */,
+				FA000044 /* HostDashboardView.swift in Sources */,
+				FA000045 /* SponsorActivation.swift in Sources */,
+				FA000046 /* SponsorService.swift in Sources */,
+				FA000047 /* AnalyticsService.swift in Sources */,
+				FA000048 /* FestivalSummaryView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		FA800000 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 8JZLCG9CS2;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		FA800001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 8JZLCG9CS2;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_VERSION = 5.0;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		FA800002 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Resources/FestivAir.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Resources/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = FestivAir;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.festivair.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		FA800003 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Resources/FestivAir.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Resources/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = FestivAir;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.festivair.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FA700000 /* Build configuration list for PBXNativeTarget "FestivAir" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA800002 /* Debug */,
+				FA800003 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FA700001 /* Build configuration list for PBXProject "FestivAir" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA800000 /* Debug */,
+				FA800001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = FA600000 /* Project object */;
+}

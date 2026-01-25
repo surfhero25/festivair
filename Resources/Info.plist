@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- App Transport Security -->
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <false/>
+    </dict>
+
+    <!-- Location Permissions -->
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>FestivAir needs your location to show your position to your squad on the map.</string>
+
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>FestivAir needs background location to keep sharing your position with your squad even when the app is closed.</string>
+
+    <!-- Bluetooth Permissions -->
+    <key>NSBluetoothAlwaysUsageDescription</key>
+    <string>FestivAir uses Bluetooth to connect with your squad members nearby, even without cell service.</string>
+
+    <key>NSBluetoothPeripheralUsageDescription</key>
+    <string>FestivAir uses Bluetooth to let your squad members find you nearby.</string>
+
+    <!-- Local Network Permission -->
+    <key>NSLocalNetworkUsageDescription</key>
+    <string>FestivAir uses local networking to connect with your squad members nearby.</string>
+
+    <!-- Bonjour Services for Multipeer -->
+    <key>NSBonjourServices</key>
+    <array>
+        <string>_festivair-mesh._tcp</string>
+        <string>_festivair-mesh._udp</string>
+    </array>
+
+    <!-- Background Modes -->
+    <key>UIBackgroundModes</key>
+    <array>
+        <string>bluetooth-central</string>
+        <string>bluetooth-peripheral</string>
+        <string>location</string>
+        <string>remote-notification</string>
+        <string>fetch</string>
+        <string>processing</string>
+    </array>
+
+    <!-- Background Task Identifiers -->
+    <key>BGTaskSchedulerPermittedIdentifiers</key>
+    <array>
+        <string>com.festivair.mesh-sync</string>
+        <string>com.festivair.location-update</string>
+    </array>
+
+    <!-- URL Schemes -->
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleURLName</key>
+            <string>com.festivair.app</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>festivair</string>
+            </array>
+        </dict>
+    </array>
+
+    <!-- Camera (for QR scanning) -->
+    <key>NSCameraUsageDescription</key>
+    <string>FestivAir needs camera access to scan QR codes when joining a squad.</string>
+
+    <!-- Supported Interface Orientations -->
+    <key>UISupportedInterfaceOrientations</key>
+    <array>
+        <string>UIInterfaceOrientationPortrait</string>
+    </array>
+
+    <key>UISupportedInterfaceOrientations~ipad</key>
+    <array>
+        <string>UIInterfaceOrientationPortrait</string>
+        <string>UIInterfaceOrientationPortraitUpsideDown</string>
+        <string>UIInterfaceOrientationLandscapeLeft</string>
+        <string>UIInterfaceOrientationLandscapeRight</string>
+    </array>
+
+    <!-- Launch Screen -->
+    <key>UILaunchScreen</key>
+    <dict>
+        <key>UIColorName</key>
+        <string>LaunchScreenBackground</string>
+    </dict>
+
+    <!-- Status Bar -->
+    <key>UIStatusBarStyle</key>
+    <string>UIStatusBarStyleDefault</string>
+    <key>UIViewControllerBasedStatusBarAppearance</key>
+    <true/>
+
+    <!-- Requires Full Screen (no slide over) -->
+    <key>UIRequiresFullScreen</key>
+    <true/>
+</dict>
+</plist>
