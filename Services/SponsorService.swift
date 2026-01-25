@@ -31,19 +31,15 @@ final class SponsorService: ObservableObject {
     func fetchActivations(eventId: String) async {
         isLoading = true
 
-        do {
-            // In production, fetch from API
-            // let url = URL(string: "\(apiBaseURL)/events/\(eventId)/activations")!
-            // let (data, _) = try await URLSession.shared.data(from: url)
-            // activations = try JSONDecoder().decode([SponsorActivation].self, from: data)
+        // In production, fetch from API
+        // let url = URL(string: "\(apiBaseURL)/events/\(eventId)/activations")!
+        // let (data, _) = try await URLSession.shared.data(from: url)
+        // activations = try JSONDecoder().decode([SponsorActivation].self, from: data)
 
-            // For now, use sample data
-            activations = SponsorActivation.samples
+        // For now, use sample data
+        activations = SponsorActivation.samples
 
-            updateNearbyActivations()
-        } catch {
-            print("[Sponsor] Failed to fetch activations: \(error)")
-        }
+        updateNearbyActivations()
 
         isLoading = false
     }
@@ -52,25 +48,20 @@ final class SponsorService: ObservableObject {
     func fetchActivationsNear(latitude: Double, longitude: Double, radiusKm: Double = 10) async {
         isLoading = true
 
-        do {
-            // In production, fetch from API with location params
-            // let url = URL(string: "\(apiBaseURL)/near?lat=\(latitude)&lon=\(longitude)&radius=\(radiusKm)")!
-            // ...
+        // In production, fetch from API with location params
+        // let url = URL(string: "\(apiBaseURL)/near?lat=\(latitude)&lon=\(longitude)&radius=\(radiusKm)")!
+        // ...
 
-            // For now, use sample data filtered by distance
-            let userLocation = CLLocation(latitude: latitude, longitude: longitude)
-            activations = SponsorActivation.samples.filter { activation in
-                let activationLocation = CLLocation(latitude: activation.latitude, longitude: activation.longitude)
-                let distanceKm = userLocation.distance(from: activationLocation) / 1000
-                return distanceKm <= radiusKm && activation.isHappeningNow
-            }
-
-            lastUserLocation = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-            updateNearbyActivations()
-
-        } catch {
-            print("[Sponsor] Failed to fetch nearby activations: \(error)")
+        // For now, use sample data filtered by distance
+        let userLocation = CLLocation(latitude: latitude, longitude: longitude)
+        activations = SponsorActivation.samples.filter { activation in
+            let activationLocation = CLLocation(latitude: activation.latitude, longitude: activation.longitude)
+            let distanceKm = userLocation.distance(from: activationLocation) / 1000
+            return distanceKm <= radiusKm && activation.isHappeningNow
         }
+
+        lastUserLocation = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        updateNearbyActivations()
 
         isLoading = false
     }

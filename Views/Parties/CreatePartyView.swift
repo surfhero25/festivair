@@ -262,7 +262,6 @@ struct CreatePartyView: View {
         isCreating = true
 
         // Get current user
-        let userId = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.userId) ?? UUID().uuidString
         let displayName = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.displayName) ?? "Host"
 
         // Create a host user for the party

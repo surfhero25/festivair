@@ -78,7 +78,7 @@ struct JoinSquadView: View {
             } catch let error as SquadError {
                 await MainActor.run {
                     isLoading = false
-                    errorMessage = error.localizedDescription ?? "Failed to join squad"
+                    errorMessage = error.errorDescription ?? "Failed to join squad"
                     showError = true
                 }
             } catch {
@@ -124,7 +124,7 @@ struct JoinSquadView: View {
             } catch let error as SquadError {
                 await MainActor.run {
                     isLoading = false
-                    errorMessage = error.localizedDescription ?? "Failed to create squad"
+                    errorMessage = error.errorDescription ?? "Failed to create squad"
                     showError = true
                 }
             } catch {

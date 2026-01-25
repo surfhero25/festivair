@@ -441,6 +441,7 @@ final class CloudKitService: ObservableObject {
         let locationSubscription = CKQuerySubscription(
             recordType: RecordType.location,
             predicate: predicate,
+            subscriptionID: "location-\(squadId)",
             options: [.firesOnRecordCreation, .firesOnRecordUpdate]
         )
 
@@ -454,6 +455,7 @@ final class CloudKitService: ObservableObject {
         let messageSubscription = CKQuerySubscription(
             recordType: RecordType.message,
             predicate: predicate,
+            subscriptionID: "message-\(squadId)",
             options: [.firesOnRecordCreation]
         )
         messageSubscription.notificationInfo = notification

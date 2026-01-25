@@ -54,7 +54,7 @@ struct MemberListView: View {
                 } else {
                     List {
                         // Current user section
-                        if let userId = currentUserId {
+                        if currentUserId != nil {
                             Section {
                                 CurrentUserRow(
                                     isGateway: appState.gatewayManager.isGateway,

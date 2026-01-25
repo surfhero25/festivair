@@ -424,7 +424,7 @@ struct EditProfileView: View {
                 user.tiktokHandle = tiktokHandle.isEmpty ? nil : tiktokHandle
 
                 // Upload photo if changed
-                if let imageData = selectedImageData,
+                if selectedImageData != nil,
                    let image = profileImage {
                     // Compress for upload
                     if let compressedData = image.jpegData(compressionQuality: 0.8) {
