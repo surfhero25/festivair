@@ -139,7 +139,7 @@ struct OfflineModePageView: View {
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 40)
 
-            Text("Best within ~100ft range")
+            Text("Bluetooth range: 30-100 feet in crowded conditions")
                 .font(.caption)
                 .foregroundStyle(.white.opacity(0.5))
 
