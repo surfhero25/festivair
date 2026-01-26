@@ -13,7 +13,7 @@ struct PrivacyPolicyView: View {
                             .font(.largeTitle)
                             .fontWeight(.bold)
 
-                        Text("Last updated: January 25, 2026")
+                        Text("Last updated: January 26, 2026")
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
                     }
@@ -21,27 +21,38 @@ struct PrivacyPolicyView: View {
                     Divider()
 
                     // Introduction
-                    PolicySection(title: "Introduction") {
-                        Text("FestivAir (\"we\", \"our\", or \"us\") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our mobile application.")
-                    }
+                    Text("FestivAir (\"we\", \"our\", or \"us\") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your information when you use our mobile application.")
+                        .foregroundStyle(.secondary)
 
                     // Information We Collect
                     PolicySection(title: "Information We Collect") {
-                        VStack(alignment: .leading, spacing: 12) {
+                        VStack(alignment: .leading, spacing: 16) {
                             PolicySubsection(title: "Location Data") {
-                                Text("We collect your device's location to show your position to squad members on the map. Location data is shared only with members of squads you've joined. You can disable location sharing in your device settings at any time.")
+                                VStack(alignment: .leading, spacing: 8) {
+                                    Text("FestivAir collects your precise location data to enable core functionality:")
+                                    BulletPoint("Showing your location to squad members on the map")
+                                    BulletPoint("Calculating distance and direction to other squad members")
+                                    BulletPoint("Identifying nearby facilities at event venues")
+                                    Text("Location data is shared only with members of squads you explicitly join. Location sharing can be paused at any time within the app.")
+                                        .padding(.top, 4)
+                                }
                             }
 
-                            PolicySubsection(title: "Profile Information") {
-                                Text("We collect information you provide when creating your profile, including your display name, profile photo, and emoji avatar. This information is visible to other users in your squads.")
+                            PolicySubsection(title: "Bluetooth Data") {
+                                Text("We use Bluetooth to create a peer-to-peer mesh network that allows the app to function without cellular connectivity. This data is used solely for routing messages between devices and is not stored or transmitted to our servers.")
                             }
 
-                            PolicySubsection(title: "Device Information") {
-                                Text("We collect device identifiers and battery level information to facilitate mesh networking and gateway election features.")
+                            PolicySubsection(title: "Account Information") {
+                                VStack(alignment: .leading, spacing: 8) {
+                                    Text("We collect minimal account information:")
+                                    BulletPoint("Display name (chosen by you)")
+                                    BulletPoint("Profile photo (optional)")
+                                    BulletPoint("Squad memberships")
+                                }
                             }
 
                             PolicySubsection(title: "Usage Data") {
-                                Text("We collect anonymous usage statistics to improve the app experience, including feature usage patterns and crash reports.")
+                                Text("We may collect anonymous usage statistics to improve the app, such as feature usage and crash reports. This data cannot be used to identify individual users.")
                             }
                         }
                     }
@@ -49,68 +60,73 @@ struct PrivacyPolicyView: View {
                     // How We Use Your Information
                     PolicySection(title: "How We Use Your Information") {
                         VStack(alignment: .leading, spacing: 8) {
-                            BulletPoint("Enable location sharing within your squads")
-                            BulletPoint("Facilitate peer-to-peer mesh networking")
-                            BulletPoint("Provide festival schedule and map features")
-                            BulletPoint("Send notifications about set times and squad activity")
-                            BulletPoint("Improve and optimize the app")
-                            BulletPoint("Provide customer support")
+                            BulletPoint("To provide core app functionality (location sharing, messaging, navigation)")
+                            BulletPoint("To improve and optimize the app experience")
+                            BulletPoint("To send you notifications you've opted into (set time alerts, squad updates)")
                         }
                     }
 
                     // Data Sharing
                     PolicySection(title: "Data Sharing") {
-                        VStack(alignment: .leading, spacing: 12) {
-                            Text("We do not sell your personal information. Your data may be shared in the following circumstances:")
-
-                            BulletPoint("With squad members: Your location and profile are visible to members of squads you join")
-                            BulletPoint("Via mesh network: Location data may be relayed through nearby devices to reach squad members")
-                            BulletPoint("Service providers: We use Apple CloudKit for cloud sync, which is subject to Apple's privacy policy")
-                            BulletPoint("Legal requirements: We may disclose information when required by law")
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text("We do not sell your personal information. Your location is shared only with:")
+                            BulletPoint("Members of squads you have joined")
+                            BulletPoint("Other FestivAir users via the mesh network (anonymized, for routing purposes only)")
                         }
-                    }
-
-                    // Mesh Networking
-                    PolicySection(title: "Mesh Networking Privacy") {
-                        Text("FestivAir uses Bluetooth and local WiFi to create a mesh network for offline communication. Your device may relay messages from other users, but relayed messages are encrypted and cannot be read by relay devices. Only the intended recipients can decrypt messages.")
                     }
 
                     // Data Retention
                     PolicySection(title: "Data Retention") {
-                        Text("Location data is kept for 24 hours to enable offline sync. Chat messages are retained for 7 days. You can delete your account and associated data at any time through the app settings.")
+                        VStack(alignment: .leading, spacing: 8) {
+                            HStack(alignment: .top) {
+                                Text("Location data:")
+                                    .fontWeight(.medium)
+                                Text("Stored locally on your device. Not retained on our servers.")
+                            }
+                            HStack(alignment: .top) {
+                                Text("Chat messages:")
+                                    .fontWeight(.medium)
+                                Text("Stored locally and synced via iCloud (if enabled). We do not have access to message content.")
+                            }
+                            HStack(alignment: .top) {
+                                Text("Account data:")
+                                    .fontWeight(.medium)
+                                Text("Retained until you delete your account.")
+                            }
+                        }
                     }
 
                     // Your Rights
                     PolicySection(title: "Your Rights") {
                         VStack(alignment: .leading, spacing: 8) {
-                            BulletPoint("Access your personal data")
-                            BulletPoint("Request correction of inaccurate data")
-                            BulletPoint("Request deletion of your data")
-                            BulletPoint("Opt out of location sharing")
-                            BulletPoint("Disable notifications")
+                            Text("You can:")
+                            BulletPoint("Pause location sharing at any time")
+                            BulletPoint("Leave any squad to stop sharing data with its members")
+                            BulletPoint("Delete your account and all associated data")
+                            BulletPoint("Request a copy of your data")
                         }
                     }
 
                     // Security
                     PolicySection(title: "Security") {
-                        Text("We implement industry-standard security measures to protect your information. Data transmitted via mesh network is encrypted end-to-end. Cloud-synced data is protected by Apple's CloudKit security infrastructure.")
+                        Text("We implement industry-standard security measures including encryption in transit and at rest. Mesh network communications are encrypted end-to-end.")
                     }
 
                     // Children's Privacy
                     PolicySection(title: "Children's Privacy") {
-                        Text("FestivAir is not intended for users under 13 years of age. We do not knowingly collect personal information from children under 13. If you believe we have collected information from a child, please contact us.")
+                        Text("FestivAir is not intended for children under 13. We do not knowingly collect information from children under 13.")
                     }
 
                     // Changes
                     PolicySection(title: "Changes to This Policy") {
-                        Text("We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy in the app and updating the \"Last updated\" date.")
+                        Text("We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new policy on this page and updating the \"Last updated\" date.")
                     }
 
                     // Contact
                     PolicySection(title: "Contact Us") {
                         VStack(alignment: .leading, spacing: 8) {
-                            Text("If you have questions about this Privacy Policy, please contact us:")
-                            Text("Email: privacy@festivair.app")
+                            Text("If you have questions about this Privacy Policy, please contact us at:")
+                            Text("privacy@festivair.app")
                                 .foregroundStyle(.purple)
                         }
                     }
