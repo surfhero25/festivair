@@ -255,10 +255,12 @@ enum PremiumTier: String, Codable, CaseIterable {
     }
 
     var squadLimit: Int {
+        // Increased limits thanks to universal mesh relay
+        // More users = better mesh = can handle larger squads
         switch self {
-        case .free: return 4
-        case .basic: return 8
-        case .vip: return 12
+        case .free: return 6      // Was 4
+        case .basic: return 15    // Was 8
+        case .vip: return 25      // Was 12
         }
     }
 

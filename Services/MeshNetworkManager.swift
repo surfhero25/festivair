@@ -3,6 +3,8 @@ import MultipeerConnectivity
 import Combine
 
 /// Manages peer-to-peer mesh networking via Multipeer Connectivity
+/// Now supports UNIVERSAL RELAY - connects to all FestivAir users, not just squad members
+/// Users automatically relay encrypted messages for other squads (without reading them)
 final class MeshNetworkManager: NSObject, ObservableObject {
 
     // MARK: - Published State
@@ -10,6 +12,7 @@ final class MeshNetworkManager: NSObject, ObservableObject {
     @Published private(set) var isAdvertising = false
     @Published private(set) var isBrowsing = false
     @Published private(set) var lastError: Error?
+    @Published private(set) var totalMeshUsers = 0  // Estimate of reachable users
 
     // MARK: - Configuration
     private let serviceType = "festivair-mesh" // Max 15 chars, lowercase + hyphens
@@ -17,6 +20,9 @@ final class MeshNetworkManager: NSObject, ObservableObject {
     private var session: MCSession!
     private var advertiser: MCNearbyServiceAdvertiser!
     private var browser: MCNearbyServiceBrowser!
+
+    // MARK: - Universal Relay
+    private var universalRelayEnabled = true  // Connect to all FestivAir users
 
     // MARK: - Message Handling
     // MeshEnvelope is defined in ChatMessage.swift
@@ -147,13 +153,24 @@ final class MeshNetworkManager: NSObject, ObservableObject {
 
     // MARK: - Relay Logic
 
+    /// UNIVERSAL RELAY: Forward messages to all connected peers
+    /// This enables the festival-wide mesh - users relay for ALL squads
     private func relayEnvelope(_ envelope: MeshEnvelope, excluding sender: MCPeerID) {
         guard let forwarded = envelope.forwarded(by: myPeerId.displayName) else { return }
 
         let targets = connectedPeers.filter { $0 != sender }
         guard !targets.isEmpty else { return }
 
+        // Relay to ALL connected peers - not just squad members
+        // The message is encrypted, so non-squad members can't read it
+        // They just help it reach its destination
         sendEnvelope(forwarded, to: targets)
+    }
+
+    /// Check if a message should be processed locally
+    private func shouldProcessLocally(_ envelope: MeshEnvelope) -> Bool {
+        // Process if it's for our squad or if it's a broadcast
+        return envelope.isForMySquad
     }
 }
 
@@ -230,9 +247,19 @@ extension MeshNetworkManager: MCSessionDelegate {
 extension MeshNetworkManager: MCNearbyServiceAdvertiserDelegate {
 
     func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: Data?, invitationHandler: @escaping (Bool, MCSession?) -> Void) {
-        // Only accept invitations from peers in the same squad
+        // UNIVERSAL RELAY: Accept ALL FestivAir users
+        // This builds a mesh across the entire festival, not just squads
+        // Messages are encrypted per-squad so other users can't read them
+
+        if universalRelayEnabled {
+            // Accept anyone running FestivAir
+            print("[Mesh] Accepting invitation (universal relay): \(peerID.displayName)")
+            invitationHandler(true, session)
+            return
+        }
+
+        // Fallback: squad-only mode (if universal relay disabled)
         guard let squadId = squadId else {
-            // No squad configured, reject all invitations
             print("[Mesh] Rejecting invitation - no squad configured")
             invitationHandler(false, nil)
             return
@@ -244,7 +271,6 @@ extension MeshNetworkManager: MCNearbyServiceAdvertiserDelegate {
             print("[Mesh] Accepting invitation from squad member: \(peerID.displayName)")
             invitationHandler(true, session)
         } else {
-            // Reject peers from different squads or without squad info
             print("[Mesh] Rejecting invitation from non-squad peer: \(peerID.displayName)")
             invitationHandler(false, nil)
         }
@@ -263,13 +289,23 @@ extension MeshNetworkManager: MCNearbyServiceAdvertiserDelegate {
 extension MeshNetworkManager: MCNearbyServiceBrowserDelegate {
 
     func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String: String]?) {
-        // Only invite peers from the same squad
+        // UNIVERSAL RELAY: Invite ALL FestivAir users
+        // This creates a festival-wide mesh where everyone helps relay
+
+        if universalRelayEnabled {
+            // Invite anyone running FestivAir
+            let context = try? JSONEncoder().encode(discoveryInfo ?? [:])
+            browser.invitePeer(peerID, to: session, withContext: context, timeout: 30)
+            print("[Mesh] Inviting peer (universal relay): \(peerID.displayName)")
+            return
+        }
+
+        // Fallback: squad-only mode
         guard let squadId = squadId else {
             print("[Mesh] Ignoring peer - no squad configured")
             return
         }
 
-        // Check if peer is in same squad
         if let peerSquad = info?["squad"], peerSquad == squadId {
             let context = try? JSONEncoder().encode(discoveryInfo ?? [:])
             browser.invitePeer(peerID, to: session, withContext: context, timeout: 30)

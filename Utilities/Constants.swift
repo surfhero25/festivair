@@ -80,15 +80,24 @@ enum Constants {
 
     // MARK: - Squad Limits
     enum Squad {
-        static let maxMembers = 12  // Max safe for mesh/battery
-        static let warnAtMembers = 10
+        static let maxMembers = 25  // Max with universal relay
+        static let warnAtMembers = 20
         static let codeLength = 6
         static let codeCharacters = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789" // No O, 0, I, 1
 
-        // Tier-based limits
-        static let freeMemberLimit = 4
-        static let basicMemberLimit = 8
-        static let vipMemberLimit = 12
+        // Tier-based limits (increased with universal relay mesh)
+        static let freeMemberLimit = 6
+        static let basicMemberLimit = 15
+        static let vipMemberLimit = 25
+    }
+
+    // MARK: - Mesh Relay
+    enum MeshRelay {
+        static let maxHops = 10                    // Maximum relay hops before dropping
+        static let packetTTL: TimeInterval = 300  // 5 min - packets expire
+        static let maxRelaysPerMinute = 500       // Rate limit per device
+        static let locationBroadcastInterval: TimeInterval = 30  // GPS update frequency via relay
+        static let gatewaySyncInterval: TimeInterval = 10        // Cloud sync when gateway
     }
 
     // MARK: - Profile Settings

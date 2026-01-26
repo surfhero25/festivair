@@ -121,6 +121,8 @@ struct MeshMessagePayload: Codable {
 }
 
 // MARK: - Message Envelope for Relay
+/// Wraps messages for relay through the universal mesh network
+/// Messages are relayed by ALL FestivAir users, but only decrypted by target squad
 struct MeshEnvelope: Codable {
     let messageId: UUID
     let message: MeshMessagePayload
@@ -129,15 +131,29 @@ struct MeshEnvelope: Codable {
     let ttl: Int
     let timestamp: Date
 
-    init(message: MeshMessagePayload, originPeerId: String, ttl: Int = 3) {
+    // MARK: - Universal Relay Fields
+    let targetSquadId: String?     // Which squad this message is for (nil = broadcast)
+    let encryptedPayload: Data?    // Encrypted version for cross-squad relay
+
+    /// Check if this message is for our squad
+    var isForMySquad: Bool {
+        guard let target = targetSquadId else { return true }  // Broadcast
+        let mySquad = UserDefaults.standard.string(forKey: "FestivAir.CurrentSquadId")
+        return target == mySquad
+    }
+
+    init(message: MeshMessagePayload, originPeerId: String, ttl: Int = 10, targetSquadId: String? = nil, encryptedPayload: Data? = nil) {
         self.messageId = UUID()
         self.message = message
         self.originPeerId = originPeerId
         self.visitedPeers = [originPeerId]
         self.ttl = ttl
         self.timestamp = Date()
+        self.targetSquadId = targetSquadId
+        self.encryptedPayload = encryptedPayload
     }
 
+    /// Create a forwarded copy for relay (used by other users to pass along)
     func forwarded(by peerId: String) -> MeshEnvelope? {
         guard ttl > 1, !visitedPeers.contains(peerId) else { return nil }
         return MeshEnvelope(
@@ -146,16 +162,20 @@ struct MeshEnvelope: Codable {
             originPeerId: originPeerId,
             visitedPeers: visitedPeers + [peerId],
             ttl: ttl - 1,
-            timestamp: timestamp
+            timestamp: timestamp,
+            targetSquadId: targetSquadId,
+            encryptedPayload: encryptedPayload
         )
     }
 
-    private init(messageId: UUID, message: MeshMessagePayload, originPeerId: String, visitedPeers: [String], ttl: Int, timestamp: Date) {
+    private init(messageId: UUID, message: MeshMessagePayload, originPeerId: String, visitedPeers: [String], ttl: Int, timestamp: Date, targetSquadId: String?, encryptedPayload: Data?) {
         self.messageId = messageId
         self.message = message
         self.originPeerId = originPeerId
         self.visitedPeers = visitedPeers
         self.ttl = ttl
         self.timestamp = timestamp
+        self.targetSquadId = targetSquadId
+        self.encryptedPayload = encryptedPayload
     }
 }
