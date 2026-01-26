@@ -5,8 +5,8 @@ import SwiftData
 // Location is defined in User.swift
 
 @Model
-final class ChatMessage {
-    var id: UUID
+final class ChatMessage: Identifiable {
+    @Attribute(.unique) var id: UUID
     var senderId: UUID
     var senderName: String
     var text: String
@@ -49,6 +49,8 @@ struct MeshMessagePayload: Codable {
     let batteryLevel: Int?
     let hasService: Bool?
     let enabled: Bool?
+    let status: StatusPayload?
+    let meetupPin: MeetupPinPayload?
 
     enum MeshMessageType: String, Codable {
         case locationUpdate
@@ -58,6 +60,8 @@ struct MeshMessagePayload: Codable {
         case syncResponse
         case heartbeat
         case findMe
+        case statusUpdate
+        case meetupPin
     }
 
     struct LocationPayload: Codable {
@@ -77,6 +81,40 @@ struct MeshMessagePayload: Codable {
         let timestamp: Date
     }
 
+    struct StatusPayload: Codable {
+        let presetRawValue: String?
+        let customText: String?
+        let setAt: Date
+        let expiresAt: Date?
+
+        init(from status: UserStatus) {
+            self.presetRawValue = status.preset?.rawValue
+            self.customText = status.customText
+            self.setAt = status.setAt
+            self.expiresAt = status.expiresAt
+        }
+
+        func toUserStatus() -> UserStatus {
+            UserStatus(
+                preset: presetRawValue.flatMap { StatusPreset(rawValue: $0) },
+                customText: customText,
+                setAt: setAt,
+                expiresAt: expiresAt
+            )
+        }
+    }
+
+    struct MeetupPinPayload: Codable {
+        let id: UUID
+        let latitude: Double
+        let longitude: Double
+        let name: String
+        let creatorId: String
+        let creatorName: String
+        let createdAt: Date
+        let expiresAt: Date
+    }
+
     // Factory methods
     static func locationUpdate(userId: String, location: Location) -> MeshMessagePayload {
         MeshMessagePayload(
@@ -90,7 +128,8 @@ struct MeshMessagePayload: Codable {
                 source: location.source.rawValue
             ),
             chat: nil, peerId: nil, signalStrength: nil, squadId: nil,
-            syncData: nil, batteryLevel: nil, hasService: nil, enabled: nil
+            syncData: nil, batteryLevel: nil, hasService: nil, enabled: nil,
+            status: nil, meetupPin: nil
         )
     }
 
@@ -99,7 +138,8 @@ struct MeshMessagePayload: Codable {
             type: .gatewayAnnounce,
             userId: nil, location: nil, chat: nil,
             peerId: peerId, signalStrength: signalStrength,
-            squadId: nil, syncData: nil, batteryLevel: nil, hasService: nil, enabled: nil
+            squadId: nil, syncData: nil, batteryLevel: nil, hasService: nil, enabled: nil,
+            status: nil, meetupPin: nil
         )
     }
 
@@ -107,7 +147,8 @@ struct MeshMessagePayload: Codable {
         MeshMessagePayload(
             type: .heartbeat,
             userId: userId, location: nil, chat: nil, peerId: nil, signalStrength: nil,
-            squadId: nil, syncData: nil, batteryLevel: batteryLevel, hasService: hasService, enabled: nil
+            squadId: nil, syncData: nil, batteryLevel: batteryLevel, hasService: hasService, enabled: nil,
+            status: nil, meetupPin: nil
         )
     }
 
@@ -115,7 +156,26 @@ struct MeshMessagePayload: Codable {
         MeshMessagePayload(
             type: .syncResponse,
             userId: nil, location: nil, chat: nil, peerId: nil, signalStrength: nil,
-            squadId: nil, syncData: data, batteryLevel: nil, hasService: nil, enabled: nil
+            squadId: nil, syncData: data, batteryLevel: nil, hasService: nil, enabled: nil,
+            status: nil, meetupPin: nil
+        )
+    }
+
+    static func statusUpdate(userId: String, displayName: String, status: UserStatus) -> MeshMessagePayload {
+        MeshMessagePayload(
+            type: .statusUpdate,
+            userId: userId, location: nil, chat: nil, peerId: displayName, signalStrength: nil,
+            squadId: nil, syncData: nil, batteryLevel: nil, hasService: nil, enabled: nil,
+            status: StatusPayload(from: status), meetupPin: nil
+        )
+    }
+
+    static func meetupPin(_ pin: MeetupPinPayload) -> MeshMessagePayload {
+        MeshMessagePayload(
+            type: .meetupPin,
+            userId: pin.creatorId, location: nil, chat: nil, peerId: nil, signalStrength: nil,
+            squadId: nil, syncData: nil, batteryLevel: nil, hasService: nil, enabled: nil,
+            status: nil, meetupPin: pin
         )
     }
 }

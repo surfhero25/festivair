@@ -17,6 +17,17 @@ final class MapViewModel: ObservableObject {
     @Published var isFindMeActive = false
     @Published var showOfflineMembers = true
 
+    // MARK: - Navigation State
+    @Published var navigationTarget: MemberAnnotation?
+    @Published var isNavigating = false
+    @Published var bearingToTarget: Double = 0
+    let proximityManager = ProximityHapticsManager()
+
+    // MARK: - Meetup Pins
+    @Published var activeMeetupPins: [MeetupPin] = []
+    @Published var selectedPin: MeetupPin?
+    private var pinCleanupTimer: Timer?
+
     // MARK: - Group Positioning
     @Published var groupCentroid: GroupCentroid?
     @Published var isCollaborativeGPSEnabled = true
@@ -133,6 +144,165 @@ final class MapViewModel: ObservableObject {
         }
     }
 
+    // MARK: - Navigation to Member
+
+    /// Start navigating to a squad member with compass arrow and proximity haptics
+    func startNavigatingTo(_ member: MemberAnnotation) {
+        navigationTarget = member
+        isNavigating = true
+
+        // Enable high accuracy and heading
+        locationManager.enableFindMeMode(duration: 600) // 10 minutes
+        locationManager.startHeadingUpdates()
+
+        // Start proximity haptics
+        proximityManager.startTracking(target: member.coordinate) { [weak self] in
+            guard let self = self,
+                  let location = self.locationManager.currentLocation else { return nil }
+            return CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
+        }
+
+        // Set up bearing updates
+        setupBearingUpdates()
+    }
+
+    /// Stop navigation
+    func stopNavigating() {
+        navigationTarget = nil
+        isNavigating = false
+        bearingToTarget = 0
+
+        locationManager.stopHeadingUpdates()
+        proximityManager.stopTracking()
+    }
+
+    /// Update the navigation target when member's location changes
+    func updateNavigationTarget() {
+        guard let target = navigationTarget,
+              let updatedMember = memberAnnotations.first(where: { $0.id == target.id }) else { return }
+
+        navigationTarget = updatedMember
+        proximityManager.updateTarget(updatedMember.coordinate)
+    }
+
+    private func setupBearingUpdates() {
+        // Update bearing when heading or target changes
+        locationManager.$deviceHeading
+            .combineLatest(locationManager.$currentLocation)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] heading, location in
+                self?.updateBearing(deviceHeading: heading, location: location)
+            }
+            .store(in: &cancellables)
+    }
+
+    private func updateBearing(deviceHeading: Double?, location: Location?) {
+        guard let target = navigationTarget,
+              let location = location,
+              let heading = deviceHeading else { return }
+
+        let userCoord = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
+        let bearingToMember = bearing(from: userCoord, to: target.coordinate)
+
+        // Adjust for device heading (so arrow points relative to where user is facing)
+        bearingToTarget = (bearingToMember - heading + 360).truncatingRemainder(dividingBy: 360)
+    }
+
+    /// Calculate bearing from one coordinate to another
+    /// - Returns: Bearing in degrees (0-360, 0 = North)
+    func bearing(from start: CLLocationCoordinate2D, to end: CLLocationCoordinate2D) -> Double {
+        let lat1 = start.latitude * .pi / 180
+        let lon1 = start.longitude * .pi / 180
+        let lat2 = end.latitude * .pi / 180
+        let lon2 = end.longitude * .pi / 180
+
+        let dLon = lon2 - lon1
+
+        let y = sin(dLon) * cos(lat2)
+        let x = cos(lat1) * sin(lat2) - sin(lat1) * cos(lat2) * cos(dLon)
+
+        var bearing = atan2(y, x) * 180 / .pi
+        bearing = (bearing + 360).truncatingRemainder(dividingBy: 360)
+
+        return bearing
+    }
+
+    // MARK: - Meetup Pins
+
+    /// Drop a new meetup pin and broadcast to squad
+    func dropPin(_ pin: MeetupPin) {
+        activeMeetupPins.append(pin)
+
+        // Broadcast to squad
+        let message = MeshMessagePayload.meetupPin(pin.toPayload())
+        meshManager.broadcast(message)
+
+        // Start cleanup timer if not running
+        startPinCleanupTimer()
+    }
+
+    /// Receive a pin from another squad member
+    func receivePin(_ pin: MeetupPin) {
+        // Don't add duplicate pins
+        guard !activeMeetupPins.contains(where: { $0.id == pin.id }) else { return }
+
+        activeMeetupPins.append(pin)
+        startPinCleanupTimer()
+    }
+
+    /// Remove a pin (only creator or when expired)
+    func dismissPin(_ pin: MeetupPin) {
+        activeMeetupPins.removeAll { $0.id == pin.id }
+        if selectedPin?.id == pin.id {
+            selectedPin = nil
+        }
+    }
+
+    /// Navigate to a meetup pin
+    func navigateToPin(_ pin: MeetupPin) {
+        // Create a temporary MemberAnnotation for navigation
+        let annotation = MemberAnnotation(
+            id: pin.id.uuidString,
+            displayName: pin.name,
+            emoji: "📍",
+            coordinate: pin.coordinate,
+            isOnline: true,
+            batteryLevel: nil,
+            hasService: false,
+            lastSeen: pin.createdAt,
+            isFindMeActive: false
+        )
+
+        startNavigatingTo(annotation)
+    }
+
+    /// Distance from user to a pin
+    func distanceToPin(_ pin: MeetupPin) -> Double? {
+        guard let location = locationManager.currentLocation else { return nil }
+        let userLocation = CLLocation(latitude: location.latitude, longitude: location.longitude)
+        let pinLocation = CLLocation(latitude: pin.latitude, longitude: pin.longitude)
+        return userLocation.distance(from: pinLocation)
+    }
+
+    private func startPinCleanupTimer() {
+        guard pinCleanupTimer == nil else { return }
+
+        pinCleanupTimer = Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { [weak self] _ in
+            Task { @MainActor in
+                self?.cleanupExpiredPins()
+            }
+        }
+    }
+
+    private func cleanupExpiredPins() {
+        activeMeetupPins.removeAll { $0.isExpired }
+
+        if activeMeetupPins.isEmpty {
+            pinCleanupTimer?.invalidate()
+            pinCleanupTimer = nil
+        }
+    }
+
     // MARK: - Private Helpers
 
     private func setupBindings() {
@@ -188,7 +358,8 @@ final class MapViewModel: ObservableObject {
                     lastSeen: peer.lastSeen,
                     isFindMeActive: false,
                     accuracy: location.accuracy,
-                    distanceFromUser: distanceFromUser
+                    distanceFromUser: distanceFromUser,
+                    status: peer.activeStatus
                 ))
 
                 locationsWithAccuracy.append((coordinate, location.accuracy, true))
@@ -217,7 +388,8 @@ final class MapViewModel: ObservableObject {
                         lastSeen: peer.lastSeen,
                         isFindMeActive: false,
                         accuracy: location.accuracy,
-                        distanceFromUser: distanceFromUser
+                        distanceFromUser: distanceFromUser,
+                        status: peer.activeStatus
                     ))
 
                     locationsWithAccuracy.append((coordinate, location.accuracy, false))
@@ -344,6 +516,7 @@ struct MemberAnnotation: Identifiable {
     let isFindMeActive: Bool
     let accuracy: Double?
     let distanceFromUser: Double?
+    let status: UserStatus?
 
     init(
         id: String,
@@ -356,7 +529,8 @@ struct MemberAnnotation: Identifiable {
         lastSeen: Date,
         isFindMeActive: Bool,
         accuracy: Double? = nil,
-        distanceFromUser: Double? = nil
+        distanceFromUser: Double? = nil,
+        status: UserStatus? = nil
     ) {
         self.id = id
         self.displayName = displayName
@@ -369,6 +543,7 @@ struct MemberAnnotation: Identifiable {
         self.isFindMeActive = isFindMeActive
         self.accuracy = accuracy
         self.distanceFromUser = distanceFromUser
+        self.status = status
     }
 
     var lastSeenText: String {

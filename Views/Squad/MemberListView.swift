@@ -7,6 +7,8 @@ struct MemberListView: View {
     @State private var selectedPeer: PeerTracker.PeerStatus?
     @State private var showingProfile = false
 
+    var onNavigateToPeer: ((PeerTracker.PeerStatus) -> Void)?
+
     private var peerTracker: PeerTracker {
         appState.peerTracker
     }
@@ -73,7 +75,10 @@ struct MemberListView: View {
                                         selectedPeer = peer
                                         showingProfile = true
                                     } label: {
-                                        MemberRow(peer: peer, isGateway: false)
+                                        MemberRow(peer: peer, isGateway: false) {
+                                            onNavigateToPeer?(peer)
+                                            dismiss()
+                                        }
                                     }
                                     .buttonStyle(.plain)
                                 }
@@ -209,6 +214,7 @@ struct CurrentUserRow: View {
 struct MemberRow: View {
     let peer: PeerTracker.PeerStatus
     let isGateway: Bool
+    var onFind: (() -> Void)? = nil
 
     var body: some View {
         HStack(spacing: 12) {
@@ -242,12 +248,34 @@ struct MemberRow: View {
                     }
                 }
 
-                Text(peer.lastSeenText)
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+                // Status badge
+                if let status = peer.activeStatus {
+                    StatusBadgeView(status: status)
+                } else {
+                    Text(peer.lastSeenText)
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
             }
 
             Spacer()
+
+            // Find button (only for online members with location)
+            if peer.isOnline && peer.location != nil, let onFind = onFind {
+                Button {
+                    Haptics.medium()
+                    onFind()
+                } label: {
+                    Image(systemName: "location.north.fill")
+                        .font(.body)
+                        .foregroundStyle(.purple)
+                        .padding(8)
+                        .background(Color.purple.opacity(0.1))
+                        .clipShape(Circle())
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel("Navigate to \(peer.displayName)")
+            }
 
             // Battery
             if let battery = peer.batteryLevel {

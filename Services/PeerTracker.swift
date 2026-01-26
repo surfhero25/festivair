@@ -15,9 +15,10 @@ final class PeerTracker: ObservableObject {
         var hasService: Bool
         var isOnline: Bool
         var location: Location?
+        var status: UserStatus?
 
         var isStale: Bool {
-            Date().timeIntervalSince(lastSeen) > 120 // 2 minutes
+            Date().timeIntervalSince(lastSeen) > Constants.PeerTracking.staleThreshold
         }
 
         var lastSeenText: String {
@@ -25,6 +26,12 @@ final class PeerTracker: ObservableObject {
                 return "Online"
             }
             return lastSeen.timeAgo
+        }
+
+        /// Returns active status if not expired
+        var activeStatus: UserStatus? {
+            guard let status = status, status.isActive else { return nil }
+            return status
         }
     }
 
@@ -34,8 +41,8 @@ final class PeerTracker: ObservableObject {
     @Published private(set) var offlinePeers: [PeerStatus] = []
 
     // MARK: - Configuration
-    private let offlineThreshold: TimeInterval = 120 // 2 minutes
-    private let removeThreshold: TimeInterval = 3600 // 1 hour
+    private let offlineThreshold: TimeInterval = Constants.PeerTracking.offlineThreshold
+    private let removeThreshold: TimeInterval = Constants.PeerTracking.removeThreshold
 
     // MARK: - Private
     private var cleanupTimer: Timer?
@@ -44,6 +51,10 @@ final class PeerTracker: ObservableObject {
     // MARK: - Init
     init() {
         startCleanupTimer()
+    }
+
+    deinit {
+        cleanupTimer?.invalidate()
     }
 
     func configure(notificationManager: NotificationManager) {
@@ -70,7 +81,8 @@ final class PeerTracker: ObservableObject {
             batteryLevel: batteryLevel,
             hasService: hasService,
             isOnline: true,
-            location: location
+            location: location,
+            status: nil
         )
 
         status.displayName = displayName
@@ -100,6 +112,14 @@ final class PeerTracker: ObservableObject {
         status.location = location
         status.lastSeen = Date()
         peers[id] = status
+        updatePeerLists()
+    }
+
+    func updatePeerStatus(id: String, userStatus: UserStatus) {
+        guard var peerStatus = peers[id] else { return }
+        peerStatus.status = userStatus
+        peerStatus.lastSeen = Date()
+        peers[id] = peerStatus
         updatePeerLists()
     }
 
@@ -199,6 +219,29 @@ extension PeerTracker {
                     updatePeerLists()
                 }
             }
+
+        case .statusUpdate:
+            if let userId = envelope.message.userId,
+               let statusPayload = envelope.message.status {
+                let userStatus = statusPayload.toUserStatus()
+                if peers[userId] != nil {
+                    updatePeerStatus(id: userId, userStatus: userStatus)
+                } else if let displayName = envelope.message.peerId {
+                    // Create new peer with status
+                    updatePeer(
+                        id: userId,
+                        displayName: displayName,
+                        emoji: "🎧",
+                        hasService: false
+                    )
+                    updatePeerStatus(id: userId, userStatus: userStatus)
+                }
+            }
+
+        case .meetupPin:
+            // Meetup pins are handled by MapViewModel
+            // This is here for completeness - the message will be passed through
+            break
 
         default:
             break

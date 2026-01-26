@@ -10,6 +10,7 @@ final class LocationManager: NSObject, ObservableObject {
     @Published private(set) var authorizationStatus: CLAuthorizationStatus = .notDetermined
     @Published private(set) var isUpdating = false
     @Published private(set) var lastError: Error?
+    @Published private(set) var deviceHeading: Double? // Compass heading in degrees (0-360, 0 = North)
 
     // MARK: - Configuration
     enum UpdateMode {
@@ -62,6 +63,12 @@ final class LocationManager: NSObject, ObservableObject {
         authorizationStatus = locationManager.authorizationStatus
     }
 
+    private var isHeadingUpdating = false
+
+    deinit {
+        updateTimer?.invalidate()
+    }
+
     // MARK: - Public API
 
     func requestAuthorization() {
@@ -102,6 +109,27 @@ final class LocationManager: NSObject, ObservableObject {
         DispatchQueue.main.asyncAfter(deadline: .now() + duration) { [weak self] in
             self?.updateMode = previousMode
         }
+    }
+
+    // MARK: - Heading Updates (Compass)
+
+    /// Start receiving heading updates for compass navigation
+    func startHeadingUpdates() {
+        guard CLLocationManager.headingAvailable() else {
+            print("[Location] Heading not available on this device")
+            return
+        }
+
+        locationManager.headingFilter = 5 // Update every 5 degrees of change
+        locationManager.startUpdatingHeading()
+        isHeadingUpdating = true
+    }
+
+    /// Stop receiving heading updates
+    func stopHeadingUpdates() {
+        locationManager.stopUpdatingHeading()
+        isHeadingUpdating = false
+        deviceHeading = nil
     }
 
     // MARK: - Private Helpers
@@ -150,6 +178,14 @@ extension LocationManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         lastError = error
         print("[Location] Error: \(error)")
+    }
+
+    func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
+        // Use true heading if available (more accurate), otherwise magnetic heading
+        let heading = newHeading.trueHeading >= 0 ? newHeading.trueHeading : newHeading.magneticHeading
+        DispatchQueue.main.async {
+            self.deviceHeading = heading
+        }
     }
 
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {

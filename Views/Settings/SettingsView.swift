@@ -187,9 +187,9 @@ struct SettingsView: View {
                 }
 
                 // Connection section
-                Section("Connection") {
+                Section {
                     HStack {
-                        Label("Connected Peers", systemImage: "person.2.wave.2")
+                        Label("Nearby Devices", systemImage: "antenna.radiowaves.left.and.right")
                         Spacer()
                         Text("\(appState.meshManager.connectedPeers.count)")
                             .foregroundStyle(.secondary)
@@ -208,6 +208,28 @@ struct SettingsView: View {
                         Text("\(appState.syncEngine.pendingChangesCount) changes")
                             .foregroundStyle(.secondary)
                     }
+                } header: {
+                    Text("Connection")
+                } footer: {
+                    Text("Nearby devices help relay data for better coverage")
+                }
+
+                // Offline Data section
+                Section {
+                    NavigationLink {
+                        OfflineMapsView()
+                    } label: {
+                        HStack {
+                            Label("Offline Maps", systemImage: "map.fill")
+                            Spacer()
+                            Text(OfflineMapService.shared.formattedCacheSize)
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+                } header: {
+                    Text("Offline Data")
+                } footer: {
+                    Text("Download venue maps for offline use at festivals")
                 }
 
                 // About section
@@ -273,8 +295,10 @@ struct SimpleEditProfileView: View {
     @Environment(\.dismiss) private var dismiss
     @Binding var displayName: String
     @Binding var emoji: String
+    @FocusState private var isNameFieldFocused: Bool
 
-    let emojiOptions = ["🎧", "🎤", "🎸", "🎹", "🥁", "🎺", "🎷", "🪗", "🎻", "🪘", "🎵", "🔊"]
+    // Generic person icons - not music emojis
+    let iconOptions = ["👤", "👦", "👧", "👨", "👩", "🧑", "👱‍♂️", "👱‍♀️", "🧔", "👴", "👵", "🧓"]
 
     var body: some View {
         NavigationStack {
@@ -288,7 +312,7 @@ struct SimpleEditProfileView: View {
                     }
 
                     LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 6), spacing: 16) {
-                        ForEach(emojiOptions, id: \.self) { option in
+                        ForEach(iconOptions, id: \.self) { option in
                             Text(option)
                                 .font(.title)
                                 .padding(8)
@@ -303,6 +327,11 @@ struct SimpleEditProfileView: View {
 
                 Section {
                     TextField("Display Name", text: $displayName)
+                        .focused($isNameFieldFocused)
+                        .submitLabel(.done)
+                        .onSubmit {
+                            dismiss()
+                        }
                 }
             }
             .navigationTitle("Edit Profile")
