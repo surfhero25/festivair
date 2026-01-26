@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		191063C0FB80E6BB52A1E3D0 /* FacilityAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0F56E579DF515E3C30C55F /* FacilityAnnotationView.swift */; };
+		284E3C76D2C8EA545D5E83EA /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EBDF0112E44416898A7FCC /* Logger.swift */; };
 		3130C2334D8C4D3F2BCA6EEF /* MeetupPinAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DF3A50BE907782B4154A02 /* MeetupPinAnnotationView.swift */; };
 		34C778E2AF623D621FAF0FB0 /* NearestFacilityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9461A15400A977C8CCE3DF8 /* NearestFacilityView.swift */; };
 		5ADFC9427F1529C696F03214 /* MeetupPinSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5B92B291AC48A8D6D27A16 /* MeetupPinSheet.swift */; };
@@ -79,6 +80,7 @@
 		1559BEEC51BB1B6BD87AB51B /* UserStatus.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UserStatus.swift; sourceTree = "<group>"; };
 		3032CF85A85E48273BE1F9A7 /* TermsOfServiceView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TermsOfServiceView.swift; path = Views/Settings/TermsOfServiceView.swift; sourceTree = "<group>"; };
 		32811D64DD5DAF9365935C02 /* Facility.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Facility.swift; sourceTree = "<group>"; };
+		35EBDF0112E44416898A7FCC /* Logger.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		4173C3AFFFF0D531044B121B /* StatusPickerView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = StatusPickerView.swift; sourceTree = "<group>"; };
 		4AB300A529F3B2EE8EB97A0E /* StatusBadgeView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = StatusBadgeView.swift; sourceTree = "<group>"; };
 		4E23BF3E3DAEE5180A176507 /* OfflineMapsView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OfflineMapsView.swift; sourceTree = "<group>"; };
@@ -344,6 +346,7 @@
 			children = (
 				FA100029 /* Constants.swift */,
 				FA100030 /* Extensions.swift */,
+				35EBDF0112E44416898A7FCC /* Logger.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -581,6 +584,7 @@
 				9CBB535C5AA864557A90B02D /* OfflineMapsView.swift in Sources */,
 				CE9A4401F4C134150AF3BC3A /* PrivacyPolicyView.swift in Sources */,
 				B9076D0E6E68951001E57877 /* TermsOfServiceView.swift in Sources */,
+				284E3C76D2C8EA545D5E83EA /* Logger.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

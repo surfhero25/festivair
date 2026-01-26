@@ -1,5 +1,9 @@
 import SwiftUI
 
+extension Notification.Name {
+    static let switchToMapTab = Notification.Name("switchToMapTab")
+}
+
 struct ContentView: View {
     @EnvironmentObject var appState: AppState
     @Environment(\.scenePhase) private var scenePhase
@@ -66,6 +70,9 @@ struct MainTabView: View {
                 .tag(4)
         }
         .tint(.purple)
+        .onReceive(NotificationCenter.default.publisher(for: .switchToMapTab)) { _ in
+            selectedTab = 0
+        }
     }
 }
 

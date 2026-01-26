@@ -133,7 +133,7 @@ final class GatewayManager: ObservableObject {
     private func becomeGateway() {
         isGateway = true
         onBecomeGateway?()
-        print("[Gateway] This device is now the gateway")
+        Log.gatewayInfo("This device is now the gateway")
     }
 
     private func resignAsGateway() {

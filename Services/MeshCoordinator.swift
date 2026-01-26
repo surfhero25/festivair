@@ -69,7 +69,7 @@ final class MeshCoordinator: ObservableObject {
         isActive = true
         meshStatus = .searching
 
-        print("[MeshCoordinator] Started")
+        Log.meshInfo("Coordinator started")
     }
 
     func stop() {

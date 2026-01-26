@@ -89,8 +89,31 @@ struct ChatView: View {
             .navigationTitle("Squad Chat")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        // Dismiss keyboard first, then switch to map tab
+                        isInputFocused = false
+                        // Post notification to switch tabs
+                        NotificationCenter.default.post(name: .switchToMapTab, object: nil)
+                    } label: {
+                        HStack(spacing: 4) {
+                            Image(systemName: "chevron.left")
+                            Text("Map")
+                        }
+                    }
+                }
+
                 ToolbarItem(placement: .topBarTrailing) {
-                    ConnectionIndicator()
+                    HStack(spacing: 12) {
+                        // Done button when keyboard is up
+                        if isInputFocused {
+                            Button("Done") {
+                                isInputFocused = false
+                            }
+                        }
+
+                        ConnectionIndicator()
+                    }
                 }
             }
         }
