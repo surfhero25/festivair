@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FestivAir - Never Lose Your Squad at Festivals</title>
-    <meta name="description" content="Find your friends at music festivals even without cell service. Mesh networking powered squad tracker for EDM festivals.">
+    <title>FestivAir - Find Your Squad at Festivals</title>
+    <meta name="description" content="Share locations with your friend group at music festivals using Bluetooth when you're nearby. iPhone app for EDM festivals.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -280,6 +280,38 @@
             font-size: 15px;
         }
 
+        /* Limitations Section */
+        .limitations {
+            padding: 80px 0;
+            background: linear-gradient(180deg, var(--dark) 0%, var(--dark-surface) 100%);
+        }
+
+        .limitations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .limitation-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .limitation-card h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--purple-light);
+        }
+
+        .limitation-card p {
+            color: var(--gray);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
         /* Tech Section */
         .tech {
             padding: 100px 0;
@@ -329,7 +361,7 @@
         }
 
         .tech-card li::before {
-            content: '✓';
+            content: '•';
             color: var(--purple);
         }
 
@@ -442,8 +474,7 @@
                 <div class="nav-links">
                     <a href="#features">Features</a>
                     <a href="#how-it-works">How It Works</a>
-                    <a href="#group-gps">Group GPS</a>
-                    <a href="#technology">Technology</a>
+                    <a href="#good-to-know">Good to Know</a>
                     <a href="#" class="btn btn-primary">Download App</a>
                 </div>
             </nav>
@@ -454,11 +485,11 @@
         <section class="hero">
             <div class="container">
                 <div class="hero-badge">
-                    <span>📡</span>
-                    <span>Works Without Cell Service</span>
+                    <span>📍</span>
+                    <span>Location Sharing for Groups</span>
                 </div>
-                <h1>Never Lose Your <span>Squad</span> at Festivals</h1>
-                <p>Find your friends in crowded festivals using mesh networking. No cell service? No problem. FestivAir keeps your squad connected.</p>
+                <h1>Find Your <span>Squad</span> at Festivals</h1>
+                <p>Share locations with your friend group at music festivals. Uses Bluetooth to connect when you're nearby, and iCloud when you have signal.</p>
                 <div class="hero-buttons">
                     <a href="#" class="btn btn-primary">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
@@ -472,49 +503,39 @@
         <section class="features" id="features">
             <div class="container">
                 <div class="section-header">
-                    <h2>Built for Festival Life</h2>
-                    <p>Every feature designed for the chaos of live events</p>
+                    <h2>What FestivAir Does</h2>
+                    <p>A simple way to share locations with your group</p>
                 </div>
                 <div class="features-grid">
                     <div class="feature-card">
                         <div class="feature-icon">📍</div>
-                        <h3>Real-Time Squad Map</h3>
-                        <p>See all your friends on a live map with their emoji avatars. Tap to get directions or center on any squad member.</p>
+                        <h3>Squad Map</h3>
+                        <p>See your friends' last known locations on a map with their emoji avatars. Tap anyone to see when their location was last updated.</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon">📡</div>
-                        <h3>Mesh Networking</h3>
-                        <p>Uses Bluetooth and peer-to-peer WiFi to create a network between devices. Works when cell towers are overloaded.</p>
+                        <h3>Bluetooth Connection</h3>
+                        <p>When you're within about 30 feet of squad members, your phones can connect via Bluetooth to share locations directly.</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon">💬</div>
-                        <h3>Offline Chat</h3>
-                        <p>Send messages to your squad even without internet. Messages hop through nearby phones to reach your friends.</p>
+                        <h3>Group Chat</h3>
+                        <p>Send messages to your squad. Messages sync through iCloud when you have signal, or via Bluetooth when nearby.</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon">🎵</div>
-                        <h3>Set Time Tracker</h3>
-                        <p>Never miss your favorite artist. Get notifications before sets start with schedule conflict warnings.</p>
+                        <h3>Set Times</h3>
+                        <p>Add your favorite artists and get reminders before their sets start. See schedule conflicts if two artists overlap.</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon">🔋</div>
-                        <h3>Battery Smart</h3>
-                        <p>See squad battery levels. The app automatically rotates which phone syncs to save everyone's battery.</p>
+                        <h3>Battery Levels</h3>
+                        <p>See how much battery each squad member has left. Helps you know who might go offline soon.</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon">☁️</div>
-                        <h3>Gateway Sync</h3>
-                        <p>When one phone gets signal, it syncs the whole squad to the cloud. Everyone stays updated through the mesh.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🎯</div>
-                        <h3>Collaborative GPS</h3>
-                        <p>More phones = better accuracy. Squad members share GPS data to pinpoint the group center even in GPS-weak areas.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">📏</div>
-                        <h3>Distance to Squad</h3>
-                        <p>See exactly how far each friend is. Get distance to the group center and find the fastest path back to your squad.</p>
+                        <h3>iCloud Sync</h3>
+                        <p>When anyone in your squad gets cell signal, their phone syncs everyone's locations to iCloud for the group.</p>
                     </div>
                 </div>
             </div>
@@ -524,85 +545,63 @@
             <div class="container">
                 <div class="section-header">
                     <h2>How It Works</h2>
-                    <p>Get your squad connected in under a minute</p>
+                    <p>Get your squad set up in a few steps</p>
                 </div>
                 <div class="steps">
                     <div class="step">
                         <div class="step-number">1</div>
                         <h3>Create Your Squad</h3>
-                        <p>Pick a name and get a unique 6-character code. Share it with friends or let them scan your QR code.</p>
+                        <p>Pick a squad name and get a 6-character code. Share this code with your friends.</p>
                     </div>
                     <div class="step">
                         <div class="step-number">2</div>
-                        <h3>Everyone Joins</h3>
-                        <p>Squad members enter the code or scan QR. No accounts needed - just open the app and go.</p>
+                        <h3>Friends Join</h3>
+                        <p>Squad members enter the code or scan your QR code. Everyone needs an iPhone with iOS 17 or later.</p>
                     </div>
                     <div class="step">
                         <div class="step-number">3</div>
-                        <h3>Stay Connected</h3>
-                        <p>Your phones automatically form a mesh network. Share locations and chat even without service.</p>
+                        <h3>Share Locations</h3>
+                        <p>Your phones share GPS locations with the group. Works best outdoors where GPS signal is stronger.</p>
                     </div>
                     <div class="step">
                         <div class="step-number">4</div>
-                        <h3>Find Anyone</h3>
-                        <p>Tap "Find Me" to broadcast your location. Use the map to navigate back to your squad.</p>
+                        <h3>Find Each Other</h3>
+                        <p>Check the map to see where everyone was last seen. Use the distance indicator to walk toward them.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="features" id="group-gps" style="background: linear-gradient(180deg, var(--dark-surface) 0%, var(--dark) 100%);">
+        <section class="limitations" id="good-to-know">
             <div class="container">
                 <div class="section-header">
-                    <h2>Collaborative GPS: Strength in Numbers</h2>
-                    <p>More phones together = better accuracy for everyone</p>
+                    <h2>Good to Know</h2>
+                    <p>Honest details about how the app works</p>
                 </div>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 40px;">
-                    <div>
-                        <h3 style="font-size: 24px; margin-bottom: 20px;">How It Works</h3>
-                        <p style="color: var(--gray); margin-bottom: 16px;">
-                            GPS accuracy varies wildly at festivals. Tall stages, dense crowds, and metal structures all degrade signals.
-                            FestivAir solves this by combining GPS data from your entire squad.
-                        </p>
-                        <p style="color: var(--gray); margin-bottom: 16px;">
-                            <strong style="color: var(--white);">Weighted Averaging:</strong> Members with strong GPS (5m accuracy) contribute more to the group position
-                            than those with weak signals (50m accuracy). The math gives you a group center more accurate than any single phone.
-                        </p>
-                        <p style="color: var(--gray); margin-bottom: 16px;">
-                            <strong style="color: var(--white);">Find Your Group:</strong> One tap shows you exactly where your squad is clustered.
-                            See how spread out everyone is and the precise distance to get back to the group.
-                        </p>
-                        <p style="color: var(--gray);">
-                            <strong style="color: var(--white);">Mesh as Distance:</strong> If you're connected via Bluetooth, you're within 10 meters.
-                            The mesh connection itself acts as a proximity signal even when GPS fails.
-                        </p>
+                <div class="limitations-grid">
+                    <div class="limitation-card">
+                        <h4>Bluetooth Range</h4>
+                        <p>Bluetooth connections work within about 30 feet in ideal conditions. Crowds, bodies, and obstacles reduce this range. You need to be relatively close for direct phone-to-phone sharing.</p>
                     </div>
-                    <div style="background: var(--dark-surface); border: 1px solid rgba(139, 92, 246, 0.3); border-radius: 20px; padding: 32px;">
-                        <h4 style="font-size: 18px; margin-bottom: 24px; display: flex; align-items: center; gap: 12px;">
-                            <span style="font-size: 28px;">📊</span>
-                            Accuracy Improvement Example
-                        </h4>
-                        <div style="display: flex; flex-direction: column; gap: 16px;">
-                            <div style="display: flex; justify-content: space-between; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 8px;">
-                                <span style="color: var(--gray);">Alice's GPS</span>
-                                <span style="color: #10B981;">5m accuracy</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 8px;">
-                                <span style="color: var(--gray);">Bob's GPS</span>
-                                <span style="color: #F59E0B;">15m accuracy</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 8px;">
-                                <span style="color: var(--gray);">Carlos's GPS</span>
-                                <span style="color: #EF4444;">50m accuracy</span>
-                            </div>
-                            <div style="display: flex; justify-content: space-between; padding: 12px; background: rgba(139, 92, 246, 0.2); border-radius: 8px; border: 1px solid var(--purple);">
-                                <span style="font-weight: 600;">Combined Group Position</span>
-                                <span style="color: var(--purple-light); font-weight: 600;">~4.5m accuracy</span>
-                            </div>
-                        </div>
-                        <p style="color: var(--gray); font-size: 13px; margin-top: 16px;">
-                            Carlos benefits from Alice and Bob's better signals. Everyone can find the group more accurately.
-                        </p>
+                    <div class="limitation-card">
+                        <h4>GPS Accuracy</h4>
+                        <p>GPS accuracy varies from 10-50 feet depending on conditions. Tall stages, dense crowds, and buildings can degrade signals. The map shows approximate locations, not exact positions.</p>
+                    </div>
+                    <div class="limitation-card">
+                        <h4>Battery Impact</h4>
+                        <p>Using GPS and Bluetooth does use battery. The app tries to be efficient, but expect some battery drain during use. Bring a portable charger to festivals.</p>
+                    </div>
+                    <div class="limitation-card">
+                        <h4>iPhone Only</h4>
+                        <p>FestivAir currently only works on iPhone with iOS 17 or later. Android support is not available. All squad members need iPhones.</p>
+                    </div>
+                    <div class="limitation-card">
+                        <h4>Squad Size</h4>
+                        <p>Squads work best with up to 12 people. Larger groups may experience slower updates and more battery drain from managing many connections.</p>
+                    </div>
+                    <div class="limitation-card">
+                        <h4>No Cell? Limited Updates</h4>
+                        <p>Without cell service, location sharing only works via Bluetooth when nearby. If your group spreads out beyond Bluetooth range with no signal, locations won't update until someone gets service.</p>
                     </div>
                 </div>
             </div>
@@ -611,49 +610,44 @@
         <section class="tech" id="technology">
             <div class="container">
                 <div class="section-header">
-                    <h2>The Technology</h2>
-                    <p>Enterprise-grade mesh networking, built for festivals</p>
+                    <h2>How We Built It</h2>
+                    <p>The technology behind FestivAir</p>
                 </div>
                 <div class="tech-grid">
                     <div class="tech-card">
-                        <h3>📶 Multipeer Connectivity</h3>
-                        <p>Uses Apple's Multipeer Connectivity framework to create ad-hoc networks between nearby devices.</p>
+                        <h3>📶 Apple Multipeer</h3>
+                        <p>Uses Apple's Multipeer Connectivity framework for phone-to-phone connections.</p>
                         <ul>
-                            <li>Bluetooth Low Energy discovery</li>
-                            <li>Peer-to-peer WiFi for fast data</li>
-                            <li>Encrypted connections</li>
-                            <li>Up to 3-hop message relay</li>
+                            <li>Bluetooth Low Energy for discovery</li>
+                            <li>Peer-to-peer WiFi when available</li>
+                            <li>Encrypted connections between devices</li>
                         </ul>
                     </div>
                     <div class="tech-card">
-                        <h3>🌐 Gateway Election</h3>
-                        <p>Smart algorithm picks the best phone to sync with the cloud, rotating to preserve battery.</p>
+                        <h3>☁️ iCloud Sync</h3>
+                        <p>When phones have signal, locations sync through Apple's iCloud.</p>
                         <ul>
-                            <li>Signal strength detection</li>
-                            <li>Battery-aware rotation</li>
-                            <li>Automatic failover</li>
-                            <li>Offline queue sync</li>
+                            <li>Uses your existing Apple ID</li>
+                            <li>No separate account needed</li>
+                            <li>Data stored in your private iCloud</li>
                         </ul>
                     </div>
                     <div class="tech-card">
-                        <h3>🎯 Collaborative GPS</h3>
-                        <p>Revolutionary group positioning that gets more accurate with each squad member. Phones with better GPS help refine positions of those with weaker signals.</p>
+                        <h3>📍 Core Location</h3>
+                        <p>Uses iOS's built-in GPS for location tracking.</p>
                         <ul>
-                            <li>Weighted accuracy averaging</li>
-                            <li>Group centroid calculation</li>
-                            <li>Mesh proximity as distance proxy</li>
-                            <li>Real-time distance to each member</li>
-                            <li>Group spread radius indicator</li>
+                            <li>Standard GPS accuracy (varies)</li>
+                            <li>Background location updates</li>
+                            <li>Respects iOS privacy settings</li>
                         </ul>
                     </div>
                     <div class="tech-card">
-                        <h3>☁️ CloudKit Sync</h3>
-                        <p>When online, data syncs seamlessly through iCloud. No accounts, no passwords, just works.</p>
+                        <h3>💾 Local Storage</h3>
+                        <p>Squad data and chat history stored locally on your phone.</p>
                         <ul>
-                            <li>Automatic conflict resolution</li>
-                            <li>Offline-first architecture</li>
-                            <li>Real-time subscriptions</li>
-                            <li>Private by default</li>
+                            <li>Works offline</li>
+                            <li>Your data stays on your device</li>
+                            <li>Syncs when connection available</li>
                         </ul>
                     </div>
                 </div>
@@ -663,8 +657,8 @@
         <section class="cta">
             <div class="container">
                 <div class="cta-box">
-                    <h2>Ready for Festival Season?</h2>
-                    <p>Download FestivAir and never lose your squad again.</p>
+                    <h2>Try FestivAir</h2>
+                    <p>A simple way to share locations with your festival squad.</p>
                     <a href="#" class="btn" style="background: white; color: var(--purple-dark);">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
                         Download on the App Store
@@ -683,7 +677,7 @@
                     <a href="#">Terms of Service</a>
                     <a href="#">Support</a>
                 </div>
-                <div class="copyright">© 2026 FestivAir. Made for festival lovers.</div>
+                <div class="copyright">© 2026 FestivAir</div>
             </div>
         </div>
     </footer>
