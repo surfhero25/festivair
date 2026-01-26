@@ -24,7 +24,7 @@ struct SetTimesView: View {
 
                 // Stage filter
                 StageFilterBar(
-                    stages: viewModel.selectedEvent?.stages ?? [],
+                    stages: viewModel.allStages,
                     selectedStage: Binding(
                         get: { viewModel.selectedStage },
                         set: { newValue in
@@ -49,6 +49,7 @@ struct SetTimesView: View {
                     List {
                         ForEach(viewModel.setTimes, id: \.id) { setTime in
                             SetTimeRow(setTime: setTime) {
+                                Haptics.medium()
                                 viewModel.toggleFavorite(setTime)
                             }
                         }
@@ -70,6 +71,7 @@ struct SetTimesView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
+                        Haptics.selection()
                         viewModel.showFavoritesOnly.toggle()
                         viewModel.loadSetTimes()
                     } label: {
@@ -187,21 +189,17 @@ struct DateChip: View {
     }
 
     private var dayName: String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "EEE"
-        return formatter.string(from: date)
+        Formatters.dayShort.string(from: date)
     }
 
     private var dayNumber: String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "d"
-        return formatter.string(from: date)
+        Formatters.formatter(for: "d").string(from: date)
     }
 }
 
 // MARK: - Stage Filter Bar
 struct StageFilterBar: View {
-    let stages: [Stage]?
+    let stages: [Stage]
     @Binding var selectedStage: Stage?
 
     var body: some View {
@@ -214,14 +212,12 @@ struct StageFilterBar: View {
                     selectedStage = nil
                 }
 
-                if let stages = stages {
-                    ForEach(stages, id: \.id) { stage in
-                        FilterChip(
-                            title: stage.name,
-                            isSelected: selectedStage?.id == stage.id
-                        ) {
-                            selectedStage = stage
-                        }
+                ForEach(stages, id: \.id) { stage in
+                    FilterChip(
+                        title: stage.name,
+                        isSelected: selectedStage?.id == stage.id
+                    ) {
+                        selectedStage = stage
                     }
                 }
             }
@@ -240,12 +236,14 @@ struct FilterChip: View {
         Button(action: onTap) {
             Text(title)
                 .font(.subheadline)
-                .padding(.horizontal, 12)
-                .padding(.vertical, 6)
+                .padding(.horizontal, 16)
+                .padding(.vertical, 10)
                 .background(isSelected ? .purple.opacity(0.2) : .secondary.opacity(0.1))
                 .foregroundStyle(isSelected ? .purple : .primary)
                 .clipShape(Capsule())
         }
+        .buttonStyle(.plain)
+        .contentShape(Capsule())
     }
 }
 
@@ -307,14 +305,16 @@ struct SetTimeRow: View {
                     .font(.title3)
             }
             .buttonStyle(.plain)
+            .accessibilityLabel(setTime.isFavorite ? "Remove from favorites" : "Add to favorites")
         }
         .padding(.vertical, 4)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(setTime.artistName), \(formattedStartTime), \(setTime.stage?.name ?? ""), \(setTime.durationMinutes) minutes")
+        .accessibilityHint(setTime.isFavorite ? "Double tap to remove from favorites" : "Double tap to add to favorites")
     }
 
     private var formattedStartTime: String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "h:mm a"
-        return formatter.string(from: setTime.startTime)
+        Formatters.time.string(from: setTime.startTime)
     }
 }
 

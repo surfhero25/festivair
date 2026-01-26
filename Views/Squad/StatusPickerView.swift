@@ -175,8 +175,9 @@ private struct PresetButton: View {
     var body: some View {
         Button(action: onTap) {
             HStack(spacing: 8) {
-                Text(preset.emoji)
+                Image(systemName: preset.icon)
                     .font(.title3)
+                    .frame(width: 24)
 
                 Text(preset.displayText)
                     .font(.subheadline)

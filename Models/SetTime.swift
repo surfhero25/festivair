@@ -2,8 +2,8 @@ import Foundation
 import SwiftData
 
 @Model
-final class SetTime {
-    var id: UUID
+final class SetTime: Identifiable {
+    @Attribute(.unique) var id: UUID
     var artistName: String
     var startTime: Date
     var endTime: Date
@@ -50,9 +50,7 @@ final class SetTime {
     }
 
     var formattedTimeRange: String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "h:mm a"
-        return "\(formatter.string(from: startTime)) - \(formatter.string(from: endTime))"
+        "\(Formatters.time.string(from: startTime)) - \(Formatters.time.string(from: endTime))"
     }
 }
 

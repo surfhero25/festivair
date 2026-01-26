@@ -112,6 +112,27 @@ enum StatusPreset: String, Codable, CaseIterable {
         }
     }
 
+    /// SF Symbol icon for each status (used in UI instead of emoji)
+    var icon: String {
+        switch self {
+        case .headingToMainStage: return "music.note"
+        case .atTheBar: return "wineglass"
+        case .needsWater: return "drop.fill"
+        case .lookingForGroup: return "eye"
+        case .takingABreak: return "moon.zzz"
+        case .inLine: return "person.line.dotted.person"
+        case .atMedical: return "cross.case"
+        case .headingOut: return "figure.walk.departure"
+        case .onTheWay: return "figure.walk"
+        case .atMeetupSpot: return "mappin.and.ellipse"
+        case .gettingFood: return "fork.knife"
+        case .atMerch: return "tshirt"
+        case .charging: return "battery.100.bolt"
+        case .bathroomBreak: return "toilet"
+        case .lostInCrowd: return "person.crop.circle.badge.questionmark"
+        }
+    }
+
     /// Categorize presets for UI organization
     var category: StatusCategory {
         switch self {

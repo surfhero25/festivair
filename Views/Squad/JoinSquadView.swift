@@ -72,17 +72,20 @@ struct JoinSquadView: View {
             do {
                 try await squadViewModel.joinSquad(code: squadCode.uppercased())
                 await MainActor.run {
+                    Haptics.success()
                     isLoading = false
                     dismiss()
                 }
             } catch let error as SquadError {
                 await MainActor.run {
+                    Haptics.error()
                     isLoading = false
                     errorMessage = error.errorDescription ?? "Failed to join squad"
                     showError = true
                 }
             } catch {
                 await MainActor.run {
+                    Haptics.error()
                     isLoading = false
                     errorMessage = error.localizedDescription
                     showError = true
@@ -250,6 +253,8 @@ struct CreateSquadContent: View {
     @Binding var squadName: String
     let isLoading: Bool
     let onCreate: () -> Void
+    @FocusState private var isNameFieldFocused: Bool
+    @State private var previewCode: String = ""
 
     var body: some View {
         VStack(spacing: 24) {
@@ -261,6 +266,13 @@ struct CreateSquadContent: View {
                 TextField("e.g. Bass Drop Crew", text: $squadName)
                     .textFieldStyle(.roundedBorder)
                     .font(.title3)
+                    .focused($isNameFieldFocused)
+                    .submitLabel(.done)
+                    .onSubmit {
+                        if !squadName.isEmpty && !isLoading {
+                            onCreate()
+                        }
+                    }
             }
             .padding()
 
@@ -270,7 +282,7 @@ struct CreateSquadContent: View {
                     .font(.caption)
                     .foregroundStyle(.secondary)
 
-                Text(Squad.generateJoinCode())
+                Text(previewCode)
                     .font(.title.monospaced().bold())
                     .foregroundStyle(.purple)
             }
@@ -301,6 +313,14 @@ struct CreateSquadContent: View {
             .clipShape(RoundedRectangle(cornerRadius: 16))
             .disabled(squadName.isEmpty || isLoading)
             .padding()
+        }
+        .onAppear {
+            // Generate code once when view appears
+            previewCode = Squad.generateJoinCode()
+        }
+        .onTapGesture {
+            // Dismiss keyboard when tapping outside
+            isNameFieldFocused = false
         }
     }
 }

@@ -18,7 +18,7 @@ final class SponsorService: ObservableObject {
     // MARK: - Private
     private let apiBaseURL = "https://api.festivair.app/sponsors"  // TODO: Configure
     private var lastUserLocation: CLLocationCoordinate2D?
-    private let nearbyRadius: Double = 500  // meters
+    private let nearbyRadius: Double = Constants.Sponsor.nearbyRadiusMeters
 
     // MARK: - Init
     private init() {

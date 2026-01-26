@@ -295,32 +295,52 @@ struct CreatePartyView: View {
 // MARK: - Location Picker View
 
 struct LocationPickerView: View {
+    @EnvironmentObject var appState: AppState
     @Binding var selectedLocation: CLLocationCoordinate2D?
     @Binding var locationName: String
     @Environment(\.dismiss) private var dismiss
 
     @State private var cameraPosition: MapCameraPosition = .automatic
-    @State private var searchText = ""
+    @State private var mapRegion: MKCoordinateRegion?
 
     var body: some View {
         NavigationStack {
             ZStack {
-                Map(position: $cameraPosition) {
-                    if let location = selectedLocation {
-                        Marker("Party Location", coordinate: location)
+                MapReader { proxy in
+                    Map(position: $cameraPosition) {
+                        if let location = selectedLocation {
+                            Marker("Party Location", coordinate: location)
+                                .tint(.purple)
+                        }
+                    }
+                    .onMapCameraChange { context in
+                        // Update selected location to map center
+                        selectedLocation = context.region.center
+                    }
+                    .onTapGesture { position in
+                        // Convert tap to coordinate
+                        if let coordinate = proxy.convert(position, from: .local) {
+                            selectedLocation = coordinate
+                            // Re-center camera on tapped location
+                            cameraPosition = .region(MKCoordinateRegion(
+                                center: coordinate,
+                                span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
+                            ))
+                        }
                     }
                 }
-                .onTapGesture { position in
-                    // Note: This doesn't work directly in SwiftUI Maps
-                    // Would need MapReader for proper coordinate conversion
-                }
 
-                // Center pin
+                // Center pin indicator (shows where the center is)
                 VStack {
                     Spacer()
-                    Image(systemName: "mappin")
-                        .font(.title)
+                    Image(systemName: "mappin.circle.fill")
+                        .font(.largeTitle)
                         .foregroundStyle(.purple)
+                        .shadow(radius: 2)
+                    Image(systemName: "arrowtriangle.down.fill")
+                        .font(.caption)
+                        .foregroundStyle(.purple)
+                        .offset(y: -8)
                     Spacer()
                 }
             }
@@ -334,14 +354,10 @@ struct LocationPickerView: View {
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Confirm") {
-                        // Use current map center as location
-                        // For now, use a default
-                        if selectedLocation == nil {
-                            selectedLocation = CLLocationCoordinate2D(latitude: 34.0522, longitude: -118.2437)
-                        }
                         dismiss()
                     }
                     .fontWeight(.semibold)
+                    .disabled(selectedLocation == nil)
                 }
             }
             .safeAreaInset(edge: .bottom) {
@@ -349,12 +365,26 @@ struct LocationPickerView: View {
                     TextField("Location Name (optional)", text: $locationName)
                         .textFieldStyle(.roundedBorder)
 
-                    Text("Drag the map to position the pin")
+                    Text("Tap or drag the map to set location")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
                 .padding()
                 .background(.ultraThinMaterial)
+            }
+            .onAppear {
+                // Start at user's current location
+                if let location = appState.locationManager.currentLocation {
+                    let userCoordinate = CLLocationCoordinate2D(
+                        latitude: location.latitude,
+                        longitude: location.longitude
+                    )
+                    selectedLocation = userCoordinate
+                    cameraPosition = .region(MKCoordinateRegion(
+                        center: userCoordinate,
+                        span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
+                    ))
+                }
             }
         }
     }

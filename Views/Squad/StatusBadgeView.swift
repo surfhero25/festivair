@@ -8,8 +8,13 @@ struct StatusBadgeView: View {
     var body: some View {
         if status.isActive {
             HStack(spacing: 4) {
-                Text(status.emoji)
-                    .font(compact ? .caption2 : .caption)
+                if let preset = status.preset {
+                    Image(systemName: preset.icon)
+                        .font(compact ? .caption2 : .caption)
+                } else {
+                    Image(systemName: "bubble.left")
+                        .font(compact ? .caption2 : .caption)
+                }
 
                 if !compact {
                     Text(status.displayText)
@@ -43,12 +48,29 @@ struct StatusBadgeView: View {
 struct StatusDetailView: View {
     let status: UserStatus
 
+    private var statusIcon: String {
+        status.preset?.icon ?? "bubble.left"
+    }
+
+    private var statusColor: Color {
+        guard let preset = status.preset else { return .purple }
+        switch preset.category {
+        case .moving: return .blue
+        case .activity: return .orange
+        case .needs: return .red
+        case .squad: return .purple
+        case .waiting: return .gray
+        }
+    }
+
     var body: some View {
         if status.isActive {
             VStack(alignment: .leading, spacing: 6) {
                 HStack(spacing: 8) {
-                    Text(status.emoji)
+                    Image(systemName: statusIcon)
                         .font(.title2)
+                        .foregroundStyle(statusColor)
+                        .frame(width: 32)
 
                     VStack(alignment: .leading, spacing: 2) {
                         Text(status.displayText)

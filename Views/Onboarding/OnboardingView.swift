@@ -10,11 +10,17 @@ struct OnboardingView: View {
             WelcomePageView(currentPage: $currentPage)
                 .tag(0)
 
-            FeaturesPageView(currentPage: $currentPage)
+            SquadTrackingPageView(currentPage: $currentPage)
                 .tag(1)
 
-            ProfileSetupView()
+            OfflineModePageView(currentPage: $currentPage)
                 .tag(2)
+
+            SetAlertsPageView(currentPage: $currentPage)
+                .tag(3)
+
+            ProfileSetupView()
+                .tag(4)
         }
         .tabViewStyle(.page(indexDisplayMode: .always))
         .indexViewStyle(.page(backgroundDisplayMode: .always))
@@ -41,9 +47,11 @@ struct WelcomePageView: View {
                 .font(.system(size: 48, weight: .bold, design: .rounded))
                 .foregroundStyle(.white)
 
-            Text("Never lose your squad again")
+            Text("Find your squad at the festival")
                 .font(.title2)
                 .foregroundStyle(.white.opacity(0.8))
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 40)
 
             Spacer()
 
@@ -66,50 +74,123 @@ struct WelcomePageView: View {
     }
 }
 
-// MARK: - Features Page
-struct FeaturesPageView: View {
+// MARK: - Squad Tracking Page
+struct SquadTrackingPageView: View {
     @Binding var currentPage: Int
 
-    let features = [
-        ("person.3.fill", "Squad Tracking", "See your crew on the map in real-time"),
-        ("antenna.radiowaves.left.and.right", "Works Offline", "Mesh networking even without service"),
-        ("music.note", "Set Alerts", "Never miss your favorite artists"),
-        ("battery.100", "Battery Smart", "Optimized to last all day")
-    ]
-
     var body: some View {
-        VStack(spacing: 30) {
-            Text("How It Works")
+        VStack(spacing: 24) {
+            Spacer()
+
+            Image(systemName: "person.3.fill")
+                .font(.system(size: 80))
+                .foregroundStyle(.purple)
+
+            Text("Squad Tracking")
                 .font(.largeTitle.bold())
                 .foregroundStyle(.white)
-                .padding(.top, 60)
 
-            ForEach(features, id: \.1) { icon, title, subtitle in
-                HStack(spacing: 20) {
-                    Image(systemName: icon)
-                        .font(.title)
-                        .foregroundStyle(.purple)
-                        .frame(width: 50)
-
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text(title)
-                            .font(.headline)
-                            .foregroundStyle(.white)
-                        Text(subtitle)
-                            .font(.subheadline)
-                            .foregroundStyle(.white.opacity(0.7))
-                    }
-
-                    Spacer()
-                }
+            Text("See your crew on the map in real-time. Know where everyone is so you can meet up after getting food or using the restroom.")
+                .font(.body)
+                .foregroundStyle(.white.opacity(0.8))
+                .multilineTextAlignment(.center)
                 .padding(.horizontal, 40)
-            }
 
             Spacer()
 
             Button {
                 withAnimation {
                     currentPage = 2
+                }
+            } label: {
+                Text("Next")
+                    .font(.headline)
+                    .foregroundStyle(.black)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 16))
+            }
+            .padding(.horizontal, 40)
+            .padding(.bottom, 60)
+        }
+    }
+}
+
+// MARK: - Offline Mode Page
+struct OfflineModePageView: View {
+    @Binding var currentPage: Int
+
+    var body: some View {
+        VStack(spacing: 24) {
+            Spacer()
+
+            Image(systemName: "antenna.radiowaves.left.and.right")
+                .font(.system(size: 80))
+                .foregroundStyle(.purple)
+
+            Text("Works Offline")
+                .font(.largeTitle.bold())
+                .foregroundStyle(.white)
+
+            Text("Uses Bluetooth mesh networking to share locations even when cell service is spotty. The more people using the app nearby, the better it works.")
+                .font(.body)
+                .foregroundStyle(.white.opacity(0.8))
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 40)
+
+            Text("Best within ~100ft range")
+                .font(.caption)
+                .foregroundStyle(.white.opacity(0.5))
+
+            Spacer()
+
+            Button {
+                withAnimation {
+                    currentPage = 3
+                }
+            } label: {
+                Text("Next")
+                    .font(.headline)
+                    .foregroundStyle(.black)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 16))
+            }
+            .padding(.horizontal, 40)
+            .padding(.bottom, 60)
+        }
+    }
+}
+
+// MARK: - Set Alerts Page
+struct SetAlertsPageView: View {
+    @Binding var currentPage: Int
+
+    var body: some View {
+        VStack(spacing: 24) {
+            Spacer()
+
+            Image(systemName: "music.note")
+                .font(.system(size: 80))
+                .foregroundStyle(.purple)
+
+            Text("Set Alerts")
+                .font(.largeTitle.bold())
+                .foregroundStyle(.white)
+
+            Text("Get notified before your favorite artists go on stage. Never miss a set you wanted to see.")
+                .font(.body)
+                .foregroundStyle(.white.opacity(0.8))
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 40)
+
+            Spacer()
+
+            Button {
+                withAnimation {
+                    currentPage = 4
                 }
             } label: {
                 Text("Set Up Profile")
@@ -130,35 +211,41 @@ struct FeaturesPageView: View {
 struct ProfileSetupView: View {
     @EnvironmentObject var appState: AppState
     @State private var displayName = ""
-    @State private var selectedEmoji = "🎧"
+    @State private var selectedIcon = "👤"
+    @FocusState private var isNameFieldFocused: Bool
 
-    let emojiOptions = ["🎧", "🎤", "🎸", "🎹", "🥁", "🎺", "🎷", "🪗", "🎻", "🪘", "🎵", "🔊"]
+    // Generic person icons - not music emojis
+    let iconOptions = ["👤", "👦", "👧", "👨", "👩", "🧑", "👱‍♂️", "👱‍♀️", "🧔", "👴", "👵", "🧓"]
 
     var body: some View {
-        VStack(spacing: 30) {
+        VStack(spacing: 24) {
             Text("Your Profile")
                 .font(.largeTitle.bold())
                 .foregroundStyle(.white)
                 .padding(.top, 60)
 
-            // Emoji selector
-            Text(selectedEmoji)
+            // Icon selector
+            Text(selectedIcon)
                 .font(.system(size: 80))
                 .padding()
 
-            LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 6), spacing: 16) {
-                ForEach(emojiOptions, id: \.self) { emoji in
-                    Text(emoji)
-                        .font(.title)
-                        .padding(8)
-                        .background(selectedEmoji == emoji ? Color.white.opacity(0.3) : Color.clear)
+            Text("Choose an icon for your map marker")
+                .font(.caption)
+                .foregroundStyle(.white.opacity(0.6))
+
+            LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 6), spacing: 12) {
+                ForEach(iconOptions, id: \.self) { icon in
+                    Text(icon)
+                        .font(.system(size: 32))
+                        .frame(width: 50, height: 50)
+                        .background(selectedIcon == icon ? Color.white.opacity(0.3) : Color.clear)
                         .clipShape(Circle())
                         .onTapGesture {
-                            selectedEmoji = emoji
+                            selectedIcon = icon
                         }
                 }
             }
-            .padding(.horizontal, 40)
+            .padding(.horizontal, 24)
 
             // Name input
             TextField("Your Name", text: $displayName)
@@ -169,12 +256,19 @@ struct ProfileSetupView: View {
                 .background(.white.opacity(0.2))
                 .clipShape(RoundedRectangle(cornerRadius: 12))
                 .padding(.horizontal, 40)
+                .focused($isNameFieldFocused)
+                .submitLabel(.done)
+                .onSubmit {
+                    if !displayName.isEmpty {
+                        appState.completeOnboarding(displayName: displayName, emoji: selectedIcon)
+                    }
+                }
 
             Spacer()
 
             Button {
                 guard !displayName.isEmpty else { return }
-                appState.completeOnboarding(displayName: displayName, emoji: selectedEmoji)
+                appState.completeOnboarding(displayName: displayName, emoji: selectedIcon)
             } label: {
                 Text("Let's Go!")
                     .font(.headline)
@@ -187,6 +281,10 @@ struct ProfileSetupView: View {
             .disabled(displayName.isEmpty)
             .padding(.horizontal, 40)
             .padding(.bottom, 60)
+        }
+        .onTapGesture {
+            // Dismiss keyboard when tapping outside
+            isNameFieldFocused = false
         }
     }
 }

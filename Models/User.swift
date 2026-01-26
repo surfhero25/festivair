@@ -100,11 +100,7 @@ final class User {
     }
 
     var squadLimit: Int {
-        switch tier {
-        case .free: return 4
-        case .basic: return 8
-        case .vip: return 12
-        }
+        tier.squadLimit  // Use single source of truth from PremiumTier
     }
 
     // MARK: - Social Helpers

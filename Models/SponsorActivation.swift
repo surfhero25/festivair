@@ -37,9 +37,7 @@ struct SponsorActivation: Codable, Identifiable {
     }
 
     var formattedTimeRange: String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "h:mm a"
-        return "\(formatter.string(from: startTime)) - \(formatter.string(from: endTime))"
+        "\(Formatters.time.string(from: startTime)) - \(Formatters.time.string(from: endTime))"
     }
 
     // MARK: - Distance Check
@@ -92,8 +90,8 @@ extension SponsorActivation {
                 sponsorName: "Red Bull",
                 title: "Energy Station",
                 description: "Get a free Red Bull at the Energy Station!",
-                latitude: 34.0522,
-                longitude: -118.2437,
+                latitude: Constants.DefaultLocation.latitude,
+                longitude: Constants.DefaultLocation.longitude,
                 radiusMeters: 50,
                 iconUrl: nil,
                 startTime: Date(),
@@ -107,8 +105,8 @@ extension SponsorActivation {
                 sponsorName: "Spotify",
                 title: "Listening Lounge",
                 description: "Scan for 3 months free Spotify Premium",
-                latitude: 34.0530,
-                longitude: -118.2445,
+                latitude: Constants.DefaultLocation.latitude + 0.0008,
+                longitude: Constants.DefaultLocation.longitude - 0.0008,
                 radiusMeters: 30,
                 iconUrl: nil,
                 startTime: Date(),

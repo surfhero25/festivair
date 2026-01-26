@@ -136,4 +136,28 @@ enum Constants {
         static let discoveryRadiusKm = 10.0
         static let vibeOptions = ["chill", "hype", "underground", "rooftop", "afterHours", "pool", "vip"]
     }
+
+    // MARK: - Default Location (Los Angeles)
+    enum DefaultLocation {
+        static let latitude = 34.0522
+        static let longitude = -118.2437
+        static let name = "Los Angeles, CA"
+    }
+
+    // MARK: - Peer Tracking
+    enum PeerTracking {
+        static let offlineThreshold: TimeInterval = 120  // 2 minutes
+        static let removeThreshold: TimeInterval = 3600  // 1 hour
+        static let staleThreshold: TimeInterval = 120    // 2 minutes
+    }
+
+    // MARK: - Sponsor Activations
+    enum Sponsor {
+        static let nearbyRadiusMeters: Double = 500
+    }
+
+    // MARK: - Image Cache
+    enum ImageCache {
+        static let memoryCacheLimitBytes = 50 * 1024 * 1024  // 50MB
+    }
 }

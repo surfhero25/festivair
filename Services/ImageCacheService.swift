@@ -27,7 +27,7 @@ actor ImageCacheService {
 
         // Configure memory cache
         memoryCache.countLimit = 100
-        memoryCache.totalCostLimit = 50 * 1024 * 1024 // 50MB
+        memoryCache.totalCostLimit = Constants.ImageCache.memoryCacheLimitBytes
     }
 
     // MARK: - Public API
@@ -209,19 +209,41 @@ extension CachedAsyncImage where Placeholder == ProgressView<EmptyView, EmptyVie
 // MARK: - Profile Photo View
 
 /// A circular profile photo view with caching
+/// Shows profile photo if available, otherwise shows initials or person icon
 struct ProfilePhotoView: View {
     let assetId: String?
-    let emoji: String
+    let displayName: String?
     let size: CGFloat
     let isOnline: Bool
+    let tintColor: Color
 
     @State private var image: UIImage?
 
+    // Legacy init with emoji (for backwards compatibility, but ignores emoji)
     init(assetId: String?, emoji: String, size: CGFloat = 60, isOnline: Bool = true) {
         self.assetId = assetId
-        self.emoji = emoji
+        self.displayName = nil
         self.size = size
         self.isOnline = isOnline
+        self.tintColor = .purple
+    }
+
+    // New init with displayName for initials
+    init(assetId: String?, displayName: String?, size: CGFloat = 60, isOnline: Bool = true, tintColor: Color = .purple) {
+        self.assetId = assetId
+        self.displayName = displayName
+        self.size = size
+        self.isOnline = isOnline
+        self.tintColor = tintColor
+    }
+
+    private var initials: String {
+        guard let name = displayName, !name.isEmpty else { return "" }
+        let components = name.split(separator: " ")
+        if components.count >= 2 {
+            return String(components[0].prefix(1) + components[1].prefix(1)).uppercased()
+        }
+        return String(name.prefix(2)).uppercased()
     }
 
     var body: some View {
@@ -232,18 +254,27 @@ struct ProfilePhotoView: View {
                     .scaledToFill()
                     .frame(width: size, height: size)
                     .clipShape(Circle())
-            } else {
-                // Fallback to emoji
-                Text(emoji)
-                    .font(.system(size: size * 0.5))
+            } else if !initials.isEmpty {
+                // Show initials
+                Text(initials)
+                    .font(.system(size: size * 0.35, weight: .semibold))
+                    .foregroundStyle(.white)
                     .frame(width: size, height: size)
-                    .background(isOnline ? Color.purple.opacity(0.2) : Color.gray.opacity(0.2))
+                    .background(isOnline ? tintColor : Color.gray)
+                    .clipShape(Circle())
+            } else {
+                // Default person icon
+                Image(systemName: "person.fill")
+                    .font(.system(size: size * 0.4))
+                    .foregroundStyle(.white)
+                    .frame(width: size, height: size)
+                    .background(isOnline ? tintColor : Color.gray)
                     .clipShape(Circle())
             }
         }
         .overlay(
             Circle()
-                .stroke(isOnline ? Color.purple : Color.gray, lineWidth: 2)
+                .stroke(isOnline ? tintColor : Color.gray, lineWidth: 2)
         )
         .task {
             await loadImage()

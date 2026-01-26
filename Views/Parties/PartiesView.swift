@@ -293,8 +293,8 @@ struct PartiesView: View {
 
         // Get current location
         let location = appState.locationManager.currentLocation
-        let lat = location?.latitude ?? 34.0522  // Default to LA
-        let lon = location?.longitude ?? -118.2437
+        let lat = location?.latitude ?? Constants.DefaultLocation.latitude
+        let lon = location?.longitude ?? Constants.DefaultLocation.longitude
 
         await viewModel.fetchNearbyParties(latitude: lat, longitude: lon)
         await viewModel.fetchMyHostedParties(userId: userId)

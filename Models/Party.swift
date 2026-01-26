@@ -35,6 +35,10 @@ final class Party {
     // CloudKit sync
     var cloudKitRecordId: String?
 
+    // Relationship
+    @Relationship(deleteRule: .cascade, inverse: \PartyAttendee.party)
+    var attendees: [PartyAttendee]?
+
     init(
         id: UUID = UUID(),
         name: String,
@@ -113,11 +117,9 @@ final class Party {
     }
 
     var formattedTime: String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "h:mm a"
-        var result = formatter.string(from: startTime)
+        var result = Formatters.time.string(from: startTime)
         if let end = endTime {
-            result += " - " + formatter.string(from: end)
+            result += " - " + Formatters.time.string(from: end)
         }
         return result
     }

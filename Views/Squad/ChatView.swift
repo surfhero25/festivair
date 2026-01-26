@@ -99,6 +99,7 @@ struct ChatView: View {
     private func sendMessage() {
         guard !messageText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
 
+        Haptics.light()
         let text = messageText
         messageText = ""
 
@@ -112,27 +113,20 @@ struct ChatView: View {
 struct ChatBubble: View {
     let message: ChatMessage
     let isMe: Bool
-    let currentUserEmoji: String
-
-    // Get emoji for sender (would normally come from user lookup)
-    private var senderEmoji: String {
-        if isMe {
-            return currentUserEmoji
-        }
-        // For other users, we'd look up their emoji - for now use a default
-        return "🎤"
-    }
+    let currentUserEmoji: String // Kept for backward compatibility but not used
 
     var body: some View {
         HStack(alignment: .bottom, spacing: 8) {
             if isMe {
                 Spacer(minLength: 60)
             } else {
-                Text(senderEmoji)
-                    .font(.title3)
-                    .frame(width: 32, height: 32)
-                    .background(.purple.opacity(0.2))
-                    .clipShape(Circle())
+                // Profile photo with initials fallback
+                ProfilePhotoView(
+                    assetId: nil, // Would come from user lookup
+                    displayName: message.senderName,
+                    size: 32,
+                    isOnline: true
+                )
             }
 
             VStack(alignment: isMe ? .trailing : .leading, spacing: 4) {
@@ -175,9 +169,7 @@ struct ChatBubble: View {
     }
 
     private var formattedTime: String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "h:mm a"
-        return formatter.string(from: message.timestamp)
+        Formatters.time.string(from: message.timestamp)
     }
 }
 
@@ -204,6 +196,8 @@ struct ChatInputBar: View {
                     .foregroundColor(text.isEmpty ? .secondary : .purple)
             }
             .disabled(text.isEmpty)
+            .accessibilityLabel("Send message")
+            .accessibilityHint(text.isEmpty ? "Enter a message first" : "Double tap to send")
         }
         .padding(.horizontal)
         .padding(.vertical, 8)

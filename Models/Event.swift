@@ -48,8 +48,8 @@ final class Event {
 }
 
 @Model
-final class Stage {
-    var id: UUID
+final class Stage: Identifiable {
+    @Attribute(.unique) var id: UUID
     var name: String
     var color: String // Hex color for map/UI
     var event: Event?

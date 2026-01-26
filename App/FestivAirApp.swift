@@ -189,6 +189,30 @@ final class AppState: ObservableObject {
         if subscriptionManager.currentTier != .free {
             analyticsService.startTracking()
         }
+
+        // Store context for later use
+        self.storedModelContext = context
+
+        // Observe squad changes to reconfigure chat
+        setupSquadObserver()
+    }
+
+    private var storedModelContext: ModelContext?
+
+    private func setupSquadObserver() {
+        squadViewModel.$currentSquad
+            .dropFirst() // Skip initial value
+            .sink { [weak self] squad in
+                guard let self = self, let context = self.storedModelContext else { return }
+                if let squad = squad {
+                    self.chatViewModel.configure(
+                        modelContext: context,
+                        squadId: squad.id,
+                        cloudSquadId: squad.firebaseId
+                    )
+                }
+            }
+            .store(in: &cancellables)
     }
 
     // MARK: - Onboarding

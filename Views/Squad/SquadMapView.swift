@@ -203,8 +203,7 @@ struct SquadMapView: View {
                         HStack(spacing: 8) {
                             // Status button
                             MapControlButton(
-                                icon: currentUserStatus?.isActive == true ? nil : "bubble.left.fill",
-                                emoji: currentUserStatus?.isActive == true ? currentUserStatus?.emoji : nil,
+                                icon: currentUserStatus?.isActive == true ? (currentUserStatus?.preset?.icon ?? "bubble.left.fill") : "bubble.left.fill",
                                 label: "Status",
                                 isActive: currentUserStatus?.isActive == true
                             ) {
@@ -392,7 +391,6 @@ struct SquadMapView: View {
 // MARK: - Map Control Button
 struct MapControlButton: View {
     let icon: String?
-    var emoji: String? = nil
     let label: String
     var tint: Color = .purple
     var isActive: Bool = false
@@ -402,10 +400,7 @@ struct MapControlButton: View {
     var body: some View {
         Button(action: action) {
             VStack(spacing: 4) {
-                if let emoji = emoji {
-                    Text(emoji)
-                        .font(.title3)
-                } else if let icon = icon {
+                if let icon = icon {
                     Image(systemName: icon)
                         .font(.title3)
                 }
@@ -487,15 +482,24 @@ struct ConnectionStatusBar: View {
 
 // MARK: - Member Annotation View
 struct MemberAnnotationView: View {
-    let emoji: String
+    let emoji: String // Kept for backward compatibility but not used
     let name: String
     let isOnline: Bool
     var distanceText: String? = nil
     var accuracyQuality: MemberAnnotation.AccuracyQuality = .unknown
     var isNavigationTarget: Bool = false
     var status: UserStatus? = nil
+    var profileAssetId: String? = nil
 
     @State private var pulseAnimation = false
+
+    private var initials: String {
+        let components = name.split(separator: " ")
+        if components.count >= 2 {
+            return String(components[0].prefix(1) + components[1].prefix(1)).uppercased()
+        }
+        return String(name.prefix(2)).uppercased()
+    }
 
     var body: some View {
         VStack(spacing: 2) {
@@ -508,15 +512,14 @@ struct MemberAnnotationView: View {
                         .animation(.easeOut(duration: 1.5).repeatForever(autoreverses: false), value: pulseAnimation)
                 }
 
-                Text(emoji)
-                    .font(.title)
-                    .padding(8)
-                    .background(isNavigationTarget ? Color.green : (isOnline ? Color.purple : Color.gray))
-                    .clipShape(Circle())
-                    .overlay(
-                        Circle()
-                            .stroke(isNavigationTarget ? Color.green : .white, lineWidth: isNavigationTarget ? 3 : 2)
-                    )
+                // Profile photo or initials
+                ProfilePhotoView(
+                    assetId: profileAssetId,
+                    displayName: name,
+                    size: 44,
+                    isOnline: isOnline,
+                    tintColor: isNavigationTarget ? .green : .purple
+                )
 
                 // GPS accuracy indicator dot
                 if isOnline && !isNavigationTarget {

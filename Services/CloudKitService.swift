@@ -1,5 +1,6 @@
 import Foundation
 import CloudKit
+import CoreLocation
 
 /// Handles iCloud sync for squad data - no Firebase needed
 final class CloudKitService: ObservableObject {
@@ -432,6 +433,161 @@ final class CloudKitService: ObservableObject {
         }
     }
 
+    // MARK: - Party Operations (Public Database)
+
+    /// Create a party in the public database for discovery
+    func createParty(_ party: Party) async throws -> String {
+        let recordID = CKRecord.ID(recordName: party.id.uuidString)
+        let record = CKRecord(recordType: RecordType.party, recordID: recordID)
+
+        record["name"] = party.name
+        record["hostUserId"] = party.hostUserId
+        record["hostDisplayName"] = party.hostDisplayName
+        record["description"] = party.partyDescription
+        record["latitude"] = party.latitude
+        record["longitude"] = party.longitude
+        record["locationName"] = party.locationName
+        record["isLocationHidden"] = party.isLocationHidden
+        record["startTime"] = party.startTime
+        record["endTime"] = party.endTime
+        record["maxAttendees"] = party.maxAttendees
+        record["currentAttendeeCount"] = party.currentAttendeeCount
+        record["isActive"] = party.isActive
+        record["vibe"] = party.vibeRawValue
+        record["accessType"] = party.accessTypeRawValue
+        record["createdAt"] = party.createdAt
+
+        let savedRecord = try await publicDatabase.save(record)
+        return savedRecord.recordID.recordName
+    }
+
+    /// Fetch parties near a location from public database
+    func fetchPartiesNear(latitude: Double, longitude: Double, radiusKm: Double) async throws -> [PartyRecord] {
+        // CloudKit doesn't support geo queries directly, so we fetch all active and filter
+        let predicate = NSPredicate(format: "isActive == %@", NSNumber(value: true))
+        let query = CKQuery(recordType: RecordType.party, predicate: predicate)
+        query.sortDescriptors = [NSSortDescriptor(key: "startTime", ascending: true)]
+
+        let results = try await publicDatabase.records(matching: query, resultsLimit: 100)
+
+        var parties: [PartyRecord] = []
+        let userLocation = CLLocation(latitude: latitude, longitude: longitude)
+
+        for (_, result) in results.matchResults {
+            if let record = try? result.get() {
+                let partyLat = record["latitude"] as? Double ?? 0
+                let partyLon = record["longitude"] as? Double ?? 0
+                let partyLocation = CLLocation(latitude: partyLat, longitude: partyLon)
+
+                let distanceKm = userLocation.distance(from: partyLocation) / 1000
+                guard distanceKm <= radiusKm else { continue }
+
+                let partyRecord = PartyRecord(
+                    id: record.recordID.recordName,
+                    name: record["name"] as? String ?? "",
+                    hostUserId: record["hostUserId"] as? String ?? "",
+                    hostDisplayName: record["hostDisplayName"] as? String ?? "",
+                    description: record["description"] as? String,
+                    latitude: partyLat,
+                    longitude: partyLon,
+                    locationName: record["locationName"] as? String,
+                    isLocationHidden: record["isLocationHidden"] as? Bool ?? false,
+                    startTime: record["startTime"] as? Date ?? Date(),
+                    endTime: record["endTime"] as? Date,
+                    maxAttendees: record["maxAttendees"] as? Int,
+                    currentAttendeeCount: record["currentAttendeeCount"] as? Int ?? 0,
+                    isActive: record["isActive"] as? Bool ?? true,
+                    vibe: record["vibe"] as? String ?? "chill",
+                    accessType: record["accessType"] as? String ?? "open"
+                )
+                parties.append(partyRecord)
+            }
+        }
+
+        return parties
+    }
+
+    /// Update party in CloudKit
+    func updateParty(_ party: Party) async throws {
+        let recordID = CKRecord.ID(recordName: party.id.uuidString)
+
+        let record: CKRecord
+        do {
+            record = try await publicDatabase.record(for: recordID)
+        } catch {
+            // Party doesn't exist in cloud yet
+            _ = try await createParty(party)
+            return
+        }
+
+        record["currentAttendeeCount"] = party.currentAttendeeCount
+        record["isActive"] = party.isActive
+        record["endTime"] = party.endTime
+
+        try await publicDatabase.save(record)
+    }
+
+    /// Create attendee request in public database
+    func createAttendeeRequest(partyId: String, attendee: PartyAttendee) async throws -> String {
+        let recordID = CKRecord.ID(recordName: attendee.id.uuidString)
+        let record = CKRecord(recordType: RecordType.partyAttendee, recordID: recordID)
+
+        record["partyId"] = partyId
+        record["userId"] = attendee.userId
+        record["displayName"] = attendee.displayName
+        record["emoji"] = attendee.emoji
+        record["status"] = attendee.statusRawValue
+        record["requestedAt"] = attendee.requestedAt
+        record["profilePhotoAssetId"] = attendee.profilePhotoAssetId
+        record["verificationStatus"] = attendee.verificationStatus
+        record["followerCount"] = attendee.followerCount
+
+        let savedRecord = try await publicDatabase.save(record)
+        return savedRecord.recordID.recordName
+    }
+
+    /// Update attendee status
+    func updateAttendeeStatus(attendeeId: String, status: String) async throws {
+        let recordID = CKRecord.ID(recordName: attendeeId)
+        let record = try await publicDatabase.record(for: recordID)
+
+        record["status"] = status
+        record["respondedAt"] = Date()
+
+        try await publicDatabase.save(record)
+    }
+
+    /// Fetch attendees for a party
+    func fetchPartyAttendees(partyId: String) async throws -> [AttendeeRecord] {
+        let predicate = NSPredicate(format: "partyId == %@", partyId)
+        let query = CKQuery(recordType: RecordType.partyAttendee, predicate: predicate)
+        query.sortDescriptors = [NSSortDescriptor(key: "requestedAt", ascending: false)]
+
+        let results = try await publicDatabase.records(matching: query)
+
+        var attendees: [AttendeeRecord] = []
+
+        for (_, result) in results.matchResults {
+            if let record = try? result.get() {
+                let attendeeRecord = AttendeeRecord(
+                    id: record.recordID.recordName,
+                    partyId: record["partyId"] as? String ?? "",
+                    userId: record["userId"] as? String ?? "",
+                    displayName: record["displayName"] as? String ?? "",
+                    emoji: record["emoji"] as? String ?? "🎧",
+                    status: record["status"] as? String ?? "requested",
+                    requestedAt: record["requestedAt"] as? Date ?? Date(),
+                    respondedAt: record["respondedAt"] as? Date,
+                    verificationStatus: record["verificationStatus"] as? String,
+                    followerCount: record["followerCount"] as? Int
+                )
+                attendees.append(attendeeRecord)
+            }
+        }
+
+        return attendees
+    }
+
     // MARK: - Subscriptions (Real-time updates)
 
     func subscribeToSquadUpdates(squadId: String, onChange: @escaping () -> Void) async throws {
@@ -462,6 +618,40 @@ final class CloudKitService: ObservableObject {
 
         try await privateDatabase.save(messageSubscription)
     }
+}
+
+// MARK: - CloudKit Record Types for Party Discovery
+
+struct PartyRecord {
+    let id: String
+    let name: String
+    let hostUserId: String
+    let hostDisplayName: String
+    let description: String?
+    let latitude: Double
+    let longitude: Double
+    let locationName: String?
+    let isLocationHidden: Bool
+    let startTime: Date
+    let endTime: Date?
+    let maxAttendees: Int?
+    let currentAttendeeCount: Int
+    let isActive: Bool
+    let vibe: String
+    let accessType: String
+}
+
+struct AttendeeRecord {
+    let id: String
+    let partyId: String
+    let userId: String
+    let displayName: String
+    let emoji: String
+    let status: String
+    let requestedAt: Date
+    let respondedAt: Date?
+    let verificationStatus: String?
+    let followerCount: Int?
 }
 
 // MARK: - Local-First Sync Engine

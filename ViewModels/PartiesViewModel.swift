@@ -2,6 +2,7 @@ import Foundation
 import SwiftUI
 import SwiftData
 import CoreLocation
+import Combine
 
 /// ViewModel for party discovery and management
 @MainActor
@@ -25,6 +26,10 @@ final class PartiesViewModel: ObservableObject {
     private var modelContext: ModelContext?
     private let cloudKit = CloudKitService.shared
     private let subscriptionManager = SubscriptionManager.shared
+    private var cancellables = Set<AnyCancellable>()
+
+    // Store unfiltered parties to prevent data loss when filtering
+    private var allNearbyParties: [Party] = []
 
     // MARK: - Configuration
 
@@ -54,13 +59,13 @@ final class PartiesViewModel: ObservableObject {
 
             // Filter by distance
             let userLocation = CLLocation(latitude: latitude, longitude: longitude)
-            nearbyParties = allParties.filter { party in
+            allNearbyParties = allParties.filter { party in
                 let partyLocation = CLLocation(latitude: party.latitude, longitude: party.longitude)
                 let distanceKm = userLocation.distance(from: partyLocation) / 1000
                 return distanceKm <= radiusKm
             }
 
-            // Apply filters
+            // Apply filters (uses allNearbyParties as source)
             applyFilters()
 
             // Also try to sync from CloudKit
@@ -193,8 +198,15 @@ final class PartiesViewModel: ObservableObject {
         context.insert(party)
         try context.save()
 
-        // Sync to CloudKit
-        // TODO: await cloudKit.createParty(party)
+        // Add to local lists immediately so it shows up right away
+        allNearbyParties.insert(party, at: 0)
+        nearbyParties.insert(party, at: 0)
+        myHostedParties.insert(party, at: 0)
+
+        // Sync to CloudKit in background
+        Task {
+            await syncPartyToCloud(party)
+        }
 
         return party
     }
@@ -238,7 +250,7 @@ final class PartiesViewModel: ObservableObject {
         try context.save()
 
         // Sync to CloudKit
-        // TODO: await cloudKit.createAttendee(attendee)
+        await syncAttendeeToCloud(attendee, partyId: party.id.uuidString)
     }
 
     func leaveParty(party: Party, userId: String) async throws {
@@ -277,8 +289,10 @@ final class PartiesViewModel: ObservableObject {
 
         try context.save()
 
-        // TODO: Send notification to user
-        // TODO: Sync to CloudKit
+        // Sync status to CloudKit
+        if let recordId = attendee.cloudKitRecordId, cloudKit.isAvailable {
+            try? await cloudKit.updateAttendeeStatus(attendeeId: recordId, status: "approved")
+        }
     }
 
     func declineRequest(_ attendee: PartyAttendee) async throws {
@@ -291,8 +305,10 @@ final class PartiesViewModel: ObservableObject {
 
         try context.save()
 
-        // TODO: Send notification to user
-        // TODO: Sync to CloudKit
+        // Sync status to CloudKit
+        if let recordId = attendee.cloudKitRecordId, cloudKit.isAvailable {
+            try? await cloudKit.updateAttendeeStatus(attendeeId: recordId, status: "declined")
+        }
     }
 
     func endParty(_ party: Party) async throws {
@@ -309,7 +325,8 @@ final class PartiesViewModel: ObservableObject {
     // MARK: - Filters
 
     func applyFilters() {
-        var filtered = nearbyParties
+        // Always filter from the original unfiltered list to prevent data loss
+        var filtered = allNearbyParties
 
         if let vibe = selectedVibe {
             filtered = filtered.filter { $0.vibe == vibe }
@@ -330,13 +347,101 @@ final class PartiesViewModel: ObservableObject {
         selectedVibe = nil
         selectedAccessType = nil
         showActiveOnly = true
+        // Restore all parties when clearing filters
+        nearbyParties = allNearbyParties
     }
 
     // MARK: - CloudKit Sync
 
     private func syncPartiesFromCloud(latitude: Double, longitude: Double, radiusKm: Double) async {
-        // TODO: Implement CloudKit sync for public parties
-        // This would fetch parties from the public database
+        guard cloudKit.isAvailable, let context = modelContext else { return }
+
+        do {
+            let cloudParties = try await cloudKit.fetchPartiesNear(
+                latitude: latitude,
+                longitude: longitude,
+                radiusKm: radiusKm
+            )
+
+            // Merge cloud parties with local
+            for record in cloudParties {
+                // Check if party already exists locally
+                let partyId = UUID(uuidString: record.id) ?? UUID()
+                let descriptor = FetchDescriptor<Party>(
+                    predicate: #Predicate { $0.id == partyId }
+                )
+
+                let existing = try? context.fetch(descriptor)
+                if existing?.isEmpty ?? true {
+                    // Create new local party from cloud
+                    let party = Party(
+                        id: partyId,
+                        name: record.name,
+                        hostUserId: record.hostUserId,
+                        hostDisplayName: record.hostDisplayName,
+                        description: record.description,
+                        latitude: record.latitude,
+                        longitude: record.longitude,
+                        locationName: record.locationName,
+                        startTime: record.startTime,
+                        endTime: record.endTime,
+                        maxAttendees: record.maxAttendees,
+                        vibe: PartyVibe(rawValue: record.vibe) ?? .chill,
+                        accessType: PartyAccessType(rawValue: record.accessType) ?? .open
+                    )
+                    party.isLocationHidden = record.isLocationHidden
+                    party.currentAttendeeCount = record.currentAttendeeCount
+                    party.isActive = record.isActive
+                    party.cloudKitRecordId = record.id
+
+                    context.insert(party)
+                }
+            }
+
+            try context.save()
+
+            // Refresh the displayed list
+            let userLocation = CLLocation(latitude: latitude, longitude: longitude)
+            let descriptor = FetchDescriptor<Party>(
+                predicate: #Predicate { $0.isActive == true },
+                sortBy: [SortDescriptor(\.startTime)]
+            )
+            let allParties = try context.fetch(descriptor)
+            allNearbyParties = allParties.filter { party in
+                let partyLocation = CLLocation(latitude: party.latitude, longitude: party.longitude)
+                return userLocation.distance(from: partyLocation) / 1000 <= radiusKm
+            }
+            applyFilters()
+
+        } catch {
+            print("[Parties] CloudKit sync error: \(error)")
+        }
+    }
+
+    /// Sync a created party to CloudKit
+    private func syncPartyToCloud(_ party: Party) async {
+        guard cloudKit.isAvailable else { return }
+
+        do {
+            let recordId = try await cloudKit.createParty(party)
+            party.cloudKitRecordId = recordId
+            try modelContext?.save()
+        } catch {
+            print("[Parties] Failed to sync party to cloud: \(error)")
+        }
+    }
+
+    /// Sync attendee request to CloudKit
+    private func syncAttendeeToCloud(_ attendee: PartyAttendee, partyId: String) async {
+        guard cloudKit.isAvailable else { return }
+
+        do {
+            let recordId = try await cloudKit.createAttendeeRequest(partyId: partyId, attendee: attendee)
+            attendee.cloudKitRecordId = recordId
+            try modelContext?.save()
+        } catch {
+            print("[Parties] Failed to sync attendee to cloud: \(error)")
+        }
     }
 }
 

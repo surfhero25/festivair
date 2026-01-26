@@ -59,11 +59,16 @@ final class SquadViewModel: ObservableObject {
             try modelContext?.save()
         }
 
-        // Sync to CloudKit (optional, works offline)
+        // Sync to CloudKit (optional, works offline - ignore errors for local-first)
         if cloudKit.isAvailable {
-            let cloudId = try await cloudKit.createSquad(name: name, joinCode: joinCode, creatorId: userId)
-            squad.firebaseId = cloudId // Reusing field for CloudKit ID
-            try modelContext?.save()
+            do {
+                let cloudId = try await cloudKit.createSquad(name: name, joinCode: joinCode, creatorId: userId)
+                squad.firebaseId = cloudId // Reusing field for CloudKit ID
+                try modelContext?.save()
+            } catch {
+                // CloudKit sync failed (e.g., schema not deployed) - continue with local-only squad
+                print("[Squad] CloudKit sync failed, continuing with local squad: \(error.localizedDescription)")
+            }
         }
 
         currentSquad = squad
@@ -82,24 +87,31 @@ final class SquadViewModel: ObservableObject {
         isLoading = true
         defer { isLoading = false }
 
-        // Try CloudKit first
+        // Try CloudKit first (optional - works offline/local-only)
         var squadName = "Squad"
         var cloudSquadId: String?
-        var memberCount = 0
 
         if cloudKit.isAvailable {
-            if let found = try await cloudKit.findSquad(byCode: code) {
-                squadName = found.name
-                cloudSquadId = found.id
-                memberCount = found.memberIds.count
+            do {
+                if let found = try await cloudKit.findSquad(byCode: code) {
+                    squadName = found.name
+                    cloudSquadId = found.id
+                    let memberCount = found.memberIds.count
 
-                // Check tier-based member limit
-                let userLimit = subscriptionManager.squadLimit
-                if memberCount >= userLimit {
-                    throw SquadError.tierLimitReached(currentLimit: userLimit, tier: subscriptionManager.currentTier)
+                    // Check tier-based member limit
+                    let userLimit = subscriptionManager.squadLimit
+                    if memberCount >= userLimit {
+                        throw SquadError.tierLimitReached(currentLimit: userLimit, tier: subscriptionManager.currentTier)
+                    }
+
+                    try await cloudKit.joinSquad(squadId: found.id, userId: userId)
                 }
-
-                try await cloudKit.joinSquad(squadId: found.id, userId: userId)
+            } catch let error as SquadError {
+                // Re-throw squad-specific errors (like tier limit)
+                throw error
+            } catch {
+                // CloudKit sync failed - continue with local squad
+                print("[Squad] CloudKit lookup failed, continuing with local squad: \(error.localizedDescription)")
             }
         }
 
@@ -183,6 +195,12 @@ final class SquadViewModel: ObservableObject {
 
         if let member = members.first(where: { $0.id == userId }) {
             member.updateLocation(location)
+            // Persist to database
+            do {
+                try modelContext?.save()
+            } catch {
+                print("[SquadVM] Failed to persist location update: \(error)")
+            }
         }
     }
 
@@ -290,6 +308,12 @@ final class SquadViewModel: ObservableObject {
                     member.batteryLevel = batteryLevel
                     member.hasService = meshEnvelope.message.hasService ?? false
                     member.lastSeen = Date()
+                    // Persist heartbeat updates to database
+                    do {
+                        try modelContext?.save()
+                    } catch {
+                        print("[SquadVM] Failed to persist heartbeat: \(error)")
+                    }
                 }
             }
 

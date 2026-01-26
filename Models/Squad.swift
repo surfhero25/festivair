@@ -43,8 +43,8 @@ final class Squad {
 
 // MARK: - Squad Membership (Join Table)
 @Model
-final class SquadMembership {
-    var id: UUID
+final class SquadMembership: Identifiable {
+    @Attribute(.unique) var id: UUID
     var joinedAt: Date
     var isAdmin: Bool
     var user: User?

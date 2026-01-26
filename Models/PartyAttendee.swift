@@ -23,6 +23,9 @@ final class PartyAttendee {
     // CloudKit sync
     var cloudKitRecordId: String?
 
+    // Relationship
+    var party: Party?
+
     init(
         id: UUID = UUID(),
         partyId: UUID,

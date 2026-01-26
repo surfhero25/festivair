@@ -8,6 +8,7 @@ final class SetTimesViewModel: ObservableObject {
     // MARK: - Published State
     @Published var events: [Event] = []
     @Published var selectedEvent: Event?
+    @Published var allStages: [Stage] = []  // All stages for current event
     @Published var setTimes: [SetTime] = []
     @Published var favoriteSetTimes: [SetTime] = []
     @Published var conflicts: [(SetTime, SetTime)] = []
@@ -18,6 +19,7 @@ final class SetTimesViewModel: ObservableObject {
     @Published var showFavoritesOnly = false
 
     @Published var isLoading = false
+    @Published var errorMessage: String?
 
     // MARK: - Dependencies
     private let notificationManager: NotificationManager
@@ -49,8 +51,31 @@ final class SetTimesViewModel: ObservableObject {
             if selectedEvent == nil, let first = events.first {
                 selectedEvent = first
             }
+            // Also load all stages for the selected event
+            loadStages()
         } catch {
-            print("[SetTimes] Error loading events: \(error)")
+            errorMessage = "Failed to load events: \(error.localizedDescription)"
+        }
+    }
+
+    func loadStages() {
+        guard let modelContext = modelContext else { return }
+
+        // Fetch stages - either from selected event or all stages
+        let descriptor = FetchDescriptor<Stage>(
+            sortBy: [SortDescriptor(\.name)]
+        )
+
+        do {
+            let stages = try modelContext.fetch(descriptor)
+            // Filter to selected event if we have one
+            if let event = selectedEvent {
+                allStages = stages.filter { $0.event?.id == event.id }
+            } else {
+                allStages = stages
+            }
+        } catch {
+            errorMessage = "Failed to load stages: \(error.localizedDescription)"
         }
     }
 
@@ -72,7 +97,7 @@ final class SetTimesViewModel: ObservableObject {
             updateFavorites()
             checkConflicts()
         } catch {
-            print("[SetTimes] Error loading set times: \(error)")
+            errorMessage = "Failed to load set times: \(error.localizedDescription)"
         }
     }
 
@@ -212,7 +237,7 @@ final class SetTimesViewModel: ObservableObject {
             loadSetTimes()
 
         } catch {
-            print("[SetTimes] Import error: \(error)")
+            errorMessage = "Failed to import data: \(error.localizedDescription)"
         }
     }
 }
