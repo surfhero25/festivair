@@ -12,6 +12,8 @@ struct SettingsView: View {
     @State private var showEditProfile = false
     @State private var showLeaveSquad = false
     @State private var showPaywall = false
+    @State private var showPrivacyPolicy = false
+    @State private var showTermsOfService = false
     @State private var profileImage: UIImage?
 
     // Get or create current user
@@ -237,16 +239,32 @@ struct SettingsView: View {
                     HStack {
                         Text("Version")
                         Spacer()
-                        Text("1.0.0")
+                        Text(Constants.appVersion)
                             .foregroundStyle(.secondary)
                     }
 
-                    Link(destination: URL(string: "https://festivair.app/privacy")!) {
-                        Label("Privacy Policy", systemImage: "hand.raised")
+                    Button {
+                        showPrivacyPolicy = true
+                    } label: {
+                        HStack {
+                            Label("Privacy Policy", systemImage: "hand.raised")
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
                     }
 
-                    Link(destination: URL(string: "https://festivair.app/terms")!) {
-                        Label("Terms of Service", systemImage: "doc.text")
+                    Button {
+                        showTermsOfService = true
+                    } label: {
+                        HStack {
+                            Label("Terms of Service", systemImage: "doc.text")
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
                     }
                 }
             }
@@ -273,6 +291,12 @@ struct SettingsView: View {
                 }
             } message: {
                 Text("You'll need to rejoin with a new code.")
+            }
+            .sheet(isPresented: $showPrivacyPolicy) {
+                PrivacyPolicyView()
+            }
+            .sheet(isPresented: $showTermsOfService) {
+                TermsOfServiceView()
             }
         }
     }

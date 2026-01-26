@@ -1,5 +1,69 @@
 import SwiftUI
 import CoreLocation
+#if os(iOS)
+import UIKit
+#endif
+
+// MARK: - Cached Formatters
+enum Formatters {
+    static let time: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "h:mm a"
+        return formatter
+    }()
+
+    static let timeShort: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "h:mm"
+        return formatter
+    }()
+
+    static let date: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMM d"
+        return formatter
+    }()
+
+    static let dateTime: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMM d, h:mm a"
+        return formatter
+    }()
+
+    static let dayOfWeek: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEEE"
+        return formatter
+    }()
+
+    static let dayShort: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEE"
+        return formatter
+    }()
+
+    static let iso8601: ISO8601DateFormatter = {
+        let formatter = ISO8601DateFormatter()
+        return formatter
+    }()
+
+    /// Returns a formatter for custom format (cached per format string)
+    private static var customFormatters: [String: DateFormatter] = [:]
+    private static let lock = NSLock()
+
+    static func formatter(for format: String) -> DateFormatter {
+        lock.lock()
+        defer { lock.unlock() }
+
+        if let existing = customFormatters[format] {
+            return existing
+        }
+        let formatter = DateFormatter()
+        formatter.dateFormat = format
+        customFormatters[format] = formatter
+        return formatter
+    }
+}
 
 // MARK: - Date Extensions
 extension Date {
@@ -29,9 +93,19 @@ extension Date {
     }
 
     func formatted(as format: String) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = format
-        return formatter.string(from: self)
+        Formatters.formatter(for: format).string(from: self)
+    }
+
+    var formattedTime: String {
+        Formatters.time.string(from: self)
+    }
+
+    var formattedDate: String {
+        Formatters.date.string(from: self)
+    }
+
+    var formattedDateTime: String {
+        Formatters.dateTime.string(from: self)
     }
 }
 
@@ -63,7 +137,7 @@ extension Color {
         case 8: // ARGB (32-bit)
             (a, r, g, b) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
         default:
-            (a, r, g, b) = (1, 1, 1, 0)
+            (a, r, g, b) = (255, 0, 0, 0)  // Transparent black as fallback
         }
         self.init(
             .sRGB,
@@ -139,5 +213,65 @@ extension UserDefaults {
     func codable<T: Codable>(forKey key: String) -> T? {
         guard let data = data(forKey: key) else { return nil }
         return try? JSONDecoder().decode(T.self, from: data)
+    }
+}
+
+// MARK: - Haptic Feedback
+enum Haptics {
+    #if os(iOS)
+    private static let impactLight = UIImpactFeedbackGenerator(style: .light)
+    private static let impactMedium = UIImpactFeedbackGenerator(style: .medium)
+    private static let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
+    private static let notification = UINotificationFeedbackGenerator()
+    private static let selectionGenerator = UISelectionFeedbackGenerator()
+    #endif
+
+    /// Light tap feedback - use for subtle interactions
+    static func light() {
+        #if os(iOS)
+        impactLight.impactOccurred()
+        #endif
+    }
+
+    /// Medium tap feedback - use for standard button taps
+    static func medium() {
+        #if os(iOS)
+        impactMedium.impactOccurred()
+        #endif
+    }
+
+    /// Heavy tap feedback - use for significant actions
+    static func heavy() {
+        #if os(iOS)
+        impactHeavy.impactOccurred()
+        #endif
+    }
+
+    /// Success feedback - use for completed actions
+    static func success() {
+        #if os(iOS)
+        notification.notificationOccurred(.success)
+        #endif
+    }
+
+    /// Warning feedback - use for alerts/warnings
+    static func warning() {
+        #if os(iOS)
+        notification.notificationOccurred(.warning)
+        #endif
+    }
+
+    /// Error feedback - use for failed actions
+    static func error() {
+        #if os(iOS)
+        notification.notificationOccurred(.error)
+        #endif
+    }
+
+    /// Selection changed feedback - use for picker/toggle changes
+    static func selection() {
+        #if os(iOS)
+        selectionGenerator.selectionChanged()
+        #endif
     }
 }

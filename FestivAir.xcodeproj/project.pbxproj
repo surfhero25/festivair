@@ -7,6 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		191063C0FB80E6BB52A1E3D0 /* FacilityAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0F56E579DF515E3C30C55F /* FacilityAnnotationView.swift */; };
+		3130C2334D8C4D3F2BCA6EEF /* MeetupPinAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DF3A50BE907782B4154A02 /* MeetupPinAnnotationView.swift */; };
+		34C778E2AF623D621FAF0FB0 /* NearestFacilityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9461A15400A977C8CCE3DF8 /* NearestFacilityView.swift */; };
+		5ADFC9427F1529C696F03214 /* MeetupPinSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5B92B291AC48A8D6D27A16 /* MeetupPinSheet.swift */; };
+		6C83B227D2B4A5135E5EFD92 /* CompassArrowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5F60D5A0655FD44ACF2A81 /* CompassArrowView.swift */; };
+		7E75DDADCAEE5E0BD23B9B59 /* UserStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1559BEEC51BB1B6BD87AB51B /* UserStatus.swift */; };
+		860AB547076DC66D990AD42F /* Facility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32811D64DD5DAF9365935C02 /* Facility.swift */; };
+		9CBB535C5AA864557A90B02D /* OfflineMapsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E23BF3E3DAEE5180A176507 /* OfflineMapsView.swift */; };
+		9CDA09B654F9D71347442C1D /* FestivalVenue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D31BB2C948F6355357CDB65 /* FestivalVenue.swift */; };
+		AB4661981DEB57F5F4C010B5 /* StatusBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB300A529F3B2EE8EB97A0E /* StatusBadgeView.swift */; };
+		B0067691B1A8879982572508 /* MeetupPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18892BD3FD344CE44117EA5 /* MeetupPin.swift */; };
+		B9076D0E6E68951001E57877 /* TermsOfServiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3032CF85A85E48273BE1F9A7 /* TermsOfServiceView.swift */; };
+		C64ECA9B094221DC27DA0605 /* FacilityFilterBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF27C8C8D847ECE4366383E /* FacilityFilterBar.swift */; };
+		CE9A4401F4C134150AF3BC3A /* PrivacyPolicyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F32915774BD3B194646905 /* PrivacyPolicyView.swift */; };
+		D1B8D73A257EBA46E0E9003B /* OfflineMapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED423ECB54015D8469849A7E /* OfflineMapService.swift */; };
+		D95786093BF97D77316E6BDA /* ProximityHapticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31DAA4D43D20183091F3EAE /* ProximityHapticsManager.swift */; };
+		E1D7A3E9088291E95CC419E6 /* StatusPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4173C3AFFFF0D531044B121B /* StatusPickerView.swift */; };
+		F80DF14C344780E2743AA3F4 /* FacilityDetailSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EAC8CAB10A1319CA039C7D /* FacilityDetailSheet.swift */; };
 		FA000001 /* FestivAirApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100001 /* FestivAirApp.swift */; };
 		FA000002 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100002 /* AppDelegate.swift */; };
 		FA000003 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100003 /* User.swift */; };
@@ -58,6 +76,24 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1559BEEC51BB1B6BD87AB51B /* UserStatus.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UserStatus.swift; sourceTree = "<group>"; };
+		3032CF85A85E48273BE1F9A7 /* TermsOfServiceView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TermsOfServiceView.swift; path = Views/Settings/TermsOfServiceView.swift; sourceTree = "<group>"; };
+		32811D64DD5DAF9365935C02 /* Facility.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Facility.swift; sourceTree = "<group>"; };
+		4173C3AFFFF0D531044B121B /* StatusPickerView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = StatusPickerView.swift; sourceTree = "<group>"; };
+		4AB300A529F3B2EE8EB97A0E /* StatusBadgeView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = StatusBadgeView.swift; sourceTree = "<group>"; };
+		4E23BF3E3DAEE5180A176507 /* OfflineMapsView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OfflineMapsView.swift; sourceTree = "<group>"; };
+		5FF27C8C8D847ECE4366383E /* FacilityFilterBar.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FacilityFilterBar.swift; sourceTree = "<group>"; };
+		6D31BB2C948F6355357CDB65 /* FestivalVenue.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FestivalVenue.swift; sourceTree = "<group>"; };
+		72F32915774BD3B194646905 /* PrivacyPolicyView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PrivacyPolicyView.swift; path = Views/Settings/PrivacyPolicyView.swift; sourceTree = "<group>"; };
+		7B5B92B291AC48A8D6D27A16 /* MeetupPinSheet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MeetupPinSheet.swift; sourceTree = "<group>"; };
+		8F5F60D5A0655FD44ACF2A81 /* CompassArrowView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CompassArrowView.swift; sourceTree = "<group>"; };
+		B18892BD3FD344CE44117EA5 /* MeetupPin.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MeetupPin.swift; sourceTree = "<group>"; };
+		B4EAC8CAB10A1319CA039C7D /* FacilityDetailSheet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FacilityDetailSheet.swift; sourceTree = "<group>"; };
+		B9461A15400A977C8CCE3DF8 /* NearestFacilityView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NearestFacilityView.swift; sourceTree = "<group>"; };
+		C31DAA4D43D20183091F3EAE /* ProximityHapticsManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProximityHapticsManager.swift; sourceTree = "<group>"; };
+		D5DF3A50BE907782B4154A02 /* MeetupPinAnnotationView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MeetupPinAnnotationView.swift; sourceTree = "<group>"; };
+		DC0F56E579DF515E3C30C55F /* FacilityAnnotationView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FacilityAnnotationView.swift; sourceTree = "<group>"; };
+		ED423ECB54015D8469849A7E /* OfflineMapService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OfflineMapService.swift; sourceTree = "<group>"; };
 		FA100001 /* FestivAirApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FestivAirApp.swift; sourceTree = "<group>"; };
 		FA100002 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FA100003 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -122,6 +158,97 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		195E9842BFE53AE7F5433472 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B18892BD3FD344CE44117EA5 /* MeetupPin.swift */,
+				1559BEEC51BB1B6BD87AB51B /* UserStatus.swift */,
+				32811D64DD5DAF9365935C02 /* Facility.swift */,
+				6D31BB2C948F6355357CDB65 /* FestivalVenue.swift */,
+			);
+			name = Models;
+			path = Models;
+			sourceTree = "<group>";
+		};
+		2BD19597447E6BD0DB71B152 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Map;
+			sourceTree = "<group>";
+		};
+		5010D68C89218DC34E08CF77 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				72F32915774BD3B194646905 /* PrivacyPolicyView.swift */,
+				3032CF85A85E48273BE1F9A7 /* TermsOfServiceView.swift */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
+		6F3CC33F8CE26E28555BBC1F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CB90583D5AC2FE020CB40AD2 /* Squad */,
+				E8594871E45603E20EC23F3E /* Map */,
+				D5EB80E34C613016AE30915B /* Settings */,
+			);
+			name = Views;
+			path = Views;
+			sourceTree = "<group>";
+		};
+		8BC73D49E392A6B348D73443 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5010D68C89218DC34E08CF77 /* Settings */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		B4ACB3A102921687DCCA2663 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				ED423ECB54015D8469849A7E /* OfflineMapService.swift */,
+				C31DAA4D43D20183091F3EAE /* ProximityHapticsManager.swift */,
+			);
+			name = Services;
+			path = Services;
+			sourceTree = "<group>";
+		};
+		CB90583D5AC2FE020CB40AD2 /* Squad */ = {
+			isa = PBXGroup;
+			children = (
+				7B5B92B291AC48A8D6D27A16 /* MeetupPinSheet.swift */,
+				D5DF3A50BE907782B4154A02 /* MeetupPinAnnotationView.swift */,
+				8F5F60D5A0655FD44ACF2A81 /* CompassArrowView.swift */,
+				4173C3AFFFF0D531044B121B /* StatusPickerView.swift */,
+				4AB300A529F3B2EE8EB97A0E /* StatusBadgeView.swift */,
+			);
+			name = Squad;
+			path = Squad;
+			sourceTree = "<group>";
+		};
+		D5EB80E34C613016AE30915B /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				4E23BF3E3DAEE5180A176507 /* OfflineMapsView.swift */,
+			);
+			name = Settings;
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		E8594871E45603E20EC23F3E /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				DC0F56E579DF515E3C30C55F /* FacilityAnnotationView.swift */,
+				5FF27C8C8D847ECE4366383E /* FacilityFilterBar.swift */,
+				B9461A15400A977C8CCE3DF8 /* NearestFacilityView.swift */,
+				B4EAC8CAB10A1319CA039C7D /* FacilityDetailSheet.swift */,
+			);
+			name = Map;
+			path = Map;
+			sourceTree = "<group>";
+		};
 		FA400000 = {
 			isa = PBXGroup;
 			children = (
@@ -133,6 +260,10 @@
 				FA400006 /* Utilities */,
 				FA400007 /* Resources */,
 				FA400099 /* Products */,
+				195E9842BFE53AE7F5433472 /* Models */,
+				B4ACB3A102921687DCCA2663 /* Services */,
+				6F3CC33F8CE26E28555BBC1F /* Views */,
+				FF1566103342A823886C3348 /* FestivAir */,
 			);
 			sourceTree = "<group>";
 		};
@@ -203,44 +334,9 @@
 				FA400015 /* Premium */,
 				FA400016 /* Parties */,
 				FA400017 /* Analytics */,
+				2BD19597447E6BD0DB71B152 /* Map */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		FA400014 /* Profile */ = {
-			isa = PBXGroup;
-			children = (
-				FA100036 /* ProfileView.swift */,
-				FA100037 /* EditProfileView.swift */,
-			);
-			path = Profile;
-			sourceTree = "<group>";
-		};
-		FA400015 /* Premium */ = {
-			isa = PBXGroup;
-			children = (
-				FA100039 /* PaywallView.swift */,
-			);
-			path = Premium;
-			sourceTree = "<group>";
-		};
-		FA400016 /* Parties */ = {
-			isa = PBXGroup;
-			children = (
-				FA100043 /* PartiesView.swift */,
-				FA100044 /* PartyDetailView.swift */,
-				FA100045 /* CreatePartyView.swift */,
-				FA100046 /* HostDashboardView.swift */,
-			);
-			path = Parties;
-			sourceTree = "<group>";
-		};
-		FA400017 /* Analytics */ = {
-			isa = PBXGroup;
-			children = (
-				FA100050 /* FestivalSummaryView.swift */,
-			);
-			path = Analytics;
 			sourceTree = "<group>";
 		};
 		FA400006 /* Utilities */ = {
@@ -299,12 +395,56 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		FA400014 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				FA100036 /* ProfileView.swift */,
+				FA100037 /* EditProfileView.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		FA400015 /* Premium */ = {
+			isa = PBXGroup;
+			children = (
+				FA100039 /* PaywallView.swift */,
+			);
+			path = Premium;
+			sourceTree = "<group>";
+		};
+		FA400016 /* Parties */ = {
+			isa = PBXGroup;
+			children = (
+				FA100043 /* PartiesView.swift */,
+				FA100044 /* PartyDetailView.swift */,
+				FA100045 /* CreatePartyView.swift */,
+				FA100046 /* HostDashboardView.swift */,
+			);
+			path = Parties;
+			sourceTree = "<group>";
+		};
+		FA400017 /* Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				FA100050 /* FestivalSummaryView.swift */,
+			);
+			path = Analytics;
+			sourceTree = "<group>";
+		};
 		FA400099 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				FA200000 /* FestivAir.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		FF1566103342A823886C3348 /* FestivAir */ = {
+			isa = PBXGroup;
+			children = (
+				8BC73D49E392A6B348D73443 /* Views */,
+			);
+			name = FestivAir;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -423,6 +563,24 @@
 				FA000046 /* SponsorService.swift in Sources */,
 				FA000047 /* AnalyticsService.swift in Sources */,
 				FA000048 /* FestivalSummaryView.swift in Sources */,
+				B0067691B1A8879982572508 /* MeetupPin.swift in Sources */,
+				7E75DDADCAEE5E0BD23B9B59 /* UserStatus.swift in Sources */,
+				860AB547076DC66D990AD42F /* Facility.swift in Sources */,
+				9CDA09B654F9D71347442C1D /* FestivalVenue.swift in Sources */,
+				D1B8D73A257EBA46E0E9003B /* OfflineMapService.swift in Sources */,
+				D95786093BF97D77316E6BDA /* ProximityHapticsManager.swift in Sources */,
+				5ADFC9427F1529C696F03214 /* MeetupPinSheet.swift in Sources */,
+				3130C2334D8C4D3F2BCA6EEF /* MeetupPinAnnotationView.swift in Sources */,
+				6C83B227D2B4A5135E5EFD92 /* CompassArrowView.swift in Sources */,
+				E1D7A3E9088291E95CC419E6 /* StatusPickerView.swift in Sources */,
+				AB4661981DEB57F5F4C010B5 /* StatusBadgeView.swift in Sources */,
+				191063C0FB80E6BB52A1E3D0 /* FacilityAnnotationView.swift in Sources */,
+				C64ECA9B094221DC27DA0605 /* FacilityFilterBar.swift in Sources */,
+				34C778E2AF623D621FAF0FB0 /* NearestFacilityView.swift in Sources */,
+				F80DF14C344780E2743AA3F4 /* FacilityDetailSheet.swift in Sources */,
+				9CBB535C5AA864557A90B02D /* OfflineMapsView.swift in Sources */,
+				CE9A4401F4C134150AF3BC3A /* PrivacyPolicyView.swift in Sources */,
+				B9076D0E6E68951001E57877 /* TermsOfServiceView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -561,7 +719,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Resources/FestivAir.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Resources/Info.plist;
@@ -591,7 +749,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Resources/FestivAir.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Resources/Info.plist;

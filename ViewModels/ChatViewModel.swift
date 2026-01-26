@@ -87,7 +87,9 @@ final class ChatViewModel: ObservableObject {
             syncData: nil,
             batteryLevel: nil,
             hasService: nil,
-            enabled: nil
+            enabled: nil,
+            status: nil,
+            meetupPin: nil
         )
 
         meshManager.broadcast(meshMessage)

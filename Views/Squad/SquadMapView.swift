@@ -28,6 +28,79 @@ struct SquadMapView: View {
         UserDefaults.standard.codable(forKey: "FestivAir.CurrentUserStatus")
     }
 
+    // MARK: - Map Content Builders
+    // Extracted to help Swift type-checker with complex view body
+
+    @MapContentBuilder
+    private var memberAnnotations: some MapContent {
+        ForEach(mapViewModel.memberAnnotations) { member in
+            Annotation(member.displayName, coordinate: member.coordinate) {
+                MemberAnnotationView(
+                    emoji: member.emoji,
+                    name: member.displayName,
+                    isOnline: member.isOnline,
+                    distanceText: member.distanceText,
+                    accuracyQuality: member.accuracyQuality,
+                    isNavigationTarget: mapViewModel.navigationTarget?.id == member.id,
+                    status: member.status
+                )
+                .onTapGesture {
+                    mapViewModel.centerOnMember(member)
+                }
+                .contextMenu {
+                    Button {
+                        Haptics.medium()
+                        mapViewModel.startNavigatingTo(member)
+                    } label: {
+                        Label("Navigate to \(member.displayName)", systemImage: "location.north.fill")
+                    }
+
+                    Button {
+                        mapViewModel.centerOnMember(member)
+                    } label: {
+                        Label("Center on Map", systemImage: "scope")
+                    }
+                }
+            }
+        }
+    }
+
+    @MapContentBuilder
+    private var pinAnnotations: some MapContent {
+        ForEach(mapViewModel.activeMeetupPins) { pin in
+            Annotation(pin.name, coordinate: pin.coordinate) {
+                MeetupPinAnnotationView(
+                    pin: pin,
+                    isSelected: mapViewModel.selectedPin?.id == pin.id,
+                    onTap: {
+                        selectedPinForDetail = pin
+                    },
+                    onNavigate: {
+                        mapViewModel.navigateToPin(pin)
+                    },
+                    onDismiss: {
+                        mapViewModel.dismissPin(pin)
+                    }
+                )
+            }
+        }
+    }
+
+    @MapContentBuilder
+    private var facilityAnnotations: some MapContent {
+        ForEach(visibleFacilities) { facility in
+            Annotation(facility.name, coordinate: facility.coordinate) {
+                FacilityAnnotationView(
+                    facility: facility,
+                    isSelected: selectedFacility?.id == facility.id,
+                    onTap: {
+                        selectedFacility = facility
+                    }
+                )
+            }
+        }
+    }
+
     var body: some View {
         NavigationStack {
             ZStack {
@@ -35,37 +108,8 @@ struct SquadMapView: View {
                 Map(position: $position) {
                     UserAnnotation()
 
-                    // Squad member annotations with distance
-                    ForEach(mapViewModel.memberAnnotations) { member in
-                        Annotation(member.displayName, coordinate: member.coordinate) {
-                            MemberAnnotationView(
-                                emoji: member.emoji,
-                                name: member.displayName,
-                                isOnline: member.isOnline,
-                                distanceText: member.distanceText,
-                                accuracyQuality: member.accuracyQuality,
-                                isNavigationTarget: mapViewModel.navigationTarget?.id == member.id,
-                                status: member.status
-                            )
-                            .onTapGesture {
-                                mapViewModel.centerOnMember(member)
-                            }
-                            .contextMenu {
-                                Button {
-                                    Haptics.medium()
-                                    mapViewModel.startNavigatingTo(member)
-                                } label: {
-                                    Label("Navigate to \(member.displayName)", systemImage: "location.north.fill")
-                                }
-
-                                Button {
-                                    mapViewModel.centerOnMember(member)
-                                } label: {
-                                    Label("Center on Map", systemImage: "scope")
-                                }
-                            }
-                        }
-                    }
+                    // Squad member annotations (extracted to help compiler)
+                    memberAnnotations
 
                     // Group centroid annotation (collaborative GPS)
                     if let centroid = mapViewModel.groupCentroid {
@@ -77,43 +121,18 @@ struct SquadMapView: View {
                         }
                     }
 
-                    // Meetup pins
-                    ForEach(mapViewModel.activeMeetupPins) { pin in
-                        Annotation(pin.name, coordinate: pin.coordinate) {
-                            MeetupPinAnnotationView(
-                                pin: pin,
-                                isSelected: mapViewModel.selectedPin?.id == pin.id,
-                                onTap: {
-                                    selectedPinForDetail = pin
-                                },
-                                onNavigate: {
-                                    mapViewModel.navigateToPin(pin)
-                                },
-                                onDismiss: {
-                                    mapViewModel.dismissPin(pin)
-                                }
-                            )
-                        }
-                    }
+                    // Meetup pins (extracted)
+                    pinAnnotations
 
-                    // Facility annotations
-                    ForEach(visibleFacilities) { facility in
-                        Annotation(facility.name, coordinate: facility.coordinate) {
-                            FacilityAnnotationView(
-                                facility: facility,
-                                isSelected: selectedFacility?.id == facility.id,
-                                onTap: {
-                                    selectedFacility = facility
-                                }
-                            )
-                        }
-                    }
+                    // Facility annotations (extracted)
+                    facilityAnnotations
                 }
-                .onMapCameraChange { context in
+                .onMapCameraChange { _ in
                     // Store camera region for pin dropping
                 }
-                .onLongPressGesture(minimumDuration: 0.5) { screenPosition in
-                    // Long press to drop pin - handled via gesture below
+                .onLongPressGesture(minimumDuration: 0.5) {
+                    // Long press to drop pin at current location
+                    dropPinAtCurrentLocation()
                 }
                 .mapStyle(.standard(pointsOfInterest: .excludingAll))
                 .mapControls {
@@ -179,115 +198,71 @@ struct SquadMapView: View {
                         .padding(.horizontal)
                     }
 
-                    // Bottom controls
-                    HStack(spacing: 12) {
-                        // Find Me button
-                        Button {
-                            activateFindMe()
-                        } label: {
-                            VStack(spacing: 4) {
-                                Image(systemName: isFindMeActive ? "antenna.radiowaves.left.and.right" : "dot.radiowaves.left.and.right")
-                                    .font(.title2)
-                                Text("Find Me")
-                                    .font(.caption)
+                    // Bottom controls - scrollable horizontal row
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 8) {
+                            // Status button
+                            MapControlButton(
+                                icon: currentUserStatus?.isActive == true ? nil : "bubble.left.fill",
+                                emoji: currentUserStatus?.isActive == true ? currentUserStatus?.emoji : nil,
+                                label: "Status",
+                                isActive: currentUserStatus?.isActive == true
+                            ) {
+                                showStatusPicker = true
                             }
-                            .foregroundStyle(isFindMeActive ? .purple : .primary)
-                            .frame(width: 70, height: 60)
-                            .background(.ultraThinMaterial)
-                            .clipShape(RoundedRectangle(cornerRadius: 16))
-                        }
 
-                        // Status button
-                        Button {
-                            showStatusPicker = true
-                        } label: {
-                            VStack(spacing: 4) {
-                                if let status = currentUserStatus, status.isActive {
-                                    Text(status.emoji)
-                                        .font(.title2)
-                                } else {
-                                    Image(systemName: "bubble.left.fill")
-                                        .font(.title2)
+                            // Meet Here button
+                            MapControlButton(
+                                icon: "mappin.and.ellipse",
+                                label: "Meet",
+                                tint: .orange
+                            ) {
+                                dropPinAtCurrentLocation()
+                            }
+
+                            // Facilities toggle
+                            MapControlButton(
+                                icon: showFacilityFilters ? "building.2.fill" : "building.2",
+                                label: "Places",
+                                isActive: showFacilityFilters
+                            ) {
+                                withAnimation(.easeInOut(duration: 0.2)) {
+                                    showFacilityFilters.toggle()
                                 }
-                                Text("Status")
-                                    .font(.caption)
                             }
-                            .foregroundStyle(currentUserStatus?.isActive == true ? .purple : .primary)
-                            .frame(width: 70, height: 60)
-                            .background(.ultraThinMaterial)
-                            .clipShape(RoundedRectangle(cornerRadius: 16))
-                        }
 
-                        // Meet Here button (drop pin at current location)
-                        Button {
-                            dropPinAtCurrentLocation()
-                        } label: {
-                            VStack(spacing: 4) {
-                                Image(systemName: "mappin.and.ellipse")
-                                    .font(.title2)
-                                Text("Meet Here")
-                                    .font(.caption)
+                            // Find Me button
+                            MapControlButton(
+                                icon: isFindMeActive ? "antenna.radiowaves.left.and.right" : "dot.radiowaves.left.and.right",
+                                label: "Beacon",
+                                isActive: isFindMeActive
+                            ) {
+                                activateFindMe()
                             }
-                            .foregroundStyle(.orange)
-                            .frame(width: 80, height: 60)
-                            .background(.ultraThinMaterial)
-                            .clipShape(RoundedRectangle(cornerRadius: 16))
-                        }
 
-                        // Facilities toggle button
-                        Button {
-                            withAnimation(.easeInOut(duration: 0.2)) {
-                                showFacilityFilters.toggle()
+                            // Group center button
+                            MapControlButton(
+                                icon: "person.3.sequence.fill",
+                                label: "Center",
+                                isActive: mapViewModel.groupCentroid != nil,
+                                isDisabled: mapViewModel.groupCentroid == nil
+                            ) {
+                                mapViewModel.centerOnGroup()
                             }
-                        } label: {
-                            VStack(spacing: 4) {
-                                Image(systemName: showFacilityFilters ? "building.2.fill" : "building.2")
-                                    .font(.title2)
-                                Text("Facilities")
-                                    .font(.caption)
-                            }
-                            .foregroundStyle(showFacilityFilters ? .purple : .primary)
-                            .frame(width: 80, height: 60)
-                            .background(.ultraThinMaterial)
-                            .clipShape(RoundedRectangle(cornerRadius: 16))
-                        }
 
-                        Spacer()
-
-                        // Find Group button (collaborative GPS)
-                        Button {
-                            mapViewModel.centerOnGroup()
-                        } label: {
-                            VStack(spacing: 4) {
-                                Image(systemName: "person.3.sequence.fill")
-                                    .font(.title2)
-                                Text("Group")
-                                    .font(.caption)
+                            // Squad list button
+                            MapControlButton(
+                                icon: "person.3.fill",
+                                label: "Squad"
+                            ) {
+                                showMemberList = true
                             }
-                            .foregroundStyle(mapViewModel.groupCentroid != nil ? .purple : .secondary)
-                            .frame(width: 70, height: 60)
-                            .background(.ultraThinMaterial)
-                            .clipShape(RoundedRectangle(cornerRadius: 16))
                         }
-                        .disabled(mapViewModel.groupCentroid == nil)
-
-                        // Member list button
-                        Button {
-                            showMemberList = true
-                        } label: {
-                            VStack(spacing: 4) {
-                                Image(systemName: "person.3.fill")
-                                    .font(.title2)
-                                Text("Squad")
-                                    .font(.caption)
-                            }
-                            .foregroundStyle(.primary)
-                            .frame(width: 70, height: 60)
-                            .background(.ultraThinMaterial)
-                            .clipShape(RoundedRectangle(cornerRadius: 16))
-                        }
+                        .padding(.horizontal)
+                        .padding(.vertical, 8)
                     }
-                    .padding()
+                    .background(.ultraThinMaterial)
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
                 }
             }
             .navigationTitle("Squad Map")
@@ -414,46 +389,91 @@ struct SquadMapView: View {
     }
 }
 
+// MARK: - Map Control Button
+struct MapControlButton: View {
+    let icon: String?
+    var emoji: String? = nil
+    let label: String
+    var tint: Color = .purple
+    var isActive: Bool = false
+    var isDisabled: Bool = false
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            VStack(spacing: 4) {
+                if let emoji = emoji {
+                    Text(emoji)
+                        .font(.title3)
+                } else if let icon = icon {
+                    Image(systemName: icon)
+                        .font(.title3)
+                }
+                Text(label)
+                    .font(.caption2)
+                    .lineLimit(1)
+            }
+            .foregroundStyle(isDisabled ? .secondary : (isActive ? tint : .primary))
+            .frame(width: 56, height: 52)
+            .background(.ultraThinMaterial)
+            .clipShape(RoundedRectangle(cornerRadius: 12))
+        }
+        .disabled(isDisabled)
+    }
+}
+
 // MARK: - Connection Status Bar
 struct ConnectionStatusBar: View {
     @EnvironmentObject var appState: AppState
 
     var body: some View {
-        HStack(spacing: 12) {
-            // Mesh status
+        HStack(spacing: 8) {
+            // Mesh status - compact
             HStack(spacing: 4) {
                 Circle()
                     .fill(appState.meshManager.connectedPeers.isEmpty ? .orange : .green)
-                    .frame(width: 8, height: 8)
-                Text("\(appState.meshManager.connectedPeers.count) connected")
-                    .font(.caption)
+                    .frame(width: 6, height: 6)
+                Text("\(appState.meshManager.connectedPeers.count)")
+                    .font(.caption2)
+                    .fontWeight(.medium)
             }
+            .padding(.horizontal, 8)
+            .padding(.vertical, 4)
+            .background(Color(.systemGray6).opacity(0.8))
+            .clipShape(Capsule())
 
             Spacer()
 
-            // Gateway status
+            // Gateway status - compact
             if appState.gatewayManager.isGateway {
-                HStack(spacing: 4) {
+                HStack(spacing: 3) {
                     Image(systemName: "antenna.radiowaves.left.and.right")
-                        .font(.caption)
-                    Text("Gateway")
-                        .font(.caption)
+                        .font(.caption2)
+                    Text("GW")
+                        .font(.caption2)
+                        .fontWeight(.medium)
                 }
                 .foregroundStyle(.purple)
+                .padding(.horizontal, 8)
+                .padding(.vertical, 4)
+                .background(Color.purple.opacity(0.15))
+                .clipShape(Capsule())
             }
 
-            // Battery
-            HStack(spacing: 4) {
+            // Battery - compact
+            HStack(spacing: 3) {
                 Image(systemName: batteryIcon)
-                    .font(.caption)
+                    .font(.caption2)
                 Text("\(appState.gatewayManager.batteryLevel)%")
-                    .font(.caption)
+                    .font(.caption2)
+                    .fontWeight(.medium)
             }
+            .padding(.horizontal, 8)
+            .padding(.vertical, 4)
+            .background(Color(.systemGray6).opacity(0.8))
+            .clipShape(Capsule())
         }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 8)
-        .background(.ultraThinMaterial)
-        .clipShape(Capsule())
+        .padding(.horizontal, 8)
     }
 
     private var batteryIcon: String {

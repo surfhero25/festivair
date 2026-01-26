@@ -135,7 +135,9 @@ final class MapViewModel: ObservableObject {
             syncData: nil,
             batteryLevel: nil,
             hasService: nil,
-            enabled: true
+            enabled: true,
+            status: nil,
+            meetupPin: nil
         )
         meshManager.broadcast(message)
 
@@ -583,7 +585,21 @@ final class MapViewModel: ObservableObject {
 }
 
 // MARK: - Member Annotation
-struct MemberAnnotation: Identifiable {
+struct MemberAnnotation: Identifiable, Equatable {
+    static func == (lhs: MemberAnnotation, rhs: MemberAnnotation) -> Bool {
+        lhs.id == rhs.id &&
+        lhs.displayName == rhs.displayName &&
+        lhs.emoji == rhs.emoji &&
+        lhs.coordinate == rhs.coordinate &&
+        lhs.isOnline == rhs.isOnline &&
+        lhs.batteryLevel == rhs.batteryLevel &&
+        lhs.hasService == rhs.hasService &&
+        lhs.isFindMeActive == rhs.isFindMeActive &&
+        lhs.accuracy == rhs.accuracy &&
+        lhs.distanceFromUser == rhs.distanceFromUser &&
+        lhs.status == rhs.status
+    }
+
     let id: String
     let displayName: String
     let emoji: String
