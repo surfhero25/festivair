@@ -48,28 +48,23 @@ final class OfflineMapService: ObservableObject {
         isLoading = true
         error = nil
 
-        do {
-            // In production, this would fetch from API
-            // For now, load sample data
-            availableVenues = loadSampleVenues()
+        // In production, this would fetch from API
+        // For now, load sample data
+        availableVenues = loadSampleVenues()
 
-            // Update download status for each venue
-            for i in availableVenues.indices {
-                let venueDataPath = cacheDirectory.appendingPathComponent("\(availableVenues[i].id).json")
-                if fileManager.fileExists(atPath: venueDataPath.path) {
-                    availableVenues[i].downloadStatus = .downloaded
-                    if let attrs = try? fileManager.attributesOfItem(atPath: venueDataPath.path),
-                       let size = attrs[.size] as? Int64 {
-                        availableVenues[i].localDataSize = size
-                    }
+        // Update download status for each venue
+        for i in availableVenues.indices {
+            let venueDataPath = cacheDirectory.appendingPathComponent("\(availableVenues[i].id).json")
+            if fileManager.fileExists(atPath: venueDataPath.path) {
+                availableVenues[i].downloadStatus = .downloaded
+                if let attrs = try? fileManager.attributesOfItem(atPath: venueDataPath.path),
+                   let size = attrs[.size] as? Int64 {
+                    availableVenues[i].localDataSize = size
                 }
             }
-
-            downloadedVenues = availableVenues.filter { $0.downloadStatus == .downloaded }
-
-        } catch {
-            self.error = error
         }
+
+        downloadedVenues = availableVenues.filter { $0.downloadStatus == .downloaded }
 
         isLoading = false
     }
@@ -301,6 +296,17 @@ final class OfflineMapService: ObservableObject {
 
     private func loadSampleVenues() -> [FestivalVenue] {
         [
+            // Test venue - Mira Mesa area (for local testing)
+            FestivalVenue(
+                name: "Test Festival - Mira Mesa",
+                description: "Local test venue for development",
+                minLatitude: 32.900,
+                maxLatitude: 32.930,
+                minLongitude: -117.155,
+                maxLongitude: -117.120,
+                eventId: nil,
+                imageUrl: nil
+            ),
             FestivalVenue(
                 name: "Electric Daisy Carnival",
                 description: "Las Vegas Motor Speedway",

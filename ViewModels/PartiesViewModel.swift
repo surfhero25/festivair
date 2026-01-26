@@ -291,7 +291,12 @@ final class PartiesViewModel: ObservableObject {
 
         // Sync status to CloudKit
         if let recordId = attendee.cloudKitRecordId, cloudKit.isAvailable {
-            try? await cloudKit.updateAttendeeStatus(attendeeId: recordId, status: "approved")
+            do {
+                try await cloudKit.updateAttendeeStatus(attendeeId: recordId, status: "approved")
+            } catch {
+                print("[Parties] Failed to sync approval to CloudKit: \(error)")
+                // Note: Local update succeeded, cloud sync will retry next time
+            }
         }
     }
 
@@ -307,7 +312,12 @@ final class PartiesViewModel: ObservableObject {
 
         // Sync status to CloudKit
         if let recordId = attendee.cloudKitRecordId, cloudKit.isAvailable {
-            try? await cloudKit.updateAttendeeStatus(attendeeId: recordId, status: "declined")
+            do {
+                try await cloudKit.updateAttendeeStatus(attendeeId: recordId, status: "declined")
+            } catch {
+                print("[Parties] Failed to sync decline to CloudKit: \(error)")
+                // Note: Local update succeeded, cloud sync will retry next time
+            }
         }
     }
 

@@ -74,14 +74,15 @@ final class CloudKitService: ObservableObject {
 
     private func createZoneIfNeeded() async {
         do {
-            zone = CKRecordZone(zoneID: zoneID)
-            try await privateDatabase.save(zone!)
+            let newZone = CKRecordZone(zoneID: zoneID)
+            zone = try await privateDatabase.save(newZone)
         } catch {
             // Zone might already exist, that's fine
             if let ckError = error as? CKError, ckError.code == .serverRecordChanged {
-                // Zone exists
+                zone = CKRecordZone(zoneID: zoneID)
             } else {
                 print("[CloudKit] Zone creation error: \(error)")
+                zone = CKRecordZone(zoneID: zoneID)
             }
         }
     }
@@ -691,16 +692,20 @@ final class LocalSyncEngine: ObservableObject {
                 )
             } else {
                 // Queue for later
+                guard let encodedData = try? JSONEncoder().encode([
+                    "squadId": squadId,
+                    "userId": userId,
+                    "latitude": String(latitude),
+                    "longitude": String(longitude),
+                    "accuracy": String(accuracy)
+                ]) else {
+                    print("[SyncEngine] Failed to encode location data")
+                    return
+                }
                 let change = PendingChange(
                     id: UUID(),
                     type: .location,
-                    data: try! JSONEncoder().encode([
-                        "squadId": squadId,
-                        "userId": userId,
-                        "latitude": String(latitude),
-                        "longitude": String(longitude),
-                        "accuracy": String(accuracy)
-                    ]),
+                    data: encodedData,
                     createdAt: Date()
                 )
                 pendingChanges.append(change)

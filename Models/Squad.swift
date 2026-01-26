@@ -28,8 +28,8 @@ final class Squad {
     }
 
     static func generateJoinCode() -> String {
-        let characters = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789" // No O, 0, I, 1 to avoid confusion
-        return String((0..<6).map { _ in characters.randomElement()! })
+        let characters = Array("ABCDEFGHJKLMNPQRSTUVWXYZ23456789") // No O, 0, I, 1 to avoid confusion
+        return String((0..<6).compactMap { _ in characters.randomElement() })
     }
 
     var memberCount: Int {

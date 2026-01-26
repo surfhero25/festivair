@@ -62,7 +62,12 @@ final class ChatViewModel: ObservableObject {
             squadId: squadId
         )
         modelContext?.insert(message)
-        try? modelContext?.save()
+        do {
+            try modelContext?.save()
+        } catch {
+            print("[Chat] Failed to save message locally: \(error)")
+            self.error = error
+        }
 
         messages.append(message)
 
@@ -104,7 +109,11 @@ final class ChatViewModel: ObservableObject {
                     text: trimmedText
                 )
                 message.isSynced = true
-                try? modelContext?.save()
+                do {
+                    try modelContext?.save()
+                } catch {
+                    print("[Chat] Failed to update sync status: \(error)")
+                }
             } catch {
                 self.error = error
             }
@@ -159,7 +168,11 @@ final class ChatViewModel: ObservableObject {
             }
 
             messages.sort { $0.timestamp < $1.timestamp }
-            try? modelContext?.save()
+            do {
+                try modelContext?.save()
+            } catch {
+                print("[Chat] Failed to save remote messages: \(error)")
+            }
         } catch {
             self.error = error
         }
@@ -207,6 +220,10 @@ final class ChatViewModel: ObservableObject {
         modelContext?.insert(message)
         messages.append(message)
         messages.sort { $0.timestamp < $1.timestamp }
-        try? modelContext?.save()
+        do {
+            try modelContext?.save()
+        } catch {
+            print("[Chat] Failed to save mesh message: \(error)")
+        }
     }
 }

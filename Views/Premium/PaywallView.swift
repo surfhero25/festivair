@@ -354,8 +354,12 @@ struct PaywallView: View {
                 .multilineTextAlignment(.center)
 
             HStack(spacing: 16) {
-                Link("Terms of Service", destination: URL(string: "https://festivair.app/terms")!)
-                Link("Privacy Policy", destination: URL(string: "https://festivair.app/privacy")!)
+                if let termsURL = URL(string: "https://festivair.app/terms") {
+                    Link("Terms of Service", destination: termsURL)
+                }
+                if let privacyURL = URL(string: "https://festivair.app/privacy") {
+                    Link("Privacy Policy", destination: privacyURL)
+                }
             }
             .font(.caption2)
         }

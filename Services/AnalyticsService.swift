@@ -250,8 +250,8 @@ struct FestivalSummary {
     }
 
     var formattedPeakHour: String? {
-        guard let hour = peakHour else { return nil }
-        let date = Calendar.current.date(from: DateComponents(hour: hour))!
+        guard let hour = peakHour,
+              let date = Calendar.current.date(from: DateComponents(hour: hour)) else { return nil }
         return Formatters.formatter(for: "h a").string(from: date)
     }
 

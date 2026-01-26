@@ -301,47 +301,82 @@ struct LocationPickerView: View {
     @Environment(\.dismiss) private var dismiss
 
     @State private var cameraPosition: MapCameraPosition = .automatic
-    @State private var mapRegion: MKCoordinateRegion?
+    @State private var isLoadingLocation = true
+    @State private var locationError: String?
+    @State private var hasInitializedMap = false
+
+    // Default fallback location (center of US)
+    private let defaultLocation = CLLocationCoordinate2D(latitude: 39.8283, longitude: -98.5795)
 
     var body: some View {
         NavigationStack {
             ZStack {
-                MapReader { proxy in
-                    Map(position: $cameraPosition) {
-                        if let location = selectedLocation {
-                            Marker("Party Location", coordinate: location)
-                                .tint(.purple)
+                if isLoadingLocation && !hasInitializedMap {
+                    // Loading state
+                    VStack(spacing: 16) {
+                        ProgressView()
+                            .scaleEffect(1.5)
+                        Text("Getting your location...")
+                            .foregroundStyle(.secondary)
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(Color(.systemBackground))
+                } else if let error = locationError {
+                    // Error state
+                    VStack(spacing: 16) {
+                        Image(systemName: "location.slash.fill")
+                            .font(.largeTitle)
+                            .foregroundStyle(.orange)
+                        Text(error)
+                            .multilineTextAlignment(.center)
+                            .foregroundStyle(.secondary)
+                        Button("Use Default Location") {
+                            initializeMap(with: defaultLocation)
+                        }
+                        .buttonStyle(.borderedProminent)
+                    }
+                    .padding()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(Color(.systemBackground))
+                } else {
+                    // Map view
+                    MapReader { proxy in
+                        Map(position: $cameraPosition) {
+                            if let location = selectedLocation {
+                                Marker("Party Location", coordinate: location)
+                                    .tint(.purple)
+                            }
+                        }
+                        .onMapCameraChange { context in
+                            // Update selected location to map center
+                            selectedLocation = context.region.center
+                        }
+                        .onTapGesture { position in
+                            // Convert tap to coordinate
+                            if let coordinate = proxy.convert(position, from: .local) {
+                                selectedLocation = coordinate
+                                // Re-center camera on tapped location
+                                cameraPosition = .region(MKCoordinateRegion(
+                                    center: coordinate,
+                                    span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
+                                ))
+                            }
                         }
                     }
-                    .onMapCameraChange { context in
-                        // Update selected location to map center
-                        selectedLocation = context.region.center
-                    }
-                    .onTapGesture { position in
-                        // Convert tap to coordinate
-                        if let coordinate = proxy.convert(position, from: .local) {
-                            selectedLocation = coordinate
-                            // Re-center camera on tapped location
-                            cameraPosition = .region(MKCoordinateRegion(
-                                center: coordinate,
-                                span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
-                            ))
-                        }
-                    }
-                }
 
-                // Center pin indicator (shows where the center is)
-                VStack {
-                    Spacer()
-                    Image(systemName: "mappin.circle.fill")
-                        .font(.largeTitle)
-                        .foregroundStyle(.purple)
-                        .shadow(radius: 2)
-                    Image(systemName: "arrowtriangle.down.fill")
-                        .font(.caption)
-                        .foregroundStyle(.purple)
-                        .offset(y: -8)
-                    Spacer()
+                    // Center pin indicator (shows where the center is)
+                    VStack {
+                        Spacer()
+                        Image(systemName: "mappin.circle.fill")
+                            .font(.largeTitle)
+                            .foregroundStyle(.purple)
+                            .shadow(radius: 2)
+                        Image(systemName: "arrowtriangle.down.fill")
+                            .font(.caption)
+                            .foregroundStyle(.purple)
+                            .offset(y: -8)
+                        Spacer()
+                    }
                 }
             }
             .navigationTitle("Choose Location")
@@ -361,32 +396,116 @@ struct LocationPickerView: View {
                 }
             }
             .safeAreaInset(edge: .bottom) {
-                VStack(spacing: 12) {
-                    TextField("Location Name (optional)", text: $locationName)
-                        .textFieldStyle(.roundedBorder)
+                if hasInitializedMap && locationError == nil {
+                    VStack(spacing: 12) {
+                        TextField("Location Name (optional)", text: $locationName)
+                            .textFieldStyle(.roundedBorder)
 
-                    Text("Tap or drag the map to set location")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
+                        Text("Tap or drag the map to set location")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                    .padding()
+                    .background(.ultraThinMaterial)
                 }
-                .padding()
-                .background(.ultraThinMaterial)
             }
             .onAppear {
-                // Start at user's current location
-                if let location = appState.locationManager.currentLocation {
-                    let userCoordinate = CLLocationCoordinate2D(
-                        latitude: location.latitude,
-                        longitude: location.longitude
-                    )
-                    selectedLocation = userCoordinate
-                    cameraPosition = .region(MKCoordinateRegion(
-                        center: userCoordinate,
-                        span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
-                    ))
+                initializeLocation()
+            }
+        }
+    }
+
+    private func initializeLocation() {
+        let locationManager = appState.locationManager
+
+        // Check authorization status first
+        switch locationManager.authorizationStatus {
+        case .notDetermined:
+            // Request permission and wait for it
+            locationManager.requestAuthorization()
+            waitForAuthorization()
+
+        case .denied, .restricted:
+            locationError = "Location access denied.\nPlease enable location in Settings to choose a location on the map."
+            isLoadingLocation = false
+
+        case .authorizedWhenInUse, .authorizedAlways:
+            // Permission granted, try to get location
+            startLocationUpdates()
+
+        @unknown default:
+            locationError = "Unknown location authorization status"
+            isLoadingLocation = false
+        }
+    }
+
+    private func waitForAuthorization() {
+        // Poll for authorization change (timeout after 10 seconds)
+        var attempts = 0
+        Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { [weak appState] timer in
+            attempts += 1
+
+            Task { @MainActor in
+                guard let appState = appState else {
+                    timer.invalidate()
+                    return
+                }
+
+                let status = appState.locationManager.authorizationStatus
+
+                if status == .authorizedWhenInUse || status == .authorizedAlways {
+                    timer.invalidate()
+                    self.startLocationUpdates()
+                } else if status == .denied || status == .restricted {
+                    timer.invalidate()
+                    self.locationError = "Location access denied.\nPlease enable location in Settings."
+                    self.isLoadingLocation = false
+                } else if attempts >= 20 { // 10 seconds timeout
+                    timer.invalidate()
+                    self.locationError = "Location permission request timed out.\nPlease try again."
+                    self.isLoadingLocation = false
                 }
             }
         }
+    }
+
+    private func startLocationUpdates() {
+        let locationManager = appState.locationManager
+
+        // Start location updates if not already running
+        if !locationManager.isUpdating {
+            locationManager.startUpdating()
+        }
+
+        // Wait for location with timeout
+        var attempts = 0
+        Timer.scheduledTimer(withTimeInterval: 0.3, repeats: true) { timer in
+            attempts += 1
+
+            if let location = locationManager.currentLocation {
+                timer.invalidate()
+                let coordinate = CLLocationCoordinate2D(
+                    latitude: location.latitude,
+                    longitude: location.longitude
+                )
+                initializeMap(with: coordinate)
+            } else if attempts >= 30 { // 9 seconds timeout
+                timer.invalidate()
+                // Use default location as fallback
+                initializeMap(with: defaultLocation)
+            }
+        }
+    }
+
+    private func initializeMap(with coordinate: CLLocationCoordinate2D) {
+        selectedLocation = coordinate
+        cameraPosition = .region(MKCoordinateRegion(
+            center: coordinate,
+            span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
+        ))
+        isLoadingLocation = false
+        locationError = nil
+        hasInitializedMap = true
     }
 }
 

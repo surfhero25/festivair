@@ -141,9 +141,15 @@ struct DatePickerBar: View {
         var current = calendar.startOfDay(for: event.startDate)
         let end = calendar.startOfDay(for: event.endDate)
 
-        while current <= end {
+        // Safety limit to prevent infinite loop (max 30 day festival)
+        var iterations = 0
+        let maxIterations = 30
+
+        while current <= end && iterations < maxIterations {
             dates.append(current)
-            current = calendar.date(byAdding: .day, value: 1, to: current) ?? current
+            guard let nextDay = calendar.date(byAdding: .day, value: 1, to: current) else { break }
+            current = nextDay
+            iterations += 1
         }
         return dates
     }

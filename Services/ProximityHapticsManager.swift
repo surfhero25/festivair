@@ -122,7 +122,8 @@ final class ProximityHapticsManager: ObservableObject {
         // Check if we should trigger haptic
         if let interval = newLevel.hapticInterval {
             let now = Date()
-            if lastHapticTime == nil || now.timeIntervalSince(lastHapticTime!) >= interval {
+            let shouldTrigger = lastHapticTime.map { now.timeIntervalSince($0) >= interval } ?? true
+            if shouldTrigger {
                 triggerHaptic(for: newLevel)
                 lastHapticTime = now
             }

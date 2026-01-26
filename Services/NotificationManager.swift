@@ -102,7 +102,11 @@ final class NotificationManager: ObservableObject {
             trigger: nil // Immediate
         )
 
-        try? await UNUserNotificationCenter.current().add(request)
+        do {
+            try await UNUserNotificationCenter.current().add(request)
+        } catch {
+            print("[Notifications] Failed to send battery warning: \(error)")
+        }
     }
 
     func sendSquadMemberWentOffline(memberName: String) async {
@@ -120,7 +124,11 @@ final class NotificationManager: ObservableObject {
             trigger: nil
         )
 
-        try? await UNUserNotificationCenter.current().add(request)
+        do {
+            try await UNUserNotificationCenter.current().add(request)
+        } catch {
+            print("[Notifications] Failed to send offline notification: \(error)")
+        }
     }
 
     // MARK: - Private Helpers
