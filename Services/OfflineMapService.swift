@@ -76,8 +76,14 @@ final class OfflineMapService: ObservableObject {
 
     /// Download venue data for offline use
     func downloadVenue(_ venue: FestivalVenue) async throws {
-        guard var mutableVenue = availableVenues.first(where: { $0.id == venue.id }) else {
+        guard availableVenues.first(where: { $0.id == venue.id }) != nil else {
             throw OfflineMapError.venueNotFound
+        }
+
+        // Check if already downloading
+        if let index = availableVenues.firstIndex(where: { $0.id == venue.id }),
+           availableVenues[index].downloadStatus == .downloading {
+            return // Already downloading
         }
 
         // Update status
@@ -96,8 +102,26 @@ final class OfflineMapService: ObservableObject {
             encoder.dateEncodingStrategy = .iso8601
             let data = try encoder.encode(bundle)
 
+            // Check cache size limit before writing
+            let newSize = totalCacheSize + Int64(data.count)
+            if newSize > maxCacheSize {
+                if let index = availableVenues.firstIndex(where: { $0.id == venue.id }) {
+                    availableVenues[index].downloadStatus = .failed
+                }
+                throw OfflineMapError.cacheFull
+            }
+
+            // Use atomic write - write to temp file first, then move
+            let tempPath = cacheDirectory.appendingPathComponent("\(venue.id).tmp")
             let venueDataPath = cacheDirectory.appendingPathComponent("\(venue.id).json")
-            try data.write(to: venueDataPath)
+
+            try data.write(to: tempPath, options: .atomic)
+
+            // Move temp to final location
+            if fileManager.fileExists(atPath: venueDataPath.path) {
+                try fileManager.removeItem(at: venueDataPath)
+            }
+            try fileManager.moveItem(at: tempPath, to: venueDataPath)
 
             // Update status
             if let index = availableVenues.firstIndex(where: { $0.id == venue.id }) {
@@ -110,6 +134,10 @@ final class OfflineMapService: ObservableObject {
             downloadedVenues = availableVenues.filter { $0.downloadStatus == .downloaded }
 
         } catch {
+            // Clean up temp file if it exists
+            let tempPath = cacheDirectory.appendingPathComponent("\(venue.id).tmp")
+            try? fileManager.removeItem(at: tempPath)
+
             if let index = availableVenues.firstIndex(where: { $0.id == venue.id }) {
                 availableVenues[index].downloadStatus = .failed
             }
@@ -118,7 +146,14 @@ final class OfflineMapService: ObservableObject {
     }
 
     /// Delete downloaded venue data
-    func deleteVenue(_ venue: FestivalVenue) throws {
+    /// - Parameter force: If true, will delete even if venue is currently loaded
+    /// - Throws: OfflineMapError.venueInUse if venue is currently loaded and force is false
+    func deleteVenue(_ venue: FestivalVenue, force: Bool = false) throws {
+        // Check if venue is currently in use
+        if currentVenue?.id == venue.id && !force {
+            throw OfflineMapError.venueInUse
+        }
+
         let venueDataPath = cacheDirectory.appendingPathComponent("\(venue.id).json")
 
         if fileManager.fileExists(atPath: venueDataPath.path) {
@@ -133,7 +168,7 @@ final class OfflineMapService: ObservableObject {
 
         downloadedVenues = availableVenues.filter { $0.downloadStatus == .downloaded }
 
-        // Clear current venue if it was deleted
+        // Clear current venue if it was deleted (only reachable with force=true)
         if currentVenue?.id == venue.id {
             currentVenue = nil
             facilities = []
@@ -222,6 +257,8 @@ final class OfflineMapService: ObservableObject {
             return
         }
 
+        var corruptFiles: [URL] = []
+
         for fileURL in contents where fileURL.pathExtension == "json" {
             do {
                 let data = try Data(contentsOf: fileURL)
@@ -237,7 +274,25 @@ final class OfflineMapService: ObservableObject {
                 }
                 downloadedVenues.append(venue)
             } catch {
-                print("[OfflineMap] Failed to load cached venue: \(error)")
+                print("[OfflineMap] Failed to load cached venue: \(error) - marking for deletion")
+                corruptFiles.append(fileURL)
+            }
+        }
+
+        // Clean up corrupt files
+        for fileURL in corruptFiles {
+            do {
+                try fileManager.removeItem(at: fileURL)
+                print("[OfflineMap] Deleted corrupt cache file: \(fileURL.lastPathComponent)")
+            } catch {
+                print("[OfflineMap] Failed to delete corrupt file: \(error)")
+            }
+        }
+
+        // Also clean up any orphaned temp files
+        if let allFiles = try? fileManager.contentsOfDirectory(at: cacheDirectory, includingPropertiesForKeys: nil) {
+            for fileURL in allFiles where fileURL.pathExtension == "tmp" {
+                try? fileManager.removeItem(at: fileURL)
             }
         }
     }
@@ -352,6 +407,7 @@ enum OfflineMapError: LocalizedError {
     case venueNotDownloaded
     case downloadFailed
     case cacheFull
+    case venueInUse
 
     var errorDescription: String? {
         switch self {
@@ -359,6 +415,7 @@ enum OfflineMapError: LocalizedError {
         case .venueNotDownloaded: return "Venue data not downloaded"
         case .downloadFailed: return "Download failed"
         case .cacheFull: return "Cache storage is full"
+        case .venueInUse: return "Cannot delete venue that is currently loaded"
         }
     }
 }

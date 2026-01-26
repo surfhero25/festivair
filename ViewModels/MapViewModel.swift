@@ -21,6 +21,7 @@ final class MapViewModel: ObservableObject {
     @Published var navigationTarget: MemberAnnotation?
     @Published var isNavigating = false
     @Published var bearingToTarget: Double = 0
+    @Published var isHeadingUnavailable = false // True if device doesn't support heading
     let proximityManager = ProximityHapticsManager()
 
     // MARK: - Meetup Pins
@@ -148,22 +149,32 @@ final class MapViewModel: ObservableObject {
 
     /// Start navigating to a squad member with compass arrow and proximity haptics
     func startNavigatingTo(_ member: MemberAnnotation) {
+        // Stop any existing navigation first (cleanup previous subscriptions)
+        if isNavigating {
+            stopNavigating()
+        }
+
         navigationTarget = member
         isNavigating = true
 
         // Enable high accuracy and heading
         locationManager.enableFindMeMode(duration: 600) // 10 minutes
-        locationManager.startHeadingUpdates()
 
-        // Start proximity haptics
+        // Start heading updates - track if unavailable
+        let headingStarted = locationManager.startHeadingUpdates()
+        isHeadingUnavailable = !headingStarted
+
+        // Start proximity haptics (works even without heading)
         proximityManager.startTracking(target: member.coordinate) { [weak self] in
             guard let self = self,
                   let location = self.locationManager.currentLocation else { return nil }
             return CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
         }
 
-        // Set up bearing updates
-        setupBearingUpdates()
+        // Set up bearing updates (only useful if heading is available)
+        if headingStarted {
+            setupBearingUpdates()
+        }
     }
 
     /// Stop navigation
@@ -171,6 +182,7 @@ final class MapViewModel: ObservableObject {
         navigationTarget = nil
         isNavigating = false
         bearingToTarget = 0
+        isHeadingUnavailable = false
 
         locationManager.stopHeadingUpdates()
         proximityManager.stopTracking()
@@ -179,7 +191,19 @@ final class MapViewModel: ObservableObject {
     /// Update the navigation target when member's location changes
     func updateNavigationTarget() {
         guard let target = navigationTarget,
-              let updatedMember = memberAnnotations.first(where: { $0.id == target.id }) else { return }
+              let updatedMember = memberAnnotations.first(where: { $0.id == target.id }) else {
+            // Target member no longer exists in annotations - stop navigation
+            if isNavigating {
+                stopNavigating()
+            }
+            return
+        }
+
+        // Check if target went offline - auto-stop navigation
+        if !updatedMember.isOnline {
+            stopNavigating()
+            return
+        }
 
         navigationTarget = updatedMember
         proximityManager.updateTarget(updatedMember.coordinate)
@@ -200,6 +224,13 @@ final class MapViewModel: ObservableObject {
         guard let target = navigationTarget,
               let location = location,
               let heading = deviceHeading else { return }
+
+        // Skip if GPS accuracy is too poor for reliable bearing calculation
+        // With >100m accuracy, bearing could point in wrong direction
+        guard location.accuracy <= 100 else {
+            print("[MapVM] GPS accuracy too poor for navigation: \(location.accuracy)m")
+            return
+        }
 
         let userCoord = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
         let bearingToMember = bearing(from: userCoord, to: target.coordinate)
@@ -252,6 +283,12 @@ final class MapViewModel: ObservableObject {
 
     /// Remove a pin (only creator or when expired)
     func dismissPin(_ pin: MeetupPin) {
+        // Only allow creator to dismiss, or if pin is expired
+        guard pin.creatorId == currentUserId || pin.isExpired else {
+            print("[MapVM] Cannot dismiss pin - not creator")
+            return
+        }
+
         activeMeetupPins.removeAll { $0.id == pin.id }
         if selectedPin?.id == pin.id {
             selectedPin = nil
@@ -327,6 +364,48 @@ final class MapViewModel: ObservableObject {
                 )
             }
             .store(in: &cancellables)
+
+        // Listen for mesh messages (meetup pins)
+        meshManager.messagePublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] envelopeAny, _ in
+                guard let self = self,
+                      let envelope = envelopeAny as? MeshEnvelope else { return }
+                self.handleMeshMessage(envelope)
+            }
+            .store(in: &cancellables)
+    }
+
+    /// Handle incoming mesh messages for meetup pins
+    private func handleMeshMessage(_ envelope: MeshEnvelope) {
+        switch envelope.message.type {
+        case .meetupPin:
+            guard let pinPayload = envelope.message.meetupPin else { return }
+
+            // Validate coordinates
+            guard isValidCoordinate(latitude: pinPayload.latitude, longitude: pinPayload.longitude) else {
+                print("[MapVM] Invalid pin coordinates received")
+                return
+            }
+
+            let pin = MeetupPin(from: pinPayload)
+
+            // Don't add expired pins
+            guard !pin.isExpired else { return }
+
+            receivePin(pin)
+
+        default:
+            break
+        }
+    }
+
+    /// Validate that coordinates are within valid ranges
+    private func isValidCoordinate(latitude: Double, longitude: Double) -> Bool {
+        latitude >= -90 && latitude <= 90 &&
+        longitude >= -180 && longitude <= 180 &&
+        !latitude.isNaN && !longitude.isNaN &&
+        !latitude.isInfinite && !longitude.isInfinite
     }
 
     private func updateAnnotations(online: [PeerTracker.PeerStatus], offline: [PeerTracker.PeerStatus]) {

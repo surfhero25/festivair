@@ -11,6 +11,8 @@ final class LocationManager: NSObject, ObservableObject {
     @Published private(set) var isUpdating = false
     @Published private(set) var lastError: Error?
     @Published private(set) var deviceHeading: Double? // Compass heading in degrees (0-360, 0 = North)
+    @Published private(set) var isHeadingAvailable: Bool = CLLocationManager.headingAvailable()
+    @Published private(set) var headingAccuracy: Double? // Heading accuracy in degrees (lower is better)
 
     // MARK: - Configuration
     enum UpdateMode {
@@ -114,15 +116,20 @@ final class LocationManager: NSObject, ObservableObject {
     // MARK: - Heading Updates (Compass)
 
     /// Start receiving heading updates for compass navigation
-    func startHeadingUpdates() {
+    /// - Returns: true if heading updates started, false if not available
+    @discardableResult
+    func startHeadingUpdates() -> Bool {
         guard CLLocationManager.headingAvailable() else {
             print("[Location] Heading not available on this device")
-            return
+            isHeadingAvailable = false
+            return false
         }
 
         locationManager.headingFilter = 5 // Update every 5 degrees of change
         locationManager.startUpdatingHeading()
         isHeadingUpdating = true
+        isHeadingAvailable = true
+        return true
     }
 
     /// Stop receiving heading updates
@@ -185,6 +192,8 @@ extension LocationManager: CLLocationManagerDelegate {
         let heading = newHeading.trueHeading >= 0 ? newHeading.trueHeading : newHeading.magneticHeading
         DispatchQueue.main.async {
             self.deviceHeading = heading
+            // Track heading accuracy (-1 means invalid/calibrating)
+            self.headingAccuracy = newHeading.headingAccuracy >= 0 ? newHeading.headingAccuracy : nil
         }
     }
 

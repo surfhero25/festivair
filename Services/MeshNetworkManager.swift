@@ -31,6 +31,13 @@ final class MeshNetworkManager: NSObject, ObservableObject {
         messageSubject.eraseToAnyPublisher()
     }
 
+    // MARK: - Peer Connection Events
+    private let peerConnectedSubject = PassthroughSubject<MCPeerID, Never>()
+    /// Publisher that emits when a new peer connects - useful for re-broadcasting status
+    var peerConnectedPublisher: AnyPublisher<MCPeerID, Never> {
+        peerConnectedSubject.eraseToAnyPublisher()
+    }
+
     // Track seen messages to prevent duplicates
     private var seenMessageIds = Set<UUID>()
     private let seenMessageIdLimit = 1000
@@ -181,8 +188,11 @@ extension MeshNetworkManager: MCSessionDelegate {
         DispatchQueue.main.async {
             switch state {
             case .connected:
-                if !self.connectedPeers.contains(peerID) {
+                let isNewPeer = !self.connectedPeers.contains(peerID)
+                if isNewPeer {
                     self.connectedPeers.append(peerID)
+                    // Notify subscribers about new peer (for re-broadcasting status, etc.)
+                    self.peerConnectedSubject.send(peerID)
                 }
                 print("[Mesh] Connected to: \(peerID.displayName)")
             case .notConnected:

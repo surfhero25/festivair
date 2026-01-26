@@ -117,6 +117,15 @@ final class PeerTracker: ObservableObject {
 
     func updatePeerStatus(id: String, userStatus: UserStatus) {
         guard var peerStatus = peers[id] else { return }
+
+        // Handle out-of-order updates: only accept newer status
+        if let existingStatus = peerStatus.status,
+           userStatus.setAt < existingStatus.setAt {
+            // Incoming status is older than current - ignore it
+            print("[PeerTracker] Ignoring out-of-order status update (older than current)")
+            return
+        }
+
         peerStatus.status = userStatus
         peerStatus.lastSeen = Date()
         peers[id] = peerStatus
@@ -128,6 +137,8 @@ final class PeerTracker: ObservableObject {
 
         let wasOnline = status.isOnline
         status.isOnline = false
+        // Clear status when peer goes offline to avoid showing stale status
+        status.status = nil
         peers[id] = status
         updatePeerLists()
 

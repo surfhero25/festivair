@@ -22,6 +22,7 @@ struct StatusBadgeView: View {
             .background(statusColor.opacity(0.15))
             .foregroundStyle(statusColor)
             .clipShape(Capsule())
+            .accessibilityLabel("Status: \(status.displayText)")
         }
     }
 

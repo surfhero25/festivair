@@ -56,6 +56,11 @@ final class ProximityHapticsManager: ObservableObject {
     private var locationUpdateHandler: (() -> CLLocationCoordinate2D?)?
     private var cancellables = Set<AnyCancellable>()
 
+    // MARK: - Lifecycle
+    deinit {
+        stopTracking()
+    }
+
     // MARK: - Public API
 
     /// Start proximity haptics to a target coordinate.

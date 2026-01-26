@@ -9,6 +9,7 @@ struct MeetupPinAnnotationView: View {
     let onDismiss: () -> Void
 
     @State private var pulseAnimation = false
+    @State private var lastActiveState = true
 
     var body: some View {
         VStack(spacing: 4) {
@@ -33,9 +34,10 @@ struct MeetupPinAnnotationView: View {
                     .foregroundStyle(pin.isActive ? .orange : .gray)
                     .background(
                         Circle()
-                            .fill(.white)
+                            .fill(Color(.systemBackground))
                             .frame(width: 30, height: 30)
                     )
+                    .accessibilityLabel("Meetup pin: \(pin.name)")
             }
 
             // Info label
@@ -69,8 +71,20 @@ struct MeetupPinAnnotationView: View {
             }
         }
         .onAppear {
-            pulseAnimation = true
+            if pin.isActive {
+                pulseAnimation = true
+            }
         }
+        .onChange(of: pin.isActive) { _, isActive in
+            // Stop pulse animation when pin expires
+            if !isActive && lastActiveState {
+                pulseAnimation = false
+            }
+            lastActiveState = isActive
+        }
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("Meetup pin from \(pin.creatorName): \(pin.name), \(pin.timeRemaining)")
+        .accessibilityHint("Double tap to view details, long press for options")
     }
 }
 

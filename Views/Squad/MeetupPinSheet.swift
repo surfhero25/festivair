@@ -116,16 +116,29 @@ struct MeetupPinSheet: View {
     }
 
     private func createPin() {
+        // Validate user info
         guard let userId = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.userId),
               let displayName = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.displayName) else {
+            print("[MeetupPin] Missing user ID or display name")
+            Haptics.error()
+            return
+        }
+
+        // Validate coordinates
+        guard CLLocationCoordinate2DIsValid(coordinate) else {
+            print("[MeetupPin] Invalid coordinates")
+            Haptics.error()
             return
         }
 
         Haptics.success()
 
+        // Truncate custom name to max 50 characters
+        let safeName = String(pinName.prefix(50))
+
         let pin = MeetupPin.create(
             at: coordinate,
-            name: pinName,
+            name: safeName,
             creatorId: userId,
             creatorName: displayName,
             expiresIn: TimeInterval(expirationMinutes * 60)

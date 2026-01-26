@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+import Combine
 
 @main
 struct FestivAirApp: App {
@@ -23,10 +24,12 @@ struct FestivAirApp: App {
             Party.self,
             PartyAttendee.self
         ])
+        // Use local storage only - CloudKit sync handled by CloudKitService manually
+        // SwiftData's built-in CloudKit sync requires all fields optional + no unique constraints
         let modelConfiguration = ModelConfiguration(
             schema: schema,
             isStoredInMemoryOnly: false,
-            cloudKitDatabase: .private("iCloud.com.festivair.app") // Enable CloudKit sync
+            cloudKitDatabase: .none  // Disabled - using custom CloudKitService instead
         )
 
         do {
@@ -81,6 +84,9 @@ final class AppState: ObservableObject {
     // MARK: - Coordinator
     private(set) var meshCoordinator: MeshCoordinator!
 
+    // MARK: - Private
+    private var cancellables = Set<AnyCancellable>()
+
     // MARK: - Init
     init() {
         // Check if onboarded
@@ -123,7 +129,33 @@ final class AppState: ObservableObject {
 
         // Register notification categories
         NotificationManager.registerCategories()
-        MeshCoordinator.registerBackgroundTasks()
+        // Note: Background tasks registered in AppDelegate.swift
+
+        // Re-broadcast status when new peers connect
+        setupStatusRebroadcast()
+    }
+
+    private func setupStatusRebroadcast() {
+        meshManager.peerConnectedPublisher
+            .debounce(for: .seconds(1), scheduler: DispatchQueue.main) // Debounce rapid connections
+            .sink { [weak self] _ in
+                self?.rebroadcastCurrentStatus()
+            }
+            .store(in: &cancellables)
+    }
+
+    private func rebroadcastCurrentStatus() {
+        // Get current status from UserDefaults
+        guard let status: UserStatus = UserDefaults.standard.codable(forKey: "FestivAir.CurrentUserStatus"),
+              status.isActive else { return }
+
+        guard let userId = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.userId),
+              let displayName = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.displayName) else { return }
+
+        // Broadcast to the new peer
+        let message = MeshMessagePayload.statusUpdate(userId: userId, displayName: displayName, status: status)
+        meshManager.broadcast(message)
+        print("[AppState] Re-broadcast status to new peers: \(status.displayText)")
     }
 
     // MARK: - Configuration
@@ -144,8 +176,9 @@ final class AppState: ObservableObject {
             )
         }
 
-        // Import sample data if first launch
-        if !UserDefaults.standard.bool(forKey: "FestivAir.DataImported") {
+        // Import sample data if first launch OR if no events exist (app reinstalled)
+        let hasData = !setTimesViewModel.events.isEmpty
+        if !UserDefaults.standard.bool(forKey: "FestivAir.DataImported") || !hasData {
             Task {
                 await setTimesViewModel.importFromBundle()
                 UserDefaults.standard.set(true, forKey: "FestivAir.DataImported")

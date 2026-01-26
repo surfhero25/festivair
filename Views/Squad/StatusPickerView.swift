@@ -87,17 +87,28 @@ struct StatusPickerView: View {
         Haptics.light()
         let status = UserStatus.cleared()
         saveAndBroadcast(status)
+        dismiss() // Dismiss after clearing (consistent with selecting preset)
     }
 
     private func saveAndBroadcast(_ status: UserStatus) {
-        // Save locally
+        // Save locally first (always works)
         UserDefaults.standard.setCodable(status, forKey: "FestivAir.CurrentUserStatus")
 
         // Broadcast to squad
         if let userId = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.userId),
            let displayName = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.displayName) {
+
+            // Check if we have mesh peers
+            let hasPeers = !appState.meshManager.connectedPeers.isEmpty
+            if !hasPeers {
+                print("[Status] No mesh peers connected - status saved locally only")
+                // Status is saved locally, will be visible when peers connect
+            }
+
             let message = MeshMessagePayload.statusUpdate(userId: userId, displayName: displayName, status: status)
             appState.meshManager.broadcast(message)
+        } else {
+            print("[Status] Missing user ID or display name - cannot broadcast")
         }
 
         onStatusSet?(status)

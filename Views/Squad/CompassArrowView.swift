@@ -9,9 +9,28 @@ struct CompassArrowView: View {
     let bearing: Double // Bearing to target in degrees
     let distance: Double? // Distance in meters
     let proximityLevel: ProximityHapticsManager.ProximityLevel
+    let isHeadingUnavailable: Bool // True if device doesn't support heading
     let onDismiss: () -> Void
 
     @State private var pulseAnimation = false
+
+    init(
+        targetName: String,
+        targetEmoji: String,
+        bearing: Double,
+        distance: Double?,
+        proximityLevel: ProximityHapticsManager.ProximityLevel,
+        isHeadingUnavailable: Bool = false,
+        onDismiss: @escaping () -> Void
+    ) {
+        self.targetName = targetName
+        self.targetEmoji = targetEmoji
+        self.bearing = bearing
+        self.distance = distance
+        self.proximityLevel = proximityLevel
+        self.isHeadingUnavailable = isHeadingUnavailable
+        self.onDismiss = onDismiss
+    }
 
     var body: some View {
         VStack(spacing: 16) {
@@ -53,7 +72,7 @@ struct CompassArrowView: View {
 
                 // Center dot
                 Circle()
-                    .fill(.white)
+                    .fill(Color(.systemBackground))
                     .frame(width: 20, height: 20)
                     .shadow(radius: 2)
 
@@ -75,10 +94,23 @@ struct CompassArrowView: View {
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
 
-                // Compass bearing
-                Text(bearingDirection)
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+                // Compass bearing (or unavailable warning)
+                if isHeadingUnavailable {
+                    HStack(spacing: 4) {
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .foregroundStyle(.orange)
+                        Text("Compass unavailable")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                    Text("Distance tracking still active")
+                        .font(.caption2)
+                        .foregroundStyle(.secondary)
+                } else {
+                    Text(bearingDirection)
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
             }
 
             Spacer()
@@ -91,6 +123,9 @@ struct CompassArrowView: View {
         .onAppear {
             pulseAnimation = true
         }
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("Navigation to \(targetName), \(distance.map { formatDistance($0) } ?? "unknown distance"), \(proximityLevel.description)")
+        .accessibilityHint("Shows direction arrow pointing toward \(targetName)")
     }
 
     // MARK: - Helpers
