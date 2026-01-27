@@ -115,14 +115,39 @@ final class SquadViewModel: ObservableObject {
             }
         }
 
-        // Create local squad
-        let squad = Squad(name: squadName, joinCode: code)
-        squad.firebaseId = cloudSquadId
+        // Check for existing local squad with this join code (avoid duplicates)
+        let existingSquad: Squad?
+        if let modelContext = modelContext {
+            let joinCode = code
+            let descriptor = FetchDescriptor<Squad>(
+                predicate: #Predicate { $0.joinCode == joinCode }
+            )
+            existingSquad = try? modelContext.fetch(descriptor).first
+        } else {
+            existingSquad = nil
+        }
+
+        let squad: Squad
+        if let existing = existingSquad {
+            // Reuse existing local squad
+            squad = existing
+            if let cloudId = cloudSquadId {
+                squad.firebaseId = cloudId
+            }
+        } else {
+            // Create new local squad
+            squad = Squad(name: squadName, joinCode: code)
+            squad.firebaseId = cloudSquadId
+            modelContext?.insert(squad)
+        }
 
         if let user = try await getOrCreateCurrentUser() {
-            let membership = SquadMembership(user: user, squad: squad)
-            modelContext?.insert(squad)
-            modelContext?.insert(membership)
+            // Check if membership already exists
+            let existingMember = squad.memberships?.contains(where: { $0.user?.id == user.id }) ?? false
+            if !existingMember {
+                let membership = SquadMembership(user: user, squad: squad)
+                modelContext?.insert(membership)
+            }
             try modelContext?.save()
         }
 
@@ -152,6 +177,20 @@ final class SquadViewModel: ObservableObject {
                 modelContext?.delete(membership)
             }
         }
+
+        // Clean up chat messages for this squad
+        if let modelContext = modelContext {
+            let squadId = squad.id
+            let messageDescriptor = FetchDescriptor<ChatMessage>(
+                predicate: #Predicate { $0.squadId == squadId }
+            )
+            if let messages = try? modelContext.fetch(messageDescriptor) {
+                for message in messages {
+                    modelContext.delete(message)
+                }
+            }
+        }
+
         modelContext?.delete(squad)
         try modelContext?.save()
 

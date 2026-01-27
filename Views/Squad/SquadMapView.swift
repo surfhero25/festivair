@@ -4,6 +4,16 @@ import CoreLocation
 
 struct SquadMapView: View {
     @EnvironmentObject var appState: AppState
+
+    var body: some View {
+        SquadMapContentView(mapViewModel: appState.mapViewModel)
+    }
+}
+
+// MARK: - Squad Map Content (properly observes MapViewModel)
+private struct SquadMapContentView: View {
+    @EnvironmentObject var appState: AppState
+    @ObservedObject var mapViewModel: MapViewModel
     @ObservedObject var offlineMapService = OfflineMapService.shared
     @State private var position: MapCameraPosition = .userLocation(fallback: .automatic)
     @State private var showMemberList = false
@@ -19,10 +29,6 @@ struct SquadMapView: View {
     @State private var selectedFacility: Facility?
     @State private var showFacilityFilters = false
     @State private var showLocationError = false
-
-    private var mapViewModel: MapViewModel {
-        appState.mapViewModel
-    }
 
     private var currentUserStatus: UserStatus? {
         UserDefaults.standard.codable(forKey: "FestivAir.CurrentUserStatus")
@@ -218,6 +224,14 @@ struct SquadMapView: View {
                             withAnimation(.easeInOut(duration: 0.2)) {
                                 showFacilityFilters.toggle()
                             }
+                        }
+
+                        // Status button
+                        MapControlButton(
+                            icon: "face.smiling",
+                            label: "Status"
+                        ) {
+                            showStatusPicker = true
                         }
 
                         // Squad list button

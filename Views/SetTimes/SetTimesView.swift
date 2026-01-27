@@ -3,9 +3,14 @@ import SwiftUI
 struct SetTimesView: View {
     @EnvironmentObject var appState: AppState
 
-    private var viewModel: SetTimesViewModel {
-        appState.setTimesViewModel
+    var body: some View {
+        SetTimesContentView(viewModel: appState.setTimesViewModel)
     }
+}
+
+// MARK: - Set Times Content (properly observes SetTimesViewModel)
+private struct SetTimesContentView: View {
+    @ObservedObject var viewModel: SetTimesViewModel
 
     var body: some View {
         NavigationStack {

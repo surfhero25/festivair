@@ -1,21 +1,29 @@
 import SwiftUI
 
 struct MemberListView: View {
+    @EnvironmentObject var appState: AppState
+    var onNavigateToPeer: ((PeerTracker.PeerStatus) -> Void)?
+
+    var body: some View {
+        MemberListContentView(
+            peerTracker: appState.peerTracker,
+            squadViewModel: appState.squadViewModel,
+            onNavigateToPeer: onNavigateToPeer
+        )
+    }
+}
+
+// MARK: - Member List Content (properly observes PeerTracker + SquadViewModel)
+private struct MemberListContentView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var appState: AppState
+    @ObservedObject var peerTracker: PeerTracker
+    @ObservedObject var squadViewModel: SquadViewModel
 
     @State private var selectedPeer: PeerTracker.PeerStatus?
     @State private var showingProfile = false
 
     var onNavigateToPeer: ((PeerTracker.PeerStatus) -> Void)?
-
-    private var peerTracker: PeerTracker {
-        appState.peerTracker
-    }
-
-    private var squadViewModel: SquadViewModel {
-        appState.squadViewModel
-    }
 
     private var currentUserId: String? {
         UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.userId)
@@ -59,8 +67,7 @@ struct MemberListView: View {
                         if currentUserId != nil {
                             Section {
                                 CurrentUserRow(
-                                    isGateway: appState.gatewayManager.isGateway,
-                                    batteryLevel: appState.gatewayManager.batteryLevel
+                                    isGateway: appState.gatewayManager.isGateway
                                 )
                             } header: {
                                 Text("You")
@@ -137,7 +144,6 @@ struct MemberListView: View {
 // MARK: - Current User Row
 struct CurrentUserRow: View {
     let isGateway: Bool
-    let batteryLevel: Int
 
     private var displayName: String {
         UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.displayName) ?? "You"
@@ -183,30 +189,8 @@ struct CurrentUserRow: View {
             }
 
             Spacer()
-
-            // Battery
-            HStack(spacing: 4) {
-                Image(systemName: batteryIcon(for: batteryLevel))
-                    .foregroundStyle(batteryColor(for: batteryLevel))
-                Text("\(batteryLevel)%")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-            }
         }
         .padding(.vertical, 4)
-    }
-
-    private func batteryIcon(for level: Int) -> String {
-        if level > 75 { return "battery.100" }
-        if level > 50 { return "battery.75" }
-        if level > 25 { return "battery.50" }
-        return "battery.25"
-    }
-
-    private func batteryColor(for level: Int) -> Color {
-        if level > 50 { return .green }
-        if level > 25 { return .orange }
-        return .red
     }
 }
 
@@ -276,32 +260,8 @@ struct MemberRow: View {
                 .buttonStyle(.plain)
                 .accessibilityLabel("Navigate to \(peer.displayName)")
             }
-
-            // Battery
-            if let battery = peer.batteryLevel {
-                HStack(spacing: 4) {
-                    Image(systemName: batteryIcon(for: battery))
-                        .foregroundStyle(batteryColor(for: battery))
-                    Text("\(battery)%")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
-            }
         }
         .padding(.vertical, 4)
-    }
-
-    private func batteryIcon(for level: Int) -> String {
-        if level > 75 { return "battery.100" }
-        if level > 50 { return "battery.75" }
-        if level > 25 { return "battery.50" }
-        return "battery.25"
-    }
-
-    private func batteryColor(for level: Int) -> Color {
-        if level > 50 { return .green }
-        if level > 25 { return .orange }
-        return .red
     }
 }
 

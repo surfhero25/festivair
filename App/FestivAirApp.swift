@@ -218,8 +218,7 @@ final class AppState: ObservableObject {
     // MARK: - Onboarding
 
     func completeOnboarding(displayName: String, emoji: String) {
-        let userId = UUID().uuidString
-        UserDefaults.standard.set(userId, forKey: Constants.UserDefaultsKeys.userId)
+        // Use existing userId from init() — do NOT overwrite it, services already cached it
         UserDefaults.standard.set(displayName, forKey: Constants.UserDefaultsKeys.displayName)
         UserDefaults.standard.set(emoji, forKey: Constants.UserDefaultsKeys.emoji)
         UserDefaults.standard.set(true, forKey: Constants.UserDefaultsKeys.onboarded)

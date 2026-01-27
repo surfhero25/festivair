@@ -37,7 +37,7 @@ final class Squad {
     }
 
     var isAtCapacity: Bool {
-        memberCount >= 12
+        memberCount >= Constants.Squad.maxMembers
     }
 }
 
