@@ -411,7 +411,7 @@ struct ConnectionStatusBar: View {
     @EnvironmentObject var appState: AppState
 
     private var noConnectivity: Bool {
-        appState.meshManager.connectedPeers.isEmpty && !appState.gatewayManager.hasInternetAccess
+        !appState.gatewayManager.hasInternetAccess && !appState.meshManager.isBrowsing
     }
 
     var body: some View {
