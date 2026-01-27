@@ -305,9 +305,6 @@ struct LocationPickerView: View {
     @State private var locationError: String?
     @State private var hasInitializedMap = false
 
-    // Default fallback location (center of US)
-    private let defaultLocation = CLLocationCoordinate2D(latitude: 39.8283, longitude: -98.5795)
-
     var body: some View {
         NavigationStack {
             ZStack {
@@ -330,8 +327,10 @@ struct LocationPickerView: View {
                         Text(error)
                             .multilineTextAlignment(.center)
                             .foregroundStyle(.secondary)
-                        Button("Use Default Location") {
-                            initializeMap(with: defaultLocation)
+                        Button("Try Again") {
+                            locationError = nil
+                            isLoadingLocation = true
+                            initializeLocation()
                         }
                         .buttonStyle(.borderedProminent)
                     }
@@ -340,31 +339,14 @@ struct LocationPickerView: View {
                     .background(Color(.systemBackground))
                 } else {
                     // Map view
-                    MapReader { proxy in
-                        Map(position: $cameraPosition) {
-                            if let location = selectedLocation {
-                                Marker("Party Location", coordinate: location)
-                                    .tint(.purple)
-                            }
-                        }
-                        .onMapCameraChange { context in
-                            // Update selected location to map center
-                            selectedLocation = context.region.center
-                        }
-                        .onTapGesture { position in
-                            // Convert tap to coordinate
-                            if let coordinate = proxy.convert(position, from: .local) {
-                                selectedLocation = coordinate
-                                // Re-center camera on tapped location
-                                cameraPosition = .region(MKCoordinateRegion(
-                                    center: coordinate,
-                                    span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
-                                ))
-                            }
-                        }
+                    Map(position: $cameraPosition) {
+                    }
+                    .onMapCameraChange(frequency: .onEnd) { context in
+                        // Only update when user finishes dragging
+                        selectedLocation = context.region.center
                     }
 
-                    // Center pin indicator (shows where the center is)
+                    // Center pin indicator (always shows map center)
                     VStack {
                         Spacer()
                         Image(systemName: "mappin.circle.fill")
@@ -377,6 +359,7 @@ struct LocationPickerView: View {
                             .offset(y: -8)
                         Spacer()
                     }
+                    .allowsHitTesting(false)
                 }
             }
             .navigationTitle("Choose Location")
@@ -491,8 +474,8 @@ struct LocationPickerView: View {
                 initializeMap(with: coordinate)
             } else if attempts >= 30 { // 9 seconds timeout
                 timer.invalidate()
-                // Use default location as fallback
-                initializeMap(with: defaultLocation)
+                self.locationError = "Could not get your location.\nPlease make sure Location Services are enabled and try again."
+                self.isLoadingLocation = false
             }
         }
     }

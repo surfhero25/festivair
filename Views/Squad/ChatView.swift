@@ -4,7 +4,7 @@ struct ChatView: View {
     @EnvironmentObject var appState: AppState
 
     var body: some View {
-        ChatContentView(chatViewModel: appState.chatViewModel)
+        ChatContentView(chatViewModel: appState.chatViewModel, gatewayManager: appState.gatewayManager)
     }
 }
 
@@ -12,6 +12,7 @@ struct ChatView: View {
 private struct ChatContentView: View {
     @EnvironmentObject var appState: AppState
     @ObservedObject var chatViewModel: ChatViewModel
+    @ObservedObject var gatewayManager: GatewayManager
     @State private var messageText = ""
     @FocusState private var isInputFocused: Bool
 
@@ -27,7 +28,7 @@ private struct ChatContentView: View {
         NavigationStack {
             VStack(spacing: 0) {
                 // Airplane mode / no connectivity tip
-                if !appState.gatewayManager.hasInternetAccess {
+                if !gatewayManager.hasInternetAccess {
                     HStack(spacing: 6) {
                         Image(systemName: "airplane")
                             .font(.caption2)

@@ -410,8 +410,20 @@ struct MapControlButton: View {
 struct ConnectionStatusBar: View {
     @EnvironmentObject var appState: AppState
 
+    var body: some View {
+        ConnectionStatusContent(
+            meshManager: appState.meshManager,
+            gatewayManager: appState.gatewayManager
+        )
+    }
+}
+
+private struct ConnectionStatusContent: View {
+    @ObservedObject var meshManager: MeshNetworkManager
+    @ObservedObject var gatewayManager: GatewayManager
+
     private var noConnectivity: Bool {
-        !appState.gatewayManager.hasInternetAccess
+        !gatewayManager.hasInternetAccess
     }
 
     var body: some View {
@@ -420,9 +432,9 @@ struct ConnectionStatusBar: View {
                 // Mesh peers connected
                 HStack(spacing: 4) {
                     Circle()
-                        .fill(appState.meshManager.connectedPeers.isEmpty ? .orange : .green)
+                        .fill(meshManager.connectedPeers.isEmpty ? .orange : .green)
                         .frame(width: 6, height: 6)
-                    Text("\(appState.meshManager.connectedPeers.count) nearby")
+                    Text("\(meshManager.connectedPeers.count) nearby")
                         .font(.caption2)
                         .fontWeight(.medium)
                 }
@@ -434,7 +446,7 @@ struct ConnectionStatusBar: View {
                 Spacer()
 
                 // Gateway status (only show if we're the gateway)
-                if appState.gatewayManager.isGateway {
+                if gatewayManager.isGateway {
                     HStack(spacing: 3) {
                         Image(systemName: "wifi")
                             .font(.caption2)
