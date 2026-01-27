@@ -11,14 +11,14 @@ struct SquadMapView: View {
     @State private var isFindMeActive = false
     @State private var showFullCompass = false
     @State private var showStatusPicker = false
-    @State private var showPinSheet = false
-    @State private var pinDropCoordinate: CLLocationCoordinate2D?
+    @State private var pinDropLocation: IdentifiableCoordinate?
     @State private var selectedPinForDetail: MeetupPin?
 
     // Facility state
     @State private var selectedFacilityTypes: Set<FacilityType> = Set(FacilityType.quickAccess)
     @State private var selectedFacility: Facility?
     @State private var showFacilityFilters = false
+    @State private var showLocationError = false
 
     private var mapViewModel: MapViewModel {
         appState.mapViewModel
@@ -198,70 +198,40 @@ struct SquadMapView: View {
                         .padding(.horizontal)
                     }
 
-                    // Bottom controls - scrollable horizontal row
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 8) {
-                            // Status button
-                            MapControlButton(
-                                icon: currentUserStatus?.isActive == true ? (currentUserStatus?.preset?.icon ?? "bubble.left.fill") : "bubble.left.fill",
-                                label: "Status",
-                                isActive: currentUserStatus?.isActive == true
-                            ) {
-                                showStatusPicker = true
-                            }
+                    // Bottom controls - simplified row
+                    HStack(spacing: 12) {
+                        // Meet Here button
+                        MapControlButton(
+                            icon: "mappin.and.ellipse",
+                            label: "Meet",
+                            tint: .orange
+                        ) {
+                            dropPinAtCurrentLocation()
+                        }
 
-                            // Meet Here button
-                            MapControlButton(
-                                icon: "mappin.and.ellipse",
-                                label: "Meet",
-                                tint: .orange
-                            ) {
-                                dropPinAtCurrentLocation()
-                            }
-
-                            // Facilities toggle
-                            MapControlButton(
-                                icon: showFacilityFilters ? "building.2.fill" : "building.2",
-                                label: "Places",
-                                isActive: showFacilityFilters
-                            ) {
-                                withAnimation(.easeInOut(duration: 0.2)) {
-                                    showFacilityFilters.toggle()
-                                }
-                            }
-
-                            // Find Me button
-                            MapControlButton(
-                                icon: isFindMeActive ? "antenna.radiowaves.left.and.right" : "dot.radiowaves.left.and.right",
-                                label: "Beacon",
-                                isActive: isFindMeActive
-                            ) {
-                                activateFindMe()
-                            }
-
-                            // Group center button
-                            MapControlButton(
-                                icon: "person.3.sequence.fill",
-                                label: "Center",
-                                isActive: mapViewModel.groupCentroid != nil,
-                                isDisabled: mapViewModel.groupCentroid == nil
-                            ) {
-                                mapViewModel.centerOnGroup()
-                            }
-
-                            // Squad list button
-                            MapControlButton(
-                                icon: "person.3.fill",
-                                label: "Squad"
-                            ) {
-                                showMemberList = true
+                        // Facilities toggle
+                        MapControlButton(
+                            icon: showFacilityFilters ? "building.2.fill" : "building.2",
+                            label: "Places",
+                            isActive: showFacilityFilters
+                        ) {
+                            withAnimation(.easeInOut(duration: 0.2)) {
+                                showFacilityFilters.toggle()
                             }
                         }
-                        .padding(.horizontal)
-                        .padding(.vertical, 8)
+
+                        // Squad list button
+                        MapControlButton(
+                            icon: "person.3.fill",
+                            label: "Squad"
+                        ) {
+                            showMemberList = true
+                        }
                     }
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 10)
                     .background(.ultraThinMaterial)
-                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                    .clipShape(Capsule())
                 }
             }
             .navigationTitle("Squad Map")
@@ -312,11 +282,9 @@ struct SquadMapView: View {
             .sheet(isPresented: $showStatusPicker) {
                 StatusPickerView()
             }
-            .sheet(isPresented: $showPinSheet) {
-                if let coordinate = pinDropCoordinate {
-                    MeetupPinSheet(coordinate: coordinate) { pin in
-                        mapViewModel.dropPin(pin)
-                    }
+            .sheet(item: $pinDropLocation) { location in
+                MeetupPinSheet(coordinate: location.coordinate) { pin in
+                    mapViewModel.dropPin(pin)
                 }
             }
             .sheet(item: $selectedPinForDetail) { pin in
@@ -346,6 +314,11 @@ struct SquadMapView: View {
                     }
                 )
             }
+            .alert("Location Not Available", isPresented: $showLocationError) {
+                Button("OK") {}
+            } message: {
+                Text("Waiting for GPS. Make sure location services are enabled and try again.")
+            }
         }
     }
 
@@ -370,14 +343,16 @@ struct SquadMapView: View {
     private func dropPinAtCurrentLocation() {
         guard let location = appState.locationManager.currentLocation else {
             Haptics.error()
+            showLocationError = true
             return
         }
 
-        pinDropCoordinate = CLLocationCoordinate2D(
-            latitude: location.latitude,
-            longitude: location.longitude
+        pinDropLocation = IdentifiableCoordinate(
+            coordinate: CLLocationCoordinate2D(
+                latitude: location.latitude,
+                longitude: location.longitude
+            )
         )
-        showPinSheet = true
     }
 
     private func distanceToFacility(_ facility: Facility) -> Double? {
@@ -423,12 +398,12 @@ struct ConnectionStatusBar: View {
 
     var body: some View {
         HStack(spacing: 8) {
-            // Mesh status - compact
+            // Mesh peers connected
             HStack(spacing: 4) {
                 Circle()
                     .fill(appState.meshManager.connectedPeers.isEmpty ? .orange : .green)
                     .frame(width: 6, height: 6)
-                Text("\(appState.meshManager.connectedPeers.count)")
+                Text("\(appState.meshManager.connectedPeers.count) nearby")
                     .font(.caption2)
                     .fontWeight(.medium)
             }
@@ -439,44 +414,23 @@ struct ConnectionStatusBar: View {
 
             Spacer()
 
-            // Gateway status - compact
+            // Gateway status (only show if we're the gateway)
             if appState.gatewayManager.isGateway {
                 HStack(spacing: 3) {
-                    Image(systemName: "antenna.radiowaves.left.and.right")
+                    Image(systemName: "wifi")
                         .font(.caption2)
-                    Text("GW")
+                    Text("Syncing")
                         .font(.caption2)
                         .fontWeight(.medium)
                 }
-                .foregroundStyle(.purple)
+                .foregroundStyle(.green)
                 .padding(.horizontal, 8)
                 .padding(.vertical, 4)
-                .background(Color.purple.opacity(0.15))
+                .background(Color.green.opacity(0.15))
                 .clipShape(Capsule())
             }
-
-            // Battery - compact
-            HStack(spacing: 3) {
-                Image(systemName: batteryIcon)
-                    .font(.caption2)
-                Text("\(appState.gatewayManager.batteryLevel)%")
-                    .font(.caption2)
-                    .fontWeight(.medium)
-            }
-            .padding(.horizontal, 8)
-            .padding(.vertical, 4)
-            .background(Color(.systemGray6).opacity(0.8))
-            .clipShape(Capsule())
         }
         .padding(.horizontal, 8)
-    }
-
-    private var batteryIcon: String {
-        let level = appState.gatewayManager.batteryLevel
-        if level > 75 { return "battery.100" }
-        if level > 50 { return "battery.75" }
-        if level > 25 { return "battery.50" }
-        return "battery.25"
     }
 }
 
@@ -668,6 +622,12 @@ struct GroupInfoCard: View {
         }
         .buttonStyle(.plain)
     }
+}
+
+// MARK: - Identifiable Coordinate Wrapper
+struct IdentifiableCoordinate: Identifiable {
+    let id = UUID()
+    let coordinate: CLLocationCoordinate2D
 }
 
 #Preview {

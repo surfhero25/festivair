@@ -1,6 +1,7 @@
 import SwiftUI
 import AVFoundation
 import VisionKit
+import UIKit
 
 struct JoinSquadView: View {
     @EnvironmentObject var appState: AppState
@@ -401,6 +402,7 @@ struct CodeScannerView: View {
 }
 
 // MARK: - DataScanner UIKit Wrapper
+@available(iOS 16.0, *)
 struct DataScannerRepresentable: UIViewControllerRepresentable {
     let completion: (Result<ScanResult, ScanError>) -> Void
 
@@ -424,6 +426,7 @@ struct DataScannerRepresentable: UIViewControllerRepresentable {
         Coordinator(completion: completion)
     }
 
+    @available(iOS 16.0, *)
     class Coordinator: NSObject, DataScannerViewControllerDelegate {
         let completion: (Result<ScanResult, ScanError>) -> Void
         private var hasReported = false
@@ -476,4 +479,5 @@ struct DataScannerRepresentable: UIViewControllerRepresentable {
 
 #Preview {
     JoinSquadView()
+        .environmentObject(AppState())
 }
