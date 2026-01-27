@@ -242,5 +242,6 @@ final class AppState: ObservableObject {
 
     func handleEnterForeground() {
         meshCoordinator.enterForeground()
+        gatewayManager.refreshNetworkStatus()
     }
 }

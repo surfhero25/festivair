@@ -145,25 +145,35 @@ final class GatewayManager: ObservableObject {
 
     // MARK: - Network Monitoring
 
-    private func setupNetworkMonitoring() {
-        pathMonitor = NWPathMonitor()
-        pathMonitor?.pathUpdateHandler = { [weak self] path in
-            DispatchQueue.main.async {
-                self?.hasInternetAccess = path.status == .satisfied
+    /// Restart the path monitor to pick up connectivity changes (e.g. after airplane mode toggle)
+    func refreshNetworkStatus() {
+        pathMonitor?.cancel()
+        pathMonitor = nil
+        setupNetworkMonitoring()
+    }
 
-                // Estimate signal strength from path properties
-                if path.usesInterfaceType(.cellular) {
-                    // On cellular, check if constrained (low data mode)
-                    self?.signalStrength = path.isConstrained ? 2 : 4
-                } else if path.usesInterfaceType(.wifi) {
-                    // WiFi typically good signal
-                    self?.signalStrength = path.isExpensive ? 3 : 4
-                } else {
-                    self?.signalStrength = 0
-                }
+    private func setupNetworkMonitoring() {
+        let monitor = NWPathMonitor()
+        monitor.pathUpdateHandler = { [weak self] path in
+            DispatchQueue.main.async {
+                self?.applyPathUpdate(path)
             }
         }
-        pathMonitor?.start(queue: DispatchQueue.global(qos: .utility))
+        monitor.start(queue: DispatchQueue.global(qos: .utility))
+        pathMonitor = monitor
+    }
+
+    private func applyPathUpdate(_ path: NWPath) {
+        hasInternetAccess = path.status == .satisfied
+
+        // Estimate signal strength from path properties
+        if path.usesInterfaceType(.cellular) {
+            signalStrength = path.isConstrained ? 2 : 4
+        } else if path.usesInterfaceType(.wifi) {
+            signalStrength = path.isExpensive ? 3 : 4
+        } else {
+            signalStrength = 0
+        }
     }
 
     // MARK: - Battery Monitoring

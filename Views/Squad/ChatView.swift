@@ -27,7 +27,7 @@ private struct ChatContentView: View {
         NavigationStack {
             VStack(spacing: 0) {
                 // Airplane mode / no connectivity tip
-                if !appState.gatewayManager.hasInternetAccess && !appState.meshManager.isBrowsing {
+                if !appState.gatewayManager.hasInternetAccess {
                     HStack(spacing: 6) {
                         Image(systemName: "airplane")
                             .font(.caption2)
