@@ -2,12 +2,18 @@ import SwiftUI
 
 struct ChatView: View {
     @EnvironmentObject var appState: AppState
+
+    var body: some View {
+        ChatContentView(chatViewModel: appState.chatViewModel)
+    }
+}
+
+// MARK: - Chat Content (properly observes ChatViewModel)
+private struct ChatContentView: View {
+    @EnvironmentObject var appState: AppState
+    @ObservedObject var chatViewModel: ChatViewModel
     @State private var messageText = ""
     @FocusState private var isInputFocused: Bool
-
-    private var chatViewModel: ChatViewModel {
-        appState.chatViewModel
-    }
 
     private var currentUserId: String? {
         UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.userId)

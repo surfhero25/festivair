@@ -149,6 +149,7 @@ struct JoinSquadContent: View {
     let onJoin: () -> Void
     let onScan: (Result<ScanResult, ScanError>) -> Void
     @State private var showScanner = false
+    @FocusState private var isCodeFieldFocused: Bool
 
     var body: some View {
         VStack(spacing: 24) {
@@ -184,24 +185,39 @@ struct JoinSquadContent: View {
             }
             .padding(.horizontal)
 
-            // Code input
+            // Code input - tap to focus the hidden text field
             HStack(spacing: 8) {
                 ForEach(0..<6, id: \.self) { index in
                     CodeDigitView(
-                        digit: index < squadCode.count ? String(squadCode[squadCode.index(squadCode.startIndex, offsetBy: index)]) : ""
+                        digit: index < squadCode.count ? String(squadCode[squadCode.index(squadCode.startIndex, offsetBy: index)]) : "",
+                        isFocused: isCodeFieldFocused && index == squadCode.count
                     )
                 }
             }
             .padding(.horizontal)
+            .contentShape(Rectangle())
+            .onTapGesture {
+                isCodeFieldFocused = true
+            }
 
             // Hidden text field for input
             TextField("", text: $squadCode)
                 .keyboardType(.asciiCapable)
                 .textInputAutocapitalization(.characters)
+                .focused($isCodeFieldFocused)
                 .frame(width: 1, height: 1)
                 .opacity(0.01)
                 .onChange(of: squadCode) { _, newValue in
                     squadCode = String(newValue.prefix(6)).uppercased()
+                    // Auto-join when 6 characters entered
+                    if squadCode.count == 6 {
+                        isCodeFieldFocused = false
+                    }
+                }
+                .onSubmit {
+                    if squadCode.count == 6 {
+                        onJoin()
+                    }
                 }
 
             Spacer()
@@ -235,6 +251,7 @@ struct JoinSquadContent: View {
 // MARK: - Code Digit View
 struct CodeDigitView: View {
     let digit: String
+    var isFocused: Bool = false
 
     var body: some View {
         Text(digit.isEmpty ? " " : digit)
@@ -244,7 +261,7 @@ struct CodeDigitView: View {
             .clipShape(RoundedRectangle(cornerRadius: 8))
             .overlay(
                 RoundedRectangle(cornerRadius: 8)
-                    .stroke(.purple.opacity(digit.isEmpty ? 0.3 : 1), lineWidth: 2)
+                    .stroke(isFocused ? .purple : .purple.opacity(digit.isEmpty ? 0.3 : 1), lineWidth: isFocused ? 3 : 2)
             )
     }
 }

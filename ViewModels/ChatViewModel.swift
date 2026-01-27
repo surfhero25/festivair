@@ -54,13 +54,14 @@ final class ChatViewModel: ObservableObject {
         let userIdUUID = UUID(uuidString: userId) ?? UUID()
         let trimmedText = text.trimmingCharacters(in: .whitespacesAndNewlines)
 
-        // Create local message
+        // Create local message (delivered immediately since it's local)
         let message = ChatMessage(
             senderId: userIdUUID,
             senderName: currentUserName,
             text: trimmedText,
             squadId: squadId
         )
+        message.isDelivered = true
         modelContext?.insert(message)
         do {
             try modelContext?.save()
