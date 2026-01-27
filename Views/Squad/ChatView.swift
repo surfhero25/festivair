@@ -26,6 +26,21 @@ private struct ChatContentView: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
+                // Airplane mode / no connectivity tip
+                if appState.meshManager.connectedPeers.isEmpty && !appState.gatewayManager.hasInternetAccess {
+                    HStack(spacing: 6) {
+                        Image(systemName: "airplane")
+                            .font(.caption2)
+                        Text("No connection. Turn on Bluetooth & Wi-Fi to chat with your squad.")
+                            .font(.caption2)
+                    }
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 6)
+                    .frame(maxWidth: .infinity)
+                    .background(.orange)
+                }
+
                 if chatViewModel.isLoading {
                     ProgressView("Loading messages...")
                         .frame(maxWidth: .infinity, maxHeight: .infinity)

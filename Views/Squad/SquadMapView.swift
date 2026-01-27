@@ -410,38 +410,60 @@ struct MapControlButton: View {
 struct ConnectionStatusBar: View {
     @EnvironmentObject var appState: AppState
 
+    private var noConnectivity: Bool {
+        appState.meshManager.connectedPeers.isEmpty && !appState.gatewayManager.hasInternetAccess
+    }
+
     var body: some View {
-        HStack(spacing: 8) {
-            // Mesh peers connected
-            HStack(spacing: 4) {
-                Circle()
-                    .fill(appState.meshManager.connectedPeers.isEmpty ? .orange : .green)
-                    .frame(width: 6, height: 6)
-                Text("\(appState.meshManager.connectedPeers.count) nearby")
-                    .font(.caption2)
-                    .fontWeight(.medium)
-            }
-            .padding(.horizontal, 8)
-            .padding(.vertical, 4)
-            .background(Color(.systemGray6).opacity(0.8))
-            .clipShape(Capsule())
-
-            Spacer()
-
-            // Gateway status (only show if we're the gateway)
-            if appState.gatewayManager.isGateway {
-                HStack(spacing: 3) {
-                    Image(systemName: "wifi")
-                        .font(.caption2)
-                    Text("Syncing")
+        VStack(spacing: 6) {
+            HStack(spacing: 8) {
+                // Mesh peers connected
+                HStack(spacing: 4) {
+                    Circle()
+                        .fill(appState.meshManager.connectedPeers.isEmpty ? .orange : .green)
+                        .frame(width: 6, height: 6)
+                    Text("\(appState.meshManager.connectedPeers.count) nearby")
                         .font(.caption2)
                         .fontWeight(.medium)
                 }
-                .foregroundStyle(.green)
                 .padding(.horizontal, 8)
                 .padding(.vertical, 4)
-                .background(Color.green.opacity(0.15))
+                .background(Color(.systemGray6).opacity(0.8))
                 .clipShape(Capsule())
+
+                Spacer()
+
+                // Gateway status (only show if we're the gateway)
+                if appState.gatewayManager.isGateway {
+                    HStack(spacing: 3) {
+                        Image(systemName: "wifi")
+                            .font(.caption2)
+                        Text("Syncing")
+                            .font(.caption2)
+                            .fontWeight(.medium)
+                    }
+                    .foregroundStyle(.green)
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 4)
+                    .background(Color.green.opacity(0.15))
+                    .clipShape(Capsule())
+                }
+            }
+
+            // Airplane mode / no connectivity tip
+            if noConnectivity {
+                HStack(spacing: 6) {
+                    Image(systemName: "airplane")
+                        .font(.caption2)
+                    Text("No connection. Turn on Bluetooth & Wi-Fi to find your squad.")
+                        .font(.caption2)
+                }
+                .foregroundStyle(.white)
+                .padding(.horizontal, 10)
+                .padding(.vertical, 6)
+                .frame(maxWidth: .infinity)
+                .background(.orange)
+                .clipShape(RoundedRectangle(cornerRadius: 8))
             }
         }
         .padding(.horizontal, 8)
