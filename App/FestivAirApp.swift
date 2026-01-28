@@ -110,7 +110,7 @@ final class AppState: ObservableObject {
         cloudKit = CloudKitService.shared
 
         // Initialize ViewModels
-        squadViewModel = SquadViewModel(cloudKit: cloudKit, meshManager: meshManager)
+        squadViewModel = SquadViewModel(cloudKit: cloudKit, meshManager: meshManager, peerTracker: peerTracker)
         chatViewModel = ChatViewModel(cloudKit: cloudKit, meshManager: meshManager)
         mapViewModel = MapViewModel(locationManager: locationManager, meshManager: meshManager, peerTracker: peerTracker)
         setTimesViewModel = SetTimesViewModel(notificationManager: notificationManager)

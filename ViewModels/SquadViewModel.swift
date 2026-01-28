@@ -15,6 +15,7 @@ final class SquadViewModel: ObservableObject {
     // MARK: - Dependencies
     private let cloudKit: CloudKitService
     private let meshManager: MeshNetworkManager
+    private let peerTracker: PeerTracker
     private let subscriptionManager = SubscriptionManager.shared
     private var modelContext: ModelContext?
     private var cancellables = Set<AnyCancellable>()
@@ -25,9 +26,10 @@ final class SquadViewModel: ObservableObject {
     }
 
     // MARK: - Init
-    init(cloudKit: CloudKitService = .shared, meshManager: MeshNetworkManager) {
+    init(cloudKit: CloudKitService = .shared, meshManager: MeshNetworkManager, peerTracker: PeerTracker) {
         self.cloudKit = cloudKit
         self.meshManager = meshManager
+        self.peerTracker = peerTracker
         setupMeshListener()
     }
 
@@ -90,12 +92,14 @@ final class SquadViewModel: ObservableObject {
         // Try CloudKit first (optional - works offline/local-only)
         var squadName = "Squad"
         var cloudSquadId: String?
+        var existingMemberIds: [String] = []
 
         if cloudKit.isAvailable {
             do {
                 if let found = try await cloudKit.findSquad(byCode: code) {
                     squadName = found.name
                     cloudSquadId = found.id
+                    existingMemberIds = found.memberIds
                     let memberCount = found.memberIds.count
 
                     // Check tier-based member limit
@@ -155,8 +159,33 @@ final class SquadViewModel: ObservableObject {
         UserDefaults.standard.set(squad.id.uuidString, forKey: Constants.UserDefaultsKeys.currentSquadId)
         await loadMembers()
 
+        // Fetch and register other squad members from CloudKit
+        await registerSquadMembers(memberIds: existingMemberIds, excludingUserId: userId)
+
         // Configure mesh networking
         meshManager.configure(squadId: squad.id.uuidString, userId: userId)
+    }
+
+    /// Fetch member profiles from CloudKit and register them with PeerTracker
+    private func registerSquadMembers(memberIds: [String], excludingUserId: String) async {
+        guard cloudKit.isAvailable else { return }
+
+        let otherMemberIds = memberIds.filter { $0 != excludingUserId }
+        guard !otherMemberIds.isEmpty else { return }
+
+        do {
+            let profiles = try await cloudKit.getSquadMemberProfiles(memberIds: otherMemberIds)
+            for profile in profiles {
+                peerTracker.registerRemoteMember(
+                    id: profile.id,
+                    displayName: profile.displayName,
+                    emoji: profile.emoji
+                )
+            }
+            print("[Squad] Registered \(profiles.count) squad members from CloudKit")
+        } catch {
+            print("[Squad] Failed to fetch member profiles: \(error.localizedDescription)")
+        }
     }
 
     func leaveSquad() async throws {
@@ -197,6 +226,7 @@ final class SquadViewModel: ObservableObject {
         currentSquad = nil
         members = []
         memberLocations = [:]
+        peerTracker.clearAllPeers()
         UserDefaults.standard.removeObject(forKey: Constants.UserDefaultsKeys.currentSquadId)
     }
 
@@ -268,11 +298,30 @@ final class SquadViewModel: ObservableObject {
                     await loadMembers()
                     if let userId = currentUserId {
                         meshManager.configure(squadId: squad.id.uuidString, userId: userId)
+
+                        // Fetch and register squad members from CloudKit
+                        await refreshSquadMembers()
                     }
                 }
             }
         } catch {
             print("[SquadVM] Error loading squad: \(error)")
+        }
+    }
+
+    /// Refresh squad members from CloudKit (called at app launch and pull-to-refresh)
+    func refreshSquadMembers() async {
+        guard let squad = currentSquad,
+              let cloudId = squad.firebaseId,
+              let userId = currentUserId,
+              cloudKit.isAvailable else { return }
+
+        do {
+            if let found = try await cloudKit.findSquad(byCode: squad.joinCode) {
+                await registerSquadMembers(memberIds: found.memberIds, excludingUserId: userId)
+            }
+        } catch {
+            print("[Squad] Failed to refresh members: \(error.localizedDescription)")
         }
     }
 

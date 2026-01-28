@@ -155,6 +155,33 @@ final class PeerTracker: ObservableObject {
         updatePeerLists()
     }
 
+    /// Register a remote squad member from CloudKit (initially offline until mesh discovers them)
+    func registerRemoteMember(id: String, displayName: String, emoji: String) {
+        // Don't overwrite if already exists (might have live mesh data)
+        guard peers[id] == nil else { return }
+
+        let status = PeerStatus(
+            id: id,
+            displayName: displayName,
+            emoji: emoji,
+            lastSeen: Date(),
+            batteryLevel: nil,
+            hasService: false,
+            isOnline: false,  // Start as offline until mesh heartbeat arrives
+            location: nil,
+            status: nil
+        )
+
+        peers[id] = status
+        updatePeerLists()
+    }
+
+    /// Clear all peers (used when leaving squad)
+    func clearAllPeers() {
+        peers.removeAll()
+        updatePeerLists()
+    }
+
     // MARK: - Private Helpers
 
     private func startCleanupTimer() {

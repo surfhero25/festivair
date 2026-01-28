@@ -87,7 +87,7 @@ final class CloudKitService: ObservableObject {
         }
     }
 
-    // MARK: - User Operations
+    // MARK: - User Operations (Private - for local backup)
 
     func saveUser(id: String, displayName: String, emoji: String) async throws {
         let recordID = CKRecord.ID(recordName: id, zoneID: zoneID)
@@ -98,6 +98,9 @@ final class CloudKitService: ObservableObject {
         record["lastUpdated"] = Date()
 
         try await privateDatabase.save(record)
+
+        // Also save to public database for squad member discovery
+        try await savePublicUserProfile(id: id, displayName: displayName, emoji: emoji)
     }
 
     func getUser(id: String) async throws -> (displayName: String, emoji: String)? {
@@ -114,6 +117,48 @@ final class CloudKitService: ObservableObject {
             }
             throw error
         }
+    }
+
+    // MARK: - Public User Profiles (for squad member discovery)
+
+    func savePublicUserProfile(id: String, displayName: String, emoji: String) async throws {
+        let recordID = CKRecord.ID(recordName: "profile_\(id)")
+        let record = CKRecord(recordType: RecordType.user, recordID: recordID)
+
+        record["userId"] = id
+        record["displayName"] = displayName
+        record["emoji"] = emoji
+        record["lastUpdated"] = Date()
+
+        try await publicDatabase.save(record)
+    }
+
+    func getPublicUserProfile(id: String) async throws -> (displayName: String, emoji: String)? {
+        let recordID = CKRecord.ID(recordName: "profile_\(id)")
+
+        do {
+            let record = try await publicDatabase.record(for: recordID)
+            let displayName = record["displayName"] as? String ?? "Unknown"
+            let emoji = record["emoji"] as? String ?? "🎧"
+            return (displayName, emoji)
+        } catch {
+            if let ckError = error as? CKError, ckError.code == .unknownItem {
+                return nil
+            }
+            throw error
+        }
+    }
+
+    func getSquadMemberProfiles(memberIds: [String]) async throws -> [(id: String, displayName: String, emoji: String)] {
+        var profiles: [(id: String, displayName: String, emoji: String)] = []
+
+        for memberId in memberIds {
+            if let profile = try await getPublicUserProfile(id: memberId) {
+                profiles.append((memberId, profile.displayName, profile.emoji))
+            }
+        }
+
+        return profiles
     }
 
     // MARK: - Squad Operations
