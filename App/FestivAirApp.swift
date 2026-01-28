@@ -166,6 +166,7 @@ final class AppState: ObservableObject {
         squadViewModel.configure(modelContext: context)
         setTimesViewModel.configure(modelContext: context)
         partiesViewModel.configure(modelContext: context)
+        mapViewModel.configure(peerTracker: peerTracker)
 
         // Configure chat if we have a squad
         if let squad = squadViewModel.currentSquad {

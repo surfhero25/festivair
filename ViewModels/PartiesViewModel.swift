@@ -270,10 +270,33 @@ final class PartiesViewModel: ObservableObject {
             if attendee.isApproved {
                 party.currentAttendeeCount = max(0, party.currentAttendeeCount - 1)
             }
+
+            // Sync deletion to CloudKit
+            if let recordId = attendee.cloudKitRecordId, cloudKit.isAvailable {
+                Task {
+                    do {
+                        try await cloudKit.deleteAttendee(attendeeId: recordId)
+                    } catch {
+                        print("[Parties] Failed to delete attendee from CloudKit: \(error)")
+                    }
+                }
+            }
+
             context.delete(attendee)
         }
 
         try context.save()
+
+        // Update party attendee count in CloudKit
+        if cloudKit.isAvailable {
+            Task {
+                do {
+                    try await cloudKit.updateParty(party)
+                } catch {
+                    print("[Parties] Failed to update party count in CloudKit: \(error)")
+                }
+            }
+        }
     }
 
     // MARK: - Host Actions

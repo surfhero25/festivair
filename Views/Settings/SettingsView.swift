@@ -14,6 +14,10 @@ struct SettingsView: View {
     @State private var showPaywall = false
     @State private var showPrivacyPolicy = false
     @State private var showTermsOfService = false
+    @State private var showSignOutConfirm = false
+    @State private var showDeleteAccountConfirm = false
+    @State private var isSigningOut = false
+    @State private var isDeletingAccount = false
     @State private var profileImage: UIImage?
 
     // Get or create current user
@@ -234,6 +238,39 @@ struct SettingsView: View {
                     Text("Download venue maps for offline use at festivals")
                 }
 
+                // Account section
+                Section {
+                    Button {
+                        showSignOutConfirm = true
+                    } label: {
+                        HStack {
+                            Label("Sign Out", systemImage: "rectangle.portrait.and.arrow.right")
+                            Spacer()
+                            if isSigningOut {
+                                ProgressView()
+                            }
+                        }
+                    }
+                    .disabled(isSigningOut || isDeletingAccount)
+
+                    Button(role: .destructive) {
+                        showDeleteAccountConfirm = true
+                    } label: {
+                        HStack {
+                            Label("Delete Account", systemImage: "trash")
+                            Spacer()
+                            if isDeletingAccount {
+                                ProgressView()
+                            }
+                        }
+                    }
+                    .disabled(isSigningOut || isDeletingAccount)
+                } header: {
+                    Text("Account")
+                } footer: {
+                    Text("Deleting your account will remove all your data and cannot be undone.")
+                }
+
                 // About section
                 Section("About") {
                     HStack {
@@ -278,9 +315,7 @@ struct SettingsView: View {
                 }
             }
             .sheet(isPresented: $showPaywall) {
-                // TODO: PaywallView()
-                Text("Premium coming soon!")
-                    .presentationDetents([.medium])
+                PaywallView()
             }
             .alert("Leave Squad?", isPresented: $showLeaveSquad) {
                 Button("Cancel", role: .cancel) {}
@@ -298,7 +333,120 @@ struct SettingsView: View {
             .sheet(isPresented: $showTermsOfService) {
                 TermsOfServiceView()
             }
+            .alert("Sign Out", isPresented: $showSignOutConfirm) {
+                Button("Cancel", role: .cancel) {}
+                Button("Sign Out", role: .destructive) {
+                    Task {
+                        await signOut()
+                    }
+                }
+            } message: {
+                Text("Are you sure you want to sign out? You'll need to set up your profile again.")
+            }
+            .alert("Delete Account", isPresented: $showDeleteAccountConfirm) {
+                Button("Cancel", role: .cancel) {}
+                Button("Delete Forever", role: .destructive) {
+                    Task {
+                        await deleteAccount()
+                    }
+                }
+            } message: {
+                Text("This will permanently delete your account, profile, and all associated data. This action cannot be undone.")
+            }
+            .loadingTimeout(isLoading: $isSigningOut, timeout: 30) {
+                // Reset on timeout
+            }
+            .loadingTimeout(isLoading: $isDeletingAccount, timeout: 60) {
+                // Reset on timeout
+            }
         }
+    }
+
+    // MARK: - Account Actions
+
+    private func signOut() async {
+        isSigningOut = true
+        defer { isSigningOut = false }
+
+        // Leave squad if in one
+        if appState.squadViewModel.currentSquad != nil {
+            try? await appState.squadViewModel.leaveSquad()
+        }
+
+        // Stop services
+        appState.stopServices()
+
+        // Clear local data
+        clearLocalUserData()
+
+        // Reset onboarding
+        appState.isOnboarded = false
+    }
+
+    private func deleteAccount() async {
+        isDeletingAccount = true
+        defer { isDeletingAccount = false }
+
+        // Leave squad if in one
+        if appState.squadViewModel.currentSquad != nil {
+            try? await appState.squadViewModel.leaveSquad()
+        }
+
+        // Stop services
+        appState.stopServices()
+
+        // Delete from CloudKit
+        if let userId = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.userId) {
+            try? await appState.cloudKit.deleteUserData(userId: userId)
+        }
+
+        // Clear all local data
+        clearLocalUserData()
+        clearAllLocalData()
+
+        // Reset onboarding
+        appState.isOnboarded = false
+    }
+
+    private func clearLocalUserData() {
+        UserDefaults.standard.removeObject(forKey: Constants.UserDefaultsKeys.userId)
+        UserDefaults.standard.removeObject(forKey: Constants.UserDefaultsKeys.displayName)
+        UserDefaults.standard.removeObject(forKey: Constants.UserDefaultsKeys.emoji)
+        UserDefaults.standard.removeObject(forKey: Constants.UserDefaultsKeys.currentSquadId)
+        UserDefaults.standard.removeObject(forKey: Constants.UserDefaultsKeys.onboarded)
+        UserDefaults.standard.removeObject(forKey: "FestivAir.CurrentUserStatus")
+    }
+
+    private func clearAllLocalData() {
+        // Clear all SwiftData entities for this user
+        // Messages, party attendance, etc. are linked to user
+        let userId = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.userId)
+
+        // Delete user-specific messages
+        if let squadId = appState.squadViewModel.currentSquad?.id {
+            let messageDescriptor = FetchDescriptor<ChatMessage>(
+                predicate: #Predicate { $0.squadId == squadId }
+            )
+            if let messages = try? modelContext.fetch(messageDescriptor) {
+                for message in messages {
+                    modelContext.delete(message)
+                }
+            }
+        }
+
+        // Delete PartyAttendee records for this user
+        if let userIdString = userId {
+            let attendeeDescriptor = FetchDescriptor<PartyAttendee>(
+                predicate: #Predicate { $0.userId == userIdString }
+            )
+            if let attendees = try? modelContext.fetch(attendeeDescriptor) {
+                for attendee in attendees {
+                    modelContext.delete(attendee)
+                }
+            }
+        }
+
+        try? modelContext.save()
     }
 
     // MARK: - Helpers

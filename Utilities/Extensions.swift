@@ -216,6 +216,49 @@ extension UserDefaults {
     }
 }
 
+// MARK: - Loading Timeout Modifier
+/// A view modifier that automatically resets a loading state after a timeout
+struct LoadingTimeoutModifier: ViewModifier {
+    @Binding var isLoading: Bool
+    let timeout: TimeInterval
+    let onTimeout: (() -> Void)?
+    @State private var timeoutTask: Task<Void, Never>?
+
+    func body(content: Content) -> some View {
+        content
+            .onChange(of: isLoading) { _, newValue in
+                if newValue {
+                    // Cancel any existing timeout
+                    timeoutTask?.cancel()
+                    // Start new timeout
+                    timeoutTask = Task {
+                        try? await Task.sleep(nanoseconds: UInt64(timeout * 1_000_000_000))
+                        if !Task.isCancelled && isLoading {
+                            await MainActor.run {
+                                isLoading = false
+                                onTimeout?()
+                            }
+                        }
+                    }
+                } else {
+                    // Cancel timeout when loading completes
+                    timeoutTask?.cancel()
+                }
+            }
+    }
+}
+
+extension View {
+    /// Adds a timeout to a loading state that auto-resets after the specified duration
+    func loadingTimeout(
+        isLoading: Binding<Bool>,
+        timeout: TimeInterval = 30,
+        onTimeout: (() -> Void)? = nil
+    ) -> some View {
+        modifier(LoadingTimeoutModifier(isLoading: isLoading, timeout: timeout, onTimeout: onTimeout))
+    }
+}
+
 // MARK: - Haptic Feedback
 enum Haptics {
     #if os(iOS)

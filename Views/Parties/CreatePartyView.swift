@@ -96,6 +96,10 @@ struct CreatePartyView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 12))
                 }
             }
+            .loadingTimeout(isLoading: $isCreating, timeout: 30) {
+                errorMessage = "Request timed out. Please try again."
+                showError = true
+            }
         }
     }
 

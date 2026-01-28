@@ -160,7 +160,12 @@ final class SetTimesViewModel: ObservableObject {
     private func scheduleNotification(for setTime: SetTime) {
         guard let stageName = setTime.stage?.name else { return }
 
-        let leadTime = TimeInterval(UserDefaults.standard.integer(forKey: Constants.UserDefaultsKeys.notifyBefore) * 60)
+        // Default to 10 minutes if not set
+        var leadMinutes = UserDefaults.standard.integer(forKey: Constants.UserDefaultsKeys.notifyBefore)
+        if leadMinutes == 0 {
+            leadMinutes = 10 // Default 10 minutes
+        }
+        let leadTime = TimeInterval(leadMinutes * 60)
 
         Task {
             await notificationManager.scheduleSetTimeNotification(

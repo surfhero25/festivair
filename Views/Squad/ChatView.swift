@@ -246,6 +246,9 @@ struct ChatInputBar: View {
         }
         .padding(.horizontal)
         .padding(.vertical, 8)
+        .padding(.bottom, UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .first?.windows.first?.safeAreaInsets.bottom ?? 0 > 0 ? 0 : 8)
         .background(.ultraThinMaterial)
     }
 }

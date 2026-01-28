@@ -61,6 +61,10 @@ struct PaywallView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 12))
                 }
             }
+            .loadingTimeout(isLoading: $isPurchasing, timeout: 60) {
+                errorMessage = "Purchase request timed out. Please try again."
+                showError = true
+            }
         }
     }
 

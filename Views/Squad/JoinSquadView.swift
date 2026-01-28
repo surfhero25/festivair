@@ -57,6 +57,10 @@ struct JoinSquadView: View {
             } message: {
                 Text(errorMessage)
             }
+            .loadingTimeout(isLoading: $isLoading, timeout: 30) {
+                errorMessage = "Request timed out. Please try again."
+                showError = true
+            }
         }
     }
 

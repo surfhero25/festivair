@@ -178,4 +178,5 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 extension Notification.Name {
     static let joinSquadFromURL = Notification.Name("FestivAir.JoinSquadFromURL")
     static let navigateToMap = Notification.Name("FestivAir.NavigateToMap")
+    static let didLeaveSquad = Notification.Name("FestivAir.DidLeaveSquad")
 }

@@ -134,7 +134,22 @@ final class GatewayManager: ObservableObject {
         isGateway = true
         onBecomeGateway?()
         Log.gatewayInfo("This device is now the gateway")
+
+        // Broadcast gateway announcement to peers so they know not to compete
+        broadcastGatewayAnnouncement()
     }
+
+    /// Broadcast gateway status to peers
+    private func broadcastGatewayAnnouncement() {
+        let message = MeshMessagePayload.gatewayAnnounce(
+            peerId: myPeerId,
+            signalStrength: signalStrength
+        )
+        onGatewayAnnounce?(message)
+    }
+
+    /// Callback to broadcast gateway announcement via mesh network
+    var onGatewayAnnounce: ((MeshMessagePayload) -> Void)?
 
     private func resignAsGateway() {
         guard isGateway else { return }

@@ -553,7 +553,7 @@ final class CloudKitService: ObservableObject {
         return parties
     }
 
-    /// Update party in CloudKit
+    /// Update party in CloudKit (syncs all fields)
     func updateParty(_ party: Party) async throws {
         let recordID = CKRecord.ID(recordName: party.id.uuidString)
 
@@ -566,9 +566,20 @@ final class CloudKitService: ObservableObject {
             return
         }
 
+        // Sync all editable fields
+        record["name"] = party.name
+        record["description"] = party.partyDescription
+        record["latitude"] = party.latitude
+        record["longitude"] = party.longitude
+        record["locationName"] = party.locationName
+        record["isLocationHidden"] = party.isLocationHidden
+        record["startTime"] = party.startTime
+        record["endTime"] = party.endTime
+        record["maxAttendees"] = party.maxAttendees
         record["currentAttendeeCount"] = party.currentAttendeeCount
         record["isActive"] = party.isActive
-        record["endTime"] = party.endTime
+        record["vibe"] = party.vibeRawValue
+        record["accessType"] = party.accessTypeRawValue
 
         try await publicDatabase.save(record)
     }
@@ -635,6 +646,41 @@ final class CloudKitService: ObservableObject {
     }
 
     // MARK: - Subscriptions (Real-time updates)
+
+    // MARK: - Account Deletion
+
+    /// Delete all user data from CloudKit (for account deletion)
+    func deleteUserData(userId: String) async throws {
+        // Delete from private database
+        let privateRecordID = CKRecord.ID(recordName: userId, zoneID: zoneID)
+        try? await privateDatabase.deleteRecord(withID: privateRecordID)
+
+        // Delete from public database (profile)
+        let publicRecordID = CKRecord.ID(recordName: "profile_\(userId)")
+        try? await publicDatabase.deleteRecord(withID: publicRecordID)
+
+        // Delete location records
+        let locationPredicate = NSPredicate(format: "userId == %@", userId)
+        let locationQuery = CKQuery(recordType: RecordType.location, predicate: locationPredicate)
+        let locationResults = try? await privateDatabase.records(matching: locationQuery)
+        for (recordID, _) in locationResults?.matchResults ?? [] {
+            try? await privateDatabase.deleteRecord(withID: recordID)
+        }
+
+        // Delete attendee records from parties
+        let attendeePredicate = NSPredicate(format: "userId == %@", userId)
+        let attendeeQuery = CKQuery(recordType: RecordType.partyAttendee, predicate: attendeePredicate)
+        let attendeeResults = try? await publicDatabase.records(matching: attendeeQuery)
+        for (recordID, _) in attendeeResults?.matchResults ?? [] {
+            try? await publicDatabase.deleteRecord(withID: recordID)
+        }
+    }
+
+    /// Delete attendee record when leaving a party
+    func deleteAttendee(attendeeId: String) async throws {
+        let recordID = CKRecord.ID(recordName: attendeeId)
+        try await publicDatabase.deleteRecord(withID: recordID)
+    }
 
     func subscribeToSquadUpdates(squadId: String, onChange: @escaping () -> Void) async throws {
         let predicate = NSPredicate(format: "squadId == %@", squadId)

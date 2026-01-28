@@ -52,6 +52,14 @@ final class MeshCoordinator: ObservableObject {
         self.syncEngine = syncEngine
 
         setupBindings()
+        setupGatewayBroadcast()
+    }
+
+    private func setupGatewayBroadcast() {
+        // Broadcast gateway announcements via mesh when we become gateway
+        gatewayManager.onGatewayAnnounce = { [weak self] message in
+            self?.meshManager.broadcast(message)
+        }
     }
 
     // MARK: - Lifecycle

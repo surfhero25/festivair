@@ -52,6 +52,25 @@ final class MapViewModel: ObservableObject {
         setupBindings()
     }
 
+    // MARK: - Configuration
+
+    /// Configure the MapViewModel (called from AppState)
+    func configure(peerTracker: PeerTracker) {
+        // Already configured in init - this is a hook for future configuration needs
+    }
+
+    /// Clear all squad-related data (called when leaving squad)
+    func clearSquadData() {
+        activeMeetupPins.removeAll()
+        selectedPin = nil
+        pinCleanupTimer?.invalidate()
+        pinCleanupTimer = nil
+        stopNavigating()
+        memberAnnotations.removeAll()
+        selectedMember = nil
+        groupCentroid = nil
+    }
+
     // MARK: - Map Operations
 
     func centerOnUser() {
@@ -345,6 +364,15 @@ final class MapViewModel: ObservableObject {
     // MARK: - Private Helpers
 
     private func setupBindings() {
+        // Listen for squad leave notification to clear data
+        NotificationCenter.default.addObserver(
+            forName: .didLeaveSquad,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            self?.clearSquadData()
+        }
+
         // Update annotations when peer status changes
         peerTracker.$onlinePeers
             .combineLatest(peerTracker.$offlinePeers)

@@ -228,6 +228,12 @@ final class SquadViewModel: ObservableObject {
         memberLocations = [:]
         peerTracker.clearAllPeers()
         UserDefaults.standard.removeObject(forKey: Constants.UserDefaultsKeys.currentSquadId)
+
+        // Stop mesh networking
+        meshManager.stopAll()
+
+        // Notify other components to clear squad-related data
+        NotificationCenter.default.post(name: .didLeaveSquad, object: nil)
     }
 
     // MARK: - Member Operations
