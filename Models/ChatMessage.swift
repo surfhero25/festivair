@@ -116,7 +116,8 @@ struct MeshMessagePayload: Codable {
     }
 
     // Factory methods
-    static func locationUpdate(userId: String, location: Location) -> MeshMessagePayload {
+    static func locationUpdate(userId: String, displayName: String, emoji: String, location: Location) -> MeshMessagePayload {
+        // peerId carries displayName, squadId carries emoji (consistent with heartbeat)
         MeshMessagePayload(
             type: .locationUpdate,
             userId: userId,
@@ -127,7 +128,7 @@ struct MeshMessagePayload: Codable {
                 timestamp: location.timestamp,
                 source: location.source.rawValue
             ),
-            chat: nil, peerId: nil, signalStrength: nil, squadId: nil,
+            chat: nil, peerId: displayName, signalStrength: nil, squadId: emoji,
             syncData: nil, batteryLevel: nil, hasService: nil, enabled: nil,
             status: nil, meetupPin: nil
         )
@@ -143,11 +144,12 @@ struct MeshMessagePayload: Codable {
         )
     }
 
-    static func heartbeat(userId: String, batteryLevel: Int, hasService: Bool) -> MeshMessagePayload {
+    static func heartbeat(userId: String, displayName: String, emoji: String, batteryLevel: Int, hasService: Bool) -> MeshMessagePayload {
+        // peerId field carries displayName, squadId field carries emoji (reusing existing fields)
         MeshMessagePayload(
             type: .heartbeat,
-            userId: userId, location: nil, chat: nil, peerId: nil, signalStrength: nil,
-            squadId: nil, syncData: nil, batteryLevel: batteryLevel, hasService: hasService, enabled: nil,
+            userId: userId, location: nil, chat: nil, peerId: displayName, signalStrength: nil,
+            squadId: emoji, syncData: nil, batteryLevel: batteryLevel, hasService: hasService, enabled: nil,
             status: nil, meetupPin: nil
         )
     }

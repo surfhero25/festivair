@@ -135,8 +135,14 @@ final class MeshCoordinator: ObservableObject {
     private func sendHeartbeat() {
         guard let userId = currentUserId else { return }
 
+        // Get current display name and emoji from UserDefaults (always fresh)
+        let displayName = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.displayName) ?? "Festival Fan"
+        let emoji = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.emoji) ?? "🎧"
+
         let message = MeshMessagePayload.heartbeat(
             userId: userId,
+            displayName: displayName,
+            emoji: emoji,
             batteryLevel: gatewayManager.batteryLevel,
             hasService: gatewayManager.hasInternetAccess
         )
@@ -165,7 +171,11 @@ final class MeshCoordinator: ObservableObject {
     private func broadcastLocation(_ location: Location) {
         guard let userId = currentUserId else { return }
 
-        let message = MeshMessagePayload.locationUpdate(userId: userId, location: location)
+        // Get current display name and emoji from UserDefaults (always fresh)
+        let displayName = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.displayName) ?? "Festival Fan"
+        let emoji = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.emoji) ?? "🎧"
+
+        let message = MeshMessagePayload.locationUpdate(userId: userId, displayName: displayName, emoji: emoji, location: location)
         meshManager.broadcast(message)
 
         // If we're the gateway, also sync to Firebase

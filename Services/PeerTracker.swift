@@ -224,10 +224,13 @@ extension PeerTracker {
         switch envelope.message.type {
         case .heartbeat:
             if let userId = envelope.message.userId {
+                // displayName is in peerId field, emoji is in squadId field (for heartbeats)
+                let displayName = envelope.message.peerId ?? peerId
+                let emoji = envelope.message.squadId ?? "🎧"
                 updatePeer(
                     id: userId,
-                    displayName: peerId, // Will be updated with real name
-                    emoji: "🎧",
+                    displayName: displayName,
+                    emoji: emoji,
                     batteryLevel: envelope.message.batteryLevel,
                     hasService: envelope.message.hasService ?? false
                 )
@@ -236,6 +239,24 @@ extension PeerTracker {
         case .locationUpdate:
             if let userId = envelope.message.userId,
                let locationPayload = envelope.message.location {
+                // displayName is in peerId field, emoji is in squadId field
+                let displayName = envelope.message.peerId ?? peerId
+                let emoji = envelope.message.squadId ?? "🎧"
+
+                // Create/update peer first (in case we get location before heartbeat)
+                if peers[userId] == nil {
+                    updatePeer(id: userId, displayName: displayName, emoji: emoji, batteryLevel: nil, hasService: false)
+                } else if let name = envelope.message.peerId {
+                    // Update display name if provided
+                    if var status = peers[userId] {
+                        status.displayName = name
+                        if let e = envelope.message.squadId {
+                            status.emoji = e
+                        }
+                        peers[userId] = status
+                    }
+                }
+
                 let location = Location(
                     latitude: locationPayload.latitude,
                     longitude: locationPayload.longitude,
