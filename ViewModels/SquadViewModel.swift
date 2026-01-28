@@ -300,14 +300,18 @@ final class SquadViewModel: ObservableObject {
             let memberships = try modelContext.fetch(descriptor)
             if let membership = memberships.first, let squad = membership.squad {
                 currentSquad = squad
+
+                // Configure mesh SYNCHRONOUSLY before any async work
+                if let userId = currentUserId {
+                    meshManager.configure(squadId: squad.id.uuidString, userId: userId)
+                    print("[SquadVM] Configured mesh with squadId: \(squad.id.uuidString), userId: \(userId)")
+                }
+
                 Task {
                     await loadMembers()
-                    if let userId = currentUserId {
-                        meshManager.configure(squadId: squad.id.uuidString, userId: userId)
 
-                        // Fetch and register squad members from CloudKit
-                        await refreshSquadMembers()
-                    }
+                    // Fetch and register squad members from CloudKit
+                    await refreshSquadMembers()
                 }
             }
         } catch {
@@ -378,6 +382,9 @@ final class SquadViewModel: ObservableObject {
 
     private func handleMeshMessage(_ envelope: Any) {
         guard let meshEnvelope = envelope as? MeshEnvelope else { return }
+
+        // Forward ALL messages to PeerTracker so it can track online status
+        peerTracker.handleMeshMessage(meshEnvelope, from: meshEnvelope.originPeerId)
 
         switch meshEnvelope.message.type {
         case .locationUpdate:

@@ -93,11 +93,44 @@ final class MeshNetworkManager: NSObject, ObservableObject {
     func configure(squadId: String, userId: String) {
         self.squadId = squadId
         self.userId = userId
-        // Restart advertising with new discovery info
+        print("[Mesh] Configured with squadId: \(squadId), userId: \(userId)")
+
+        // CRITICAL: Recreate advertiser and browser with new discoveryInfo
+        // MCNearbyServiceAdvertiser captures discoveryInfo at creation time,
+        // so we must create new instances when config changes
+        let wasAdvertising = isAdvertising
+        let wasBrowsing = isBrowsing
+
         if isAdvertising {
             stopAdvertising()
+        }
+        if isBrowsing {
+            stopBrowsing()
+        }
+
+        // Recreate with updated discoveryInfo
+        advertiser = MCNearbyServiceAdvertiser(
+            peer: myPeerId,
+            discoveryInfo: discoveryInfo,
+            serviceType: serviceType
+        )
+        advertiser.delegate = self
+
+        browser = MCNearbyServiceBrowser(
+            peer: myPeerId,
+            serviceType: serviceType
+        )
+        browser.delegate = self
+
+        // Restart if they were running
+        if wasAdvertising {
             startAdvertising()
         }
+        if wasBrowsing {
+            startBrowsing()
+        }
+
+        print("[Mesh] Recreated advertiser/browser with discoveryInfo: \(discoveryInfo ?? [:])")
     }
 
     func startAdvertising() {
