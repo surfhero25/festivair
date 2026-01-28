@@ -25,6 +25,18 @@ final class SquadViewModel: ObservableObject {
         UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.userId)
     }
 
+    /// Gets the current user ID, or creates one if it doesn't exist
+    /// This is a failsafe in case AppState.init() didn't save it properly
+    private func getOrCreateUserId() -> String {
+        if let existing = currentUserId {
+            return existing
+        }
+        let newId = UUID().uuidString
+        UserDefaults.standard.set(newId, forKey: Constants.UserDefaultsKeys.userId)
+        print("[SquadVM] Created missing userId: \(newId)")
+        return newId
+    }
+
     // MARK: - Init
     init(cloudKit: CloudKitService = .shared, meshManager: MeshNetworkManager, peerTracker: PeerTracker) {
         self.cloudKit = cloudKit
@@ -41,9 +53,8 @@ final class SquadViewModel: ObservableObject {
     // MARK: - Squad Operations
 
     func createSquad(name: String) async throws {
-        guard let userId = currentUserId else {
-            throw SquadError.notAuthenticated
-        }
+        // Always ensure we have a userId (creates one if missing)
+        let userId = getOrCreateUserId()
 
         isLoading = true
         defer { isLoading = false }
@@ -82,9 +93,8 @@ final class SquadViewModel: ObservableObject {
     }
 
     func joinSquad(code: String) async throws {
-        guard let userId = currentUserId else {
-            throw SquadError.notAuthenticated
-        }
+        // Always ensure we have a userId (creates one if missing)
+        let userId = getOrCreateUserId()
 
         isLoading = true
         defer { isLoading = false }
@@ -292,6 +302,9 @@ final class SquadViewModel: ObservableObject {
     private func loadCurrentSquad() {
         guard let modelContext = modelContext else { return }
 
+        // Ensure we have a userId first - if not, don't load stale squad data
+        let userId = getOrCreateUserId()
+
         let descriptor = FetchDescriptor<SquadMembership>(
             sortBy: [SortDescriptor(\.joinedAt, order: .reverse)]
         )
@@ -299,13 +312,21 @@ final class SquadViewModel: ObservableObject {
         do {
             let memberships = try modelContext.fetch(descriptor)
             if let membership = memberships.first, let squad = membership.squad {
+                // Verify this membership belongs to the current user
+                // If the userId in UserDefaults was reset, the SwiftData might have stale data
+                let membershipUserId = membership.user?.firebaseId
+                if membershipUserId != nil && membershipUserId != userId {
+                    // Stale data from a different user session - clear it
+                    print("[SquadVM] Clearing stale squad data (userId mismatch)")
+                    clearStaleSquadData()
+                    return
+                }
+
                 currentSquad = squad
 
                 // Configure mesh SYNCHRONOUSLY before any async work
-                if let userId = currentUserId {
-                    meshManager.configure(squadId: squad.id.uuidString, userId: userId)
-                    print("[SquadVM] Configured mesh with squadId: \(squad.id.uuidString), userId: \(userId)")
-                }
+                meshManager.configure(squadId: squad.id.uuidString, userId: userId)
+                print("[SquadVM] Configured mesh with squadId: \(squad.id.uuidString), userId: \(userId)")
 
                 Task {
                     await loadMembers()
@@ -317,6 +338,34 @@ final class SquadViewModel: ObservableObject {
         } catch {
             print("[SquadVM] Error loading squad: \(error)")
         }
+    }
+
+    /// Clear stale squad data when userId doesn't match
+    private func clearStaleSquadData() {
+        guard let modelContext = modelContext else { return }
+
+        // Delete all memberships
+        let membershipDescriptor = FetchDescriptor<SquadMembership>()
+        if let memberships = try? modelContext.fetch(membershipDescriptor) {
+            for membership in memberships {
+                modelContext.delete(membership)
+            }
+        }
+
+        // Delete all squads
+        let squadDescriptor = FetchDescriptor<Squad>()
+        if let squads = try? modelContext.fetch(squadDescriptor) {
+            for squad in squads {
+                modelContext.delete(squad)
+            }
+        }
+
+        try? modelContext.save()
+        currentSquad = nil
+        members = []
+        memberLocations = [:]
+        UserDefaults.standard.removeObject(forKey: Constants.UserDefaultsKeys.currentSquadId)
+        print("[SquadVM] Cleared all stale squad data")
     }
 
     /// Refresh squad members from CloudKit (called at app launch and pull-to-refresh)
