@@ -174,38 +174,68 @@ final class CloudKitService: ObservableObject {
         record["createdAt"] = Date()
 
         // Use PUBLIC database so other users can find and join
-        try await publicDatabase.save(record)
-        return squadId
+        print("[CloudKit] Creating squad '\(name)' with code '\(joinCode)' in PUBLIC database...")
+        do {
+            try await publicDatabase.save(record)
+            print("[CloudKit] ✅ Squad created successfully with ID: \(squadId)")
+            return squadId
+        } catch {
+            print("[CloudKit] ❌ Failed to create squad: \(error)")
+            throw error
+        }
     }
 
     func findSquad(byCode code: String) async throws -> (id: String, name: String, memberIds: [String])? {
+        print("[CloudKit] Searching for squad with code '\(code)' in PUBLIC database...")
+
         let predicate = NSPredicate(format: "joinCode == %@", code)
         let query = CKQuery(recordType: RecordType.squad, predicate: predicate)
 
         // Search PUBLIC database where squads are stored
-        let results = try await publicDatabase.records(matching: query)
+        do {
+            let results = try await publicDatabase.records(matching: query)
+            print("[CloudKit] Query returned \(results.matchResults.count) results")
 
-        for (_, result) in results.matchResults {
-            if let record = try? result.get() {
-                let id = record.recordID.recordName
-                let name = record["name"] as? String ?? "Squad"
-                let memberIds = record["memberIds"] as? [String] ?? []
-                return (id, name, memberIds)
+            for (recordID, result) in results.matchResults {
+                switch result {
+                case .success(let record):
+                    let id = record.recordID.recordName
+                    let name = record["name"] as? String ?? "Squad"
+                    let memberIds = record["memberIds"] as? [String] ?? []
+                    print("[CloudKit] ✅ Found squad: '\(name)' with \(memberIds.count) members")
+                    return (id, name, memberIds)
+                case .failure(let error):
+                    print("[CloudKit] ⚠️ Record fetch error for \(recordID): \(error)")
+                }
             }
-        }
 
-        return nil
+            print("[CloudKit] ⚠️ No squad found with code '\(code)'")
+            return nil
+        } catch {
+            print("[CloudKit] ❌ Query failed: \(error)")
+            throw error
+        }
     }
 
     func joinSquad(squadId: String, userId: String) async throws {
+        print("[CloudKit] Joining squad \(squadId) for user \(userId)...")
         let recordID = CKRecord.ID(recordName: squadId)
-        let record = try await publicDatabase.record(for: recordID)
 
-        var memberIds = record["memberIds"] as? [String] ?? []
-        if !memberIds.contains(userId) {
-            memberIds.append(userId)
-            record["memberIds"] = memberIds
-            try await publicDatabase.save(record)
+        do {
+            let record = try await publicDatabase.record(for: recordID)
+
+            var memberIds = record["memberIds"] as? [String] ?? []
+            if !memberIds.contains(userId) {
+                memberIds.append(userId)
+                record["memberIds"] = memberIds
+                try await publicDatabase.save(record)
+                print("[CloudKit] ✅ User added to squad. Members now: \(memberIds.count)")
+            } else {
+                print("[CloudKit] User already in squad")
+            }
+        } catch {
+            print("[CloudKit] ❌ Failed to join squad: \(error)")
+            throw error
         }
     }
 

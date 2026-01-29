@@ -105,9 +105,12 @@ final class SquadViewModel: ObservableObject {
         var cloudSquadId: String?
         var existingMemberIds: [String] = []
 
+        print("[SquadVM] Joining squad with code: \(code), CloudKit available: \(cloudKit.isAvailable)")
+
         if cloudKit.isAvailable {
             do {
                 if let found = try await cloudKit.findSquad(byCode: code) {
+                    print("[SquadVM] ✅ Found squad in CloudKit: '\(found.name)' with \(found.memberIds.count) members")
                     squadName = found.name
                     cloudSquadId = found.id
                     existingMemberIds = found.memberIds
@@ -120,14 +123,19 @@ final class SquadViewModel: ObservableObject {
                     }
 
                     try await cloudKit.joinSquad(squadId: found.id, userId: userId)
+                    print("[SquadVM] ✅ Joined squad successfully")
+                } else {
+                    print("[SquadVM] ⚠️ Squad NOT found in CloudKit - creating local only")
                 }
             } catch let error as SquadError {
                 // Re-throw squad-specific errors (like tier limit)
                 throw error
             } catch {
                 // CloudKit sync failed - continue with local squad
-                print("[Squad] CloudKit lookup failed, continuing with local squad: \(error.localizedDescription)")
+                print("[SquadVM] ❌ CloudKit error: \(error.localizedDescription)")
             }
+        } else {
+            print("[SquadVM] ⚠️ CloudKit not available")
         }
 
         // Check for existing local squad with this join code (avoid duplicates)
