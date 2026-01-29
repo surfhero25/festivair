@@ -161,11 +161,11 @@ final class CloudKitService: ObservableObject {
         return profiles
     }
 
-    // MARK: - Squad Operations
+    // MARK: - Squad Operations (PUBLIC database so all users can find/join)
 
     func createSquad(name: String, joinCode: String, creatorId: String) async throws -> String {
         let squadId = UUID().uuidString
-        let recordID = CKRecord.ID(recordName: squadId, zoneID: zoneID)
+        let recordID = CKRecord.ID(recordName: squadId)
         let record = CKRecord(recordType: RecordType.squad, recordID: recordID)
 
         record["name"] = name
@@ -173,7 +173,8 @@ final class CloudKitService: ObservableObject {
         record["memberIds"] = [creatorId]
         record["createdAt"] = Date()
 
-        try await privateDatabase.save(record)
+        // Use PUBLIC database so other users can find and join
+        try await publicDatabase.save(record)
         return squadId
     }
 
@@ -181,7 +182,8 @@ final class CloudKitService: ObservableObject {
         let predicate = NSPredicate(format: "joinCode == %@", code)
         let query = CKQuery(recordType: RecordType.squad, predicate: predicate)
 
-        let results = try await privateDatabase.records(matching: query)
+        // Search PUBLIC database where squads are stored
+        let results = try await publicDatabase.records(matching: query)
 
         for (_, result) in results.matchResults {
             if let record = try? result.get() {
@@ -196,25 +198,25 @@ final class CloudKitService: ObservableObject {
     }
 
     func joinSquad(squadId: String, userId: String) async throws {
-        let recordID = CKRecord.ID(recordName: squadId, zoneID: zoneID)
-        let record = try await privateDatabase.record(for: recordID)
+        let recordID = CKRecord.ID(recordName: squadId)
+        let record = try await publicDatabase.record(for: recordID)
 
         var memberIds = record["memberIds"] as? [String] ?? []
         if !memberIds.contains(userId) {
             memberIds.append(userId)
             record["memberIds"] = memberIds
-            try await privateDatabase.save(record)
+            try await publicDatabase.save(record)
         }
     }
 
     func leaveSquad(squadId: String, userId: String) async throws {
-        let recordID = CKRecord.ID(recordName: squadId, zoneID: zoneID)
-        let record = try await privateDatabase.record(for: recordID)
+        let recordID = CKRecord.ID(recordName: squadId)
+        let record = try await publicDatabase.record(for: recordID)
 
         var memberIds = record["memberIds"] as? [String] ?? []
         memberIds.removeAll { $0 == userId }
         record["memberIds"] = memberIds
-        try await privateDatabase.save(record)
+        try await publicDatabase.save(record)
     }
 
     // MARK: - Location Operations
@@ -262,11 +264,11 @@ final class CloudKitService: ObservableObject {
         return locations
     }
 
-    // MARK: - Message Operations
+    // MARK: - Message Operations (PUBLIC database for squad chat)
 
     func sendMessage(squadId: String, senderId: String, senderName: String, text: String) async throws -> String {
         let messageId = UUID().uuidString
-        let recordID = CKRecord.ID(recordName: messageId, zoneID: zoneID)
+        let recordID = CKRecord.ID(recordName: messageId)
         let record = CKRecord(recordType: RecordType.message, recordID: recordID)
 
         record["squadId"] = squadId
@@ -275,7 +277,8 @@ final class CloudKitService: ObservableObject {
         record["text"] = text
         record["timestamp"] = Date()
 
-        try await privateDatabase.save(record)
+        // Use PUBLIC database so all squad members can see messages
+        try await publicDatabase.save(record)
         return messageId
     }
 
@@ -292,7 +295,8 @@ final class CloudKitService: ObservableObject {
         let query = CKQuery(recordType: RecordType.message, predicate: predicate)
         query.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: true)]
 
-        let results = try await privateDatabase.records(matching: query)
+        // Query PUBLIC database
+        let results = try await publicDatabase.records(matching: query)
 
         var messages: [(id: String, senderId: String, senderName: String, text: String, timestamp: Date)] = []
 
