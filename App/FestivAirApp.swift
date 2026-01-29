@@ -173,7 +173,8 @@ final class AppState: ObservableObject {
             chatViewModel.configure(
                 modelContext: context,
                 squadId: squad.id,
-                cloudSquadId: squad.firebaseId
+                cloudSquadId: squad.firebaseId,
+                joinCode: squad.joinCode
             )
         }
 
@@ -209,7 +210,8 @@ final class AppState: ObservableObject {
                     self.chatViewModel.configure(
                         modelContext: context,
                         squadId: squad.id,
-                        cloudSquadId: squad.firebaseId
+                        cloudSquadId: squad.firebaseId,
+                        joinCode: squad.joinCode
                     )
                 }
             }

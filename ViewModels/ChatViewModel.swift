@@ -28,6 +28,7 @@ final class ChatViewModel: ObservableObject {
     // MARK: - Squad
     private var currentSquadId: UUID?
     private var cloudSquadId: String?
+    private var joinCode: String?  // Used for mesh message routing (same on all devices)
 
     // MARK: - Init
     init(cloudKit: CloudKitService = .shared, meshManager: MeshNetworkManager) {
@@ -36,10 +37,11 @@ final class ChatViewModel: ObservableObject {
         setupMeshListener()
     }
 
-    func configure(modelContext: ModelContext, squadId: UUID?, cloudSquadId: String?) {
+    func configure(modelContext: ModelContext, squadId: UUID?, cloudSquadId: String?, joinCode: String?) {
         self.modelContext = modelContext
         self.currentSquadId = squadId
         self.cloudSquadId = cloudSquadId
+        self.joinCode = joinCode
         loadMessages()
         Task { await fetchRemoteMessages() }
     }
@@ -82,6 +84,10 @@ final class ChatViewModel: ObservableObject {
             timestamp: message.timestamp
         )
 
+        // Use joinCode for mesh routing (same on all devices in squad)
+        // Fall back to cloudSquadId, then local squadId for backwards compatibility
+        let routingId = joinCode ?? cloudSquadId ?? squadId.uuidString
+
         let meshMessage = MeshMessagePayload(
             type: .chatMessage,
             userId: userId,
@@ -89,7 +95,7 @@ final class ChatViewModel: ObservableObject {
             chat: payload,
             peerId: nil,
             signalStrength: nil,
-            squadId: squadId.uuidString,
+            squadId: routingId,
             syncData: nil,
             batteryLevel: nil,
             hasService: nil,
@@ -194,8 +200,12 @@ final class ChatViewModel: ObservableObject {
         guard let meshEnvelope = envelope as? MeshEnvelope,
               meshEnvelope.message.type == .chatMessage,
               let chatPayload = meshEnvelope.message.chat,
-              let squadId = currentSquadId,
-              chatPayload.squadId == squadId else { return }
+              let squadId = currentSquadId else { return }
+
+        // Match on joinCode first (same on all devices), then cloudSquadId, then local squadId
+        let myRoutingId = joinCode ?? cloudSquadId ?? squadId.uuidString
+        let messageRoutingId = meshEnvelope.message.squadId ?? ""
+        guard messageRoutingId == myRoutingId else { return }
 
         // Skip our own messages
         if let userId = currentUserId,

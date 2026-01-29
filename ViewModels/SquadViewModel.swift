@@ -52,17 +52,18 @@ final class SquadViewModel: ObservableObject {
 
     // MARK: - Squad Operations
 
-    func createSquad(name: String) async throws {
+    func createSquad(name: String, joinCode: String? = nil) async throws {
         // Always ensure we have a userId (creates one if missing)
         let userId = getOrCreateUserId()
 
         isLoading = true
         defer { isLoading = false }
 
-        let joinCode = Squad.generateJoinCode()
+        // Use provided code or generate new one
+        let finalJoinCode = joinCode ?? Squad.generateJoinCode()
 
         // Create local squad
-        let squad = Squad(name: name, joinCode: joinCode)
+        let squad = Squad(name: name, joinCode: finalJoinCode)
 
         // Create membership
         if let user = try await getOrCreateCurrentUser() {
@@ -75,7 +76,7 @@ final class SquadViewModel: ObservableObject {
         // Sync to CloudKit (optional, works offline - ignore errors for local-first)
         if cloudKit.isAvailable {
             do {
-                let cloudId = try await cloudKit.createSquad(name: name, joinCode: joinCode, creatorId: userId)
+                let cloudId = try await cloudKit.createSquad(name: name, joinCode: finalJoinCode, creatorId: userId)
                 squad.firebaseId = cloudId // Reusing field for CloudKit ID
                 try modelContext?.save()
             } catch {

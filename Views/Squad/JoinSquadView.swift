@@ -12,6 +12,7 @@ struct JoinSquadView: View {
     @State private var showError = false
     @State private var errorMessage = ""
     @State private var isLoading = false
+    @State private var previewCode = Squad.generateJoinCode()  // Generate once at init
 
     private var squadViewModel: SquadViewModel {
         appState.squadViewModel
@@ -39,6 +40,7 @@ struct JoinSquadView: View {
                     CreateSquadContent(
                         squadName: $squadName,
                         isLoading: isLoading,
+                        previewCode: previewCode,
                         onCreate: createSquad
                     )
                 }
@@ -124,7 +126,7 @@ struct JoinSquadView: View {
 
         Task {
             do {
-                try await squadViewModel.createSquad(name: squadName)
+                try await squadViewModel.createSquad(name: squadName, joinCode: previewCode)
                 await MainActor.run {
                     isLoading = false
                     dismiss()
@@ -274,9 +276,9 @@ struct CodeDigitView: View {
 struct CreateSquadContent: View {
     @Binding var squadName: String
     let isLoading: Bool
+    let previewCode: String  // Code is passed in, not generated here
     let onCreate: () -> Void
     @FocusState private var isNameFieldFocused: Bool
-    @State private var previewCode: String = ""
 
     var body: some View {
         VStack(spacing: 24) {
@@ -335,10 +337,6 @@ struct CreateSquadContent: View {
             .clipShape(RoundedRectangle(cornerRadius: 16))
             .disabled(squadName.isEmpty || isLoading)
             .padding()
-        }
-        .onAppear {
-            // Generate code once when view appears
-            previewCode = Squad.generateJoinCode()
         }
         .onTapGesture {
             // Dismiss keyboard when tapping outside
