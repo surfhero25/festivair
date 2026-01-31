@@ -501,7 +501,7 @@ final class SquadViewModel: ObservableObject {
 
         print("[SquadVM] Mesh msg type=\(meshEnvelope.message.type), senderId=\(senderUserId ?? "nil"), knownMembers=\(knownMemberIds), isKnown=\(isKnownMember), hasSquad=\(currentSquad != nil), isRefreshing=\(isRefreshingMembers)")
 
-        if let senderId = senderUserId,
+        if senderUserId != nil,
            !isKnownMember,
            currentSquad != nil,
            !isRefreshingMembers {
