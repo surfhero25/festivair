@@ -104,11 +104,11 @@ struct DebugLogView: View {
             // Filter bar
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 8) {
-                    FilterChip(title: "All", isSelected: filterCategory == nil) {
+                    DebugFilterChip(title: "All", isSelected: filterCategory == nil) {
                         filterCategory = nil
                     }
                     ForEach(categories, id: \.self) { category in
-                        FilterChip(title: category, isSelected: filterCategory == category) {
+                        DebugFilterChip(title: category, isSelected: filterCategory == category) {
                             filterCategory = category
                         }
                     }
@@ -177,12 +177,12 @@ struct DebugLogView: View {
             }
         }
         .sheet(isPresented: $showShareSheet) {
-            ShareSheet(items: [logger.export()])
+            DebugShareSheet(items: [logger.export()])
         }
     }
 }
 
-struct FilterChip: View {
+private struct DebugFilterChip: View {
     let title: String
     let isSelected: Bool
     let action: () -> Void
@@ -243,8 +243,8 @@ struct LogEntryRow: View {
     }
 }
 
-// MARK: - Share Sheet
-struct ShareSheet: UIViewControllerRepresentable {
+// MARK: - Debug Share Sheet
+private struct DebugShareSheet: UIViewControllerRepresentable {
     let items: [Any]
 
     func makeUIViewController(context: Context) -> UIActivityViewController {
