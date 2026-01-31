@@ -687,18 +687,18 @@ final class CloudKitService: ObservableObject {
     func deleteUserData(userId: String) async throws {
         // Delete from private database
         let privateRecordID = CKRecord.ID(recordName: userId, zoneID: zoneID)
-        try? await privateDatabase.deleteRecord(withID: privateRecordID)
+        _ = try? await privateDatabase.deleteRecord(withID: privateRecordID)
 
         // Delete from public database (profile)
         let publicRecordID = CKRecord.ID(recordName: "profile_\(userId)")
-        try? await publicDatabase.deleteRecord(withID: publicRecordID)
+        _ = try? await publicDatabase.deleteRecord(withID: publicRecordID)
 
         // Delete location records
         let locationPredicate = NSPredicate(format: "userId == %@", userId)
         let locationQuery = CKQuery(recordType: RecordType.location, predicate: locationPredicate)
         let locationResults = try? await privateDatabase.records(matching: locationQuery)
         for (recordID, _) in locationResults?.matchResults ?? [] {
-            try? await privateDatabase.deleteRecord(withID: recordID)
+            _ = try? await privateDatabase.deleteRecord(withID: recordID)
         }
 
         // Delete attendee records from parties
@@ -706,7 +706,7 @@ final class CloudKitService: ObservableObject {
         let attendeeQuery = CKQuery(recordType: RecordType.partyAttendee, predicate: attendeePredicate)
         let attendeeResults = try? await publicDatabase.records(matching: attendeeQuery)
         for (recordID, _) in attendeeResults?.matchResults ?? [] {
-            try? await publicDatabase.deleteRecord(withID: recordID)
+            _ = try? await publicDatabase.deleteRecord(withID: recordID)
         }
     }
 

@@ -83,6 +83,7 @@ final class LocationManager: NSObject, ObservableObject {
 
     func startUpdating() {
         guard authorizationStatus == .authorizedWhenInUse || authorizationStatus == .authorizedAlways else {
+            print("[Location] Requesting authorization (current: \(authorizationStatus.rawValue))")
             requestAuthorization()
             return
         }
@@ -90,9 +91,13 @@ final class LocationManager: NSObject, ObservableObject {
         configureLocationManager()
         locationManager.startUpdatingLocation()
         isUpdating = true
+        print("[Location] Started location updates (mode: \(updateMode), accuracy: \(updateMode.desiredAccuracy))")
 
         // Start periodic update timer
         startUpdateTimer()
+
+        // Request immediate location to speed up first fix
+        locationManager.requestLocation()
     }
 
     func stopUpdating() {
@@ -203,7 +208,15 @@ extension LocationManager: CLLocationManagerDelegate {
 
             switch self.authorizationStatus {
             case .authorizedWhenInUse, .authorizedAlways:
-                if self.isUpdating {
+                // Auto-start location updates when authorization is granted
+                // This fixes the issue where startUpdating() was called before authorization
+                if !self.isUpdating {
+                    self.configureLocationManager()
+                    self.locationManager.startUpdatingLocation()
+                    self.isUpdating = true
+                    self.startUpdateTimer()
+                    print("[Location] Auto-started updates after authorization granted")
+                } else {
                     self.locationManager.startUpdatingLocation()
                 }
             case .denied, .restricted:

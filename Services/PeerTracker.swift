@@ -227,12 +227,26 @@ extension PeerTracker {
                 // displayName is in peerId field, emoji is in squadId field (for heartbeats)
                 let displayName = envelope.message.peerId ?? peerId
                 let emoji = envelope.message.squadId ?? "🎧"
+
+                // Extract location if included in heartbeat (for immediate map visibility)
+                var location: Location? = nil
+                if let locPayload = envelope.message.location {
+                    location = Location(
+                        latitude: locPayload.latitude,
+                        longitude: locPayload.longitude,
+                        accuracy: locPayload.accuracy,
+                        timestamp: locPayload.timestamp,
+                        source: LocationSource(rawValue: locPayload.source) ?? .mesh
+                    )
+                }
+
                 updatePeer(
                     id: userId,
                     displayName: displayName,
                     emoji: emoji,
                     batteryLevel: envelope.message.batteryLevel,
-                    hasService: envelope.message.hasService ?? false
+                    hasService: envelope.message.hasService ?? false,
+                    location: location
                 )
             }
 

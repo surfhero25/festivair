@@ -185,25 +185,64 @@ final class SquadViewModel: ObservableObject {
         meshManager.configure(squadId: squad.id.uuidString, userId: userId)
     }
 
-    /// Fetch member profiles from CloudKit and register them with PeerTracker
+    /// Fetch member profiles from CloudKit, create local records, and register with PeerTracker
     private func registerSquadMembers(memberIds: [String], excludingUserId: String) async {
         guard cloudKit.isAvailable else { return }
+        guard let squad = currentSquad, let modelContext = modelContext else { return }
 
         let otherMemberIds = memberIds.filter { $0 != excludingUserId }
         guard !otherMemberIds.isEmpty else { return }
 
         do {
             let profiles = try await cloudKit.getSquadMemberProfiles(memberIds: otherMemberIds)
+            print("[SquadVM] Fetched \(profiles.count) member profiles from CloudKit")
+
             for profile in profiles {
+                // Register with PeerTracker for mesh networking
                 peerTracker.registerRemoteMember(
                     id: profile.id,
                     displayName: profile.displayName,
                     emoji: profile.emoji
                 )
+
+                // Create local User record if doesn't exist
+                let profileId = profile.id
+                let userDescriptor = FetchDescriptor<User>(
+                    predicate: #Predicate { $0.firebaseId == profileId }
+                )
+
+                let existingUser: User
+                if let found = try? modelContext.fetch(userDescriptor).first {
+                    existingUser = found
+                    // Update display name/emoji in case they changed
+                    existingUser.displayName = profile.displayName
+                    existingUser.avatarEmoji = profile.emoji
+                } else {
+                    // Create new local user
+                    let newUser = User(displayName: profile.displayName, avatarEmoji: profile.emoji)
+                    newUser.firebaseId = profile.id
+                    modelContext.insert(newUser)
+                    existingUser = newUser
+                    print("[SquadVM] Created local user for: \(profile.displayName)")
+                }
+
+                // Create membership if doesn't exist
+                let hasMembership = squad.memberships?.contains(where: { $0.user?.firebaseId == profile.id }) ?? false
+                if !hasMembership {
+                    let membership = SquadMembership(user: existingUser, squad: squad)
+                    modelContext.insert(membership)
+                    print("[SquadVM] Created membership for: \(profile.displayName)")
+                }
             }
-            print("[Squad] Registered \(profiles.count) squad members from CloudKit")
+
+            try modelContext.save()
+            print("[SquadVM] ✅ Registered \(profiles.count) squad members from CloudKit")
+
+            // Reload members to update the UI
+            await loadMembers()
+
         } catch {
-            print("[Squad] Failed to fetch member profiles: \(error.localizedDescription)")
+            print("[SquadVM] Failed to fetch member profiles: \(error.localizedDescription)")
         }
     }
 
@@ -380,16 +419,24 @@ final class SquadViewModel: ObservableObject {
     /// Refresh squad members from CloudKit (called at app launch and pull-to-refresh)
     func refreshSquadMembers() async {
         guard let squad = currentSquad,
-              let cloudId = squad.firebaseId,
+              squad.firebaseId != nil,  // Ensure we have a cloud squad
               let userId = currentUserId,
-              cloudKit.isAvailable else { return }
+              cloudKit.isAvailable else {
+            print("[SquadVM] Cannot refresh - missing squad, cloudId, userId, or CloudKit unavailable")
+            return
+        }
+
+        print("[SquadVM] Refreshing squad members from CloudKit...")
 
         do {
             if let found = try await cloudKit.findSquad(byCode: squad.joinCode) {
+                print("[SquadVM] Found squad in CloudKit with \(found.memberIds.count) members: \(found.memberIds)")
                 await registerSquadMembers(memberIds: found.memberIds, excludingUserId: userId)
+            } else {
+                print("[SquadVM] Squad not found in CloudKit during refresh")
             }
         } catch {
-            print("[Squad] Failed to refresh members: \(error.localizedDescription)")
+            print("[SquadVM] Failed to refresh members: \(error.localizedDescription)")
         }
     }
 
@@ -438,11 +485,34 @@ final class SquadViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
+    /// Track if we're already refreshing to avoid duplicate calls
+    private var isRefreshingMembers = false
+
     private func handleMeshMessage(_ envelope: Any) {
         guard let meshEnvelope = envelope as? MeshEnvelope else { return }
 
         // Forward ALL messages to PeerTracker so it can track online status
         peerTracker.handleMeshMessage(meshEnvelope, from: meshEnvelope.originPeerId)
+
+        // Check if this message is from an unknown squad member - if so, refresh from CloudKit
+        let senderUserId = meshEnvelope.message.userId
+        let knownMemberIds = members.map { $0.firebaseId ?? "nil" }
+        let isKnownMember = senderUserId != nil && members.contains(where: { $0.firebaseId == senderUserId })
+
+        print("[SquadVM] Mesh msg type=\(meshEnvelope.message.type), senderId=\(senderUserId ?? "nil"), knownMembers=\(knownMemberIds), isKnown=\(isKnownMember), hasSquad=\(currentSquad != nil), isRefreshing=\(isRefreshingMembers)")
+
+        if let senderId = senderUserId,
+           !isKnownMember,
+           currentSquad != nil,
+           !isRefreshingMembers {
+            print("[SquadVM] 🔄 Unknown member detected - refreshing from CloudKit")
+            isRefreshingMembers = true
+            Task {
+                await refreshSquadMembers()
+                isRefreshingMembers = false
+                print("[SquadVM] ✅ Refresh complete, members now: \(self.members.count)")
+            }
+        }
 
         switch meshEnvelope.message.type {
         case .locationUpdate:

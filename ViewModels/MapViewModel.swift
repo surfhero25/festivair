@@ -370,7 +370,9 @@ final class MapViewModel: ObservableObject {
             object: nil,
             queue: .main
         ) { [weak self] _ in
-            self?.clearSquadData()
+            Task { @MainActor in
+                self?.clearSquadData()
+            }
         }
 
         // Update annotations when peer status changes

@@ -144,11 +144,22 @@ struct MeshMessagePayload: Codable {
         )
     }
 
-    static func heartbeat(userId: String, displayName: String, emoji: String, batteryLevel: Int, hasService: Bool) -> MeshMessagePayload {
+    static func heartbeat(userId: String, displayName: String, emoji: String, batteryLevel: Int, hasService: Bool, location: Location? = nil) -> MeshMessagePayload {
         // peerId field carries displayName, squadId field carries emoji (reusing existing fields)
-        MeshMessagePayload(
+        // Include location so peers can immediately see each other on the map
+        let locationPayload: LocationPayload? = location.map {
+            LocationPayload(
+                latitude: $0.latitude,
+                longitude: $0.longitude,
+                accuracy: $0.accuracy,
+                timestamp: $0.timestamp,
+                source: $0.source.rawValue
+            )
+        }
+
+        return MeshMessagePayload(
             type: .heartbeat,
-            userId: userId, location: nil, chat: nil, peerId: displayName, signalStrength: nil,
+            userId: userId, location: locationPayload, chat: nil, peerId: displayName, signalStrength: nil,
             squadId: emoji, syncData: nil, batteryLevel: batteryLevel, hasService: hasService, enabled: nil,
             status: nil, meetupPin: nil
         )

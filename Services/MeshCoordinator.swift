@@ -67,8 +67,15 @@ final class MeshCoordinator: ObservableObject {
     func start() {
         guard !isActive else { return }
 
+        print("[MeshCoordinator] Starting mesh coordinator...")
+        print("[MeshCoordinator] userId: \(currentUserId ?? "nil")")
+
         meshManager.startAll()
+        print("[MeshCoordinator] Mesh manager started (advertising + browsing)")
+
         locationManager.startUpdating()
+        print("[MeshCoordinator] Location manager started")
+
         gatewayManager.startElection()
 
         startHeartbeat()
@@ -139,12 +146,16 @@ final class MeshCoordinator: ObservableObject {
         let displayName = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.displayName) ?? "Festival Fan"
         let emoji = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.emoji) ?? "🎧"
 
+        // Include current location in heartbeat for immediate peer visibility
+        let location = locationManager.currentLocation
+
         let message = MeshMessagePayload.heartbeat(
             userId: userId,
             displayName: displayName,
             emoji: emoji,
             batteryLevel: gatewayManager.batteryLevel,
-            hasService: gatewayManager.hasInternetAccess
+            hasService: gatewayManager.hasInternetAccess,
+            location: location
         )
 
         meshManager.broadcast(message)

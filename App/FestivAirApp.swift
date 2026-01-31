@@ -232,6 +232,16 @@ final class AppState: ObservableObject {
     // MARK: - Service Lifecycle
 
     func startServices() {
+        // Pre-configure mesh with userId even without a squad
+        // This ensures heartbeats and location broadcasts have proper identity
+        let userId = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.userId) ?? ""
+        if !userId.isEmpty {
+            // Use a placeholder squadId - the mesh uses universalRelayEnabled=true
+            // so it will connect to all FestivAir users regardless of squad
+            meshManager.configure(squadId: "festivair-global", userId: userId)
+            print("[AppState] Pre-configured mesh with userId: \(userId)")
+        }
+
         meshCoordinator.start()
     }
 
