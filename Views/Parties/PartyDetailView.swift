@@ -365,18 +365,31 @@ struct PartyDetailView: View {
     // MARK: - Actions
 
     private func joinParty() async {
-        // TODO: Get current user from context
-        isJoining = true
+        guard let userId = currentUserId else {
+            errorMessage = "Please sign in first"
+            showError = true
+            return
+        }
 
-        // For now, create a mock user
-        let mockUser = User(displayName: "Test User", avatarEmoji: "🎧")
+        isJoining = true
+        print("[PartyDetail] Joining party '\(party.name)' as user \(userId)")
+
+        // Get user info from UserDefaults
+        let displayName = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.displayName) ?? "Festival Fan"
+        let emoji = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.emoji) ?? "🎧"
+
+        // Create User object with current user's info
+        let user = User(id: UUID(uuidString: userId) ?? UUID(), displayName: displayName, avatarEmoji: emoji)
+        user.firebaseId = userId
 
         do {
-            try await viewModel.requestToJoin(party: party, user: mockUser)
+            try await viewModel.requestToJoin(party: party, user: user)
             userAttendeeStatus = party.accessType == .open ? .attending : .requested
+            print("[PartyDetail] ✅ Successfully joined party")
         } catch {
             errorMessage = error.localizedDescription
             showError = true
+            print("[PartyDetail] ❌ Failed to join: \(error)")
         }
 
         isJoining = false

@@ -360,10 +360,20 @@ struct PartyRowView: View {
                             .clipShape(Capsule())
                     }
 
-                    if let spots = party.spotsRemaining {
-                        Text("\(spots) spots")
+                    // Show attendee count
+                    Text("\(party.currentAttendeeCount) attending")
+                        .font(.caption2)
+                        .foregroundStyle(.secondary)
+
+                    if let spots = party.spotsRemaining, spots > 0 {
+                        Text("\(spots) spots left")
                             .font(.caption2)
-                            .foregroundStyle(.secondary)
+                            .foregroundStyle(.orange)
+                    } else if party.isFull {
+                        Text("FULL")
+                            .font(.caption2)
+                            .fontWeight(.bold)
+                            .foregroundStyle(.red)
                     }
                 }
             }

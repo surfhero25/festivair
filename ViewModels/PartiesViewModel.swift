@@ -45,6 +45,7 @@ final class PartiesViewModel: ObservableObject {
 
         isLoading = true
         errorMessage = nil
+        print("[Parties] Fetching nearby parties at (\(latitude), \(longitude)) radius \(radiusKm)km")
 
         do {
             // Fetch from local database
@@ -56,6 +57,7 @@ final class PartiesViewModel: ObservableObject {
             )
 
             let allParties = try context.fetch(descriptor)
+            print("[Parties] Found \(allParties.count) local parties")
 
             // Filter by distance
             let userLocation = CLLocation(latitude: latitude, longitude: longitude)
@@ -65,17 +67,51 @@ final class PartiesViewModel: ObservableObject {
                 return distanceKm <= radiusKm
             }
 
+            print("[Parties] \(allNearbyParties.count) parties within radius")
+
             // Apply filters (uses allNearbyParties as source)
             applyFilters()
 
-            // Also try to sync from CloudKit
+            // Sync from CloudKit and fetch real attendee counts
             await syncPartiesFromCloud(latitude: latitude, longitude: longitude, radiusKm: radiusKm)
+
+            // Refresh attendee counts from CloudKit
+            await refreshAttendeeCounts()
 
         } catch {
             errorMessage = "Failed to fetch parties: \(error.localizedDescription)"
+            print("[Parties] ❌ Error: \(error)")
         }
 
         isLoading = false
+    }
+
+    /// Refresh attendee counts for all nearby parties from CloudKit
+    private func refreshAttendeeCounts() async {
+        guard cloudKit.isAvailable else {
+            print("[Parties] CloudKit not available for attendee refresh")
+            return
+        }
+
+        print("[Parties] Refreshing attendee counts from CloudKit...")
+
+        for party in allNearbyParties {
+            do {
+                let attendees = try await cloudKit.fetchPartyAttendees(partyId: party.id.uuidString)
+                let approvedCount = attendees.filter { $0.status == "attending" || $0.status == "approved" }.count
+
+                if party.currentAttendeeCount != approvedCount {
+                    print("[Parties] Updating party '\(party.name)' count: \(party.currentAttendeeCount) -> \(approvedCount)")
+                    party.currentAttendeeCount = approvedCount
+                    try? modelContext?.save()
+                }
+            } catch {
+                print("[Parties] Failed to fetch attendees for party \(party.id): \(error)")
+            }
+        }
+
+        // Update UI
+        applyFilters()
     }
 
     /// Fetch parties hosted by current user
@@ -218,6 +254,8 @@ final class PartiesViewModel: ObservableObject {
             throw PartyError.notConfigured
         }
 
+        print("[Parties] User \(user.displayName) requesting to join party '\(party.name)'")
+
         // Check if already requested or attending
         let partyId = party.id
         let userIdString = user.id.uuidString
@@ -229,11 +267,13 @@ final class PartiesViewModel: ObservableObject {
 
         let existing = try context.fetch(existingDescriptor)
         if !existing.isEmpty {
+            print("[Parties] ⚠️ User already requested/attending this party")
             throw PartyError.alreadyRequested
         }
 
         // Check capacity
         if party.isFull {
+            print("[Parties] ⚠️ Party is full")
             throw PartyError.partyFull
         }
 
@@ -244,13 +284,24 @@ final class PartiesViewModel: ObservableObject {
             attendee.status = .attending
             attendee.respondedAt = Date()
             party.currentAttendeeCount += 1
+            print("[Parties] ✅ Auto-approved for open party. Count now: \(party.currentAttendeeCount)")
         }
 
         context.insert(attendee)
         try context.save()
 
-        // Sync to CloudKit
+        // Sync attendee to CloudKit
         await syncAttendeeToCloud(attendee, partyId: party.id.uuidString)
+
+        // CRITICAL: Also sync the updated party count to CloudKit
+        if cloudKit.isAvailable {
+            do {
+                try await cloudKit.updateParty(party)
+                print("[Parties] ✅ Synced updated party count to CloudKit: \(party.currentAttendeeCount)")
+            } catch {
+                print("[Parties] ❌ Failed to sync party count: \(error)")
+            }
+        }
     }
 
     func leaveParty(party: Party, userId: String) async throws {
@@ -387,7 +438,12 @@ final class PartiesViewModel: ObservableObject {
     // MARK: - CloudKit Sync
 
     private func syncPartiesFromCloud(latitude: Double, longitude: Double, radiusKm: Double) async {
-        guard cloudKit.isAvailable, let context = modelContext else { return }
+        guard cloudKit.isAvailable, let context = modelContext else {
+            print("[Parties] CloudKit not available for party sync")
+            return
+        }
+
+        print("[Parties] Syncing parties from CloudKit...")
 
         do {
             let cloudParties = try await cloudKit.fetchPartiesNear(
@@ -395,6 +451,8 @@ final class PartiesViewModel: ObservableObject {
                 longitude: longitude,
                 radiusKm: radiusKm
             )
+
+            print("[Parties] Found \(cloudParties.count) parties in CloudKit")
 
             // Merge cloud parties with local
             for record in cloudParties {
@@ -405,7 +463,12 @@ final class PartiesViewModel: ObservableObject {
                 )
 
                 let existing = try? context.fetch(descriptor)
-                if existing?.isEmpty ?? true {
+                if let existingParty = existing?.first {
+                    // Update existing party with cloud data
+                    existingParty.currentAttendeeCount = record.currentAttendeeCount
+                    existingParty.isActive = record.isActive
+                    print("[Parties] Updated existing party '\(record.name)' count: \(record.currentAttendeeCount)")
+                } else {
                     // Create new local party from cloud
                     let party = Party(
                         id: partyId,
@@ -428,6 +491,7 @@ final class PartiesViewModel: ObservableObject {
                     party.cloudKitRecordId = record.id
 
                     context.insert(party)
+                    print("[Parties] Created new party from cloud: '\(record.name)' with \(record.currentAttendeeCount) attendees")
                 }
             }
 
@@ -446,8 +510,10 @@ final class PartiesViewModel: ObservableObject {
             }
             applyFilters()
 
+            print("[Parties] ✅ Sync complete. Displaying \(nearbyParties.count) parties")
+
         } catch {
-            print("[Parties] CloudKit sync error: \(error)")
+            print("[Parties] ❌ CloudKit sync error: \(error)")
         }
     }
 
@@ -466,15 +532,38 @@ final class PartiesViewModel: ObservableObject {
 
     /// Sync attendee request to CloudKit
     private func syncAttendeeToCloud(_ attendee: PartyAttendee, partyId: String) async {
-        guard cloudKit.isAvailable else { return }
+        guard cloudKit.isAvailable else {
+            print("[Parties] CloudKit not available for attendee sync")
+            return
+        }
+
+        print("[Parties] Syncing attendee '\(attendee.displayName)' to CloudKit...")
 
         do {
             let recordId = try await cloudKit.createAttendeeRequest(partyId: partyId, attendee: attendee)
             attendee.cloudKitRecordId = recordId
             try modelContext?.save()
+            print("[Parties] ✅ Attendee synced with recordId: \(recordId)")
         } catch {
-            print("[Parties] Failed to sync attendee to cloud: \(error)")
+            print("[Parties] ❌ Failed to sync attendee to cloud: \(error)")
         }
+    }
+
+    /// Check if current user is attending a party
+    func isUserAttending(party: Party, userId: String) -> Bool {
+        guard let context = modelContext else { return false }
+
+        let partyId = party.id
+        let descriptor = FetchDescriptor<PartyAttendee>(
+            predicate: #Predicate { attendee in
+                attendee.partyId == partyId &&
+                attendee.userId == userId &&
+                (attendee.statusRawValue == "attending" || attendee.statusRawValue == "approved")
+            }
+        )
+
+        let attendees = try? context.fetch(descriptor)
+        return !(attendees?.isEmpty ?? true)
     }
 }
 
