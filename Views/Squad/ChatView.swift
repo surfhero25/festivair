@@ -5,6 +5,12 @@ struct ChatView: View {
 
     var body: some View {
         ChatContentView(chatViewModel: appState.chatViewModel, gatewayManager: appState.gatewayManager)
+            .onAppear {
+                appState.chatViewModel.chatViewAppeared()
+            }
+            .onDisappear {
+                appState.chatViewModel.chatViewDisappeared()
+            }
     }
 }
 

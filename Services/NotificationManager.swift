@@ -28,7 +28,7 @@ final class NotificationManager: ObservableObject {
             }
             return granted
         } catch {
-            print("[Notifications] Auth error: \(error)")
+            DebugLogger.error("Auth error: \(error)", category: "Notifications")
             return false
         }
     }
@@ -67,10 +67,10 @@ final class NotificationManager: ObservableObject {
 
         do {
             try await UNUserNotificationCenter.current().add(request)
-            print("[Notifications] Scheduled: \(setTime.artistName) at \(notificationTime)")
+            DebugLogger.success("Scheduled: \(setTime.artistName) at \(notificationTime)", category: "Notifications")
             await updatePendingCount()
         } catch {
-            print("[Notifications] Schedule error: \(error)")
+            DebugLogger.error("Schedule error: \(error)", category: "Notifications")
         }
     }
 
@@ -105,7 +105,7 @@ final class NotificationManager: ObservableObject {
         do {
             try await UNUserNotificationCenter.current().add(request)
         } catch {
-            print("[Notifications] Failed to send battery warning: \(error)")
+            DebugLogger.error("Failed to send battery warning: \(error)", category: "Notifications")
         }
     }
 
@@ -127,8 +127,53 @@ final class NotificationManager: ObservableObject {
         do {
             try await UNUserNotificationCenter.current().add(request)
         } catch {
-            print("[Notifications] Failed to send offline notification: \(error)")
+            DebugLogger.error("Failed to send offline notification: \(error)", category: "Notifications")
         }
+    }
+
+    // MARK: - Chat Notifications
+
+    func sendNewMessageNotification(senderName: String, messageText: String, squadId: String) async {
+        guard isAuthorized else { return }
+
+        // Don't send if notifications for squad messages are disabled
+        let notifySquad = UserDefaults.standard.bool(forKey: "FestivAir.NotifySquad")
+        guard notifySquad != false else { return }  // Default to true if not set
+
+        let content = UNMutableNotificationContent()
+        content.title = senderName
+        content.body = messageText
+        content.sound = .default
+        content.categoryIdentifier = "CHAT_MESSAGE"
+        content.threadIdentifier = "squad-\(squadId)"
+        content.userInfo = ["squadId": squadId]
+
+        // Set badge count
+        await incrementBadge()
+
+        let request = UNNotificationRequest(
+            identifier: "chat-\(UUID().uuidString)",
+            content: content,
+            trigger: nil // Immediate
+        )
+
+        do {
+            try await UNUserNotificationCenter.current().add(request)
+            DebugLogger.success("Sent chat notification from \(senderName)", category: "Notifications")
+        } catch {
+            DebugLogger.error("Failed to send chat notification: \(error)", category: "Notifications")
+        }
+    }
+
+    func clearChatBadge() {
+        Task { @MainActor in
+            UNUserNotificationCenter.current().setBadgeCount(0)
+        }
+    }
+
+    private func incrementBadge() async {
+        let current = await UNUserNotificationCenter.current().deliveredNotifications().count
+        try? await UNUserNotificationCenter.current().setBadgeCount(current + 1)
     }
 
     // MARK: - Private Helpers
@@ -179,9 +224,23 @@ extension NotificationManager {
             options: []
         )
 
+        let openChatAction = UNNotificationAction(
+            identifier: "OPEN_CHAT",
+            title: "Open Chat",
+            options: .foreground
+        )
+
+        let chatMessageCategory = UNNotificationCategory(
+            identifier: "CHAT_MESSAGE",
+            actions: [openChatAction, dismissAction],
+            intentIdentifiers: [],
+            options: []
+        )
+
         UNUserNotificationCenter.current().setNotificationCategories([
             setTimeCategory,
-            memberOfflineCategory
+            memberOfflineCategory,
+            chatMessageCategory
         ])
     }
 }

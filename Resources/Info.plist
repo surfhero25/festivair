@@ -16,7 +16,7 @@
     <key>CFBundleShortVersionString</key>
     <string>$(MARKETING_VERSION)</string>
     <key>CFBundleVersion</key>
-    <string>27</string>
+    <string>28</string>
     <key>CFBundleIconName</key>
     <string>AppIcon</string>
 
@@ -117,5 +117,9 @@
     <!-- Requires Full Screen (no slide over) -->
     <key>UIRequiresFullScreen</key>
     <true/>
+
+    <!-- Export Compliance - App uses only standard/exempt encryption (HTTPS, Apple frameworks) -->
+    <key>ITSAppUsesNonExemptEncryption</key>
+    <false/>
 </dict>
 </plist>

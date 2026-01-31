@@ -13,8 +13,12 @@ final class ChatViewModel: ObservableObject {
     // MARK: - Dependencies
     private let cloudKit: CloudKitService
     private let meshManager: MeshNetworkManager
+    private var notificationManager: NotificationManager?
     private var modelContext: ModelContext?
     private var cancellables = Set<AnyCancellable>()
+
+    // Track if chat view is currently visible (to suppress notifications)
+    @Published var isChatVisible = false
 
     // MARK: - Current User
     private var currentUserId: String? {
@@ -31,17 +35,21 @@ final class ChatViewModel: ObservableObject {
     private var joinCode: String?  // Used for mesh message routing (same on all devices)
 
     // MARK: - Init
-    init(cloudKit: CloudKitService = .shared, meshManager: MeshNetworkManager) {
+    init(cloudKit: CloudKitService = .shared, meshManager: MeshNetworkManager, notificationManager: NotificationManager? = nil) {
         self.cloudKit = cloudKit
         self.meshManager = meshManager
+        self.notificationManager = notificationManager
         setupMeshListener()
     }
 
-    func configure(modelContext: ModelContext, squadId: UUID?, cloudSquadId: String?, joinCode: String?) {
+    func configure(modelContext: ModelContext, squadId: UUID?, cloudSquadId: String?, joinCode: String?, notificationManager: NotificationManager? = nil) {
         self.modelContext = modelContext
         self.currentSquadId = squadId
         self.cloudSquadId = cloudSquadId
         self.joinCode = joinCode
+        if let notificationManager = notificationManager {
+            self.notificationManager = notificationManager
+        }
         loadMessages()
         Task { await fetchRemoteMessages() }
     }
@@ -68,7 +76,7 @@ final class ChatViewModel: ObservableObject {
         do {
             try modelContext?.save()
         } catch {
-            print("[Chat] Failed to save message locally: \(error)")
+            DebugLogger.error("Failed to save message locally: \(error)", category: "Chat")
             self.error = error
         }
 
@@ -119,7 +127,7 @@ final class ChatViewModel: ObservableObject {
                 do {
                     try modelContext?.save()
                 } catch {
-                    print("[Chat] Failed to update sync status: \(error)")
+                    DebugLogger.error("Failed to update sync status: \(error)", category: "Chat")
                 }
             } catch {
                 self.error = error
@@ -178,7 +186,7 @@ final class ChatViewModel: ObservableObject {
             do {
                 try modelContext?.save()
             } catch {
-                print("[Chat] Failed to save remote messages: \(error)")
+                DebugLogger.error("Failed to save remote messages: \(error)", category: "Chat")
             }
         } catch {
             self.error = error
@@ -234,7 +242,29 @@ final class ChatViewModel: ObservableObject {
         do {
             try modelContext?.save()
         } catch {
-            print("[Chat] Failed to save mesh message: \(error)")
+            DebugLogger.error("Failed to save mesh message: \(error)", category: "Chat")
         }
+
+        // Send notification if chat is not visible
+        if !isChatVisible {
+            Task {
+                await notificationManager?.sendNewMessageNotification(
+                    senderName: chatPayload.senderName,
+                    messageText: chatPayload.text,
+                    squadId: squadId.uuidString
+                )
+            }
+        }
+    }
+
+    // Call this when chat view appears
+    func chatViewAppeared() {
+        isChatVisible = true
+        notificationManager?.clearChatBadge()
+    }
+
+    // Call this when chat view disappears
+    func chatViewDisappeared() {
+        isChatVisible = false
     }
 }
