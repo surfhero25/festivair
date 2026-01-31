@@ -74,6 +74,7 @@
 		FA000046 /* SponsorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100048 /* SponsorService.swift */; };
 		FA000047 /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100049 /* AnalyticsService.swift */; };
 		FA000048 /* FestivalSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100050 /* FestivalSummaryView.swift */; };
+		FA000060 /* DebugLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100060 /* DebugLogger.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -146,6 +147,7 @@
 		FA100048 /* SponsorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SponsorService.swift; sourceTree = "<group>"; };
 		FA100049 /* AnalyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
 		FA100050 /* FestivalSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FestivalSummaryView.swift; sourceTree = "<group>"; };
+		FA100060 /* DebugLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLogger.swift; sourceTree = "<group>"; };
 		FA200000 /* FestivAir.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FestivAir.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -308,6 +310,7 @@
 				FA100038 /* SubscriptionManager.swift */,
 				FA100048 /* SponsorService.swift */,
 				FA100049 /* AnalyticsService.swift */,
+				FA100060 /* DebugLogger.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -566,6 +569,7 @@
 				FA000046 /* SponsorService.swift in Sources */,
 				FA000047 /* AnalyticsService.swift in Sources */,
 				FA000048 /* FestivalSummaryView.swift in Sources */,
+				FA000060 /* DebugLogger.swift in Sources */,
 				B0067691B1A8879982572508 /* MeetupPin.swift in Sources */,
 				7E75DDADCAEE5E0BD23B9B59 /* UserStatus.swift in Sources */,
 				860AB547076DC66D990AD42F /* Facility.swift in Sources */,
