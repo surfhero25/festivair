@@ -252,7 +252,9 @@ extension PeerTracker {
                     }
                     print("[PeerTracker] ⚠️ Accepting \(peerName) - no joinCode but already registered")
                 } else if myJoinCode == nil {
-                    print("[PeerTracker] ⚠️ No squad - accepting all peers (\(peerName))")
+                    // No squad - don't accept any peers as squad members
+                    print("[PeerTracker] ❌ Ignoring \(peerName) - not in a squad yet")
+                    return
                 }
 
                 // displayName is in peerId field, emoji is in squadId field (for heartbeats)
@@ -295,6 +297,9 @@ extension PeerTracker {
                     if peers[userId] == nil {
                         return
                     }
+                } else if myJoinCode == nil {
+                    // Not in a squad - don't accept location updates
+                    return
                 }
 
                 // displayName is in peerId field, emoji is in squadId field
@@ -342,16 +347,21 @@ extension PeerTracker {
                let statusPayload = envelope.message.status {
                 // Only process status updates from same squad
                 let peerJoinCode = envelope.message.joinCode
+
+                // No squad - don't accept status updates
+                guard myJoinCode != nil else { return }
+
+                // Different squad - ignore
                 if let myCode = myJoinCode, let theirCode = peerJoinCode, myCode != theirCode {
-                    return  // Different squad
+                    return
                 }
 
                 let userStatus = statusPayload.toUserStatus()
                 if peers[userId] != nil {
                     updatePeerStatus(id: userId, userStatus: userStatus)
                 } else if let displayName = envelope.message.peerId {
-                    // Only create new peer if they're in our squad or we don't have a squad
-                    if myJoinCode == nil || (peerJoinCode != nil && peerJoinCode == myJoinCode) {
+                    // Only create new peer if they're in our squad
+                    if peerJoinCode != nil && peerJoinCode == myJoinCode {
                         updatePeer(
                             id: userId,
                             displayName: displayName,

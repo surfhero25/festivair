@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ChatView: View {
     @EnvironmentObject var appState: AppState
+    @Environment(\.scenePhase) private var scenePhase
 
     var body: some View {
         ChatContentView(chatViewModel: appState.chatViewModel, gatewayManager: appState.gatewayManager)
@@ -10,6 +11,12 @@ struct ChatView: View {
             }
             .onDisappear {
                 appState.chatViewModel.chatViewDisappeared()
+            }
+            .onChange(of: scenePhase) { _, newPhase in
+                // Clear badge when returning to foreground while viewing chat
+                if newPhase == .active && appState.chatViewModel.isChatVisible {
+                    appState.notificationManager.clearChatBadge()
+                }
             }
     }
 }

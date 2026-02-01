@@ -181,15 +181,28 @@ final class NotificationManager: ObservableObject {
         }
     }
 
+    // Track unread message count internally (more reliable than delivered notifications)
+    private var unreadMessageCount = 0
+
     func clearChatBadge() {
         Task { @MainActor in
-            UNUserNotificationCenter.current().setBadgeCount(0)
+            // Reset our internal counter
+            unreadMessageCount = 0
+            // Clear badge
+            try? await UNUserNotificationCenter.current().setBadgeCount(0)
+            // Also clear delivered chat notifications from notification center
+            let delivered = await UNUserNotificationCenter.current().deliveredNotifications()
+            let chatNotificationIds = delivered
+                .filter { $0.request.content.categoryIdentifier == "CHAT_MESSAGE" }
+                .map { $0.request.identifier }
+            UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: chatNotificationIds)
+            print("[Notifications] Cleared badge and \(chatNotificationIds.count) chat notifications")
         }
     }
 
     private func incrementBadge() async {
-        let current = await UNUserNotificationCenter.current().deliveredNotifications().count
-        try? await UNUserNotificationCenter.current().setBadgeCount(current + 1)
+        unreadMessageCount += 1
+        try? await UNUserNotificationCenter.current().setBadgeCount(unreadMessageCount)
     }
 
     // MARK: - Private Helpers
