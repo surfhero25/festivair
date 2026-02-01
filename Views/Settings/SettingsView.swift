@@ -202,6 +202,13 @@ struct SettingsView: View {
                     }
 
                     HStack {
+                        Label("Users Online", systemImage: "person.2.fill")
+                        Spacer()
+                        Text("\(appState.peerTracker.onlinePeers.count)")
+                            .foregroundStyle(.purple)
+                    }
+
+                    HStack {
                         Label("Internet", systemImage: "wifi")
                         Spacer()
                         Text(appState.gatewayManager.hasInternetAccess ? "Connected" : "Offline")
@@ -217,7 +224,7 @@ struct SettingsView: View {
                 } header: {
                     Text("Connection")
                 } footer: {
-                    Text("Nearby devices help relay data for better coverage")
+                    Text("Nearby devices are directly connected. Users online includes all FestivAir users seen recently.")
                 }
 
                 // Offline Data section

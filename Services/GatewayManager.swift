@@ -196,13 +196,32 @@ final class GatewayManager: ObservableObject {
     private func setupBatteryMonitoring() {
         #if os(iOS)
         UIDevice.current.isBatteryMonitoringEnabled = true
-        updateBatteryLevel()
 
+        // Small delay to let monitoring enable before first read
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            self?.updateBatteryLevel()
+        }
+
+        // Listen for battery level changes
         NotificationCenter.default.addObserver(
             forName: UIDevice.batteryLevelDidChangeNotification,
             object: nil,
             queue: .main
         ) { [weak self] _ in
+            self?.updateBatteryLevel()
+        }
+
+        // Also listen for battery state changes (charging/unplugged)
+        NotificationCenter.default.addObserver(
+            forName: UIDevice.batteryStateDidChangeNotification,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            self?.updateBatteryLevel()
+        }
+
+        // Periodic refresh every 60 seconds for accuracy
+        Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { [weak self] _ in
             self?.updateBatteryLevel()
         }
         #endif
