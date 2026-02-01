@@ -54,6 +54,7 @@ enum Constants {
         static let displayName = "FestivAir.DisplayName"
         static let emoji = "FestivAir.Emoji"
         static let currentSquadId = "FestivAir.CurrentSquadId"
+        static let currentJoinCode = "FestivAir.CurrentJoinCode"  // Squad join code for mesh filtering
         static let lowPowerMode = "FestivAir.LowPowerMode"
         static let notifyBefore = "FestivAir.NotifyBefore"
     }

@@ -87,6 +87,7 @@ final class SquadViewModel: ObservableObject {
 
         currentSquad = squad
         UserDefaults.standard.set(squad.id.uuidString, forKey: Constants.UserDefaultsKeys.currentSquadId)
+        UserDefaults.standard.set(finalJoinCode, forKey: Constants.UserDefaultsKeys.currentJoinCode)
         await loadMembers()
 
         // Configure mesh networking
@@ -176,6 +177,7 @@ final class SquadViewModel: ObservableObject {
 
         currentSquad = squad
         UserDefaults.standard.set(squad.id.uuidString, forKey: Constants.UserDefaultsKeys.currentSquadId)
+        UserDefaults.standard.set(code, forKey: Constants.UserDefaultsKeys.currentJoinCode)
         await loadMembers()
 
         // Fetch and register other squad members from CloudKit
@@ -286,6 +288,7 @@ final class SquadViewModel: ObservableObject {
         memberLocations = [:]
         peerTracker.clearAllPeers()
         UserDefaults.standard.removeObject(forKey: Constants.UserDefaultsKeys.currentSquadId)
+        UserDefaults.standard.removeObject(forKey: Constants.UserDefaultsKeys.currentJoinCode)
 
         // Stop mesh networking
         meshManager.stopAll()
@@ -372,9 +375,14 @@ final class SquadViewModel: ObservableObject {
 
                 currentSquad = squad
 
+                // Ensure joinCode is saved to UserDefaults (for mesh filtering)
+                if UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.currentJoinCode) == nil {
+                    UserDefaults.standard.set(squad.joinCode, forKey: Constants.UserDefaultsKeys.currentJoinCode)
+                }
+
                 // Configure mesh SYNCHRONOUSLY before any async work
                 meshManager.configure(squadId: squad.id.uuidString, userId: userId)
-                print("[SquadVM] Configured mesh with squadId: \(squad.id.uuidString), userId: \(userId)")
+                print("[SquadVM] Configured mesh with squadId: \(squad.id.uuidString), userId: \(userId), joinCode: \(squad.joinCode)")
 
                 Task {
                     await loadMembers()

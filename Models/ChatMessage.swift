@@ -51,6 +51,7 @@ struct MeshMessagePayload: Codable {
     let enabled: Bool?
     let status: StatusPayload?
     let meetupPin: MeetupPinPayload?
+    let joinCode: String?  // Squad join code for filtering peers
 
     enum MeshMessageType: String, Codable {
         case locationUpdate
@@ -116,7 +117,7 @@ struct MeshMessagePayload: Codable {
     }
 
     // Factory methods
-    static func locationUpdate(userId: String, displayName: String, emoji: String, location: Location) -> MeshMessagePayload {
+    static func locationUpdate(userId: String, displayName: String, emoji: String, location: Location, joinCode: String? = nil) -> MeshMessagePayload {
         // peerId carries displayName, squadId carries emoji (consistent with heartbeat)
         MeshMessagePayload(
             type: .locationUpdate,
@@ -130,7 +131,7 @@ struct MeshMessagePayload: Codable {
             ),
             chat: nil, peerId: displayName, signalStrength: nil, squadId: emoji,
             syncData: nil, batteryLevel: nil, hasService: nil, enabled: nil,
-            status: nil, meetupPin: nil
+            status: nil, meetupPin: nil, joinCode: joinCode
         )
     }
 
@@ -140,13 +141,14 @@ struct MeshMessagePayload: Codable {
             userId: nil, location: nil, chat: nil,
             peerId: peerId, signalStrength: signalStrength,
             squadId: nil, syncData: nil, batteryLevel: nil, hasService: nil, enabled: nil,
-            status: nil, meetupPin: nil
+            status: nil, meetupPin: nil, joinCode: nil
         )
     }
 
-    static func heartbeat(userId: String, displayName: String, emoji: String, batteryLevel: Int, hasService: Bool, location: Location? = nil) -> MeshMessagePayload {
+    static func heartbeat(userId: String, displayName: String, emoji: String, batteryLevel: Int, hasService: Bool, location: Location? = nil, joinCode: String? = nil) -> MeshMessagePayload {
         // peerId field carries displayName, squadId field carries emoji (reusing existing fields)
         // Include location so peers can immediately see each other on the map
+        // joinCode is used to filter peers to only show squad members
         let locationPayload: LocationPayload? = location.map {
             LocationPayload(
                 latitude: $0.latitude,
@@ -161,7 +163,7 @@ struct MeshMessagePayload: Codable {
             type: .heartbeat,
             userId: userId, location: locationPayload, chat: nil, peerId: displayName, signalStrength: nil,
             squadId: emoji, syncData: nil, batteryLevel: batteryLevel, hasService: hasService, enabled: nil,
-            status: nil, meetupPin: nil
+            status: nil, meetupPin: nil, joinCode: joinCode
         )
     }
 
@@ -170,25 +172,25 @@ struct MeshMessagePayload: Codable {
             type: .syncResponse,
             userId: nil, location: nil, chat: nil, peerId: nil, signalStrength: nil,
             squadId: nil, syncData: data, batteryLevel: nil, hasService: nil, enabled: nil,
-            status: nil, meetupPin: nil
+            status: nil, meetupPin: nil, joinCode: nil
         )
     }
 
-    static func statusUpdate(userId: String, displayName: String, status: UserStatus) -> MeshMessagePayload {
+    static func statusUpdate(userId: String, displayName: String, status: UserStatus, joinCode: String? = nil) -> MeshMessagePayload {
         MeshMessagePayload(
             type: .statusUpdate,
             userId: userId, location: nil, chat: nil, peerId: displayName, signalStrength: nil,
             squadId: nil, syncData: nil, batteryLevel: nil, hasService: nil, enabled: nil,
-            status: StatusPayload(from: status), meetupPin: nil
+            status: StatusPayload(from: status), meetupPin: nil, joinCode: joinCode
         )
     }
 
-    static func meetupPin(_ pin: MeetupPinPayload) -> MeshMessagePayload {
+    static func meetupPin(_ pin: MeetupPinPayload, joinCode: String? = nil) -> MeshMessagePayload {
         MeshMessagePayload(
             type: .meetupPin,
             userId: pin.creatorId, location: nil, chat: nil, peerId: nil, signalStrength: nil,
             squadId: nil, syncData: nil, batteryLevel: nil, hasService: nil, enabled: nil,
-            status: nil, meetupPin: pin
+            status: nil, meetupPin: pin, joinCode: joinCode
         )
     }
 }

@@ -158,8 +158,11 @@ final class AppState: ObservableObject {
         guard let userId = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.userId),
               let displayName = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.displayName) else { return }
 
+        // Get current squad join code for filtering
+        let joinCode = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.currentJoinCode)
+
         // Broadcast to the new peer
-        let message = MeshMessagePayload.statusUpdate(userId: userId, displayName: displayName, status: status)
+        let message = MeshMessagePayload.statusUpdate(userId: userId, displayName: displayName, status: status, joinCode: joinCode)
         meshManager.broadcast(message)
         print("[AppState] Re-broadcast status to new peers: \(status.displayText)")
     }

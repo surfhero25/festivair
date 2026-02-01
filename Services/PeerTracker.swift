@@ -220,10 +220,31 @@ final class PeerTracker: ObservableObject {
 // MARK: - Integration with MeshNetworkManager
 extension PeerTracker {
 
+    /// Get my current squad's join code for filtering
+    private var myJoinCode: String? {
+        UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.currentJoinCode)
+    }
+
     func handleMeshMessage(_ envelope: MeshEnvelope, from peerId: String) {
         switch envelope.message.type {
         case .heartbeat:
             if let userId = envelope.message.userId {
+                // IMPORTANT: Only track peers from the same squad
+                // If they have a joinCode that doesn't match ours, ignore them
+                let peerJoinCode = envelope.message.joinCode
+                if let myCode = myJoinCode, let theirCode = peerJoinCode {
+                    if myCode != theirCode {
+                        // Different squad - ignore this peer
+                        return
+                    }
+                } else if myJoinCode != nil && peerJoinCode == nil {
+                    // We're in a squad, they're not - ignore (they might be on old version)
+                    // However, also allow registered remote members through
+                    if peers[userId] == nil {
+                        return
+                    }
+                }
+
                 // displayName is in peerId field, emoji is in squadId field (for heartbeats)
                 let displayName = envelope.message.peerId ?? peerId
                 let emoji = envelope.message.squadId ?? "🎧"
@@ -253,6 +274,19 @@ extension PeerTracker {
         case .locationUpdate:
             if let userId = envelope.message.userId,
                let locationPayload = envelope.message.location {
+                // IMPORTANT: Only track peers from the same squad
+                let peerJoinCode = envelope.message.joinCode
+                if let myCode = myJoinCode, let theirCode = peerJoinCode {
+                    if myCode != theirCode {
+                        return  // Different squad
+                    }
+                } else if myJoinCode != nil && peerJoinCode == nil {
+                    // We're in a squad, they're not - only allow if already registered
+                    if peers[userId] == nil {
+                        return
+                    }
+                }
+
                 // displayName is in peerId field, emoji is in squadId field
                 let displayName = envelope.message.peerId ?? peerId
                 let emoji = envelope.message.squadId ?? "🎧"
@@ -296,18 +330,26 @@ extension PeerTracker {
         case .statusUpdate:
             if let userId = envelope.message.userId,
                let statusPayload = envelope.message.status {
+                // Only process status updates from same squad
+                let peerJoinCode = envelope.message.joinCode
+                if let myCode = myJoinCode, let theirCode = peerJoinCode, myCode != theirCode {
+                    return  // Different squad
+                }
+
                 let userStatus = statusPayload.toUserStatus()
                 if peers[userId] != nil {
                     updatePeerStatus(id: userId, userStatus: userStatus)
                 } else if let displayName = envelope.message.peerId {
-                    // Create new peer with status
-                    updatePeer(
-                        id: userId,
-                        displayName: displayName,
-                        emoji: "🎧",
-                        hasService: false
-                    )
-                    updatePeerStatus(id: userId, userStatus: userStatus)
+                    // Only create new peer if they're in our squad or we don't have a squad
+                    if myJoinCode == nil || (peerJoinCode != nil && peerJoinCode == myJoinCode) {
+                        updatePeer(
+                            id: userId,
+                            displayName: displayName,
+                            emoji: "🎧",
+                            hasService: false
+                        )
+                        updatePeerStatus(id: userId, userStatus: userStatus)
+                    }
                 }
             }
 

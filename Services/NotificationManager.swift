@@ -134,11 +134,18 @@ final class NotificationManager: ObservableObject {
     // MARK: - Chat Notifications
 
     func sendNewMessageNotification(senderName: String, messageText: String, squadId: String) async {
-        guard isAuthorized else { return }
+        guard isAuthorized else {
+            DebugLogger.warning("Not authorized for notifications", category: "Notifications")
+            return
+        }
 
-        // Don't send if notifications for squad messages are disabled
-        let notifySquad = UserDefaults.standard.bool(forKey: "FestivAir.NotifySquad")
-        guard notifySquad != false else { return }  // Default to true if not set
+        // Don't send if notifications for squad messages are explicitly disabled
+        // Default to true if not set (object(forKey:) returns nil for unset keys)
+        if let notifySquadValue = UserDefaults.standard.object(forKey: "FestivAir.NotifySquad") as? Bool,
+           notifySquadValue == false {
+            DebugLogger.info("Squad notifications disabled by user", category: "Notifications")
+            return
+        }
 
         let content = UNMutableNotificationContent()
         content.title = senderName

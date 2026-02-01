@@ -142,6 +142,9 @@ final class MapViewModel: ObservableObject {
         isFindMeActive = true
         locationManager.enableFindMeMode(duration: 60)
 
+        // Get current squad join code
+        let joinCode = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.currentJoinCode)
+
         // Broadcast find me
         let message = MeshMessagePayload(
             type: .findMe,
@@ -156,7 +159,8 @@ final class MapViewModel: ObservableObject {
             hasService: nil,
             enabled: true,
             status: nil,
-            meetupPin: nil
+            meetupPin: nil,
+            joinCode: joinCode
         )
         meshManager.broadcast(message)
 

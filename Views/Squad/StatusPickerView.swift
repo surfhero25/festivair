@@ -105,7 +105,10 @@ struct StatusPickerView: View {
                 // Status is saved locally, will be visible when peers connect
             }
 
-            let message = MeshMessagePayload.statusUpdate(userId: userId, displayName: displayName, status: status)
+            // Get current squad join code for filtering
+            let joinCode = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.currentJoinCode)
+
+            let message = MeshMessagePayload.statusUpdate(userId: userId, displayName: displayName, status: status, joinCode: joinCode)
             appState.meshManager.broadcast(message)
         } else {
             print("[Status] Missing user ID or display name - cannot broadcast")

@@ -131,7 +131,8 @@ final class ChatViewModel: ObservableObject {
             hasService: nil,
             enabled: nil,
             status: nil,
-            meetupPin: nil
+            meetupPin: nil,
+            joinCode: routingCode  // Use joinCode for squad filtering
         )
 
         meshManager.broadcast(meshMessage)
@@ -299,14 +300,21 @@ final class ChatViewModel: ObservableObject {
         }
 
         // Send notification if chat is not visible
+        DebugLogger.info("Chat visible: \(isChatVisible), notificationManager: \(notificationManager != nil ? "set" : "nil")", category: "Chat")
         if !isChatVisible {
-            Task {
-                await notificationManager?.sendNewMessageNotification(
-                    senderName: chatPayload.senderName,
-                    messageText: chatPayload.text,
-                    squadId: squadId.uuidString
-                )
+            if let notifMgr = notificationManager {
+                Task {
+                    await notifMgr.sendNewMessageNotification(
+                        senderName: chatPayload.senderName,
+                        messageText: chatPayload.text,
+                        squadId: squadId.uuidString
+                    )
+                }
+            } else {
+                DebugLogger.warning("Cannot send notification - notificationManager is nil", category: "Chat")
             }
+        } else {
+            DebugLogger.info("Skipping notification - chat is visible", category: "Chat")
         }
     }
 

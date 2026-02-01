@@ -146,6 +146,9 @@ final class MeshCoordinator: ObservableObject {
         let displayName = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.displayName) ?? "Festival Fan"
         let emoji = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.emoji) ?? "🎧"
 
+        // Get current squad join code for peer filtering
+        let joinCode = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.currentJoinCode)
+
         // Include current location in heartbeat for immediate peer visibility
         let location = locationManager.currentLocation
 
@@ -155,7 +158,8 @@ final class MeshCoordinator: ObservableObject {
             emoji: emoji,
             batteryLevel: gatewayManager.batteryLevel,
             hasService: gatewayManager.hasInternetAccess,
-            location: location
+            location: location,
+            joinCode: joinCode
         )
 
         meshManager.broadcast(message)
@@ -186,7 +190,10 @@ final class MeshCoordinator: ObservableObject {
         let displayName = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.displayName) ?? "Festival Fan"
         let emoji = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.emoji) ?? "🎧"
 
-        let message = MeshMessagePayload.locationUpdate(userId: userId, displayName: displayName, emoji: emoji, location: location)
+        // Get current squad join code for peer filtering
+        let joinCode = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.currentJoinCode)
+
+        let message = MeshMessagePayload.locationUpdate(userId: userId, displayName: displayName, emoji: emoji, location: location, joinCode: joinCode)
         meshManager.broadcast(message)
 
         // If we're the gateway, also sync to Firebase
