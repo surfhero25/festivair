@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FestivAir - Your Festival Companion</title>
+    <title>FestivAir - Never Lose Your Squad at Festivals</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -16,252 +16,1084 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
-            min-height: 100vh;
+            background: #0a0a0f;
             color: #fff;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-
-        .hero {
-            text-align: center;
-            padding: 60px 20px;
-        }
-
-        .logo {
-            font-size: 3rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #00d4ff 0%, #7c3aed 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 16px;
-        }
-
-        .tagline {
-            font-size: 1.25rem;
-            color: rgba(255, 255, 255, 0.8);
-            max-width: 500px;
-            margin: 0 auto 40px;
             line-height: 1.6;
         }
 
-        .download-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 24px;
-            padding: 40px;
-            max-width: 450px;
+        .container {
+            max-width: 1100px;
             margin: 0 auto;
+            padding: 0 24px;
         }
 
-        .card-title {
-            font-size: 1.1rem;
-            color: #00d4ff;
-            margin-bottom: 32px;
-            font-weight: 600;
+        /* Navigation */
+        nav {
+            padding: 20px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 15, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
-        .step {
-            margin-bottom: 28px;
-        }
-
-        .step:last-child {
-            margin-bottom: 0;
-        }
-
-        .step-header {
+        nav .container {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 12px;
         }
 
-        .step-number {
-            width: 28px;
-            height: 28px;
-            background: linear-gradient(135deg, #00d4ff 0%, #7c3aed 100%);
-            border-radius: 50%;
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
             display: flex;
-            align-items: center;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #a855f7;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 160px 0 100px;
+            text-align: center;
+            background: linear-gradient(180deg, #0a0a0f 0%, #1a1a2e 100%);
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            background: rgba(168, 85, 247, 0.2);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 100px;
+            font-size: 0.85rem;
+            color: #a855f7;
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.7) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: rgba(255,255,255,0.7);
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
             justify-content: center;
-            font-size: 0.875rem;
-            font-weight: 600;
-        }
-
-        .step-title {
-            font-size: 1rem;
-            font-weight: 500;
+            flex-wrap: wrap;
         }
 
         .btn {
             display: inline-flex;
             align-items: center;
-            justify-content: center;
             gap: 8px;
-            width: 100%;
-            padding: 16px 24px;
+            padding: 16px 32px;
             border-radius: 12px;
             font-size: 1rem;
             font-weight: 600;
             text-decoration: none;
-            transition: all 0.2s ease;
-            cursor: pointer;
+            transition: all 0.2s;
             border: none;
-        }
-
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.15);
-            color: #fff;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.25);
+            cursor: pointer;
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #00d4ff 0%, #7c3aed 100%);
+            background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
             color: #fff;
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+            box-shadow: 0 10px 40px rgba(168, 85, 247, 0.4);
         }
 
-        .apple-icon {
-            width: 20px;
-            height: 20px;
+        .btn-secondary {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.2);
         }
 
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 32px;
-            padding: 80px 20px;
-            max-width: 900px;
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.15);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 100px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-label {
+            color: #a855f7;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .section-subtitle {
+            color: rgba(255,255,255,0.6);
+            font-size: 1.1rem;
+            max-width: 600px;
             margin: 0 auto;
         }
 
-        .feature {
-            text-align: center;
-            padding: 24px;
+        /* Problem Section */
+        .problem {
+            background: linear-gradient(180deg, #1a1a2e 0%, #0a0a0f 100%);
         }
 
-        .feature-icon {
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .problem-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 32px;
+        }
+
+        .problem-icon {
             font-size: 2.5rem;
             margin-bottom: 16px;
         }
 
-        .feature-title {
-            font-size: 1.125rem;
+        .problem-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 12px;
+        }
+
+        .problem-card p {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.95rem;
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            background: #0a0a0f;
+        }
+
+        .steps {
+            display: grid;
+            gap: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .step {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 24px;
+            align-items: start;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .step-content h3 {
+            font-size: 1.25rem;
+            margin-bottom: 8px;
+        }
+
+        .step-content p {
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* Features Section */
+        .features {
+            background: linear-gradient(180deg, #0a0a0f 0%, #1a1a2e 100%);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+        }
+
+        .feature-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+            padding: 40px 32px;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            border-color: rgba(168, 85, 247, 0.3);
+            transform: translateY(-4px);
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.2) 0%, rgba(99, 102, 241, 0.2) 100%);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.95rem;
+            margin-bottom: 16px;
+        }
+
+        .feature-details {
+            list-style: none;
+        }
+
+        .feature-details li {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.85rem;
+            padding: 6px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .feature-details li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #a855f7;
+        }
+
+        /* Scenarios Section */
+        .scenarios {
+            background: #1a1a2e;
+        }
+
+        .scenario {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 24px;
+        }
+
+        .scenario-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .scenario-icon {
+            font-size: 2rem;
+        }
+
+        .scenario h3 {
+            font-size: 1.25rem;
+        }
+
+        .scenario-label {
+            font-size: 0.8rem;
+            color: #a855f7;
+            font-weight: 600;
+        }
+
+        .scenario-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+        }
+
+        .scenario-problem, .scenario-solution {
+            padding: 24px;
+            border-radius: 12px;
+        }
+
+        .scenario-problem {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .scenario-solution {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.2);
+        }
+
+        .scenario-problem h4 {
+            color: #ef4444;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+        }
+
+        .scenario-solution h4 {
+            color: #22c55e;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+        }
+
+        .scenario-problem p, .scenario-solution p {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 768px) {
+            .scenario-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Tech Section */
+        .tech {
+            background: linear-gradient(180deg, #1a1a2e 0%, #0a0a0f 100%);
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+        }
+
+        .tech-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            padding: 28px;
+            text-align: center;
+        }
+
+        .tech-card h4 {
+            margin-bottom: 8px;
+            color: #a855f7;
+        }
+
+        .tech-card p {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9rem;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            background: #0a0a0f;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 40px 32px;
+            text-align: center;
+        }
+
+        .pricing-card.featured {
+            border-color: #a855f7;
+            position: relative;
+        }
+
+        .pricing-card.featured::before {
+            content: "Most Popular";
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .pricing-tier {
+            font-size: 1.25rem;
             font-weight: 600;
             margin-bottom: 8px;
-            color: #00d4ff;
         }
 
-        .feature-desc {
+        .pricing-price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .pricing-price span {
+            font-size: 1rem;
+            font-weight: 400;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .pricing-desc {
+            color: rgba(255,255,255,0.5);
             font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.7);
-            line-height: 1.5;
+            margin-bottom: 24px;
         }
 
-        .section-title {
-            text-align: center;
-            font-size: 1.5rem;
+        .pricing-features {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 32px;
+        }
+
+        .pricing-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .pricing-features li::before {
+            content: "✓ ";
+            color: #a855f7;
+        }
+
+        /* FAQ Section */
+        .faq {
+            background: linear-gradient(180deg, #0a0a0f 0%, #1a1a2e 100%);
+        }
+
+        .faq-list {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding: 24px 0;
+        }
+
+        .faq-question {
+            font-size: 1.1rem;
             font-weight: 600;
-            margin-bottom: 40px;
-            color: #fff;
+            margin-bottom: 12px;
+            cursor: pointer;
         }
 
-        footer {
+        .faq-answer {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* Download Section */
+        .download {
+            background: linear-gradient(135deg, #1a1a2e 0%, #2d1f4e 100%);
             text-align: center;
-            padding: 40px 20px;
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 0.875rem;
         }
 
-        footer a {
-            color: #00d4ff;
+        .download h2 {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+        }
+
+        .download p {
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+        }
+
+        .download-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        .download-step {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .download-step h4 {
+            margin-bottom: 12px;
+        }
+
+        .download-step p {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+            margin-bottom: 16px;
+        }
+
+        /* Footer */
+        footer {
+            background: #0a0a0f;
+            padding: 60px 0 40px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand h3 {
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 12px;
+        }
+
+        .footer-brand p {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+        }
+
+        .footer-links h4 {
+            margin-bottom: 16px;
+            font-size: 0.9rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.5);
             text-decoration: none;
+            font-size: 0.9rem;
+            display: block;
+            padding: 6px 0;
+            transition: color 0.2s;
         }
 
-        footer a:hover {
-            text-decoration: underline;
+        .footer-links a:hover {
+            color: #a855f7;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            color: rgba(255,255,255,0.4);
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .step {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <section class="hero">
-            <h1 class="logo">FestivAir</h1>
-            <p class="tagline">Your ultimate festival companion. Find friends, explore stages, and never miss a moment.</p>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="nav-logo">FestivAir</div>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#scenarios">Use Cases</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#download">Download</a></li>
+            </ul>
+        </div>
+    </nav>
 
-            <div class="download-card">
-                <p class="card-title">iPhone Only - 2 Easy Steps</p>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <span class="hero-badge">iPhone App - Currently in Beta</span>
+            <h1>Never Lose Your Squad<br>at Music Festivals</h1>
+            <p class="hero-subtitle">FestivAir uses Bluetooth mesh networking to share locations with your friends - even when there's no cell service in the crowd.</p>
+            <div class="hero-buttons">
+                <a href="#download" class="btn btn-primary">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                    </svg>
+                    Download for iPhone
+                </a>
+                <a href="#how-it-works" class="btn btn-secondary">See How It Works</a>
+            </div>
+        </div>
+    </section>
 
-                <div class="step">
-                    <div class="step-header">
-                        <span class="step-number">1</span>
-                        <span class="step-title">Get TestFlight (Apple's beta app)</span>
-                    </div>
-                    <a href="https://apps.apple.com/app/testflight/id899247664" class="btn btn-secondary" target="_blank">
-                        Download TestFlight Free
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M5 12h14M12 5l7 7-7 7"/>
-                        </svg>
-                    </a>
+    <!-- Problem Section -->
+    <section class="problem">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-label">The Problem</p>
+                <h2 class="section-title">Festival Frustrations We've All Felt</h2>
+            </div>
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <div class="problem-icon">📵</div>
+                    <h3>No Cell Service</h3>
+                    <p>50,000 people all trying to text at once. Messages don't send. Calls don't connect. You're stuck.</p>
                 </div>
-
-                <div class="step">
-                    <div class="step-header">
-                        <span class="step-number">2</span>
-                        <span class="step-title">Join the FestivAir Beta</span>
-                    </div>
-                    <a href="https://testflight.apple.com/join/ZG1xMdBg" class="btn btn-primary" target="_blank">
-                        <svg class="apple-icon" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
-                        </svg>
-                        Install FestivAir
-                    </a>
+                <div class="problem-card">
+                    <div class="problem-icon">🔋</div>
+                    <h3>Dead Batteries</h3>
+                    <p>Your friend's phone died and now you have no idea where they are. The meetup spot is packed.</p>
+                </div>
+                <div class="problem-card">
+                    <div class="problem-icon">👥</div>
+                    <h3>Lost in the Crowd</h3>
+                    <p>"I'm by the sound booth" means nothing when there are 10,000 people between you.</p>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section class="features">
-            <h2 class="section-title" style="grid-column: 1 / -1;">What You Can Do</h2>
+    <!-- How It Works Section -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-label">How It Works</p>
+                <h2 class="section-title">Mesh Networking Explained Simply</h2>
+                <p class="section-subtitle">Your phones talk directly to each other using Bluetooth and WiFi - no cell towers needed.</p>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Direct Phone-to-Phone Connection</h3>
+                        <p>When you're within about 30-100 feet of a squad member, your phones connect directly using Bluetooth. Like walkie-talkies, but automatic.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Messages Hop Through Other Users</h3>
+                        <p>If your friend is far away, your message bounces through other FestivAir users until it reaches them. Each phone passes the message along. More users = better coverage.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Gateway Bridging</h3>
+                        <p>If just ONE person in the mesh has cell service, they become a "gateway" - syncing everyone's messages to the cloud. Your friend on the edge of the crowd with signal helps everyone.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Squad-Only Privacy</h3>
+                        <p>Every message has your squad's unique code. Other phones relay messages but can only see content meant for their own squad. Your conversations stay private.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-            <div class="feature">
-                <div class="feature-icon">🗺️</div>
-                <h3 class="feature-title">Interactive Maps</h3>
-                <p class="feature-desc">Navigate festival grounds with real-time maps showing stages, food, and facilities.</p>
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-label">Features</p>
+                <h2 class="section-title">Everything You Need at a Festival</h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📍</div>
+                    <h3>Real-Time Location Sharing</h3>
+                    <p>See your squad members on a map. Their location updates automatically - no need to keep asking "where are you?"</p>
+                    <ul class="feature-details">
+                        <li>Works without cell service via mesh</li>
+                        <li>Battery-efficient GPS updates</li>
+                        <li>Low power mode for long festival days</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💬</div>
+                    <h3>Offline Chat</h3>
+                    <p>Send messages to your squad through the mesh network. No cell service? No problem.</p>
+                    <ul class="feature-details">
+                        <li>Messages sync when connection returns</li>
+                        <li>Push notifications for new messages</li>
+                        <li>Works through other FestivAir users</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎪</div>
+                    <h3>Parties & Meetups</h3>
+                    <p>Discover nearby parties or create your own. Host campsite hangouts or find the after-party.</p>
+                    <ul class="feature-details">
+                        <li>Location-based discovery (10 mile radius)</li>
+                        <li>Party hosts can manage attendees</li>
+                        <li>Automatic cleanup of ended parties</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎵</div>
+                    <h3>Set Time Alerts</h3>
+                    <p>Build your personal lineup and get notified before your favorite artists perform.</p>
+                    <ul class="feature-details">
+                        <li>Customizable reminder times</li>
+                        <li>Festival schedule import</li>
+                        <li>Favorite artist tracking</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧭</div>
+                    <h3>Find My Friend</h3>
+                    <p>Tap a squad member to get a compass arrow pointing directly to them and distance remaining.</p>
+                    <ul class="feature-details">
+                        <li>Works even without exact map</li>
+                        <li>Distance updates in real-time</li>
+                        <li>Haptic feedback when close</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔋</div>
+                    <h3>Battery Smart</h3>
+                    <p>Automatic battery management. The app rotates "gateway" duty to phones with more battery.</p>
+                    <ul class="feature-details">
+                        <li>Low battery warnings for squad</li>
+                        <li>Low power mode available</li>
+                        <li>Gateway rotation at 30% battery</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Real Scenarios Section -->
+    <section class="scenarios" id="scenarios">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-label">Real Scenarios</p>
+                <h2 class="section-title">How FestivAir Helps</h2>
+                <p class="section-subtitle">These are actual situations where FestivAir makes a difference.</p>
             </div>
 
-            <div class="feature">
-                <div class="feature-icon">👥</div>
-                <h3 class="feature-title">Squad Up</h3>
-                <p class="feature-desc">Create squads with friends and share locations so you never lose each other in the crowd.</p>
+            <div class="scenario">
+                <div class="scenario-header">
+                    <span class="scenario-icon">🎤</span>
+                    <div>
+                        <span class="scenario-label">Scenario 1</span>
+                        <h3>Split Up at the Main Stage</h3>
+                    </div>
+                </div>
+                <div class="scenario-content">
+                    <div class="scenario-problem">
+                        <h4>Without FestivAir</h4>
+                        <p>Your friend leaves to get water during a set. The crowd shifts. You both text "where are you?" but messages won't send because cell service is overloaded. You spend 20 minutes wandering, miss the best song.</p>
+                    </div>
+                    <div class="scenario-solution">
+                        <h4>With FestivAir</h4>
+                        <p>Open the app and see their blue dot near the water station. Tap their icon for a compass arrow pointing right to them. Walk directly there in 3 minutes. Messages send through nearby phones via mesh.</p>
+                    </div>
+                </div>
             </div>
 
-            <div class="feature">
-                <div class="feature-icon">📅</div>
-                <h3 class="feature-title">Set Schedule</h3>
-                <p class="feature-desc">Build your personal lineup and get notifications before your favorite artists perform.</p>
+            <div class="scenario">
+                <div class="scenario-header">
+                    <span class="scenario-icon">⛺</span>
+                    <div>
+                        <span class="scenario-label">Scenario 2</span>
+                        <h3>Finding Your Campsite at Night</h3>
+                    </div>
+                </div>
+                <div class="scenario-content">
+                    <div class="scenario-problem">
+                        <h4>Without FestivAir</h4>
+                        <p>It's 2am, you're tired, and every row of tents looks identical. Your friend who went back early isn't answering texts. You wander for 45 minutes before finding the right spot.</p>
+                    </div>
+                    <div class="scenario-solution">
+                        <h4>With FestivAir</h4>
+                        <p>Drop a meetup pin at your campsite when you arrive. Even if your friend's phone is on silent, you can see their location on the map. Follow the compass arrow directly to camp.</p>
+                    </div>
+                </div>
             </div>
-        </section>
-    </div>
 
+            <div class="scenario">
+                <div class="scenario-header">
+                    <span class="scenario-icon">🔋</span>
+                    <div>
+                        <span class="scenario-label">Scenario 3</span>
+                        <h3>Friend's Phone Dies</h3>
+                    </div>
+                </div>
+                <div class="scenario-content">
+                    <div class="scenario-problem">
+                        <h4>Without FestivAir</h4>
+                        <p>Your friend's phone dies at 15%. Now you have zero way to find them. You check all your meetup spots but keep missing each other. Festival day ruined.</p>
+                    </div>
+                    <div class="scenario-solution">
+                        <h4>With FestivAir</h4>
+                        <p>FestivAir sends you a "low battery" alert when their phone hits 20%. You see their last known location before it died. Plus, you agreed on a backup meetup spot in the squad chat earlier.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="scenario">
+                <div class="scenario-header">
+                    <span class="scenario-icon">🎉</span>
+                    <div>
+                        <span class="scenario-label">Scenario 4</span>
+                        <h3>Campsite After-Party</h3>
+                    </div>
+                </div>
+                <div class="scenario-content">
+                    <div class="scenario-problem">
+                        <h4>Without FestivAir</h4>
+                        <p>You hear there's a great party in lot G but have no idea which campsite. You walk around awkwardly trying to find it, eventually give up.</p>
+                    </div>
+                    <div class="scenario-solution">
+                        <h4>With FestivAir</h4>
+                        <p>Check the Parties tab - someone created a party listing with a location pin. You can see it's 0.3 miles away and has 12 people attending. Navigate directly there.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Transparency Section -->
+    <section class="tech">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-label">Technical Details</p>
+                <h2 class="section-title">What You Should Know</h2>
+                <p class="section-subtitle">We believe in transparency about what the app can and can't do.</p>
+            </div>
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <h4>Bluetooth Range</h4>
+                    <p>Direct connections work within 30-100 feet in crowded conditions. Less in dense crowds, more in open areas.</p>
+                </div>
+                <div class="tech-card">
+                    <h4>Mesh Limitations</h4>
+                    <p>If there are no other FestivAir users nearby and no cell service, messages won't send until connectivity returns.</p>
+                </div>
+                <div class="tech-card">
+                    <h4>Battery Usage</h4>
+                    <p>Bluetooth + GPS uses battery. Expect 15-25% more drain than normal. Low power mode helps for long days.</p>
+                </div>
+                <div class="tech-card">
+                    <h4>More Users = Better</h4>
+                    <p>The mesh works best when more people use the app. Tell your squad to download it before the festival.</p>
+                </div>
+                <div class="tech-card">
+                    <h4>iPhone Only</h4>
+                    <p>Currently iOS only. Uses Apple's MultipeerConnectivity framework. Android version not available yet.</p>
+                </div>
+                <div class="tech-card">
+                    <h4>18+ Only</h4>
+                    <p>You must be 18 or older to use FestivAir. Age confirmation required during signup.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-label">Pricing</p>
+                <h2 class="section-title">Free to Start, Upgrade for More</h2>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-tier">Free</div>
+                    <div class="pricing-price">$0</div>
+                    <p class="pricing-desc">Perfect for small friend groups</p>
+                    <ul class="pricing-features">
+                        <li>Squads up to 6 people</li>
+                        <li>Real-time location sharing</li>
+                        <li>Offline mesh messaging</li>
+                        <li>Set time alerts</li>
+                        <li>Join parties</li>
+                    </ul>
+                    <a href="#download" class="btn btn-secondary" style="width: 100%;">Get Started</a>
+                </div>
+                <div class="pricing-card featured">
+                    <div class="pricing-tier">Basic</div>
+                    <div class="pricing-price">$4.99<span>/mo</span></div>
+                    <p class="pricing-desc">For larger crews</p>
+                    <ul class="pricing-features">
+                        <li>Squads up to 15 people</li>
+                        <li>Everything in Free</li>
+                        <li>Profile photo gallery</li>
+                        <li>Priority support</li>
+                    </ul>
+                    <a href="#download" class="btn btn-primary" style="width: 100%;">Upgrade</a>
+                </div>
+                <div class="pricing-card">
+                    <div class="pricing-tier">VIP</div>
+                    <div class="pricing-price">$14.99<span>/mo</span></div>
+                    <p class="pricing-desc">The full experience</p>
+                    <ul class="pricing-features">
+                        <li>Squads up to 25 people</li>
+                        <li>Everything in Basic</li>
+                        <li>Host exclusive parties</li>
+                        <li>Verification badge</li>
+                    </ul>
+                    <a href="#download" class="btn btn-secondary" style="width: 100%;">Go VIP</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq" id="faq">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-label">FAQ</p>
+                <h2 class="section-title">Common Questions</h2>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <h4 class="faq-question">Does it really work without cell service?</h4>
+                    <p class="faq-answer">Yes, but with conditions. Your phones connect directly via Bluetooth within 30-100 feet. For longer distances, messages hop through other FestivAir users nearby. If there are no other users in range and no cell service, messages queue until connectivity returns.</p>
+                </div>
+                <div class="faq-item">
+                    <h4 class="faq-question">How much battery does it use?</h4>
+                    <p class="faq-answer">Expect about 15-25% more battery drain than normal since the app uses Bluetooth and GPS. We recommend bringing a portable charger to festivals anyway. Low Power Mode reduces location updates to save battery on long days.</p>
+                </div>
+                <div class="faq-item">
+                    <h4 class="faq-question">Can people outside my squad see my location?</h4>
+                    <p class="faq-answer">No. Your location is only visible to members of your squad. Other FestivAir users help relay messages through the mesh, but they cannot see the content or your location - it's encrypted with your squad's unique code.</p>
+                </div>
+                <div class="faq-item">
+                    <h4 class="faq-question">What if my friend doesn't have the app?</h4>
+                    <p class="faq-answer">They won't appear in your squad or on the map. Everyone in the squad needs the app installed. Send them the TestFlight link before the festival!</p>
+                </div>
+                <div class="faq-item">
+                    <h4 class="faq-question">Does it work with Android?</h4>
+                    <p class="faq-answer">Not yet. FestivAir is currently iPhone only. We use Apple's MultipeerConnectivity framework which doesn't have an Android equivalent. Android support may come in the future.</p>
+                </div>
+                <div class="faq-item">
+                    <h4 class="faq-question">What happens if I uninstall and reinstall?</h4>
+                    <p class="faq-answer">If you signed in with Apple, your identity persists across reinstalls. Your profile and squad membership are restored automatically. Without Apple Sign In, you'd need to rejoin your squad with the invite code.</p>
+                </div>
+                <div class="faq-item">
+                    <h4 class="faq-question">Is it free?</h4>
+                    <p class="faq-answer">Yes! The free tier supports squads of up to 6 people with all core features. Paid tiers ($4.99/mo Basic, $14.99/mo VIP) unlock larger squads and premium features like party hosting.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <section class="download" id="download">
+        <div class="container">
+            <h2>Ready to Never Lose Your Squad?</h2>
+            <p>FestivAir is in beta testing via TestFlight. Download in 2 steps:</p>
+            <div class="download-steps">
+                <div class="download-step">
+                    <h4>Step 1: Get TestFlight</h4>
+                    <p>Apple's app for testing beta apps. Free from the App Store.</p>
+                    <a href="https://apps.apple.com/app/testflight/id899247664" class="btn btn-secondary" target="_blank" style="width: 100%;">Download TestFlight</a>
+                </div>
+                <div class="download-step">
+                    <h4>Step 2: Join FestivAir Beta</h4>
+                    <p>Open this link on your iPhone to install FestivAir.</p>
+                    <a href="https://testflight.apple.com/join/ZG1xMdBg" class="btn btn-primary" target="_blank" style="width: 100%;">Install FestivAir</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer>
-        <p>&copy; 2026 FestivAir. All rights reserved.</p>
-        <p style="margin-top: 8px;">
-            <a href="mailto:support@festivair.app">Contact Support</a>
-        </p>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3>FestivAir</h3>
+                    <p>Never lose your squad at festivals. Real-time location sharing that works even without cell service.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#download">Download</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                        <li><a href="mailto:support@festivair.app">Contact Support</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 FestivAir. All rights reserved. iPhone is a trademark of Apple Inc.</p>
+            </div>
+        </div>
     </footer>
 </body>
 </html>
