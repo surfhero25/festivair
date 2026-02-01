@@ -300,21 +300,24 @@ struct CreateSquadContent: View {
             }
             .padding()
 
-            // Preview code
-            VStack(spacing: 8) {
-                Text("Your join code will be:")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+            // Preview code - only show after user enters a name
+            if !squadName.isEmpty {
+                VStack(spacing: 8) {
+                    Text("Your join code will be:")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
 
-                Text(previewCode)
-                    .font(.title.monospaced().bold())
-                    .foregroundStyle(.purple)
+                    Text(previewCode)
+                        .font(.title.monospaced().bold())
+                        .foregroundStyle(.purple)
+                }
+                .padding()
+                .frame(maxWidth: .infinity)
+                .background(.purple.opacity(0.1))
+                .clipShape(RoundedRectangle(cornerRadius: 16))
+                .padding(.horizontal)
+                .transition(.opacity.combined(with: .scale))
             }
-            .padding()
-            .frame(maxWidth: .infinity)
-            .background(.purple.opacity(0.1))
-            .clipShape(RoundedRectangle(cornerRadius: 16))
-            .padding(.horizontal)
 
             Spacer()
 
