@@ -10,6 +10,8 @@ enum KeychainHelper {
         case userId = "userId"
         case displayName = "displayName"
         case emoji = "emoji"
+        case appleUserIdentifier = "appleUserIdentifier"  // Sign in with Apple ID
+        case appleEmail = "appleEmail"  // Email from Apple (may be relay)
     }
 
     // MARK: - Save

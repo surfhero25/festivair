@@ -282,8 +282,12 @@ struct AgeVerificationPageView: View {
 // MARK: - Profile Setup
 struct ProfileSetupView: View {
     @EnvironmentObject var appState: AppState
+    @StateObject private var appleAuth = AppleAuthService()
     @State private var displayName = ""
     @State private var selectedIcon = "👤"
+    @State private var isSigningIn = false
+    @State private var showManualEntry = false
+    @State private var errorMessage: String?
     @FocusState private var isNameFieldFocused: Bool
 
     // Generic person icons - not music emojis
@@ -296,6 +300,73 @@ struct ProfileSetupView: View {
                 .foregroundStyle(.white)
                 .padding(.top, 60)
 
+            if !showManualEntry {
+                // Sign in with Apple flow
+                appleSignInView
+            } else {
+                // Manual name entry (after Apple sign in or skip)
+                manualEntryView
+            }
+        }
+        .onTapGesture {
+            isNameFieldFocused = false
+        }
+    }
+
+    // MARK: - Apple Sign In View
+    private var appleSignInView: some View {
+        VStack(spacing: 24) {
+            Image(systemName: "person.crop.circle.badge.checkmark")
+                .font(.system(size: 80))
+                .foregroundStyle(.purple)
+
+            Text("Sign in with Apple for a seamless experience. Your identity persists even if you reinstall the app.")
+                .font(.body)
+                .foregroundStyle(.white.opacity(0.8))
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 40)
+
+            Spacer()
+
+            if let error = errorMessage {
+                Text(error)
+                    .font(.caption)
+                    .foregroundStyle(.red)
+                    .padding(.horizontal, 40)
+            }
+
+            // Sign in with Apple Button
+            SignInWithAppleButton(.signIn) { request in
+                request.requestedScopes = [.fullName, .email]
+            } onCompletion: { result in
+                handleAppleSignIn(result)
+            }
+            .signInWithAppleButtonStyle(.white)
+            .frame(height: 50)
+            .clipShape(RoundedRectangle(cornerRadius: 12))
+            .padding(.horizontal, 40)
+            .disabled(isSigningIn)
+
+            // Skip option
+            Button {
+                showManualEntry = true
+            } label: {
+                Text("Continue without Apple ID")
+                    .font(.subheadline)
+                    .foregroundStyle(.white.opacity(0.6))
+            }
+            .padding(.bottom, 60)
+
+            if isSigningIn {
+                ProgressView()
+                    .tint(.white)
+            }
+        }
+    }
+
+    // MARK: - Manual Entry View
+    private var manualEntryView: some View {
+        VStack(spacing: 24) {
             // Icon selector
             Text(selectedIcon)
                 .font(.system(size: 80))
@@ -331,18 +402,13 @@ struct ProfileSetupView: View {
                 .focused($isNameFieldFocused)
                 .submitLabel(.done)
                 .onSubmit {
-                    let trimmedName = displayName.trimmingCharacters(in: .whitespacesAndNewlines)
-                    if !trimmedName.isEmpty {
-                        appState.completeOnboarding(displayName: trimmedName, emoji: selectedIcon)
-                    }
+                    completeSetup()
                 }
 
             Spacer()
 
             Button {
-                let trimmedName = displayName.trimmingCharacters(in: .whitespacesAndNewlines)
-                guard !trimmedName.isEmpty else { return }
-                appState.completeOnboarding(displayName: trimmedName, emoji: selectedIcon)
+                completeSetup()
             } label: {
                 Text("Let's Go!")
                     .font(.headline)
@@ -356,10 +422,57 @@ struct ProfileSetupView: View {
             .padding(.horizontal, 40)
             .padding(.bottom, 60)
         }
-        .onTapGesture {
-            // Dismiss keyboard when tapping outside
-            isNameFieldFocused = false
+    }
+
+    // MARK: - Actions
+
+    private func handleAppleSignIn(_ result: Result<ASAuthorization, Error>) {
+        switch result {
+        case .success(let authorization):
+            guard let credential = authorization.credential as? ASAuthorizationAppleIDCredential else {
+                errorMessage = "Invalid credential"
+                return
+            }
+
+            isSigningIn = true
+
+            // Store Apple ID in Keychain
+            KeychainHelper.save(credential.user, for: .appleUserIdentifier)
+
+            if let email = credential.email {
+                KeychainHelper.save(email, for: .appleEmail)
+            }
+
+            // Get name from credential (only provided on first sign in)
+            if let fullName = credential.fullName {
+                let firstName = fullName.givenName ?? ""
+                let lastName = fullName.familyName ?? ""
+                let name = [firstName, lastName].filter { !$0.isEmpty }.joined(separator: " ")
+                if !name.isEmpty {
+                    displayName = name
+                }
+            }
+
+            print("[AppleAuth] Sign in success - user: \(credential.user)")
+
+            isSigningIn = false
+            showManualEntry = true  // Show emoji picker
+
+        case .failure(let error):
+            if let authError = error as? ASAuthorizationError, authError.code == .canceled {
+                // User cancelled - not an error
+                print("[AppleAuth] User cancelled sign in")
+            } else {
+                errorMessage = error.localizedDescription
+                print("[AppleAuth] Sign in failed: \(error)")
+            }
         }
+    }
+
+    private func completeSetup() {
+        let trimmedName = displayName.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmedName.isEmpty else { return }
+        appState.completeOnboarding(displayName: trimmedName, emoji: selectedIcon)
     }
 }
 

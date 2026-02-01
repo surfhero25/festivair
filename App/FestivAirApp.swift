@@ -1,6 +1,7 @@
 import SwiftUI
 import SwiftData
 import Combine
+import AuthenticationServices
 
 @main
 struct FestivAirApp: App {
@@ -154,6 +155,48 @@ final class AppState: ObservableObject {
                 self?.objectWillChange.send()
             }
             .store(in: &cancellables)
+
+        // Validate Apple ID credential if user signed in with Apple
+        validateAppleCredentialIfNeeded()
+    }
+
+    /// Check if Apple ID credential is still valid (not revoked)
+    private func validateAppleCredentialIfNeeded() {
+        guard let appleUserId = KeychainHelper.load(.appleUserIdentifier) else {
+            // User didn't sign in with Apple, nothing to validate
+            return
+        }
+
+        let provider = ASAuthorizationAppleIDProvider()
+        provider.getCredentialState(forUserID: appleUserId) { [weak self] state, error in
+            Task { @MainActor in
+                switch state {
+                case .authorized:
+                    print("[AppleAuth] Credential still valid")
+                case .revoked:
+                    print("[AppleAuth] Credential was revoked - clearing user data")
+                    self?.handleAppleCredentialRevoked()
+                case .notFound:
+                    print("[AppleAuth] Credential not found - may need to re-authenticate")
+                    // Don't clear immediately - could be a temporary issue
+                case .transferred:
+                    print("[AppleAuth] Credential transferred")
+                @unknown default:
+                    break
+                }
+            }
+        }
+    }
+
+    /// Handle when Apple ID credential is revoked
+    private func handleAppleCredentialRevoked() {
+        // Clear Apple-specific keychain data
+        KeychainHelper.delete(.appleUserIdentifier)
+        KeychainHelper.delete(.appleEmail)
+
+        // Note: We don't clear userId/displayName/emoji since user may want to keep their profile
+        // They'll just need to sign in again next time for Apple-specific features
+        print("[AppleAuth] Cleared Apple credentials, user can continue with existing profile")
     }
 
     private func setupStatusRebroadcast() {

@@ -11,6 +11,7 @@
 		284E3C76D2C8EA545D5E83EA /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EBDF0112E44416898A7FCC /* Logger.swift */; };
 		3130C2334D8C4D3F2BCA6EEF /* MeetupPinAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DF3A50BE907782B4154A02 /* MeetupPinAnnotationView.swift */; };
 		34C778E2AF623D621FAF0FB0 /* NearestFacilityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9461A15400A977C8CCE3DF8 /* NearestFacilityView.swift */; };
+		51CF225CE78AD13497333411 /* AppleAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D950024CB9E274C8CDDB8E /* AppleAuthService.swift */; };
 		5ADFC9427F1529C696F03214 /* MeetupPinSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5B92B291AC48A8D6D27A16 /* MeetupPinSheet.swift */; };
 		6C83B227D2B4A5135E5EFD92 /* CompassArrowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5F60D5A0655FD44ACF2A81 /* CompassArrowView.swift */; };
 		7E75DDADCAEE5E0BD23B9B59 /* UserStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1559BEEC51BB1B6BD87AB51B /* UserStatus.swift */; };
@@ -90,6 +91,7 @@
 		6D31BB2C948F6355357CDB65 /* FestivalVenue.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FestivalVenue.swift; sourceTree = "<group>"; };
 		72F32915774BD3B194646905 /* PrivacyPolicyView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PrivacyPolicyView.swift; path = Views/Settings/PrivacyPolicyView.swift; sourceTree = "<group>"; };
 		7B5B92B291AC48A8D6D27A16 /* MeetupPinSheet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MeetupPinSheet.swift; sourceTree = "<group>"; };
+		82D950024CB9E274C8CDDB8E /* AppleAuthService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppleAuthService.swift; sourceTree = "<group>"; };
 		8F5F60D5A0655FD44ACF2A81 /* CompassArrowView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CompassArrowView.swift; sourceTree = "<group>"; };
 		B18892BD3FD344CE44117EA5 /* MeetupPin.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MeetupPin.swift; sourceTree = "<group>"; };
 		B4EAC8CAB10A1319CA039C7D /* FacilityDetailSheet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FacilityDetailSheet.swift; sourceTree = "<group>"; };
@@ -314,6 +316,7 @@
 				FA100049 /* AnalyticsService.swift */,
 				FA100060 /* DebugLogger.swift */,
 				FA100061 /* KeychainHelper.swift */,
+				82D950024CB9E274C8CDDB8E /* AppleAuthService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -593,6 +596,7 @@
 				CE9A4401F4C134150AF3BC3A /* PrivacyPolicyView.swift in Sources */,
 				B9076D0E6E68951001E57877 /* TermsOfServiceView.swift in Sources */,
 				284E3C76D2C8EA545D5E83EA /* Logger.swift in Sources */,
+				51CF225CE78AD13497333411 /* AppleAuthService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
