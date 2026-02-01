@@ -509,6 +509,35 @@ final class PartiesViewModel: ObservableObject {
 
             print("[Parties] Found \(cloudParties.count) parties in CloudKit")
 
+            // Get set of cloud party IDs for deletion check
+            let cloudPartyIds = Set(cloudParties.map { $0.id })
+
+            // Find and delete local parties that no longer exist in CloudKit
+            let allLocalDescriptor = FetchDescriptor<Party>()
+            let allLocalParties = try context.fetch(allLocalDescriptor)
+
+            for localParty in allLocalParties {
+                // Only delete if it was synced from cloud (has cloudKitRecordId)
+                // and no longer exists in cloud
+                if let cloudId = localParty.cloudKitRecordId,
+                   !cloudPartyIds.contains(cloudId) {
+                    print("[Parties] 🗑️ Removing locally deleted party: '\(localParty.name)'")
+
+                    // Delete attendees first
+                    let partyId = localParty.id
+                    let attendeeDescriptor = FetchDescriptor<PartyAttendee>(
+                        predicate: #Predicate { $0.partyId == partyId }
+                    )
+                    if let attendees = try? context.fetch(attendeeDescriptor) {
+                        for attendee in attendees {
+                            context.delete(attendee)
+                        }
+                    }
+
+                    context.delete(localParty)
+                }
+            }
+
             // Merge cloud parties with local
             for record in cloudParties {
                 // Check if party already exists locally
