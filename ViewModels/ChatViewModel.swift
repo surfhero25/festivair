@@ -50,8 +50,18 @@ final class ChatViewModel: ObservableObject {
         if let notificationManager = notificationManager {
             self.notificationManager = notificationManager
         }
+
+        // Log configuration for debugging
+        DebugLogger.success("Chat configured - squadId: \(squadId?.uuidString ?? "nil"), joinCode: \(joinCode ?? "nil"), cloudId: \(cloudSquadId ?? "nil")", category: "Chat")
+        print("[Chat] ✅ Configured with joinCode: \(joinCode ?? "nil")")
+
         loadMessages()
         Task { await fetchRemoteMessages() }
+    }
+
+    /// Check if chat is ready to send/receive messages
+    var isReady: Bool {
+        currentSquadId != nil && joinCode != nil && !joinCode!.isEmpty
     }
 
     // MARK: - Message Operations
@@ -59,7 +69,17 @@ final class ChatViewModel: ObservableObject {
     func sendMessage(text: String) async {
         guard let squadId = currentSquadId,
               let userId = currentUserId,
-              !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
+              !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            DebugLogger.warning("Cannot send - missing squadId or userId", category: "Chat")
+            return
+        }
+
+        // CRITICAL: Must have joinCode to ensure consistent routing across devices
+        guard let routingCode = joinCode, !routingCode.isEmpty else {
+            DebugLogger.error("Cannot send - joinCode not set. Chat not properly configured.", category: "Chat")
+            self.error = NSError(domain: "Chat", code: 1, userInfo: [NSLocalizedDescriptionKey: "Chat not ready. Please wait or rejoin squad."])
+            return
+        }
 
         let userIdUUID = UUID(uuidString: userId) ?? UUID()
         let trimmedText = text.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -92,11 +112,11 @@ final class ChatViewModel: ObservableObject {
             timestamp: message.timestamp
         )
 
-        // Use joinCode for mesh routing (same on all devices in squad)
-        // Fall back to cloudSquadId, then local squadId for backwards compatibility
-        let routingId = joinCode ?? cloudSquadId ?? squadId.uuidString
+        // Use joinCode ONLY for mesh routing - it's the same on all devices in squad
+        // We already validated joinCode exists above
+        let routingId = routingCode
 
-        DebugLogger.info("Sending message with routingId: \(routingId) (joinCode: \(joinCode ?? "nil"), cloudId: \(cloudSquadId ?? "nil"))", category: "Chat")
+        DebugLogger.info("Sending message with routingId: \(routingId)", category: "Chat")
 
         let meshMessage = MeshMessagePayload(
             type: .chatMessage,
@@ -227,14 +247,18 @@ final class ChatViewModel: ObservableObject {
             return
         }
 
-        // Match on joinCode first (same on all devices), then cloudSquadId, then local squadId
-        let myRoutingId = joinCode ?? cloudSquadId ?? squadId.uuidString
+        // CRITICAL: Use joinCode ONLY for routing - must match sender exactly
+        guard let myJoinCode = joinCode, !myJoinCode.isEmpty else {
+            DebugLogger.warning("No joinCode set - can't validate incoming messages. Chat not configured.", category: "Chat")
+            return
+        }
+
         let messageRoutingId = meshEnvelope.message.squadId ?? ""
 
-        DebugLogger.info("Routing check - mine: \(myRoutingId), msg: \(messageRoutingId)", category: "Chat")
+        DebugLogger.info("Routing check - mine: \(myJoinCode), msg: \(messageRoutingId)", category: "Chat")
 
-        guard messageRoutingId == myRoutingId else {
-            DebugLogger.warning("Squad mismatch - ignoring message (mine: \(myRoutingId), theirs: \(messageRoutingId))", category: "Chat")
+        guard messageRoutingId == myJoinCode else {
+            DebugLogger.warning("Squad mismatch - ignoring message (mine: \(myJoinCode), theirs: \(messageRoutingId))", category: "Chat")
             return
         }
 
