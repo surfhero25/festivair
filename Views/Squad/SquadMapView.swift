@@ -30,6 +30,10 @@ private struct SquadMapContentView: View {
     @State private var showFacilityFilters = false
     @State private var showLocationError = false
 
+    // Group info card state
+    @State private var isGroupInfoDismissed = false
+    @State private var lastGroupMemberCount = 0
+
     private var currentUserStatus: UserStatus? {
         UserDefaults.standard.codable(forKey: "FestivAir.CurrentUserStatus")
     }
@@ -196,12 +200,26 @@ private struct SquadMapContentView: View {
 
                     Spacer()
 
-                    // Group centroid info card (if available and not navigating)
-                    if let centroid = mapViewModel.groupCentroid, !mapViewModel.isNavigating {
-                        GroupInfoCard(centroid: centroid) {
+                    // Group centroid info card (if available, not navigating, and not dismissed)
+                    if let centroid = mapViewModel.groupCentroid, !mapViewModel.isNavigating, !isGroupInfoDismissed {
+                        GroupInfoCard(centroid: centroid, onTap: {
                             mapViewModel.centerOnGroup()
-                        }
+                        }, onDismiss: {
+                            withAnimation {
+                                isGroupInfoDismissed = true
+                            }
+                        })
                         .padding(.horizontal)
+                        .transition(.move(edge: .bottom).combined(with: .opacity))
+                        .onChange(of: centroid.memberCount) { oldCount, newCount in
+                            // Show again if member count changes significantly
+                            if newCount != lastGroupMemberCount && lastGroupMemberCount > 0 {
+                                withAnimation {
+                                    isGroupInfoDismissed = false
+                                }
+                            }
+                            lastGroupMemberCount = newCount
+                        }
                     }
 
                     // Bottom controls - simplified row
@@ -623,52 +641,66 @@ struct GroupCentroidView: View {
 struct GroupInfoCard: View {
     let centroid: GroupCentroid
     let onTap: () -> Void
+    var onDismiss: (() -> Void)? = nil
 
     var body: some View {
-        Button(action: onTap) {
-            HStack(spacing: 12) {
-                // Icon
-                ZStack {
-                    Circle()
-                        .fill(Color.purple.opacity(0.2))
-                        .frame(width: 44, height: 44)
+        HStack(spacing: 8) {
+            Button(action: onTap) {
+                HStack(spacing: 12) {
+                    // Icon
+                    ZStack {
+                        Circle()
+                            .fill(Color.purple.opacity(0.2))
+                            .frame(width: 44, height: 44)
 
-                    Image(systemName: "location.viewfinder")
-                        .font(.title3)
-                        .foregroundStyle(.purple)
-                }
-
-                // Info
-                VStack(alignment: .leading, spacing: 2) {
-                    HStack {
-                        Text(centroid.spreadDescription)
-                            .font(.subheadline)
-                            .fontWeight(.medium)
-
-                        Spacer()
-
-                        if let distance = centroid.distanceText {
-                            Text(distance)
-                                .font(.subheadline)
-                                .foregroundStyle(.purple)
-                                .fontWeight(.semibold)
-                        }
+                        Image(systemName: "location.viewfinder")
+                            .font(.title3)
+                            .foregroundStyle(.purple)
                     }
 
-                    Text(centroid.accuracyImprovement)
+                    // Info
+                    VStack(alignment: .leading, spacing: 2) {
+                        HStack {
+                            Text(centroid.spreadDescription)
+                                .font(.subheadline)
+                                .fontWeight(.medium)
+
+                            Spacer()
+
+                            if let distance = centroid.distanceText {
+                                Text(distance)
+                                    .font(.subheadline)
+                                    .foregroundStyle(.purple)
+                                    .fontWeight(.semibold)
+                            }
+                        }
+
+                        Text(centroid.accuracyImprovement)
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+
+                    Image(systemName: "chevron.right")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
-
-                Image(systemName: "chevron.right")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
             }
-            .padding(12)
-            .background(.ultraThinMaterial)
-            .clipShape(RoundedRectangle(cornerRadius: 16))
+            .buttonStyle(.plain)
+
+            // Dismiss button
+            if let onDismiss = onDismiss {
+                Button(action: onDismiss) {
+                    Image(systemName: "xmark")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                        .padding(8)
+                }
+                .buttonStyle(.plain)
+            }
         }
-        .buttonStyle(.plain)
+        .padding(12)
+        .background(.ultraThinMaterial)
+        .clipShape(RoundedRectangle(cornerRadius: 16))
     }
 }
 

@@ -96,6 +96,8 @@ final class ChatViewModel: ObservableObject {
         // Fall back to cloudSquadId, then local squadId for backwards compatibility
         let routingId = joinCode ?? cloudSquadId ?? squadId.uuidString
 
+        DebugLogger.info("Sending message with routingId: \(routingId) (joinCode: \(joinCode ?? "nil"), cloudId: \(cloudSquadId ?? "nil"))", category: "Chat")
+
         let meshMessage = MeshMessagePayload(
             type: .chatMessage,
             userId: userId,
@@ -205,25 +207,52 @@ final class ChatViewModel: ObservableObject {
     }
 
     private func handleMeshMessage(_ envelope: Any) {
-        guard let meshEnvelope = envelope as? MeshEnvelope,
-              meshEnvelope.message.type == .chatMessage,
-              let chatPayload = meshEnvelope.message.chat,
-              let squadId = currentSquadId else { return }
+        guard let meshEnvelope = envelope as? MeshEnvelope else {
+            DebugLogger.warning("Received non-MeshEnvelope message", category: "Chat")
+            return
+        }
+
+        // Log all mesh messages for debugging
+        DebugLogger.info("Mesh msg type: \(meshEnvelope.message.type), squadId: \(meshEnvelope.message.squadId ?? "nil")", category: "Chat")
+
+        guard meshEnvelope.message.type == .chatMessage else { return }
+
+        guard let chatPayload = meshEnvelope.message.chat else {
+            DebugLogger.warning("Chat message has no payload", category: "Chat")
+            return
+        }
+
+        guard let squadId = currentSquadId else {
+            DebugLogger.warning("No current squad - can't receive messages", category: "Chat")
+            return
+        }
 
         // Match on joinCode first (same on all devices), then cloudSquadId, then local squadId
         let myRoutingId = joinCode ?? cloudSquadId ?? squadId.uuidString
         let messageRoutingId = meshEnvelope.message.squadId ?? ""
-        guard messageRoutingId == myRoutingId else { return }
+
+        DebugLogger.info("Routing check - mine: \(myRoutingId), msg: \(messageRoutingId)", category: "Chat")
+
+        guard messageRoutingId == myRoutingId else {
+            DebugLogger.warning("Squad mismatch - ignoring message (mine: \(myRoutingId), theirs: \(messageRoutingId))", category: "Chat")
+            return
+        }
 
         // Skip our own messages
         if let userId = currentUserId,
            chatPayload.senderId.uuidString == userId {
+            DebugLogger.info("Skipping own message", category: "Chat")
             return
         }
 
         // Skip if we already have this message
         let existingIds = Set(messages.map { $0.id })
-        guard !existingIds.contains(chatPayload.id) else { return }
+        guard !existingIds.contains(chatPayload.id) else {
+            DebugLogger.info("Already have this message", category: "Chat")
+            return
+        }
+
+        DebugLogger.success("Received message from \(chatPayload.senderName): \(chatPayload.text.prefix(20))...", category: "Chat")
 
         let message = ChatMessage(
             id: chatPayload.id,
