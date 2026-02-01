@@ -140,7 +140,10 @@ final class MeshCoordinator: ObservableObject {
     }
 
     private func sendHeartbeat() {
-        guard let userId = currentUserId else { return }
+        guard let userId = currentUserId, !userId.isEmpty else {
+            print("[MeshCoordinator] Cannot send heartbeat - no valid userId")
+            return
+        }
 
         // Get current display name and emoji from UserDefaults (always fresh)
         let displayName = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.displayName) ?? "Festival Fan"
@@ -184,7 +187,10 @@ final class MeshCoordinator: ObservableObject {
     }
 
     private func broadcastLocation(_ location: Location) {
-        guard let userId = currentUserId else { return }
+        guard let userId = currentUserId, !userId.isEmpty else {
+            print("[MeshCoordinator] Cannot broadcast location - no valid userId")
+            return
+        }
 
         // Get current display name and emoji from UserDefaults (always fresh)
         let displayName = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.displayName) ?? "Festival Fan"

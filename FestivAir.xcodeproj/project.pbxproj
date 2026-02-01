@@ -573,6 +573,7 @@
 				FA000047 /* AnalyticsService.swift in Sources */,
 				FA000048 /* FestivalSummaryView.swift in Sources */,
 				FA000060 /* DebugLogger.swift in Sources */,
+				FA000061 /* KeychainHelper.swift in Sources */,
 				B0067691B1A8879982572508 /* MeetupPin.swift in Sources */,
 				7E75DDADCAEE5E0BD23B9B59 /* UserStatus.swift in Sources */,
 				860AB547076DC66D990AD42F /* Facility.swift in Sources */,

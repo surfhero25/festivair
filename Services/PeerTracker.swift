@@ -18,7 +18,8 @@ final class PeerTracker: ObservableObject {
         var status: UserStatus?
 
         var isStale: Bool {
-            Date().timeIntervalSince(lastSeen) > Constants.PeerTracking.staleThreshold
+            // Use abs() to handle clock skew between devices
+            abs(Date().timeIntervalSince(lastSeen)) > Constants.PeerTracking.staleThreshold
         }
 
         var lastSeenText: String {
@@ -71,7 +72,10 @@ final class PeerTracker: ObservableObject {
         hasService: Bool = true,
         location: Location? = nil
     ) {
+        // Capture state BEFORE any mutations for battery check
+        let previousBattery = peers[id]?.batteryLevel
         let wasOnline = peers[id]?.isOnline ?? false
+        let capturedDisplayName = displayName  // Capture for async use
 
         var status = peers[id] ?? PeerStatus(
             id: id,
@@ -96,11 +100,17 @@ final class PeerTracker: ObservableObject {
         peers[id] = status
         updatePeerLists()
 
-        // Check for low battery notification
-        if let battery = batteryLevel, battery <= 20 && wasOnline {
-            Task {
-                await notificationManager?.sendSquadMemberLowBattery(
-                    memberName: displayName,
+        // Check for low battery notification - only notify if:
+        // 1. They were online and still are
+        // 2. Battery is low (≤20%)
+        // 3. Battery dropped from above 20% to below (avoid repeat notifications)
+        if let battery = batteryLevel,
+           battery <= 20,
+           wasOnline,
+           (previousBattery == nil || previousBattery! > 20) {
+            Task { [weak self] in
+                await self?.notificationManager?.sendSquadMemberLowBattery(
+                    memberName: capturedDisplayName,
                     batteryLevel: battery
                 )
             }

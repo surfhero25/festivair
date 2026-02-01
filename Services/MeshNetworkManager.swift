@@ -170,6 +170,11 @@ final class MeshNetworkManager: NSObject, ObservableObject {
     // MARK: - Sending Messages
 
     func broadcast(_ message: MeshMessagePayload) {
+        // Validate userId is present and not empty for messages that require it
+        if let userId = message.userId, userId.isEmpty {
+            print("[Mesh] Warning: Attempting to broadcast with empty userId")
+            return
+        }
         let envelope = MeshEnvelope(message: message, originPeerId: myPeerId.displayName)
         sendEnvelope(envelope, to: connectedPeers)
     }
@@ -196,7 +201,11 @@ final class MeshNetworkManager: NSObject, ObservableObject {
     /// UNIVERSAL RELAY: Forward messages to all connected peers
     /// This enables the festival-wide mesh - users relay for ALL squads
     private func relayEnvelope(_ envelope: MeshEnvelope, excluding sender: MCPeerID) {
-        guard let forwarded = envelope.forwarded(by: myPeerId.displayName) else { return }
+        // Check TTL before relaying - forwarded() returns nil if TTL exceeded
+        guard let forwarded = envelope.forwarded(by: myPeerId.displayName) else {
+            print("[Mesh] Not relaying - TTL exceeded or already forwarded")
+            return
+        }
 
         let targets = connectedPeers.filter { $0 != sender }
         guard !targets.isEmpty else { return }

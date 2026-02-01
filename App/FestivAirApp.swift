@@ -103,7 +103,8 @@ final class AppState: ObservableObject {
             UserDefaults.standard.synchronize()
         }
 
-        print("[AppState] Init - onboarded: \(isOnboarded), userId: \(userId)")
+        // Note: Can't use isOnboarded here since stored properties not yet initialized
+        print("[AppState] Init - userId: \(userId)")
 
         let displayName = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.displayName) ?? "Festival Fan"
         let emoji = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.emoji) ?? "🎧"
@@ -239,6 +240,18 @@ final class AppState: ObservableObject {
         // Use existing userId from init() — do NOT overwrite it, services already cached it
         let userId = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.userId) ?? ""
 
+        // Validate userId is not empty
+        guard !userId.isEmpty else {
+            print("[App] ❌ Cannot complete onboarding - userId is empty")
+            return
+        }
+
+        // CRITICAL: Save to Keychain FIRST (persists across app reinstalls)
+        // Do this before setting isOnboarded to avoid race condition on crash
+        KeychainHelper.save(userId, for: .userId)
+        KeychainHelper.save(displayName, for: .displayName)
+        KeychainHelper.save(emoji, for: .emoji)
+
         // Save to UserDefaults (for app components)
         UserDefaults.standard.set(displayName, forKey: Constants.UserDefaultsKeys.displayName)
         UserDefaults.standard.set(emoji, forKey: Constants.UserDefaultsKeys.emoji)
@@ -246,11 +259,6 @@ final class AppState: ObservableObject {
 
         // Force immediate write to disk (important if app is killed quickly)
         UserDefaults.standard.synchronize()
-
-        // CRITICAL: Also save to Keychain (persists across app reinstalls)
-        KeychainHelper.save(userId, for: .userId)
-        KeychainHelper.save(displayName, for: .displayName)
-        KeychainHelper.save(emoji, for: .emoji)
 
         DebugLogger.success("Onboarding complete - userId: \(userId), name: \(displayName), emoji: \(emoji)", category: "App")
         print("[App] ✅ Onboarding complete - userId: \(userId), name: \(displayName), emoji: \(emoji)")

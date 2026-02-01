@@ -562,6 +562,11 @@ final class MapViewModel: ObservableObject {
         var weightedLon: Double = 0
 
         for loc in allLocations {
+            // Validate coordinates before including in calculation
+            guard isValidCoordinate(latitude: loc.coordinate.latitude, longitude: loc.coordinate.longitude) else {
+                continue
+            }
+
             // Weight: inverse of accuracy, clamped to avoid division issues
             // Accuracy of 5m = weight of 0.2, accuracy of 50m = weight of 0.02
             let weight = 1.0 / max(loc.accuracy, 1.0)
@@ -570,6 +575,7 @@ final class MapViewModel: ObservableObject {
             weightedLon += loc.coordinate.longitude * weight
         }
 
+        // Prevent division by zero if no valid locations
         guard totalWeight > 0 else { return nil }
 
         let centroidLat = weightedLat / totalWeight

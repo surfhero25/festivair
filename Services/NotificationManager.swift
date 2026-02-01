@@ -220,6 +220,20 @@ final class NotificationManager: ObservableObject {
         }
     }
 
+    /// Check if notifications are denied and user should be prompted to enable in Settings
+    func checkIfDenied() async -> Bool {
+        let settings = await UNUserNotificationCenter.current().notificationSettings()
+        return settings.authorizationStatus == .denied
+    }
+
+    /// Re-check and update authorization status (call after returning from Settings)
+    func refreshAuthorizationStatus() async {
+        let settings = await UNUserNotificationCenter.current().notificationSettings()
+        await MainActor.run {
+            isAuthorized = settings.authorizationStatus == .authorized
+        }
+    }
+
     private func updatePendingCount() async {
         let pending = await UNUserNotificationCenter.current().pendingNotificationRequests()
         await MainActor.run {

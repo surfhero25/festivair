@@ -328,9 +328,15 @@ final class SquadViewModel: ObservableObject {
 
         // Fetch remote locations if connected
         if let cloudId = squad.firebaseId, cloudKit.isAvailable {
-            let locations = try? await cloudKit.getSquadLocations(squadId: cloudId)
-            for loc in locations ?? [] {
-                if let userId = UUID(uuidString: loc.userId) {
+            do {
+                let locations = try await cloudKit.getSquadLocations(squadId: cloudId)
+                for loc in locations {
+                    // Validate coordinates before using
+                    guard loc.latitude >= -90, loc.latitude <= 90,
+                          loc.longitude >= -180, loc.longitude <= 180,
+                          let userId = UUID(uuidString: loc.userId) else {
+                        continue
+                    }
                     let location = Location(
                         latitude: loc.latitude,
                         longitude: loc.longitude,
@@ -340,6 +346,8 @@ final class SquadViewModel: ObservableObject {
                     )
                     memberLocations[userId] = location
                 }
+            } catch {
+                print("[SquadVM] Failed to fetch remote locations: \(error.localizedDescription)")
             }
         }
     }

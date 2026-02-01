@@ -1,6 +1,7 @@
 import Foundation
 import SwiftData
 import Combine
+import UserNotifications
 
 @MainActor
 final class ChatViewModel: ObservableObject {
@@ -323,9 +324,20 @@ final class ChatViewModel: ObservableObject {
 
     // Call this when chat view appears
     func chatViewAppeared() {
+        // Ensure we're on main actor (this class is @MainActor)
         isChatVisible = true
         DebugLogger.info("Chat view appeared - notifications will be suppressed", category: "Chat")
         notificationManager?.clearChatBadge()
+
+        // Also clear any delivered notifications user hasn't tapped
+        Task {
+            let center = UNUserNotificationCenter.current()
+            let delivered = await center.deliveredNotifications()
+            let chatIds = delivered
+                .filter { $0.request.content.categoryIdentifier == "CHAT_MESSAGE" }
+                .map { $0.request.identifier }
+            center.removeDeliveredNotifications(withIdentifiers: chatIds)
+        }
     }
 
     // Call this when chat view disappears

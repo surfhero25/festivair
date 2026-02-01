@@ -77,9 +77,20 @@ final class CloudKitService: ObservableObject {
             let newZone = CKRecordZone(zoneID: zoneID)
             zone = try await privateDatabase.save(newZone)
         } catch {
-            // Zone might already exist, that's fine
-            if let ckError = error as? CKError, ckError.code == .serverRecordChanged {
-                zone = CKRecordZone(zoneID: zoneID)
+            // Zone might already exist - check for known "already exists" error codes
+            if let ckError = error as? CKError {
+                switch ckError.code {
+                case .serverRecordChanged, .zoneNotFound:
+                    // Zone exists or needs creation retry - use local zone reference
+                    zone = CKRecordZone(zoneID: zoneID)
+                case .networkUnavailable, .networkFailure, .serviceUnavailable:
+                    // Network issue - will retry on next operation
+                    print("[CloudKit] Zone creation deferred - network unavailable")
+                    zone = CKRecordZone(zoneID: zoneID)
+                default:
+                    print("[CloudKit] Zone creation error: \(error)")
+                    zone = CKRecordZone(zoneID: zoneID)
+                }
             } else {
                 print("[CloudKit] Zone creation error: \(error)")
                 zone = CKRecordZone(zoneID: zoneID)
@@ -225,6 +236,14 @@ final class CloudKitService: ObservableObject {
             let record = try await publicDatabase.record(for: recordID)
 
             var memberIds = record["memberIds"] as? [String] ?? []
+
+            // Validate member count to prevent abuse
+            let maxSquadSize = 50  // Absolute maximum to prevent DoS
+            guard memberIds.count < maxSquadSize else {
+                print("[CloudKit] ❌ Squad has too many members: \(memberIds.count)")
+                throw CKError(.limitExceeded)
+            }
+
             if !memberIds.contains(userId) {
                 memberIds.append(userId)
                 record["memberIds"] = memberIds

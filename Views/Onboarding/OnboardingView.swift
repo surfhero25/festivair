@@ -259,26 +259,28 @@ struct ProfileSetupView: View {
                 .focused($isNameFieldFocused)
                 .submitLabel(.done)
                 .onSubmit {
-                    if !displayName.isEmpty {
-                        appState.completeOnboarding(displayName: displayName, emoji: selectedIcon)
+                    let trimmedName = displayName.trimmingCharacters(in: .whitespacesAndNewlines)
+                    if !trimmedName.isEmpty {
+                        appState.completeOnboarding(displayName: trimmedName, emoji: selectedIcon)
                     }
                 }
 
             Spacer()
 
             Button {
-                guard !displayName.isEmpty else { return }
-                appState.completeOnboarding(displayName: displayName, emoji: selectedIcon)
+                let trimmedName = displayName.trimmingCharacters(in: .whitespacesAndNewlines)
+                guard !trimmedName.isEmpty else { return }
+                appState.completeOnboarding(displayName: trimmedName, emoji: selectedIcon)
             } label: {
                 Text("Let's Go!")
                     .font(.headline)
                     .foregroundStyle(.black)
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(displayName.isEmpty ? .gray : .white)
+                    .background(displayName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? .gray : .white)
                     .clipShape(RoundedRectangle(cornerRadius: 16))
             }
-            .disabled(displayName.isEmpty)
+            .disabled(displayName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
             .padding(.horizontal, 40)
             .padding(.bottom, 60)
         }

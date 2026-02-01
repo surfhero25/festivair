@@ -127,8 +127,16 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         // Handle festivair://squad/CODE URLs
         guard url.scheme == "festivair",
               url.host == "squad",
-              let code = url.pathComponents.last,
-              code.count == 6 else {
+              let code = url.pathComponents.last else {
+            return false
+        }
+
+        // Validate join code format (6 chars, alphanumeric excluding confusing chars)
+        let validChars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"
+        let normalizedCode = code.uppercased().trimmingCharacters(in: .whitespaces)
+        guard normalizedCode.count == 6,
+              normalizedCode.allSatisfy({ validChars.contains($0) }) else {
+            print("[URL] Invalid squad code format: \(code)")
             return false
         }
 
@@ -136,7 +144,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         NotificationCenter.default.post(
             name: .joinSquadFromURL,
             object: nil,
-            userInfo: ["code": code]
+            userInfo: ["code": normalizedCode]
         )
 
         return true
