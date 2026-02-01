@@ -96,9 +96,14 @@ final class AppState: ObservableObject {
         let userId = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.userId) ?? UUID().uuidString
         if UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.userId) == nil {
             UserDefaults.standard.set(userId, forKey: Constants.UserDefaultsKeys.userId)
+            UserDefaults.standard.synchronize()
         }
 
         let displayName = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.displayName) ?? "Festival Fan"
+        let emoji = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.emoji) ?? "🎧"
+
+        // Log startup state for debugging
+        print("[App] 🚀 Starting - isOnboarded: \(isOnboarded), userId: \(userId), displayName: \(displayName), emoji: \(emoji)")
 
         // Initialize services
         meshManager = MeshNetworkManager(displayName: displayName)
@@ -222,9 +227,17 @@ final class AppState: ObservableObject {
 
     func completeOnboarding(displayName: String, emoji: String) {
         // Use existing userId from init() — do NOT overwrite it, services already cached it
+        let userId = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.userId) ?? ""
+
         UserDefaults.standard.set(displayName, forKey: Constants.UserDefaultsKeys.displayName)
         UserDefaults.standard.set(emoji, forKey: Constants.UserDefaultsKeys.emoji)
         UserDefaults.standard.set(true, forKey: Constants.UserDefaultsKeys.onboarded)
+
+        // Force immediate write to disk (important if app is killed quickly)
+        UserDefaults.standard.synchronize()
+
+        DebugLogger.success("Onboarding complete - userId: \(userId), name: \(displayName), emoji: \(emoji)", category: "App")
+        print("[App] ✅ Onboarding complete - userId: \(userId), name: \(displayName), emoji: \(emoji)")
 
         isOnboarded = true
     }
