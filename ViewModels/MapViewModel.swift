@@ -38,6 +38,7 @@ final class MapViewModel: ObservableObject {
     private let meshManager: MeshNetworkManager
     private let peerTracker: PeerTracker
     private var cancellables = Set<AnyCancellable>()
+    private var bearingSubscription: AnyCancellable?  // Tracked separately for cleanup
 
     // MARK: - Current User
     private var currentUserId: String? {
@@ -209,6 +210,10 @@ final class MapViewModel: ObservableObject {
         bearingToTarget = 0
         isHeadingUnavailable = false
 
+        // Cancel bearing updates subscription to prevent memory leak
+        bearingSubscription?.cancel()
+        bearingSubscription = nil
+
         locationManager.stopHeadingUpdates()
         proximityManager.stopTracking()
     }
@@ -235,14 +240,16 @@ final class MapViewModel: ObservableObject {
     }
 
     private func setupBearingUpdates() {
+        // Cancel any existing subscription first
+        bearingSubscription?.cancel()
+
         // Update bearing when heading or target changes
-        locationManager.$deviceHeading
+        bearingSubscription = locationManager.$deviceHeading
             .combineLatest(locationManager.$currentLocation)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] heading, location in
                 self?.updateBearing(deviceHeading: heading, location: location)
             }
-            .store(in: &cancellables)
     }
 
     private func updateBearing(deviceHeading: Double?, location: Location?) {

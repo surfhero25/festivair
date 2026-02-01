@@ -67,6 +67,9 @@ final class ChatViewModel: ObservableObject {
     // MARK: - Message Operations
 
     func sendMessage(text: String) async {
+        // Clear any previous errors
+        self.error = nil
+
         guard let squadId = currentSquadId,
               let userId = currentUserId,
               !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {

@@ -38,8 +38,8 @@ final class MeshNetworkManager: NSObject, ObservableObject {
         peerConnectedSubject.eraseToAnyPublisher()
     }
 
-    // Track seen messages to prevent duplicates
-    private var seenMessageIds = Set<UUID>()
+    // Track seen messages to prevent duplicates (use Array for FIFO ordering)
+    private var seenMessageIds: [UUID] = []
     private let seenMessageIdLimit = 1000
 
     // MARK: - User Info
@@ -251,11 +251,11 @@ extension MeshNetworkManager: MCSessionDelegate {
 
             // Deduplicate
             guard !seenMessageIds.contains(messageId) else { return }
-            seenMessageIds.insert(messageId)
+            seenMessageIds.append(messageId)
 
-            // Prune old message IDs
+            // Prune old message IDs (FIFO - remove oldest first)
             if seenMessageIds.count > seenMessageIdLimit {
-                seenMessageIds.removeFirst()
+                seenMessageIds.removeFirst(seenMessageIds.count - seenMessageIdLimit)
             }
 
             let envelope = try JSONDecoder().decode(MeshEnvelope.self, from: data)

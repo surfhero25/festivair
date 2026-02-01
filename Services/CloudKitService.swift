@@ -325,8 +325,8 @@ final class CloudKitService: ObservableObject {
         let query = CKQuery(recordType: RecordType.message, predicate: predicate)
         query.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: true)]
 
-        // Query PUBLIC database
-        let results = try await publicDatabase.records(matching: query)
+        // Query PUBLIC database with rate limiting to prevent DoS
+        let results = try await publicDatabase.records(matching: query, resultsLimit: 200)
 
         var messages: [(id: String, senderId: String, senderName: String, text: String, timestamp: Date)] = []
 

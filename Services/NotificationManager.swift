@@ -183,11 +183,12 @@ final class NotificationManager: ObservableObject {
 
     // Track unread message count internally (more reliable than delivered notifications)
     private var unreadMessageCount = 0
+    private let badgeQueue = DispatchQueue(label: "com.festivair.badge")
 
     func clearChatBadge() {
         Task { @MainActor in
-            // Reset our internal counter
-            unreadMessageCount = 0
+            // Reset our internal counter (thread-safe)
+            badgeQueue.sync { unreadMessageCount = 0 }
             // Clear badge
             try? await UNUserNotificationCenter.current().setBadgeCount(0)
             // Also clear delivered chat notifications from notification center
@@ -201,8 +202,12 @@ final class NotificationManager: ObservableObject {
     }
 
     private func incrementBadge() async {
-        unreadMessageCount += 1
-        try? await UNUserNotificationCenter.current().setBadgeCount(unreadMessageCount)
+        // Use serial queue to prevent race conditions with concurrent messages
+        let newCount = badgeQueue.sync {
+            unreadMessageCount += 1
+            return unreadMessageCount
+        }
+        try? await UNUserNotificationCenter.current().setBadgeCount(newCount)
     }
 
     // MARK: - Private Helpers

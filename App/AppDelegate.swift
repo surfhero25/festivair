@@ -161,11 +161,21 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         withCompletionHandler completionHandler: @escaping () -> Void
     ) {
         let userInfo = response.notification.request.content.userInfo
+        let categoryIdentifier = response.notification.request.content.categoryIdentifier
 
         switch response.actionIdentifier {
         case "VIEW_MAP":
             // Navigate to map view
             NotificationCenter.default.post(name: .navigateToMap, object: nil, userInfo: userInfo)
+        case "OPEN_CHAT", UNNotificationDefaultActionIdentifier:
+            // User tapped on notification - if it's a chat notification, navigate to chat and clear badge
+            if categoryIdentifier == "CHAT_MESSAGE" {
+                NotificationCenter.default.post(name: .navigateToChat, object: nil, userInfo: userInfo)
+                // Clear badge when user opens chat from notification
+                Task {
+                    try? await UNUserNotificationCenter.current().setBadgeCount(0)
+                }
+            }
         default:
             break
         }
@@ -178,5 +188,6 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 extension Notification.Name {
     static let joinSquadFromURL = Notification.Name("FestivAir.JoinSquadFromURL")
     static let navigateToMap = Notification.Name("FestivAir.NavigateToMap")
+    static let navigateToChat = Notification.Name("FestivAir.NavigateToChat")
     static let didLeaveSquad = Notification.Name("FestivAir.DidLeaveSquad")
 }

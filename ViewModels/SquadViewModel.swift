@@ -100,6 +100,14 @@ final class SquadViewModel: ObservableObject {
     }
 
     func joinSquad(code: String) async throws {
+        // Validate join code format before any network calls
+        let validChars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"
+        let normalizedCode = code.uppercased().trimmingCharacters(in: .whitespaces)
+        guard normalizedCode.count == 6,
+              normalizedCode.allSatisfy({ validChars.contains($0) }) else {
+            throw SquadError.squadNotFound  // Invalid format treated as not found
+        }
+
         // Always ensure we have a userId (creates one if missing)
         let userId = getOrCreateUserId()
 
@@ -111,11 +119,11 @@ final class SquadViewModel: ObservableObject {
         var cloudSquadId: String?
         var existingMemberIds: [String] = []
 
-        print("[SquadVM] Joining squad with code: \(code), CloudKit available: \(cloudKit.isAvailable)")
+        print("[SquadVM] Joining squad with code: \(normalizedCode), CloudKit available: \(cloudKit.isAvailable)")
 
         if cloudKit.isAvailable {
             do {
-                if let found = try await cloudKit.findSquad(byCode: code) {
+                if let found = try await cloudKit.findSquad(byCode: normalizedCode) {
                     print("[SquadVM] ✅ Found squad in CloudKit: '\(found.name)' with \(found.memberIds.count) members")
                     squadName = found.name
                     cloudSquadId = found.id
@@ -147,7 +155,7 @@ final class SquadViewModel: ObservableObject {
         // Check for existing local squad with this join code (avoid duplicates)
         let existingSquad: Squad?
         if let modelContext = modelContext {
-            let joinCode = code
+            let joinCode = normalizedCode
             let descriptor = FetchDescriptor<Squad>(
                 predicate: #Predicate { $0.joinCode == joinCode }
             )
@@ -165,7 +173,7 @@ final class SquadViewModel: ObservableObject {
             }
         } else {
             // Create new local squad
-            squad = Squad(name: squadName, joinCode: code)
+            squad = Squad(name: squadName, joinCode: normalizedCode)
             squad.firebaseId = cloudSquadId
             modelContext?.insert(squad)
         }
@@ -182,7 +190,7 @@ final class SquadViewModel: ObservableObject {
 
         currentSquad = squad
         UserDefaults.standard.set(squad.id.uuidString, forKey: Constants.UserDefaultsKeys.currentSquadId)
-        UserDefaults.standard.set(code, forKey: Constants.UserDefaultsKeys.currentJoinCode)
+        UserDefaults.standard.set(normalizedCode, forKey: Constants.UserDefaultsKeys.currentJoinCode)
 
         // CRITICAL: Clear all peers when joining squad - they were added before filtering was active
         peerTracker.clearAllPeers()
