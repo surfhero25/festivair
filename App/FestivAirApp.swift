@@ -89,7 +89,11 @@ final class AppState: ObservableObject {
 
     // MARK: - Init
     init() {
-        // Check if onboarded
+        // CRITICAL: First try to restore user data from Keychain (persists across reinstalls)
+        KeychainHelper.migrateFromUserDefaultsIfNeeded()
+        KeychainHelper.restoreToUserDefaults()
+
+        // Check if onboarded (may have been restored from Keychain)
         isOnboarded = UserDefaults.standard.bool(forKey: Constants.UserDefaultsKeys.onboarded)
 
         // Get or create user ID
@@ -98,6 +102,8 @@ final class AppState: ObservableObject {
             UserDefaults.standard.set(userId, forKey: Constants.UserDefaultsKeys.userId)
             UserDefaults.standard.synchronize()
         }
+
+        print("[AppState] Init - onboarded: \(isOnboarded), userId: \(userId)")
 
         let displayName = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.displayName) ?? "Festival Fan"
         let emoji = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.emoji) ?? "🎧"
@@ -233,6 +239,7 @@ final class AppState: ObservableObject {
         // Use existing userId from init() — do NOT overwrite it, services already cached it
         let userId = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.userId) ?? ""
 
+        // Save to UserDefaults (for app components)
         UserDefaults.standard.set(displayName, forKey: Constants.UserDefaultsKeys.displayName)
         UserDefaults.standard.set(emoji, forKey: Constants.UserDefaultsKeys.emoji)
         UserDefaults.standard.set(true, forKey: Constants.UserDefaultsKeys.onboarded)
@@ -240,8 +247,14 @@ final class AppState: ObservableObject {
         // Force immediate write to disk (important if app is killed quickly)
         UserDefaults.standard.synchronize()
 
+        // CRITICAL: Also save to Keychain (persists across app reinstalls)
+        KeychainHelper.save(userId, for: .userId)
+        KeychainHelper.save(displayName, for: .displayName)
+        KeychainHelper.save(emoji, for: .emoji)
+
         DebugLogger.success("Onboarding complete - userId: \(userId), name: \(displayName), emoji: \(emoji)", category: "App")
         print("[App] ✅ Onboarding complete - userId: \(userId), name: \(displayName), emoji: \(emoji)")
+        print("[App] 🔐 User data saved to Keychain (will persist across reinstalls)")
 
         isOnboarded = true
     }

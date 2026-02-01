@@ -75,6 +75,7 @@
 		FA000047 /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100049 /* AnalyticsService.swift */; };
 		FA000048 /* FestivalSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100050 /* FestivalSummaryView.swift */; };
 		FA000060 /* DebugLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100060 /* DebugLogger.swift */; };
+		FA000061 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100061 /* KeychainHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -148,6 +149,7 @@
 		FA100049 /* AnalyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
 		FA100050 /* FestivalSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FestivalSummaryView.swift; sourceTree = "<group>"; };
 		FA100060 /* DebugLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLogger.swift; sourceTree = "<group>"; };
+		FA100061 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		FA200000 /* FestivAir.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FestivAir.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -311,6 +313,7 @@
 				FA100048 /* SponsorService.swift */,
 				FA100049 /* AnalyticsService.swift */,
 				FA100060 /* DebugLogger.swift */,
+				FA100061 /* KeychainHelper.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
