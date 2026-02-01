@@ -429,13 +429,12 @@ struct EditProfileView: View {
                     // Compress for upload
                     if let compressedData = image.jpegData(compressionQuality: 0.8) {
                         if compressedData.count <= Constants.Profile.profilePhotoMaxSizeBytes {
-                            // TODO: Upload to CloudKit and get asset ID
-                            // let assetId = try await CloudKitService.shared.uploadProfilePhoto(compressedData, userId: user.id.uuidString)
-                            // user.profilePhotoAssetId = assetId
+                            // Upload to CloudKit and get asset ID
+                            let assetId = try await CloudKitService.shared.uploadProfilePhoto(compressedData, userId: user.id.uuidString)
+                            user.profilePhotoAssetId = assetId
 
-                            // For now, cache locally with a temporary key
-                            let tempKey = "profile_\(user.id.uuidString)"
-                            await ImageCacheService.shared.cache(image, forKey: tempKey)
+                            // Also cache locally for faster loading
+                            ImageCacheService.shared.cache(image, forKey: "asset_\(assetId)")
                         } else {
                             throw ProfileError.photoTooLarge
                         }

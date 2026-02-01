@@ -19,8 +19,11 @@ struct OnboardingView: View {
             SetAlertsPageView(currentPage: $currentPage)
                 .tag(3)
 
-            ProfileSetupView()
+            AgeVerificationPageView(currentPage: $currentPage)
                 .tag(4)
+
+            ProfileSetupView()
+                .tag(5)
         }
         .tabViewStyle(.page(indexDisplayMode: .always))
         .indexViewStyle(.page(backgroundDisplayMode: .always))
@@ -193,7 +196,7 @@ struct SetAlertsPageView: View {
                     currentPage = 4
                 }
             } label: {
-                Text("Set Up Profile")
+                Text("Next")
                     .font(.headline)
                     .foregroundStyle(.black)
                     .frame(maxWidth: .infinity)
@@ -201,6 +204,75 @@ struct SetAlertsPageView: View {
                     .background(.white)
                     .clipShape(RoundedRectangle(cornerRadius: 16))
             }
+            .padding(.horizontal, 40)
+            .padding(.bottom, 60)
+        }
+    }
+}
+
+// MARK: - Age Verification Page
+struct AgeVerificationPageView: View {
+    @Binding var currentPage: Int
+    @State private var ageConfirmed = false
+
+    var body: some View {
+        VStack(spacing: 24) {
+            Spacer()
+
+            Image(systemName: "person.badge.shield.checkmark.fill")
+                .font(.system(size: 80))
+                .foregroundStyle(.purple)
+
+            Text("Age Verification")
+                .font(.largeTitle.bold())
+                .foregroundStyle(.white)
+
+            Text("FestivAir includes party features and social connections. You must be 18 or older to use this app.")
+                .font(.body)
+                .foregroundStyle(.white.opacity(0.8))
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 40)
+
+            // Age confirmation toggle
+            Button {
+                ageConfirmed.toggle()
+            } label: {
+                HStack(spacing: 16) {
+                    Image(systemName: ageConfirmed ? "checkmark.square.fill" : "square")
+                        .font(.title2)
+                        .foregroundStyle(ageConfirmed ? .purple : .white.opacity(0.6))
+
+                    Text("I confirm that I am 18 years of age or older")
+                        .font(.subheadline)
+                        .foregroundStyle(.white)
+                        .multilineTextAlignment(.leading)
+                }
+                .padding()
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(.white.opacity(0.1))
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+            }
+            .padding(.horizontal, 40)
+            .padding(.top, 20)
+
+            Spacer()
+
+            Button {
+                // Save age confirmation
+                UserDefaults.standard.set(true, forKey: Constants.UserDefaultsKeys.ageConfirmed)
+                withAnimation {
+                    currentPage = 5
+                }
+            } label: {
+                Text("Set Up Profile")
+                    .font(.headline)
+                    .foregroundStyle(.black)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(ageConfirmed ? .white : .gray)
+                    .clipShape(RoundedRectangle(cornerRadius: 16))
+            }
+            .disabled(!ageConfirmed)
             .padding(.horizontal, 40)
             .padding(.bottom, 60)
         }

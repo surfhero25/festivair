@@ -57,6 +57,7 @@ enum Constants {
         static let currentJoinCode = "FestivAir.CurrentJoinCode"  // Squad join code for mesh filtering
         static let lowPowerMode = "FestivAir.LowPowerMode"
         static let notifyBefore = "FestivAir.NotifyBefore"
+        static let ageConfirmed = "FestivAir.AgeConfirmed"  // User confirmed they are 18+
     }
 
     // MARK: - Firebase Collections
