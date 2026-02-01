@@ -146,6 +146,14 @@ final class AppState: ObservableObject {
 
         // Re-broadcast status when new peers connect
         setupStatusRebroadcast()
+
+        // Forward NotificationManager changes to trigger SwiftUI updates
+        // This ensures the chat badge updates when unreadChatCount changes
+        notificationManager.objectWillChange
+            .sink { [weak self] _ in
+                self?.objectWillChange.send()
+            }
+            .store(in: &cancellables)
     }
 
     private func setupStatusRebroadcast() {

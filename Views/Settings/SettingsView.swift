@@ -125,7 +125,9 @@ struct SettingsView: View {
                         HStack {
                             Label(squad.name, systemImage: "person.3.fill")
                             Spacer()
-                            Text("\(squad.memberCount) member\(squad.memberCount == 1 ? "" : "s")")
+                            // Use ViewModel's members array (CloudKit-refreshed) instead of local SwiftData
+                            let memberCount = appState.squadViewModel.members.count
+                            Text("\(memberCount) member\(memberCount == 1 ? "" : "s")")
                                 .foregroundStyle(.secondary)
                         }
 
