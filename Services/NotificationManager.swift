@@ -7,6 +7,7 @@ final class NotificationManager: ObservableObject {
     // MARK: - Published State
     @Published private(set) var isAuthorized = false
     @Published private(set) var pendingNotifications: Int = 0
+    @Published var unreadChatCount: Int = 0  // For in-app badge on Chat tab
 
     // MARK: - Configuration
     private let defaultLeadTime: TimeInterval = 10 * 60 // 10 minutes before set
@@ -189,7 +190,9 @@ final class NotificationManager: ObservableObject {
         Task { @MainActor in
             // Reset our internal counter (thread-safe)
             badgeQueue.sync { unreadMessageCount = 0 }
-            // Clear badge
+            // Clear in-app badge
+            unreadChatCount = 0
+            // Clear system badge
             try? await UNUserNotificationCenter.current().setBadgeCount(0)
             // Also clear delivered chat notifications from notification center
             let delivered = await UNUserNotificationCenter.current().deliveredNotifications()
@@ -207,6 +210,11 @@ final class NotificationManager: ObservableObject {
             unreadMessageCount += 1
             return unreadMessageCount
         }
+        // Update in-app badge count
+        await MainActor.run {
+            unreadChatCount = newCount
+        }
+        // Update system badge
         try? await UNUserNotificationCenter.current().setBadgeCount(newCount)
     }
 

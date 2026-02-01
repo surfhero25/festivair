@@ -108,7 +108,14 @@ final class Party {
     }
 
     var hasEnded: Bool {
-        guard let end = endTime else { return false }
+        // Party has ended if:
+        // 1. endTime is set and we're past it, OR
+        // 2. isActive is false (manually ended by host)
+        if !isActive { return true }
+        guard let end = endTime else {
+            // No end time = party never automatically ends (shouldn't happen with new required endTime)
+            return false
+        }
         return Date() > end
     }
 

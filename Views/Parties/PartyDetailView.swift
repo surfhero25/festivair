@@ -281,23 +281,57 @@ struct PartyDetailView: View {
 
     // MARK: - Action Section
 
+    @State private var showDeleteConfirmation = false
+
     private var actionSection: some View {
         Group {
             if isHost {
                 // Host actions
                 VStack(spacing: 12) {
-                    Button(role: .destructive) {
-                        Task {
-                            try? await viewModel.endParty(party)
-                            dismiss()
+                    // End Party (marks as inactive but keeps record)
+                    if party.isActive {
+                        Button(role: .destructive) {
+                            Task {
+                                try? await viewModel.endParty(party)
+                                dismiss()
+                            }
+                        } label: {
+                            Label("End Party", systemImage: "xmark.circle.fill")
+                                .frame(maxWidth: .infinity)
+                                .padding()
+                                .background(Color.orange.opacity(0.1))
+                                .foregroundStyle(.orange)
+                                .clipShape(RoundedRectangle(cornerRadius: 12))
                         }
+                    }
+
+                    // Delete Party (permanently removes)
+                    Button(role: .destructive) {
+                        showDeleteConfirmation = true
                     } label: {
-                        Label("End Party", systemImage: "xmark.circle.fill")
+                        Label("Delete Party", systemImage: "trash.fill")
                             .frame(maxWidth: .infinity)
                             .padding()
                             .background(Color.red.opacity(0.1))
                             .foregroundStyle(.red)
                             .clipShape(RoundedRectangle(cornerRadius: 12))
+                    }
+                    .confirmationDialog(
+                        "Delete Party?",
+                        isPresented: $showDeleteConfirmation,
+                        titleVisibility: .visible
+                    ) {
+                        Button("Delete", role: .destructive) {
+                            Task {
+                                if let userId = currentUserId {
+                                    try? await viewModel.deleteParty(party, userId: userId)
+                                }
+                                dismiss()
+                            }
+                        }
+                        Button("Cancel", role: .cancel) {}
+                    } message: {
+                        Text("This will permanently delete the party and remove all attendees. This cannot be undone.")
                     }
                 }
             } else {

@@ -62,6 +62,7 @@ struct MainTabView: View {
                     Label("Chat", systemImage: "bubble.left.and.bubble.right.fill")
                 }
                 .tag(3)
+                .badge(appState.notificationManager.unreadChatCount)
 
             SettingsView()
                 .tabItem {

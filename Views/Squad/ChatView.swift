@@ -13,9 +13,18 @@ struct ChatView: View {
                 appState.chatViewModel.chatViewDisappeared()
             }
             .onChange(of: scenePhase) { _, newPhase in
-                // Clear badge when returning to foreground while viewing chat
-                if newPhase == .active && appState.chatViewModel.isChatVisible {
-                    appState.notificationManager.clearChatBadge()
+                switch newPhase {
+                case .active:
+                    // Returning to foreground while on chat tab - clear badge
+                    if appState.chatViewModel.isChatVisible {
+                        appState.notificationManager.clearChatBadge()
+                    }
+                case .background, .inactive:
+                    // CRITICAL: App is backgrounding - mark chat as NOT visible
+                    // This ensures notifications are sent even when backgrounding from chat tab
+                    appState.chatViewModel.chatViewDisappeared()
+                @unknown default:
+                    break
                 }
             }
     }

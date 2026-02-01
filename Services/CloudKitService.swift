@@ -735,6 +735,13 @@ final class CloudKitService: ObservableObject {
         try await publicDatabase.deleteRecord(withID: recordID)
     }
 
+    /// Delete a party from CloudKit (host only)
+    func deleteParty(partyId: String) async throws {
+        let recordID = CKRecord.ID(recordName: partyId)
+        try await publicDatabase.deleteRecord(withID: recordID)
+        print("[CloudKit] ✅ Deleted party: \(partyId)")
+    }
+
     func subscribeToSquadUpdates(squadId: String, onChange: @escaping () -> Void) async throws {
         let predicate = NSPredicate(format: "squadId == %@", squadId)
 

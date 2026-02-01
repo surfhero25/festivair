@@ -35,12 +35,18 @@ final class PartiesViewModel: ObservableObject {
 
     func configure(modelContext: ModelContext) {
         self.modelContext = modelContext
+
+        // Clean up stale/ended parties on configure
+        Task {
+            await cleanupStaleParties()
+        }
     }
 
     // MARK: - Fetch Parties
 
     /// Fetch nearby parties based on user location
-    func fetchNearbyParties(latitude: Double, longitude: Double, radiusKm: Double = 10.0) async {
+    /// Default radius is 16km (~10 miles) - keeps parties local to event area
+    func fetchNearbyParties(latitude: Double, longitude: Double, radiusKm: Double = 16.0) async {
         guard let context = modelContext else { return }
 
         isLoading = true
@@ -406,11 +412,60 @@ final class PartiesViewModel: ObservableObject {
         try context.save()
     }
 
+    /// Delete a party completely (host only)
+    func deleteParty(_ party: Party, userId: String) async throws {
+        guard let context = modelContext else {
+            throw PartyError.notConfigured
+        }
+
+        // Verify user is the host
+        guard party.hostUserId == userId else {
+            throw PartyError.unauthorized
+        }
+
+        print("[Parties] Deleting party '\(party.name)' by host \(userId)")
+
+        // Delete from CloudKit first
+        if cloudKit.isAvailable {
+            do {
+                try await cloudKit.deleteParty(partyId: party.id.uuidString)
+            } catch {
+                print("[Parties] ❌ Failed to delete from CloudKit: \(error)")
+                // Continue with local deletion even if cloud fails
+            }
+        }
+
+        // Delete all attendee records for this party
+        let partyId = party.id
+        let attendeeDescriptor = FetchDescriptor<PartyAttendee>(
+            predicate: #Predicate { $0.partyId == partyId }
+        )
+        if let attendees = try? context.fetch(attendeeDescriptor) {
+            for attendee in attendees {
+                context.delete(attendee)
+            }
+        }
+
+        // Remove from local lists
+        allNearbyParties.removeAll { $0.id == party.id }
+        nearbyParties.removeAll { $0.id == party.id }
+        myHostedParties.removeAll { $0.id == party.id }
+
+        // Delete the party itself
+        context.delete(party)
+        try context.save()
+
+        print("[Parties] ✅ Party deleted successfully")
+    }
+
     // MARK: - Filters
 
     func applyFilters() {
         // Always filter from the original unfiltered list to prevent data loss
         var filtered = allNearbyParties
+
+        // ALWAYS filter out ended parties - they should never show
+        filtered = filtered.filter { !$0.hasEnded }
 
         if let vibe = selectedVibe {
             filtered = filtered.filter { $0.vibe == vibe }
@@ -421,7 +476,7 @@ final class PartiesViewModel: ObservableObject {
         }
 
         if showActiveOnly {
-            filtered = filtered.filter { $0.isActive && !$0.hasEnded }
+            filtered = filtered.filter { $0.isActive }
         }
 
         nearbyParties = filtered
@@ -564,6 +619,77 @@ final class PartiesViewModel: ObservableObject {
 
         let attendees = try? context.fetch(descriptor)
         return !(attendees?.isEmpty ?? true)
+    }
+
+    // MARK: - Cleanup
+
+    /// Clean up stale parties (ended or without end time)
+    /// Call this on app launch to remove old test/orphaned parties
+    func cleanupStaleParties() async {
+        guard let context = modelContext else { return }
+
+        print("[Parties] 🧹 Running stale party cleanup...")
+
+        do {
+            let descriptor = FetchDescriptor<Party>()
+            let allParties = try context.fetch(descriptor)
+
+            var deletedCount = 0
+
+            for party in allParties {
+                // Delete if:
+                // 1. Party has ended (isActive=false or past endTime)
+                // 2. Party has no endTime set (legacy party that could run forever)
+                // 3. Party ended more than 24 hours ago
+                let shouldDelete: Bool
+
+                if party.endTime == nil {
+                    // Legacy party with no end time - delete it
+                    shouldDelete = true
+                    print("[Parties] Deleting party '\(party.name)' - no end time set")
+                } else if party.hasEnded {
+                    // Check if it ended more than 24 hours ago
+                    if let endTime = party.endTime, Date().timeIntervalSince(endTime) > 86400 {
+                        shouldDelete = true
+                        print("[Parties] Deleting party '\(party.name)' - ended 24+ hours ago")
+                    } else {
+                        shouldDelete = false
+                    }
+                } else {
+                    shouldDelete = false
+                }
+
+                if shouldDelete {
+                    // Try to delete from CloudKit too
+                    if cloudKit.isAvailable {
+                        try? await cloudKit.deleteParty(partyId: party.id.uuidString)
+                    }
+
+                    // Delete attendees
+                    let partyId = party.id
+                    let attendeeDescriptor = FetchDescriptor<PartyAttendee>(
+                        predicate: #Predicate { $0.partyId == partyId }
+                    )
+                    if let attendees = try? context.fetch(attendeeDescriptor) {
+                        for attendee in attendees {
+                            context.delete(attendee)
+                        }
+                    }
+
+                    context.delete(party)
+                    deletedCount += 1
+                }
+            }
+
+            if deletedCount > 0 {
+                try context.save()
+                print("[Parties] ✅ Cleaned up \(deletedCount) stale parties")
+            } else {
+                print("[Parties] ✅ No stale parties to clean up")
+            }
+        } catch {
+            print("[Parties] ❌ Cleanup failed: \(error)")
+        }
     }
 }
 

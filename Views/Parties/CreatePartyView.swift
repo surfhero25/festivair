@@ -13,8 +13,7 @@ struct CreatePartyView: View {
     @State private var selectedVibe: PartyVibe = .chill
     @State private var selectedAccessType: PartyAccessType = .open
     @State private var startTime = Date()
-    @State private var hasEndTime = false
-    @State private var endTime = Date().addingTimeInterval(3600 * 4) // 4 hours later
+    @State private var endTime = Date().addingTimeInterval(3600 * 8) // Default: 8 hours later
     @State private var hasCapacity = false
     @State private var maxAttendees = 50
     @State private var locationName = ""
@@ -193,14 +192,14 @@ struct CreatePartyView: View {
     // MARK: - Time Section
 
     private var timeSection: some View {
-        Section("Time") {
+        Section {
             DatePicker("Start Time", selection: $startTime, in: Date()...)
 
-            Toggle("Set End Time", isOn: $hasEndTime)
-
-            if hasEndTime {
-                DatePicker("End Time", selection: $endTime, in: startTime...)
-            }
+            DatePicker("End Time", selection: $endTime, in: startTime...)
+        } header: {
+            Text("Time")
+        } footer: {
+            Text("All parties must have an end time to keep the feed fresh")
         }
     }
 
@@ -279,7 +278,7 @@ struct CreatePartyView: View {
                 longitude: location.longitude,
                 locationName: locationName.isEmpty ? nil : locationName,
                 startTime: startTime,
-                endTime: hasEndTime ? endTime : nil,
+                endTime: endTime,  // Always required now
                 maxAttendees: hasCapacity ? maxAttendees : nil,
                 vibe: selectedVibe,
                 accessType: selectedAccessType,
