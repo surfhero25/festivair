@@ -101,9 +101,10 @@ final class AppState: ObservableObject {
 
         let displayName = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.displayName) ?? "Festival Fan"
         let emoji = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.emoji) ?? "🎧"
+        let onboardedStatus = UserDefaults.standard.bool(forKey: Constants.UserDefaultsKeys.onboarded)
 
-        // Log startup state for debugging
-        print("[App] 🚀 Starting - isOnboarded: \(isOnboarded), userId: \(userId), displayName: \(displayName), emoji: \(emoji)")
+        // Log startup state for debugging (use local vars, not self)
+        print("[App] 🚀 Starting - isOnboarded: \(onboardedStatus), userId: \(userId), displayName: \(displayName), emoji: \(emoji)")
 
         // Initialize services
         meshManager = MeshNetworkManager(displayName: displayName)
