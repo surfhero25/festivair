@@ -134,10 +134,17 @@ final class NotificationManager: ObservableObject {
     // MARK: - Chat Notifications
 
     func sendNewMessageNotification(senderName: String, messageText: String, squadId: String) async {
-        guard isAuthorized else {
-            DebugLogger.warning("Not authorized for notifications", category: "Notifications")
+        // Double-check authorization status (in case it wasn't set on init)
+        let settings = await UNUserNotificationCenter.current().notificationSettings()
+        let authorized = settings.authorizationStatus == .authorized
+
+        guard authorized else {
+            DebugLogger.warning("Not authorized for notifications (status: \(settings.authorizationStatus.rawValue))", category: "Notifications")
             return
         }
+
+        // Update cached value
+        await MainActor.run { isAuthorized = true }
 
         // Don't send if notifications for squad messages are explicitly disabled
         // Default to true if not set (object(forKey:) returns nil for unset keys)
@@ -146,6 +153,8 @@ final class NotificationManager: ObservableObject {
             DebugLogger.info("Squad notifications disabled by user", category: "Notifications")
             return
         }
+
+        DebugLogger.info("Preparing chat notification from \(senderName)", category: "Notifications")
 
         let content = UNMutableNotificationContent()
         content.title = senderName

@@ -176,10 +176,12 @@ final class PeerTracker: ObservableObject {
         updatePeerLists()
     }
 
-    /// Clear all peers (used when leaving squad)
+    /// Clear all peers (used when leaving/creating/joining squad)
     func clearAllPeers() {
+        let count = peers.count
         peers.removeAll()
         updatePeerLists()
+        print("[PeerTracker] Cleared \(count) peers")
     }
 
     // MARK: - Private Helpers
@@ -232,17 +234,25 @@ extension PeerTracker {
                 // IMPORTANT: Only track peers from the same squad
                 // If they have a joinCode that doesn't match ours, ignore them
                 let peerJoinCode = envelope.message.joinCode
+                let peerName = envelope.message.peerId ?? "Unknown"
+
                 if let myCode = myJoinCode, let theirCode = peerJoinCode {
                     if myCode != theirCode {
                         // Different squad - ignore this peer
+                        print("[PeerTracker] ❌ Ignoring \(peerName) - different squad (mine: \(myCode), theirs: \(theirCode))")
                         return
                     }
+                    print("[PeerTracker] ✅ Accepting \(peerName) - same squad (\(myCode))")
                 } else if myJoinCode != nil && peerJoinCode == nil {
                     // We're in a squad, they're not - ignore (they might be on old version)
                     // However, also allow registered remote members through
                     if peers[userId] == nil {
+                        print("[PeerTracker] ❌ Ignoring \(peerName) - no joinCode and not registered")
                         return
                     }
+                    print("[PeerTracker] ⚠️ Accepting \(peerName) - no joinCode but already registered")
+                } else if myJoinCode == nil {
+                    print("[PeerTracker] ⚠️ No squad - accepting all peers (\(peerName))")
                 }
 
                 // displayName is in peerId field, emoji is in squadId field (for heartbeats)

@@ -88,6 +88,11 @@ final class SquadViewModel: ObservableObject {
         currentSquad = squad
         UserDefaults.standard.set(squad.id.uuidString, forKey: Constants.UserDefaultsKeys.currentSquadId)
         UserDefaults.standard.set(finalJoinCode, forKey: Constants.UserDefaultsKeys.currentJoinCode)
+
+        // CRITICAL: Clear all peers when creating squad - they were added before filtering was active
+        peerTracker.clearAllPeers()
+        print("[SquadVM] Cleared peers on squad creation")
+
         await loadMembers()
 
         // Configure mesh networking
@@ -178,6 +183,11 @@ final class SquadViewModel: ObservableObject {
         currentSquad = squad
         UserDefaults.standard.set(squad.id.uuidString, forKey: Constants.UserDefaultsKeys.currentSquadId)
         UserDefaults.standard.set(code, forKey: Constants.UserDefaultsKeys.currentJoinCode)
+
+        // CRITICAL: Clear all peers when joining squad - they were added before filtering was active
+        peerTracker.clearAllPeers()
+        print("[SquadVM] Cleared peers on squad join")
+
         await loadMembers()
 
         // Fetch and register other squad members from CloudKit

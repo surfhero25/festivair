@@ -321,11 +321,13 @@ final class ChatViewModel: ObservableObject {
     // Call this when chat view appears
     func chatViewAppeared() {
         isChatVisible = true
+        DebugLogger.info("Chat view appeared - notifications will be suppressed", category: "Chat")
         notificationManager?.clearChatBadge()
     }
 
     // Call this when chat view disappears
     func chatViewDisappeared() {
         isChatVisible = false
+        DebugLogger.info("Chat view disappeared - notifications will be sent", category: "Chat")
     }
 }
