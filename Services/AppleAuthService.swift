@@ -132,12 +132,14 @@ extension AppleAuthService: ASAuthorizationControllerDelegate {
 extension AppleAuthService: ASAuthorizationControllerPresentationContextProviding {
 
     nonisolated func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
-        // Get the key window
-        guard let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-              let window = scene.windows.first else {
-            return UIWindow()
+        // Use MainActor.assumeIsolated since this is always called on main thread by Apple's framework
+        return MainActor.assumeIsolated {
+            guard let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                  let window = scene.windows.first else {
+                return UIWindow()
+            }
+            return window
         }
-        return window
     }
 }
 

@@ -434,7 +434,7 @@ struct EditProfileView: View {
                             user.profilePhotoAssetId = assetId
 
                             // Also cache locally for faster loading
-                            ImageCacheService.shared.cache(image, forKey: "asset_\(assetId)")
+                            await ImageCacheService.shared.cache(image, forKey: "asset_\(assetId)")
                         } else {
                             throw ProfileError.photoTooLarge
                         }
