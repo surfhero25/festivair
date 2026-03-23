@@ -467,6 +467,9 @@ final class PartiesViewModel: ObservableObject {
         // ALWAYS filter out ended parties - they should never show
         filtered = filtered.filter { !$0.hasEnded }
 
+        // NOTE: Exclusive parties are shown to ALL users as teasers
+        // Non-VIP see name/vibe/badge but NOT details/location (enforced in UI layer)
+
         if let vibe = selectedVibe {
             filtered = filtered.filter { $0.vibe == vibe }
         }

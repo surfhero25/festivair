@@ -77,8 +77,13 @@ struct PartiesView: View {
                     .environmentObject(viewModel)
             }
             .sheet(item: $selectedParty) { party in
-                PartyDetailView(party: party)
-                    .environmentObject(viewModel)
+                if party.isExclusive && !isVIP {
+                    // Non-VIP tapped a locked exclusive party → show paywall
+                    PaywallView()
+                } else {
+                    PartyDetailView(party: party)
+                        .environmentObject(viewModel)
+                }
             }
             .sheet(isPresented: $showFilters) {
                 filterSheet
@@ -133,9 +138,17 @@ struct PartiesView: View {
 
     // MARK: - Map View
 
+    private var isVIP: Bool {
+        SubscriptionManager.shared.canHostExclusiveParties
+    }
+
     private var partyMapView: some View {
         Map {
             ForEach(viewModel.nearbyParties) { party in
+                // Only show pins for parties with visible locations
+                // Open parties: always visible
+                // Exclusive parties: location hidden until approved (isLocationHidden=true by default)
+                // Even VIP users can't see invite-only locations unless they're approved
                 if !party.isLocationHidden {
                     Annotation(party.name, coordinate: CLLocationCoordinate2D(
                         latitude: party.latitude,
@@ -145,8 +158,9 @@ struct PartiesView: View {
                             selectedParty = party
                         } label: {
                             VStack(spacing: 2) {
-                                Text(party.vibe.emoji)
+                                Image(systemName: party.vibe.icon)
                                     .font(.title2)
+                                    .foregroundStyle(.white)
                                     .padding(8)
                                     .background(party.isHappeningNow ? Color.purple : Color.gray)
                                     .clipShape(Circle())
@@ -175,19 +189,9 @@ struct PartiesView: View {
             Text("No parties nearby")
                 .font(.headline)
 
-            Text("Be the first to host a party!")
+            Text("Tap + to host the first one")
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
-
-            Button {
-                showCreateParty = true
-            } label: {
-                Label("Host a Party", systemImage: "plus")
-                    .padding()
-                    .background(Color.purple)
-                    .foregroundStyle(.white)
-                    .clipShape(Capsule())
-            }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
@@ -225,7 +229,7 @@ struct PartiesView: View {
                             }
                         } label: {
                             HStack {
-                                Text(vibe.emoji)
+                                Image(systemName: vibe.icon)
                                 Text(vibe.displayName)
                                 Spacer()
                                 if viewModel.selectedVibe == vibe {
@@ -239,7 +243,9 @@ struct PartiesView: View {
                 }
 
                 Section("Access") {
-                    ForEach(PartyAccessType.allCases, id: \.self) { access in
+                    // Non-VIP users can only filter by open parties
+                    // Showing approval/inviteOnly filters would imply details they can't access
+                    ForEach(PartyAccessType.allCases.filter { !$0.requiresVIP || isVIP }, id: \.self) { access in
                         Button {
                             if viewModel.selectedAccessType == access {
                                 viewModel.selectedAccessType = nil
@@ -308,14 +314,24 @@ struct PartyRowView: View {
     let party: Party
     let onTap: () -> Void
 
+    private var isVIP: Bool {
+        SubscriptionManager.shared.canHostExclusiveParties
+    }
+
+    /// Non-VIP users see a locked teaser for exclusive parties
+    private var isLocked: Bool {
+        party.isExclusive && !isVIP
+    }
+
     var body: some View {
         Button(action: onTap) {
             HStack(spacing: 12) {
-                // Vibe emoji
-                Text(party.vibe.emoji)
-                    .font(.title)
+                // Vibe icon
+                Image(systemName: party.vibe.icon)
+                    .font(.title2)
+                    .foregroundStyle(isLocked ? .orange : .purple)
                     .frame(width: 50, height: 50)
-                    .background(Color.purple.opacity(0.2))
+                    .background(isLocked ? Color.orange.opacity(0.2) : Color.purple.opacity(0.2))
                     .clipShape(Circle())
 
                 // Info
@@ -325,55 +341,76 @@ struct PartyRowView: View {
                             .font(.headline)
 
                         if party.isExclusive {
-                            Image(systemName: "lock.fill")
-                                .font(.caption)
-                                .foregroundStyle(.orange)
+                            HStack(spacing: 2) {
+                                Image(systemName: "crown.fill")
+                                    .font(.caption2)
+                                Text("VIP")
+                                    .font(.caption2)
+                                    .fontWeight(.bold)
+                            }
+                            .foregroundStyle(.orange)
+                            .padding(.horizontal, 6)
+                            .padding(.vertical, 2)
+                            .background(.orange.opacity(0.15))
+                            .clipShape(Capsule())
                         }
                     }
 
-                    Text("Hosted by \(party.hostDisplayName)")
-                        .font(.caption)
+                    if isLocked {
+                        // Teaser — no host name, no location, no time details
+                        Text("Upgrade to VIP to see details")
+                            .font(.caption)
+                            .foregroundStyle(.orange)
+                    } else {
+                        Text("Hosted by \(party.hostDisplayName)")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+
+                        HStack(spacing: 8) {
+                            Label(party.formattedTime, systemImage: "clock")
+                            if let location = party.locationName {
+                                Label(location, systemImage: "mappin")
+                            }
+                        }
+                        .font(.caption2)
                         .foregroundStyle(.secondary)
-
-                    HStack(spacing: 8) {
-                        Label(party.formattedTime, systemImage: "clock")
-                        if let location = party.locationName {
-                            Label(location, systemImage: "mappin")
-                        }
                     }
-                    .font(.caption2)
-                    .foregroundStyle(.secondary)
                 }
 
                 Spacer()
 
                 // Status
                 VStack(alignment: .trailing, spacing: 4) {
-                    if party.isHappeningNow {
-                        Text("LIVE")
-                            .font(.caption2)
-                            .fontWeight(.bold)
-                            .foregroundStyle(.white)
-                            .padding(.horizontal, 6)
-                            .padding(.vertical, 2)
-                            .background(.red)
-                            .clipShape(Capsule())
-                    }
-
-                    // Show attendee count
-                    Text("\(party.currentAttendeeCount) attending")
-                        .font(.caption2)
-                        .foregroundStyle(.secondary)
-
-                    if let spots = party.spotsRemaining, spots > 0 {
-                        Text("\(spots) spots left")
-                            .font(.caption2)
+                    if isLocked {
+                        Image(systemName: "lock.fill")
+                            .font(.title3)
                             .foregroundStyle(.orange)
-                    } else if party.isFull {
-                        Text("FULL")
+                    } else {
+                        if party.isHappeningNow {
+                            Text("LIVE")
+                                .font(.caption2)
+                                .fontWeight(.bold)
+                                .foregroundStyle(.white)
+                                .padding(.horizontal, 6)
+                                .padding(.vertical, 2)
+                                .background(.red)
+                                .clipShape(Capsule())
+                        }
+
+                        Text("\(party.currentAttendeeCount) attending")
                             .font(.caption2)
-                            .fontWeight(.bold)
-                            .foregroundStyle(.red)
+                            .foregroundStyle(.secondary)
+
+                        if let spots = party.spotsRemaining, spots > 0 {
+                            Text("\(spots) spots left")
+                                .font(.caption2)
+                                .foregroundStyle(.orange)
+                        } else if party.isFull {
+                            Text("FULL")
+                                .font(.caption2)
+                                .fontWeight(.bold)
+                                .foregroundStyle(.red)
+                        }
                     }
                 }
             }

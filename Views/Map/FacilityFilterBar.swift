@@ -47,7 +47,7 @@ struct FacilityFilterBar: View {
                             toggleType(type)
                         } label: {
                             HStack {
-                                Text(type.emoji)
+                                Image(systemName: type.icon)
                                 Text(type.displayName)
                                 Spacer()
                                 if selectedTypes.contains(type) {
@@ -93,7 +93,7 @@ struct FacilityFilterChip: View {
     var body: some View {
         Button(action: onTap) {
             HStack(spacing: 4) {
-                Text(type.emoji)
+                Image(systemName: type.icon)
                     .font(.caption)
                 Text(type.displayName)
                     .font(.caption)

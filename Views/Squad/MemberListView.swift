@@ -156,11 +156,10 @@ struct CurrentUserRow: View {
     var body: some View {
         HStack(spacing: 12) {
             // Avatar
-            Text(emoji)
-                .font(.title2)
+            Image(systemName: "person.circle.fill")
+                .font(.system(size: 32))
+                .foregroundStyle(.purple)
                 .frame(width: 44, height: 44)
-                .background(Color.purple.opacity(0.2))
-                .clipShape(Circle())
                 .overlay(
                     Circle()
                         .stroke(.purple, lineWidth: 2)
@@ -203,11 +202,10 @@ struct MemberRow: View {
     var body: some View {
         HStack(spacing: 12) {
             // Avatar
-            Text(peer.emoji)
-                .font(.title2)
+            Image(systemName: "person.circle.fill")
+                .font(.system(size: 32))
+                .foregroundStyle(peer.isOnline ? .purple : .gray)
                 .frame(width: 44, height: 44)
-                .background(peer.isOnline ? Color.purple.opacity(0.2) : Color.gray.opacity(0.2))
-                .clipShape(Circle())
 
             // Info
             VStack(alignment: .leading, spacing: 2) {

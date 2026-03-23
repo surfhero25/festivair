@@ -56,6 +56,9 @@ struct FestivAirApp: App {
 @MainActor
 final class AppState: ObservableObject {
 
+    // MARK: - Shared Instance (for background task access)
+    static weak var shared: AppState?
+
     // MARK: - Published State
     @Published var currentUser: User?
     @Published var currentSquad: Squad?
@@ -69,6 +72,7 @@ final class AppState: ObservableObject {
     let notificationManager: NotificationManager
     let peerTracker: PeerTracker
     let cloudKit: CloudKitService
+    let havenTransport: HavenTransportService
 
     // MARK: - Singleton Services
     let subscriptionManager = SubscriptionManager.shared
@@ -122,6 +126,7 @@ final class AppState: ObservableObject {
         notificationManager = NotificationManager()
         peerTracker = PeerTracker()
         cloudKit = CloudKitService.shared
+        havenTransport = HavenTransportService()
 
         // Initialize ViewModels
         squadViewModel = SquadViewModel(cloudKit: cloudKit, meshManager: meshManager, peerTracker: peerTracker)
@@ -137,6 +142,9 @@ final class AppState: ObservableObject {
             gatewayManager: gatewayManager,
             syncEngine: syncEngine
         )
+
+        // Configure Haven TCP transport
+        meshCoordinator.configureHaven(havenTransport)
 
         // Configure peer tracker
         peerTracker.configure(notificationManager: notificationManager)
@@ -158,6 +166,9 @@ final class AppState: ObservableObject {
 
         // Validate Apple ID credential if user signed in with Apple
         validateAppleCredentialIfNeeded()
+
+        // Set shared instance for background task access
+        AppState.shared = self
     }
 
     /// Check if Apple ID credential is still valid (not revoked)
@@ -332,9 +343,11 @@ final class AppState: ObservableObject {
         }
 
         meshCoordinator.start()
+        havenTransport.start()
     }
 
     func stopServices() {
+        havenTransport.stop()
         meshCoordinator.stop()
     }
 

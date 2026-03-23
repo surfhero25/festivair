@@ -156,7 +156,7 @@ private struct CategorySection: View {
                 .font(.caption)
                 .foregroundStyle(.secondary)
 
-            LazyVGrid(columns: [GridItem(.adaptive(minimum: 140))], spacing: 8) {
+            LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 8) {
                 ForEach(category.presets, id: \.self) { preset in
                     PresetButton(
                         preset: preset,
@@ -177,18 +177,20 @@ private struct PresetButton: View {
 
     var body: some View {
         Button(action: onTap) {
-            HStack(spacing: 8) {
+            HStack(spacing: 6) {
                 Image(systemName: preset.icon)
-                    .font(.title3)
-                    .frame(width: 24)
+                    .font(.body)
+                    .frame(width: 20)
 
                 Text(preset.displayText)
                     .font(.subheadline)
-                    .lineLimit(1)
+                    .lineLimit(2)
+                    .minimumScaleFactor(0.7)
+                    .fixedSize(horizontal: false, vertical: true)
 
                 Spacer()
             }
-            .padding(.horizontal, 12)
+            .padding(.horizontal, 10)
             .padding(.vertical, 10)
             .background(isSelected ? categoryColor.opacity(0.2) : Color.secondary.opacity(0.1))
             .foregroundStyle(isSelected ? categoryColor : .primary)

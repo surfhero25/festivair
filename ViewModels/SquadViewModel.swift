@@ -130,10 +130,12 @@ final class SquadViewModel: ObservableObject {
                     existingMemberIds = found.memberIds
                     let memberCount = found.memberIds.count
 
-                    // Check tier-based member limit
-                    let userLimit = subscriptionManager.squadLimit
-                    if memberCount >= userLimit {
-                        throw SquadError.tierLimitReached(currentLimit: userLimit, tier: subscriptionManager.currentTier)
+                    // Squad limit enforcement:
+                    // - Anyone can JOIN a squad if it's below the absolute max (25)
+                    // - The squad creator's tier determines how many members they can INVITE
+                    // - This means 1 Basic user can create a squad and 14 free friends can join
+                    if memberCount >= Constants.Squad.maxMembers {
+                        throw SquadError.tierLimitReached(currentLimit: Constants.Squad.maxMembers, tier: .vip)
                     }
 
                     try await cloudKit.joinSquad(squadId: found.id, userId: userId)

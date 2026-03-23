@@ -53,8 +53,9 @@ struct FestivalSummaryView: View {
         VStack(spacing: 20) {
             // Header
             VStack(spacing: 8) {
-                Text("🎪")
-                    .font(.system(size: 60))
+                Image(systemName: "tent.fill")
+                    .font(.system(size: 50))
+                    .foregroundStyle(.purple)
 
                 Text(summary.activityLevel)
                     .font(.title)

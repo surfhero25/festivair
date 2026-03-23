@@ -69,8 +69,9 @@ struct PartyDetailView: View {
         VStack(spacing: 12) {
             // Vibe Badge
             HStack {
-                Text(party.vibe.emoji)
-                    .font(.system(size: 50))
+                Image(systemName: party.vibe.icon)
+                    .font(.system(size: 40))
+                    .foregroundStyle(vibeColor(for: party.vibe))
 
                 VStack(alignment: .leading) {
                     Text(party.vibe.displayName)
@@ -427,6 +428,19 @@ struct PartyDetailView: View {
         }
 
         isJoining = false
+    }
+
+    private func vibeColor(for vibe: PartyVibe) -> Color {
+        switch vibe.color {
+        case "green": return .green
+        case "orange": return .orange
+        case "purple": return .purple
+        case "blue": return .blue
+        case "indigo": return .indigo
+        case "cyan": return .cyan
+        case "yellow": return .yellow
+        default: return .purple
+        }
     }
 
     private func openInMaps() {

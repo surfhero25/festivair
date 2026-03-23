@@ -218,8 +218,9 @@ struct HostedPartyRowView: View {
     var body: some View {
         HStack(spacing: 12) {
             // Vibe
-            Text(party.vibe.emoji)
+            Image(systemName: party.vibe.icon)
                 .font(.title2)
+                .foregroundStyle(.purple)
                 .frame(width: 44, height: 44)
                 .background(Color.purple.opacity(0.2))
                 .clipShape(Circle())

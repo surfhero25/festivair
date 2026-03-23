@@ -55,8 +55,9 @@ struct CompactFacilityMarker: View {
                 .fill(type.color)
                 .frame(width: 24, height: 24)
 
-            Text(type.emoji)
+            Image(systemName: type.icon)
                 .font(.caption2)
+                .foregroundStyle(.white)
         }
         .shadow(color: .black.opacity(0.2), radius: 1, y: 1)
     }

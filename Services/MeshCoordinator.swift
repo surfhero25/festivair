@@ -30,6 +30,9 @@ final class MeshCoordinator: ObservableObject {
     private var locationBroadcastTimer: Timer?
     private var cancellables = Set<AnyCancellable>()
 
+    // MARK: - Haven Transport
+    private var havenTransport: HavenTransportService?
+
     // MARK: - Configuration
     private let heartbeatInterval: TimeInterval = 30
     private let locationBroadcastInterval: TimeInterval = 30
@@ -53,6 +56,20 @@ final class MeshCoordinator: ObservableObject {
 
         setupBindings()
         setupGatewayBroadcast()
+    }
+
+    /// Connect a Haven TCP transport as an additional message source
+    func configureHaven(_ haven: HavenTransportService) {
+        self.havenTransport = haven
+
+        haven.messagePublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] envelope in
+                self?.handleMeshMessage(envelope)
+            }
+            .store(in: &cancellables)
+
+        print("[MeshCoordinator] Haven transport configured")
     }
 
     private func setupGatewayBroadcast() {

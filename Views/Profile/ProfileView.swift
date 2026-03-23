@@ -316,8 +316,9 @@ struct FullScreenPhotoView: View {
                     .resizable()
                     .scaledToFit()
             } else {
-                Text(emoji)
-                    .font(.system(size: 200))
+                Image(systemName: "person.circle.fill")
+                    .font(.system(size: 150))
+                    .foregroundStyle(.purple)
             }
 
             VStack {

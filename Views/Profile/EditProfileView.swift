@@ -19,7 +19,6 @@ struct EditProfileView: View {
     @State private var tiktokHandle: String = ""
 
     // UI State
-    @State private var showingEmojiPicker = false
     @State private var selectedEmoji: String = ""
     @State private var isLoading = false
     @State private var showingSaveError = false
@@ -91,9 +90,6 @@ struct EditProfileView: View {
             } message: {
                 Text(errorMessage)
             }
-            .sheet(isPresented: $showingEmojiPicker) {
-                EmojiPickerSheet(selectedEmoji: $selectedEmoji)
-            }
             .sheet(isPresented: $showingPreview) {
                 previewSheet
             }
@@ -115,7 +111,7 @@ struct EditProfileView: View {
             HStack {
                 Spacer()
                 VStack(spacing: 12) {
-                    // Current photo or emoji
+                    // Current photo or person icon placeholder
                     ZStack {
                         if let image = profileImage {
                             Image(uiImage: image)
@@ -124,11 +120,10 @@ struct EditProfileView: View {
                                 .frame(width: 100, height: 100)
                                 .clipShape(Circle())
                         } else {
-                            Text(selectedEmoji)
-                                .font(.system(size: 50))
+                            Image(systemName: "person.circle.fill")
+                                .font(.system(size: 70))
+                                .foregroundStyle(.purple)
                                 .frame(width: 100, height: 100)
-                                .background(Color.purple.opacity(0.2))
-                                .clipShape(Circle())
                         }
 
                         // Edit badge
@@ -149,15 +144,6 @@ struct EditProfileView: View {
                             .font(.subheadline)
                             .foregroundStyle(.purple)
                     }
-
-                    // Emoji picker button
-                    Button {
-                        showingEmojiPicker = true
-                    } label: {
-                        Text("Change Emoji")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                    }
                 }
                 Spacer()
             }
@@ -171,13 +157,6 @@ struct EditProfileView: View {
         Section("Basic Info") {
             TextField("Display Name", text: $displayName)
                 .textContentType(.name)
-
-            HStack {
-                Text("Emoji Avatar")
-                Spacer()
-                Text(selectedEmoji)
-                    .font(.title2)
-            }
         }
     }
 
@@ -475,55 +454,6 @@ enum ProfileError: LocalizedError {
         case .uploadFailed:
             return "Failed to upload photo. Please try again."
         }
-    }
-}
-
-// MARK: - Emoji Picker Sheet
-
-struct EmojiPickerSheet: View {
-    @Binding var selectedEmoji: String
-    @Environment(\.dismiss) private var dismiss
-
-    private let festivalEmojis = [
-        "🎧", "🎤", "🎸", "🎹", "🥁", "🎺", "🎷", "🪗",
-        "🎵", "🎶", "🎼", "🎪", "🎭", "🎨", "🎬", "🎯",
-        "🔥", "⚡️", "✨", "💫", "🌟", "⭐️", "🌈", "🦋",
-        "🦄", "🐉", "👽", "🤖", "👾", "🎃", "💀", "👻",
-        "😎", "🤩", "🥳", "😈", "👑", "💎", "🔮", "🪩",
-        "🍕", "🍔", "🌮", "🍦", "🍩", "🍪", "🧁", "🎂",
-        "🍺", "🍻", "🥂", "🍾", "🍹", "🧉", "☕️", "🫖"
-    ]
-
-    var body: some View {
-        NavigationStack {
-            ScrollView {
-                LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 8), spacing: 12) {
-                    ForEach(festivalEmojis, id: \.self) { emoji in
-                        Button {
-                            selectedEmoji = emoji
-                            dismiss()
-                        } label: {
-                            Text(emoji)
-                                .font(.title)
-                                .frame(width: 44, height: 44)
-                                .background(selectedEmoji == emoji ? Color.purple.opacity(0.3) : Color.clear)
-                                .clipShape(RoundedRectangle(cornerRadius: 8))
-                        }
-                    }
-                }
-                .padding()
-            }
-            .navigationTitle("Choose Emoji")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("Done") {
-                        dismiss()
-                    }
-                }
-            }
-        }
-        .presentationDetents([.medium])
     }
 }
 

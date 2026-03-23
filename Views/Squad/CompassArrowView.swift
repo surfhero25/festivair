@@ -76,9 +76,10 @@ struct CompassArrowView: View {
                     .frame(width: 20, height: 20)
                     .shadow(radius: 2)
 
-                // Target emoji
-                Text(targetEmoji)
+                // Target icon
+                Image(systemName: "person.circle.fill")
                     .font(.title)
+                    .foregroundStyle(.purple)
             }
             .padding()
 

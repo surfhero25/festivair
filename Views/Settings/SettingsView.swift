@@ -37,7 +37,7 @@ struct SettingsView: View {
                         showEditProfile = true
                     } label: {
                         HStack(spacing: 12) {
-                            // Profile photo or emoji
+                            // Profile photo
                             ProfilePhotoView(
                                 assetId: currentUser?.profilePhotoAssetId,
                                 emoji: emoji,
@@ -101,12 +101,14 @@ struct SettingsView: View {
                             showPaywall = true
                         } label: {
                             HStack {
-                                Label("Upgrade to Premium", systemImage: "star.fill")
+                                Image(systemName: "star.fill")
+                                Text("Upgrade")
                                 Spacer()
                                 Text("From $4.99/mo")
                                     .font(.caption)
                                     .foregroundStyle(.secondary)
                                 Image(systemName: "chevron.right")
+                                    .font(.caption)
                                     .foregroundStyle(.secondary)
                             }
                         }
@@ -170,20 +172,13 @@ struct SettingsView: View {
                     }
                 }
 
-                // Battery section
-                Section("Battery") {
+                // Power section
+                Section("Power") {
                     Toggle(isOn: $lowPowerMode) {
                         Label("Low Power Mode", systemImage: "battery.25")
                     }
                     .onChange(of: lowPowerMode) { _, newValue in
                         appState.locationManager.updateMode = newValue ? .lowPower : .active
-                    }
-
-                    HStack {
-                        Label("Current Battery", systemImage: "battery.100")
-                        Spacer()
-                        Text("\(appState.gatewayManager.batteryLevel)%")
-                            .foregroundStyle(.secondary)
                     }
 
                     HStack {
@@ -484,31 +479,16 @@ struct SimpleEditProfileView: View {
     @Binding var emoji: String
     @FocusState private var isNameFieldFocused: Bool
 
-    // Generic person icons - not music emojis
-    let iconOptions = ["👤", "👦", "👧", "👨", "👩", "🧑", "👱‍♂️", "👱‍♀️", "🧔", "👴", "👵", "🧓"]
-
     var body: some View {
         NavigationStack {
             Form {
                 Section {
                     HStack {
                         Spacer()
-                        Text(emoji)
+                        Image(systemName: "person.circle.fill")
                             .font(.system(size: 80))
+                            .foregroundStyle(.purple)
                         Spacer()
-                    }
-
-                    LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 6), spacing: 16) {
-                        ForEach(iconOptions, id: \.self) { option in
-                            Text(option)
-                                .font(.title)
-                                .padding(8)
-                                .background(emoji == option ? Color.purple.opacity(0.3) : Color.clear)
-                                .clipShape(Circle())
-                                .onTapGesture {
-                                    emoji = option
-                                }
-                        }
                     }
                 }
 

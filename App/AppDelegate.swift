@@ -74,8 +74,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         }
 
         // Perform mesh sync
-        Task {
-            // Would call meshCoordinator.handleBackgroundTask()
+        Task { @MainActor in
+            await AppState.shared?.meshCoordinator.handleBackgroundTask()
             task.setTaskCompleted(success: true)
         }
     }
@@ -87,8 +87,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
             task.setTaskCompleted(success: false)
         }
 
-        Task {
-            // Would broadcast location update
+        Task { @MainActor in
+            await AppState.shared?.meshCoordinator.handleBackgroundTask()
             task.setTaskCompleted(success: true)
         }
     }

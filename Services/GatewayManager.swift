@@ -197,10 +197,8 @@ final class GatewayManager: ObservableObject {
         #if os(iOS)
         UIDevice.current.isBatteryMonitoringEnabled = true
 
-        // Small delay to let monitoring enable before first read
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
-            self?.updateBatteryLevel()
-        }
+        // Read immediately after enabling monitoring
+        updateBatteryLevel()
 
         // Listen for battery level changes
         NotificationCenter.default.addObserver(
@@ -220,8 +218,9 @@ final class GatewayManager: ObservableObject {
             self?.updateBatteryLevel()
         }
 
-        // Periodic refresh every 60 seconds for accuracy
-        Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { [weak self] _ in
+        // Periodic refresh every 30 seconds for accuracy
+        // UIDevice reports in ~5% steps so we poll frequently to stay close
+        Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { [weak self] _ in
             self?.updateBatteryLevel()
         }
         #endif
@@ -230,7 +229,8 @@ final class GatewayManager: ObservableObject {
     private func updateBatteryLevel() {
         #if os(iOS)
         let level = UIDevice.current.batteryLevel
-        batteryLevel = level < 0 ? 100 : Int(level * 100)
+        // UIDevice reports in ~5% steps. Round to nearest int for best accuracy.
+        batteryLevel = level < 0 ? 100 : Int((level * 100).rounded())
 
         // Check if we should rotate gateway due to low battery
         if isGateway && batteryLevel < gatewayRotationBattery {

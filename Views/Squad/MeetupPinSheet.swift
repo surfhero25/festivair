@@ -30,7 +30,7 @@ struct MeetupPinSheet: View {
                             .font(.headline)
 
                         // Preset options
-                        LazyVGrid(columns: [GridItem(.adaptive(minimum: 140))], spacing: 8) {
+                        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 8) {
                             ForEach(MeetupPinPreset.allCases, id: \.self) { preset in
                                 PresetPinButton(
                                     preset: preset,
@@ -186,14 +186,19 @@ private struct PresetPinButton: View {
     var body: some View {
         Button(action: onTap) {
             HStack(spacing: 6) {
-                Text(preset.emoji)
+                Image(systemName: preset.icon)
+                    .font(.body)
+                    .frame(width: 20)
+                    .foregroundStyle(isSelected ? .purple : .primary)
                 Text(preset.rawValue)
                     .font(.subheadline)
-                    .lineLimit(1)
+                    .lineLimit(2)
+                    .minimumScaleFactor(0.7)
+                    .fixedSize(horizontal: false, vertical: true)
+                Spacer()
             }
-            .padding(.horizontal, 12)
+            .padding(.horizontal, 10)
             .padding(.vertical, 10)
-            .frame(maxWidth: .infinity)
             .background(isSelected ? Color.purple.opacity(0.2) : Color.secondary.opacity(0.1))
             .foregroundStyle(isSelected ? .purple : .primary)
             .clipShape(RoundedRectangle(cornerRadius: 10))

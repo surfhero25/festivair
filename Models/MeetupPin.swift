@@ -139,4 +139,19 @@ enum MeetupPinPreset: String, CaseIterable {
         case .chill: return "😎"
         }
     }
+
+    var icon: String {
+        switch self {
+        case .meetHere: return "mappin.and.ellipse"
+        case .meetingSpot: return "target"
+        case .groupUp: return "person.2.fill"
+        case .foundIt: return "sparkles"
+        case .thisWay: return "arrow.right"
+        case .stage: return "music.note"
+        case .food: return "fork.knife"
+        case .drinks: return "wineglass.fill"
+        case .bathroom: return "toilet"
+        case .chill: return "leaf.fill"
+        }
+    }
 }

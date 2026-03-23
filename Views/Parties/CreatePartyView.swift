@@ -27,6 +27,7 @@ struct CreatePartyView: View {
     @State private var showError = false
     @State private var errorMessage = ""
     @State private var showVIPRequired = false
+    @State private var showPaywall = false
 
     private let subscriptionManager = SubscriptionManager.shared
 
@@ -76,7 +77,7 @@ struct CreatePartyView: View {
             }
             .alert("VIP Required", isPresented: $showVIPRequired) {
                 Button("Upgrade", role: .cancel) {
-                    // TODO: Show paywall
+                    showPaywall = true
                 }
                 Button("Cancel", role: .destructive) {
                     selectedAccessType = .open
@@ -86,6 +87,9 @@ struct CreatePartyView: View {
             }
             .sheet(isPresented: $showLocationPicker) {
                 LocationPickerView(selectedLocation: $selectedLocation, locationName: $locationName)
+            }
+            .sheet(isPresented: $showPaywall) {
+                PaywallView()
             }
             .overlay {
                 if isCreating {
@@ -129,8 +133,9 @@ struct CreatePartyView: View {
                         selectedVibe = vibe
                     } label: {
                         VStack(spacing: 4) {
-                            Text(vibe.emoji)
+                            Image(systemName: vibe.icon)
                                 .font(.title2)
+                                .foregroundStyle(selectedVibe == vibe ? .purple : .primary)
                             Text(vibe.displayName)
                                 .font(.caption2)
                         }

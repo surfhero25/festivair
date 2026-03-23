@@ -282,7 +282,6 @@ struct AgeVerificationPageView: View {
 // MARK: - Profile Setup
 struct ProfileSetupView: View {
     @EnvironmentObject var appState: AppState
-    @StateObject private var appleAuth = AppleAuthService()
     @State private var displayName = ""
     @State private var selectedIcon = "👤"
     @State private var isSigningIn = false
@@ -307,9 +306,6 @@ struct ProfileSetupView: View {
                 // Manual name entry (after Apple sign in or skip)
                 manualEntryView
             }
-        }
-        .onTapGesture {
-            isNameFieldFocused = false
         }
     }
 
@@ -345,17 +341,8 @@ struct ProfileSetupView: View {
             .frame(height: 50)
             .clipShape(RoundedRectangle(cornerRadius: 12))
             .padding(.horizontal, 40)
-            .disabled(isSigningIn)
-
-            // Skip option
-            Button {
-                showManualEntry = true
-            } label: {
-                Text("Continue without Apple ID")
-                    .font(.subheadline)
-                    .foregroundStyle(.white.opacity(0.6))
-            }
             .padding(.bottom, 60)
+            .disabled(isSigningIn)
 
             if isSigningIn {
                 ProgressView()
@@ -421,6 +408,10 @@ struct ProfileSetupView: View {
             .disabled(displayName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
             .padding(.horizontal, 40)
             .padding(.bottom, 60)
+        }
+        .contentShape(Rectangle())
+        .onTapGesture {
+            isNameFieldFocused = false
         }
     }
 

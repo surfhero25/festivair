@@ -77,6 +77,8 @@
 		FA000048 /* FestivalSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100050 /* FestivalSummaryView.swift */; };
 		FA000060 /* DebugLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100060 /* DebugLogger.swift */; };
 		FA000061 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100061 /* KeychainHelper.swift */; };
+		FA000070 /* HavenTransportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100070 /* HavenTransportService.swift */; };
+		FA000071 /* MeshTransportProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100071 /* MeshTransportProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -152,6 +154,8 @@
 		FA100050 /* FestivalSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FestivalSummaryView.swift; sourceTree = "<group>"; };
 		FA100060 /* DebugLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLogger.swift; sourceTree = "<group>"; };
 		FA100061 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
+		FA100070 /* HavenTransportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HavenTransportService.swift; sourceTree = "<group>"; };
+		FA100071 /* MeshTransportProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeshTransportProtocol.swift; sourceTree = "<group>"; };
 		FA200000 /* FestivAir.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FestivAir.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -317,6 +321,8 @@
 				FA100060 /* DebugLogger.swift */,
 				FA100061 /* KeychainHelper.swift */,
 				82D950024CB9E274C8CDDB8E /* AppleAuthService.swift */,
+				FA100070 /* HavenTransportService.swift */,
+				FA100071 /* MeshTransportProtocol.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -597,6 +603,8 @@
 				B9076D0E6E68951001E57877 /* TermsOfServiceView.swift in Sources */,
 				284E3C76D2C8EA545D5E83EA /* Logger.swift in Sources */,
 				51CF225CE78AD13497333411 /* AppleAuthService.swift in Sources */,
+				FA000070 /* HavenTransportService.swift in Sources */,
+				FA000071 /* MeshTransportProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

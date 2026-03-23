@@ -167,6 +167,18 @@ enum PartyVibe: String, Codable, CaseIterable {
         }
     }
 
+    var icon: String {
+        switch self {
+        case .chill: return "leaf.fill"
+        case .hype: return "flame.fill"
+        case .underground: return "headphones"
+        case .rooftop: return "building.2.fill"
+        case .afterHours: return "moon.stars.fill"
+        case .pool: return "figure.pool.swim"
+        case .vip: return "crown.fill"
+        }
+    }
+
     var color: String {
         switch self {
         case .chill: return "green"

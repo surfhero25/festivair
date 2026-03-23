@@ -16,7 +16,7 @@
     <key>CFBundleShortVersionString</key>
     <string>$(MARKETING_VERSION)</string>
     <key>CFBundleVersion</key>
-    <string>40</string>
+    <string>43</string>
     <key>CFBundleIconName</key>
     <string>AppIcon</string>
 
@@ -50,6 +50,7 @@
     <array>
         <string>_festivair-mesh._tcp</string>
         <string>_festivair-mesh._udp</string>
+        <string>_festivair-haven._tcp</string>
     </array>
 
     <!-- Background Modes -->
