@@ -79,6 +79,7 @@
 		FA000061 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100061 /* KeychainHelper.swift */; };
 		FA000070 /* HavenTransportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100070 /* HavenTransportService.swift */; };
 		FA000071 /* MeshTransportProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100071 /* MeshTransportProtocol.swift */; };
+		FA000080 /* MeshProtocolV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100080 /* MeshProtocolV2.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -156,6 +157,7 @@
 		FA100061 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
 		FA100070 /* HavenTransportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HavenTransportService.swift; sourceTree = "<group>"; };
 		FA100071 /* MeshTransportProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeshTransportProtocol.swift; sourceTree = "<group>"; };
+		FA100080 /* MeshProtocolV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeshProtocolV2.swift; sourceTree = "<group>"; };
 		FA200000 /* FestivAir.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FestivAir.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -299,6 +301,7 @@
 				FA100040 /* Party.swift */,
 				FA100041 /* PartyAttendee.swift */,
 				FA100047 /* SponsorActivation.swift */,
+				FA100080 /* MeshProtocolV2.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -605,6 +608,7 @@
 				51CF225CE78AD13497333411 /* AppleAuthService.swift in Sources */,
 				FA000070 /* HavenTransportService.swift in Sources */,
 				FA000071 /* MeshTransportProtocol.swift in Sources */,
+				FA000080 /* MeshProtocolV2.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
