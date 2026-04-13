@@ -82,15 +82,15 @@ enum Constants {
 
     // MARK: - Squad Limits
     enum Squad {
-        static let maxMembers = 25  // Max with universal relay
-        static let warnAtMembers = 20
-        static let codeLength = 6
+        static let maxMembers = 50
+        static let codeLength = 8  // Changed from 6
         static let codeCharacters = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789" // No O, 0, I, 1
-
-        // Tier-based limits (increased with universal relay mesh)
-        static let freeMemberLimit = 6
-        static let basicMemberLimit = 15
-        static let vipMemberLimit = 25
+        static let freeMemberLimit = 4
+        static let festivalPassMemberLimit = 8
+        static let crewPassMemberLimit = 20
+        static let seasonPassMemberLimit = 20
+        static let joinAttemptRateLimit = 3          // per minute
+        static let joinAttemptRateWindow: TimeInterval = 60
     }
 
     // MARK: - Mesh Relay
@@ -100,6 +100,62 @@ enum Constants {
         static let maxRelaysPerMinute = 500       // Rate limit per device
         static let locationBroadcastInterval: TimeInterval = 30  // GPS update frequency via relay
         static let gatewaySyncInterval: TimeInterval = 10        // Cloud sync when gateway
+    }
+
+    // MARK: - Protocol V2
+
+    enum ProtocolV2 {
+        static let version: Int = 2
+        static let presencePulseInterval: TimeInterval = 300       // 5 minutes
+        static let ambientResponseInterval: TimeInterval = 60      // 1 minute
+        static let ambientResponseReducedInterval: TimeInterval = 90 // 1.5 min (battery 30-50%)
+        static let preciseResponseInterval: TimeInterval = 3       // 3 seconds
+        static let requestRenewalInterval: TimeInterval = 60       // 1 minute
+        static let sessionTimeout: TimeInterval = 90               // drop state after no renewal
+        static let stalePinMaxAge: TimeInterval = 3600             // 1 hour — hide pins older than this
+        static let stalePinFadeAge: TimeInterval = 300             // 5 min — start fading
+        static let chatFallbackDelay: TimeInterval = 30            // send standalone if no mesh activity
+        static let urgentChatRateLimit: Int = 5                    // max per 10 minutes
+        static let urgentChatRateWindow: TimeInterval = 600        // 10 minutes
+        static let sosUpdateInterval: TimeInterval = 3             // SOS broadcasts every 3s
+    }
+
+    // MARK: - Payload Budgets (bytes)
+
+    enum PayloadBudget {
+        static let presencePulse: Int = 100
+        static let locationRequest: Int = 50
+        static let locationResponse: Int = 200
+        static let preciseLocationRequest: Int = 80
+        static let preciseLocationResponse: Int = 150
+        static let urgentChat: Int = 500
+        static let chat: Int = 500
+        static let squadAnnouncement: Int = 1000
+        static let sos: Int = 150
+        static let stopPreciseLocation: Int = 50
+        static let requestRenewal: Int = 80
+        static let clusterHandoff: Int = 200
+    }
+
+    // MARK: - Battery Tiers
+
+    enum BatteryTier {
+        static let fullMin: Float = 0.50
+        static let reducedMin: Float = 0.30
+        static let passiveMin: Float = 0.15
+
+        static func tier(for level: Float) -> Tier {
+            switch level {
+            case fullMin...1.0: return .full
+            case reducedMin..<fullMin: return .reduced
+            case passiveMin..<reducedMin: return .passive
+            default: return .survival
+            }
+        }
+
+        enum Tier: String, Codable {
+            case full, reduced, passive, survival
+        }
     }
 
     // MARK: - Profile Settings
@@ -121,15 +177,13 @@ enum Constants {
 
     // MARK: - Subscription Product IDs
     enum Subscriptions {
-        static let basicMonthly = "com.festivair.basic.monthly"
-        static let basicYearly = "com.festivair.basic.yearly"
-        static let vipMonthly = "com.festivair.vip.monthly"
-        static let vipYearly = "com.festivair.vip.yearly"
+        static let festivalPass = "com.festivair.festivalpass"
+        static let crewPass = "com.festivair.crewpass"
+        static let seasonPass = "com.festivair.seasonpass"
 
-        static let basicMonthlyPrice = "$4.99"
-        static let basicYearlyPrice = "$29.99"
-        static let vipMonthlyPrice = "$14.99"
-        static let vipYearlyPrice = "$79.99"
+        static let festivalPassPrice = "$2.99"
+        static let crewPassPrice = "$6.99"
+        static let seasonPassPrice = "$14.99"
     }
 
     // MARK: - Parties
