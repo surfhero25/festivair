@@ -34,6 +34,51 @@ final class PeerTracker: ObservableObject {
             guard let status = status, status.isActive else { return nil }
             return status
         }
+
+        // MARK: - V2 Stale Pin Properties
+
+        /// V2: Last known location for stale pin display
+        var lastKnownLatitude: Double?
+        var lastKnownLongitude: Double?
+        var lastLocationUpdate: Date?
+
+        /// V2: Cluster info
+        var clusterID: String?
+        var isClusterReporter: Bool = false
+
+        /// V2: How stale is this peer's location?
+        var locationStaleness: LocationStaleness {
+            guard let lastUpdate = lastLocationUpdate else { return .unknown }
+            let age = Date().timeIntervalSince(lastUpdate)
+            if age < Constants.ProtocolV2.stalePinFadeAge { return .fresh }
+            if age < Constants.ProtocolV2.stalePinMaxAge { return .stale }
+            return .expired
+        }
+
+        enum LocationStaleness {
+            case fresh      // < 5 min — full opacity
+            case stale      // 5 min - 1 hour — faded with timestamp
+            case expired    // > 1 hour — hidden
+            case unknown    // never had location
+        }
+
+        /// V2: Opacity for map pin based on staleness
+        var pinOpacity: Double {
+            switch locationStaleness {
+            case .fresh: return 1.0
+            case .stale: return 0.4
+            case .expired, .unknown: return 0.0
+            }
+        }
+
+        /// V2: Time ago text for stale pins
+        var locationAgeText: String? {
+            guard let lastUpdate = lastLocationUpdate else { return nil }
+            let age = Date().timeIntervalSince(lastUpdate)
+            if age < 60 { return "Just now" }
+            if age < 3600 { return "\(Int(age / 60)) min ago" }
+            return nil  // expired — don't show
+        }
     }
 
     // MARK: - Published State
@@ -196,6 +241,31 @@ final class PeerTracker: ObservableObject {
         #if DEBUG
         print("[PeerTracker] Cleared \(count) peers")
         #endif
+    }
+
+    // MARK: - V2 Location Updates
+
+    /// Updates a peer's location from a V2 locationResponse or preciseLocationResponse
+    func updatePeerLocationV2(userId: String, latitude: Double, longitude: Double, clusterID: String?, isReporter: Bool = false) {
+        guard var peer = peers[userId] else { return }
+        peer.lastKnownLatitude = latitude
+        peer.lastKnownLongitude = longitude
+        peer.lastLocationUpdate = Date()
+        peer.clusterID = clusterID
+        peer.isClusterReporter = isReporter
+        peer.lastSeen = Date()
+        peer.isOnline = true
+        peers[userId] = peer
+    }
+
+    /// Returns all peers grouped by clusterID for map display
+    var peersByCluster: [String?: [PeerStatus]] {
+        Dictionary(grouping: Array(peers.values)) { $0.clusterID }
+    }
+
+    /// Returns peers that should be visible on the map (not expired)
+    var visiblePeers: [PeerStatus] {
+        peers.values.filter { $0.locationStaleness != .expired && $0.locationStaleness != .unknown }
     }
 
     // MARK: - Private Helpers
