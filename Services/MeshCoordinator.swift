@@ -30,6 +30,18 @@ final class MeshCoordinator: ObservableObject {
     private var locationBroadcastTimer: Timer?
     private var cancellables = Set<AnyCancellable>()
 
+    // MARK: - V2 Components
+    private var locationTierManager: LocationTierManager?
+    private var clusterManager: ClusterManager?
+    private var messageSigner: MessageSigner?
+    private var presencePulseTimer: Timer?
+    private var ambientResponseTimer: Timer?
+    private var navigateResponseTimer: Timer?
+
+    @Published private(set) var currentTier: LocationTierManager.LocationTier = .idle
+    @Published private(set) var clusterRole: ClusterManager.ClusterRole = .solo
+    @Published private(set) var isSOSActive: Bool = false
+
     // MARK: - Haven Transport
     private var havenTransport: HavenTransportService?
 
@@ -329,6 +341,294 @@ final class MeshCoordinator: ObservableObject {
                 await syncEngine.pullFromCloud()
             }
         }
+    }
+
+    // MARK: - V2 Setup
+
+    /// Initialize V2 demand-driven protocol components.
+    /// Call after start() once userId is available.
+    func setupV2() {
+        guard let userId = currentUserId else { return }
+
+        // Location tier manager
+        let tierManager = LocationTierManager(userId: userId)
+        tierManager.onTierChanged = { [weak self] tier in
+            Task { @MainActor in
+                self?.handleTierChange(tier)
+            }
+        }
+        self.locationTierManager = tierManager
+
+        // Cluster manager
+        let cluster = ClusterManager(userId: userId)
+        cluster.onRoleChanged = { [weak self] role in
+            Task { @MainActor in
+                self?.clusterRole = role
+            }
+        }
+        self.clusterManager = cluster
+
+        // Message signer
+        do {
+            self.messageSigner = try MessageSigner()
+        } catch {
+            #if DEBUG
+            print("[MeshCoordinator] Failed to create MessageSigner: \(error)")
+            #endif
+        }
+
+        // Start V2 presence pulse (replaces heartbeat in V2)
+        startPresencePulse()
+
+        #if DEBUG
+        print("[MeshCoordinator] V2 components initialized")
+        #endif
+    }
+
+    // MARK: - V2 Tier Changes
+
+    private func handleTierChange(_ tier: LocationTierManager.LocationTier) {
+        currentTier = tier
+        locationManager.applyTier(tier)
+
+        // Stop all V2 response timers
+        ambientResponseTimer?.invalidate()
+        navigateResponseTimer?.invalidate()
+
+        switch tier {
+        case .idle:
+            // GPS off, only presence pulse running
+            break
+        case .ambient:
+            startAmbientResponses()
+        case .navigate:
+            startNavigateResponses()
+        }
+    }
+
+    // MARK: - V2 Presence Pulse
+
+    private func startPresencePulse() {
+        presencePulseTimer?.invalidate()
+        presencePulseTimer = Timer.scheduledTimer(
+            withTimeInterval: Constants.ProtocolV2.presencePulseInterval,
+            repeats: true
+        ) { [weak self] _ in
+            Task { @MainActor in
+                self?.sendPresencePulse()
+            }
+        }
+        // Send initial pulse
+        sendPresencePulse()
+    }
+
+    private func sendPresencePulse() {
+        guard let userId = currentUserId,
+              let signer = messageSigner,
+              let joinCode = KeychainHelper.load(.currentJoinCode) ?? UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.currentJoinCode)
+        else { return }
+
+        let pulse = V2PresencePulse(
+            userId: userId,
+            battery: gatewayManager.batteryLevel,
+            isOnline: true,
+            clusterID: clusterManager?.clusterID,
+            clusterMembers: clusterManager?.clusterMembers
+        )
+
+        do {
+            let envelope = try V2EnvelopeBuilder.build(
+                type: .presencePulse,
+                payload: pulse,
+                originPeerId: userId,
+                squadId: joinCode,
+                signer: signer
+            )
+            let data = try envelope.encode()
+            meshManager.broadcastRaw(data)
+        } catch {
+            #if DEBUG
+            print("[MeshCoordinator] V2 presence pulse failed: \(error)")
+            #endif
+        }
+    }
+
+    // MARK: - V2 Location Responses
+
+    private func startAmbientResponses() {
+        let interval = Constants.BatteryTier.tier(for: Float(gatewayManager.batteryLevel) / 100.0) == .reduced
+            ? Constants.ProtocolV2.ambientResponseReducedInterval
+            : Constants.ProtocolV2.ambientResponseInterval
+
+        ambientResponseTimer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { [weak self] _ in
+            Task { @MainActor in
+                self?.sendAmbientResponses()
+            }
+        }
+        sendAmbientResponses()
+    }
+
+    private func sendAmbientResponses() {
+        guard let userId = currentUserId,
+              let signer = messageSigner,
+              let location = locationManager.currentLocation,
+              let joinCode = KeychainHelper.load(.currentJoinCode) ?? UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.currentJoinCode),
+              let tierManager = locationTierManager
+        else { return }
+
+        let response = V2LocationResponse(
+            latitude: location.latitude,
+            longitude: location.longitude,
+            clusterID: clusterManager?.clusterID,
+            clusterMembers: clusterManager?.clusterMembers,
+            heading: locationManager.currentHeading
+        )
+
+        // Send to each ambient requester directly
+        for requesterID in tierManager.ambientRequesters {
+            do {
+                let envelope = try V2EnvelopeBuilder.build(
+                    type: .locationResponse,
+                    payload: response,
+                    originPeerId: userId,
+                    targetPeerId: requesterID,
+                    squadId: joinCode,
+                    signer: signer
+                )
+                let data = try envelope.encode()
+                if let peer = meshManager.peerById(requesterID) {
+                    meshManager.sendDirect(data, to: peer)
+                }
+            } catch {
+                #if DEBUG
+                print("[MeshCoordinator] V2 ambient response failed: \(error)")
+                #endif
+            }
+        }
+    }
+
+    private func startNavigateResponses() {
+        navigateResponseTimer = Timer.scheduledTimer(
+            withTimeInterval: Constants.ProtocolV2.preciseResponseInterval,
+            repeats: true
+        ) { [weak self] _ in
+            Task { @MainActor in
+                self?.sendNavigateResponses()
+            }
+        }
+    }
+
+    private func sendNavigateResponses() {
+        guard let userId = currentUserId,
+              let signer = messageSigner,
+              let location = locationManager.currentLocation,
+              let joinCode = KeychainHelper.load(.currentJoinCode) ?? UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.currentJoinCode),
+              let tierManager = locationTierManager
+        else { return }
+
+        let response = V2PreciseLocationResponse(
+            latitude: location.latitude,
+            longitude: location.longitude,
+            heading: locationManager.currentHeading,
+            speed: nil,
+            accuracy: location.accuracy
+        )
+
+        for requesterID in tierManager.navigateRequesters {
+            do {
+                let envelope = try V2EnvelopeBuilder.build(
+                    type: .preciseLocationResponse,
+                    payload: response,
+                    originPeerId: userId,
+                    targetPeerId: requesterID,
+                    squadId: joinCode,
+                    signer: signer
+                )
+                let data = try envelope.encode()
+                if let peer = meshManager.peerById(requesterID) {
+                    meshManager.sendDirect(data, to: peer)
+                }
+            } catch {
+                #if DEBUG
+                print("[MeshCoordinator] V2 navigate response failed: \(error)")
+                #endif
+            }
+        }
+    }
+
+    // MARK: - V2 Incoming Message Handling
+
+    func handleV2Message(_ data: Data) {
+        guard let envelope = try? V2Envelope.decode(from: data) else { return }
+
+        // Verify signature if we have the sender's public key
+        // (For now, accept all valid envelopes — key exchange comes with squad join)
+
+        do {
+            try envelope.validatePayloadContent()
+        } catch {
+            #if DEBUG
+            print("[MeshCoordinator] V2 message validation failed: \(error)")
+            #endif
+            return
+        }
+
+        switch envelope.type {
+        case .locationRequest:
+            if let payload = try? JSONDecoder().decode(V2LocationRequest.self, from: envelope.payload) {
+                locationTierManager?.handleLocationRequest(from: payload.requesterID)
+            }
+
+        case .preciseLocationRequest:
+            if let payload = try? JSONDecoder().decode(V2PreciseLocationRequest.self, from: envelope.payload) {
+                locationTierManager?.handlePreciseLocationRequest(from: payload.requesterID, targetMemberID: payload.targetMemberID)
+            }
+
+        case .stopPreciseLocation:
+            if let payload = try? JSONDecoder().decode(V2StopPreciseLocation.self, from: envelope.payload) {
+                locationTierManager?.handleStopPreciseLocation(from: payload.requesterID)
+            }
+
+        case .requestRenewal:
+            if let payload = try? JSONDecoder().decode(V2RequestRenewal.self, from: envelope.payload) {
+                locationTierManager?.handleRequestRenewal(from: payload.requesterID, mode: payload.mode)
+            }
+
+        case .presencePulse:
+            if let payload = try? JSONDecoder().decode(V2PresencePulse.self, from: envelope.payload) {
+                clusterManager?.updatePeer(userId: payload.userId, batteryLevel: payload.battery, latitude: nil, longitude: nil)
+            }
+
+        case .locationResponse:
+            if let payload = try? JSONDecoder().decode(V2LocationResponse.self, from: envelope.payload) {
+                clusterManager?.updatePeer(userId: envelope.originPeerId, batteryLevel: 0, latitude: payload.latitude, longitude: payload.longitude)
+            }
+
+        case .preciseLocationResponse:
+            if let payload = try? JSONDecoder().decode(V2PreciseLocationResponse.self, from: envelope.payload) {
+                clusterManager?.updatePeer(userId: envelope.originPeerId, batteryLevel: 0, latitude: payload.latitude, longitude: payload.longitude)
+            }
+
+        case .sos:
+            // SOS handled by SOS-specific handler (Phase 3)
+            break
+
+        default:
+            break
+        }
+    }
+
+    // MARK: - V2 SOS
+
+    func activateSOS() {
+        isSOSActive = true
+        locationTierManager?.activateSOS()
+        // SOS broadcast loop handled by navigate response timer (already running at 3s)
+    }
+
+    func deactivateSOS() {
+        isSOSActive = false
+        locationTierManager?.deactivateSOS()
     }
 
     // MARK: - Background Tasks

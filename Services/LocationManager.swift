@@ -16,6 +16,9 @@ final class LocationManager: NSObject, ObservableObject {
     @Published private(set) var isHeadingAvailable: Bool = CLLocationManager.headingAvailable()
     @Published private(set) var headingAccuracy: Double? // Heading accuracy in degrees (lower is better)
 
+    /// Alias for deviceHeading — used by V2 protocol code
+    var currentHeading: Double? { deviceHeading }
+
     // MARK: - Configuration
     enum UpdateMode {
         case active      // App in foreground, 30 sec updates

@@ -242,6 +242,20 @@ final class MeshNetworkManager: NSObject, ObservableObject {
         }
     }
 
+    // MARK: - Raw Data (V2)
+
+    /// Broadcasts raw data to all connected peers (for V2 pre-encoded envelopes)
+    func broadcastRaw(_ data: Data) {
+        guard !session.connectedPeers.isEmpty else { return }
+        do {
+            try session.send(data, toPeers: session.connectedPeers, with: .reliable)
+        } catch {
+            #if DEBUG
+            print("[Mesh] Raw broadcast failed: \(error)")
+            #endif
+        }
+    }
+
     // MARK: - Direct Messaging (V2)
 
     /// Sends data to a specific peer, not broadcast.

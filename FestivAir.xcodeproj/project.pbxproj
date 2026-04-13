@@ -82,6 +82,7 @@
 		FA000080 /* MeshProtocolV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100080 /* MeshProtocolV2.swift */; };
 		FA000081 /* MessageSigner.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100081 /* MessageSigner.swift */; };
 		FA000082 /* LocationTierManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100082 /* LocationTierManager.swift */; };
+		FA000083 /* ClusterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100083 /* ClusterManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -162,6 +163,7 @@
 		FA100080 /* MeshProtocolV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeshProtocolV2.swift; sourceTree = "<group>"; };
 		FA100081 /* MessageSigner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageSigner.swift; sourceTree = "<group>"; };
 		FA100082 /* LocationTierManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTierManager.swift; sourceTree = "<group>"; };
+		FA100083 /* ClusterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClusterManager.swift; sourceTree = "<group>"; };
 		FA200000 /* FestivAir.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FestivAir.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -332,6 +334,7 @@
 				FA100071 /* MeshTransportProtocol.swift */,
 				FA100081 /* MessageSigner.swift */,
 				FA100082 /* LocationTierManager.swift */,
+				FA100083 /* ClusterManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -617,6 +620,7 @@
 				FA000080 /* MeshProtocolV2.swift in Sources */,
 				FA000081 /* MessageSigner.swift in Sources */,
 				FA000082 /* LocationTierManager.swift in Sources */,
+				FA000083 /* ClusterManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
