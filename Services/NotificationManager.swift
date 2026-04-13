@@ -200,7 +200,9 @@ final class NotificationManager: ObservableObject {
                 .filter { $0.request.content.categoryIdentifier == "CHAT_MESSAGE" }
                 .map { $0.request.identifier }
             UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: chatNotificationIds)
+            #if DEBUG
             print("[Notifications] Cleared badge and \(chatNotificationIds.count) chat notifications")
+            #endif
         }
     }
 

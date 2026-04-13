@@ -54,7 +54,9 @@ final class ChatViewModel: ObservableObject {
 
         // Log configuration for debugging
         DebugLogger.success("Chat configured - squadId: \(squadId?.uuidString ?? "nil"), joinCode: \(joinCode ?? "nil"), cloudId: \(cloudSquadId ?? "nil")", category: "Chat")
-        print("[Chat] ✅ Configured with joinCode: \(joinCode ?? "nil")")
+        #if DEBUG
+        print("[Chat] ✅ Configured")
+        #endif
 
         loadMessages()
         Task { await fetchRemoteMessages() }

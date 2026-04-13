@@ -444,7 +444,9 @@ struct ProfileSetupView: View {
                 }
             }
 
-            print("[AppleAuth] Sign in success - user: \(credential.user)")
+            #if DEBUG
+            print("[AppleAuth] Sign in success")
+            #endif
 
             isSigningIn = false
             showManualEntry = true  // Show emoji picker
@@ -452,10 +454,14 @@ struct ProfileSetupView: View {
         case .failure(let error):
             if let authError = error as? ASAuthorizationError, authError.code == .canceled {
                 // User cancelled - not an error
+                #if DEBUG
                 print("[AppleAuth] User cancelled sign in")
+                #endif
             } else {
                 errorMessage = error.localizedDescription
+                #if DEBUG
                 print("[AppleAuth] Sign in failed: \(error)")
+                #endif
             }
         }
     }

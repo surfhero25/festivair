@@ -88,14 +88,20 @@ final class CloudKitService: ObservableObject {
                     zone = CKRecordZone(zoneID: zoneID)
                 case .networkUnavailable, .networkFailure, .serviceUnavailable:
                     // Network issue - will retry on next operation
+                    #if DEBUG
                     print("[CloudKit] Zone creation deferred - network unavailable")
+                    #endif
                     zone = CKRecordZone(zoneID: zoneID)
                 default:
+                    #if DEBUG
                     print("[CloudKit] Zone creation error: \(error)")
+                    #endif
                     zone = CKRecordZone(zoneID: zoneID)
                 }
             } else {
+                #if DEBUG
                 print("[CloudKit] Zone creation error: \(error)")
+                #endif
                 zone = CKRecordZone(zoneID: zoneID)
             }
         }
@@ -189,19 +195,27 @@ final class CloudKitService: ObservableObject {
         record["squadTier"] = "free" as CKRecordValue
 
         // Use PUBLIC database so other users can find and join
-        print("[CloudKit] Creating squad '\(name)' with code '\(joinCode)' in PUBLIC database...")
+        #if DEBUG
+        print("[CloudKit] Creating squad '\(name)' in PUBLIC database...")
+        #endif
         do {
             try await publicDatabase.save(record)
-            print("[CloudKit] ✅ Squad created successfully with ID: \(squadId)")
+            #if DEBUG
+            print("[CloudKit] ✅ Squad created successfully")
+            #endif
             return squadId
         } catch {
+            #if DEBUG
             print("[CloudKit] ❌ Failed to create squad: \(error)")
+            #endif
             throw error
         }
     }
 
     func findSquad(byCode code: String) async throws -> (id: String, name: String, memberIds: [String])? {
-        print("[CloudKit] Searching for squad with code '\(code)' in PUBLIC database...")
+        #if DEBUG
+        print("[CloudKit] Searching for squad in PUBLIC database...")
+        #endif
 
         let predicate = NSPredicate(format: "joinCode == %@", code)
         let query = CKQuery(recordType: RecordType.squad, predicate: predicate)
@@ -209,31 +223,43 @@ final class CloudKitService: ObservableObject {
         // Search PUBLIC database where squads are stored
         do {
             let results = try await publicDatabase.records(matching: query)
+            #if DEBUG
             print("[CloudKit] Query returned \(results.matchResults.count) results")
+            #endif
 
-            for (recordID, result) in results.matchResults {
+            for (_, result) in results.matchResults {
                 switch result {
                 case .success(let record):
                     let id = record.recordID.recordName
                     let name = record["name"] as? String ?? "Squad"
                     let memberIds = record["memberIds"] as? [String] ?? []
+                    #if DEBUG
                     print("[CloudKit] ✅ Found squad: '\(name)' with \(memberIds.count) members")
+                    #endif
                     return (id, name, memberIds)
                 case .failure(let error):
-                    print("[CloudKit] ⚠️ Record fetch error for \(recordID): \(error)")
+                    #if DEBUG
+                    print("[CloudKit] ⚠️ Record fetch error: \(error)")
+                    #endif
                 }
             }
 
-            print("[CloudKit] ⚠️ No squad found with code '\(code)'")
+            #if DEBUG
+            print("[CloudKit] ⚠️ No squad found with provided code")
+            #endif
             return nil
         } catch {
+            #if DEBUG
             print("[CloudKit] ❌ Query failed: \(error)")
+            #endif
             throw error
         }
     }
 
     func joinSquad(squadId: String, userId: String) async throws {
-        print("[CloudKit] Joining squad \(squadId) for user \(userId)...")
+        #if DEBUG
+        print("[CloudKit] Joining squad...")
+        #endif
         let recordID = CKRecord.ID(recordName: squadId)
 
         do {
@@ -244,7 +270,9 @@ final class CloudKitService: ObservableObject {
             // Validate member count to prevent abuse
             let maxSquadSize = 50  // Absolute maximum to prevent DoS
             guard memberIds.count < maxSquadSize else {
+                #if DEBUG
                 print("[CloudKit] ❌ Squad has too many members: \(memberIds.count)")
+                #endif
                 throw CKError(.limitExceeded)
             }
 
@@ -252,12 +280,18 @@ final class CloudKitService: ObservableObject {
                 memberIds.append(userId)
                 record["memberIds"] = memberIds
                 try await publicDatabase.save(record)
+                #if DEBUG
                 print("[CloudKit] ✅ User added to squad. Members now: \(memberIds.count)")
+                #endif
             } else {
+                #if DEBUG
                 print("[CloudKit] User already in squad")
+                #endif
             }
         } catch {
+            #if DEBUG
             print("[CloudKit] ❌ Failed to join squad: \(error)")
+            #endif
             throw error
         }
     }
@@ -438,7 +472,9 @@ final class CloudKitService: ObservableObject {
                 return asset.fileURL
             }
         } catch {
+            #if DEBUG
             print("[CloudKit] Failed to get profile photo: \(error)")
+            #endif
         }
 
         return nil
@@ -770,7 +806,9 @@ final class CloudKitService: ObservableObject {
     func deleteParty(partyId: String) async throws {
         let recordID = CKRecord.ID(recordName: partyId)
         try await publicDatabase.deleteRecord(withID: recordID)
-        print("[CloudKit] ✅ Deleted party: \(partyId)")
+        #if DEBUG
+        print("[CloudKit] ✅ Deleted party")
+        #endif
     }
 
     func subscribeToSquadUpdates(squadId: String, onChange: @escaping () -> Void) async throws {
@@ -881,7 +919,9 @@ final class LocalSyncEngine: ObservableObject {
                     "longitude": String(longitude),
                     "accuracy": String(accuracy)
                 ]) else {
+                    #if DEBUG
                     print("[SyncEngine] Failed to encode location data")
+                    #endif
                     return
                 }
                 let change = PendingChange(
@@ -918,7 +958,9 @@ final class LocalSyncEngine: ObservableObject {
                     break
                 }
             } catch {
+                #if DEBUG
                 print("[Sync] Failed to sync change: \(error)")
+                #endif
                 continue
             }
         }

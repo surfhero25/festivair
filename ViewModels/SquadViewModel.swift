@@ -33,7 +33,9 @@ final class SquadViewModel: ObservableObject {
         }
         let newId = UUID().uuidString
         UserDefaults.standard.set(newId, forKey: Constants.UserDefaultsKeys.userId)
-        print("[SquadVM] Created missing userId: \(newId)")
+        #if DEBUG
+        print("[SquadVM] Created missing userId")
+        #endif
         return newId
     }
 
@@ -81,7 +83,9 @@ final class SquadViewModel: ObservableObject {
                 try modelContext?.save()
             } catch {
                 // CloudKit sync failed (e.g., schema not deployed) - continue with local-only squad
+                #if DEBUG
                 print("[Squad] CloudKit sync failed, continuing with local squad: \(error.localizedDescription)")
+                #endif
             }
         }
 
@@ -91,7 +95,9 @@ final class SquadViewModel: ObservableObject {
 
         // CRITICAL: Clear all peers when creating squad - they were added before filtering was active
         peerTracker.clearAllPeers()
+        #if DEBUG
         print("[SquadVM] Cleared peers on squad creation")
+        #endif
 
         await loadMembers()
 
@@ -119,12 +125,16 @@ final class SquadViewModel: ObservableObject {
         var cloudSquadId: String?
         var existingMemberIds: [String] = []
 
-        print("[SquadVM] Joining squad with code: \(normalizedCode), CloudKit available: \(cloudKit.isAvailable)")
+        #if DEBUG
+        print("[SquadVM] Joining squad, CloudKit available: \(cloudKit.isAvailable)")
+        #endif
 
         if cloudKit.isAvailable {
             do {
                 if let found = try await cloudKit.findSquad(byCode: normalizedCode) {
+                    #if DEBUG
                     print("[SquadVM] ✅ Found squad in CloudKit: '\(found.name)' with \(found.memberIds.count) members")
+                    #endif
                     squadName = found.name
                     cloudSquadId = found.id
                     existingMemberIds = found.memberIds
@@ -139,19 +149,27 @@ final class SquadViewModel: ObservableObject {
                     }
 
                     try await cloudKit.joinSquad(squadId: found.id, userId: userId)
+                    #if DEBUG
                     print("[SquadVM] ✅ Joined squad successfully")
+                    #endif
                 } else {
+                    #if DEBUG
                     print("[SquadVM] ⚠️ Squad NOT found in CloudKit - creating local only")
+                    #endif
                 }
             } catch let error as SquadError {
                 // Re-throw squad-specific errors (like tier limit)
                 throw error
             } catch {
                 // CloudKit sync failed - continue with local squad
+                #if DEBUG
                 print("[SquadVM] ❌ CloudKit error: \(error.localizedDescription)")
+                #endif
             }
         } else {
+            #if DEBUG
             print("[SquadVM] ⚠️ CloudKit not available")
+            #endif
         }
 
         // Check for existing local squad with this join code (avoid duplicates)
@@ -196,7 +214,9 @@ final class SquadViewModel: ObservableObject {
 
         // CRITICAL: Clear all peers when joining squad - they were added before filtering was active
         peerTracker.clearAllPeers()
+        #if DEBUG
         print("[SquadVM] Cleared peers on squad join")
+        #endif
 
         await loadMembers()
 
@@ -217,7 +237,9 @@ final class SquadViewModel: ObservableObject {
 
         do {
             let profiles = try await cloudKit.getSquadMemberProfiles(memberIds: otherMemberIds)
+            #if DEBUG
             print("[SquadVM] Fetched \(profiles.count) member profiles from CloudKit")
+            #endif
 
             for profile in profiles {
                 // Register with PeerTracker for mesh networking
@@ -245,7 +267,9 @@ final class SquadViewModel: ObservableObject {
                     newUser.firebaseId = profile.id
                     modelContext.insert(newUser)
                     existingUser = newUser
+                    #if DEBUG
                     print("[SquadVM] Created local user for: \(profile.displayName)")
+                    #endif
                 }
 
                 // Create membership if doesn't exist
@@ -253,18 +277,24 @@ final class SquadViewModel: ObservableObject {
                 if !hasMembership {
                     let membership = SquadMembership(user: existingUser, squad: squad)
                     modelContext.insert(membership)
+                    #if DEBUG
                     print("[SquadVM] Created membership for: \(profile.displayName)")
+                    #endif
                 }
             }
 
             try modelContext.save()
+            #if DEBUG
             print("[SquadVM] ✅ Registered \(profiles.count) squad members from CloudKit")
+            #endif
 
             // Reload members to update the UI
             await loadMembers()
 
         } catch {
+            #if DEBUG
             print("[SquadVM] Failed to fetch member profiles: \(error.localizedDescription)")
+            #endif
         }
     }
 
@@ -349,7 +379,9 @@ final class SquadViewModel: ObservableObject {
                     memberLocations[userId] = location
                 }
             } catch {
+                #if DEBUG
                 print("[SquadVM] Failed to fetch remote locations: \(error.localizedDescription)")
+                #endif
             }
         }
     }
@@ -363,7 +395,9 @@ final class SquadViewModel: ObservableObject {
             do {
                 try modelContext?.save()
             } catch {
+                #if DEBUG
                 print("[SquadVM] Failed to persist location update: \(error)")
+                #endif
             }
         }
     }
@@ -396,7 +430,9 @@ final class SquadViewModel: ObservableObject {
                 let membershipUserId = membership.user?.firebaseId
                 if membershipUserId != nil && membershipUserId != userId {
                     // Stale data from a different user session - clear it
+                    #if DEBUG
                     print("[SquadVM] Clearing stale squad data (userId mismatch)")
+                    #endif
                     clearStaleSquadData()
                     return
                 }
@@ -410,7 +446,9 @@ final class SquadViewModel: ObservableObject {
 
                 // Configure mesh SYNCHRONOUSLY before any async work
                 meshManager.configure(squadId: squad.id.uuidString, userId: userId)
-                print("[SquadVM] Configured mesh with squadId: \(squad.id.uuidString), userId: \(userId), joinCode: \(squad.joinCode)")
+                #if DEBUG
+                print("[SquadVM] Configured mesh with squad")
+                #endif
 
                 Task {
                     await loadMembers()
@@ -420,7 +458,9 @@ final class SquadViewModel: ObservableObject {
                 }
             }
         } catch {
+            #if DEBUG
             print("[SquadVM] Error loading squad: \(error)")
+            #endif
         }
     }
 
@@ -449,7 +489,9 @@ final class SquadViewModel: ObservableObject {
         members = []
         memberLocations = [:]
         UserDefaults.standard.removeObject(forKey: Constants.UserDefaultsKeys.currentSquadId)
+        #if DEBUG
         print("[SquadVM] Cleared all stale squad data")
+        #endif
     }
 
     /// Refresh squad members from CloudKit (called at app launch and pull-to-refresh)
@@ -458,21 +500,31 @@ final class SquadViewModel: ObservableObject {
               squad.firebaseId != nil,  // Ensure we have a cloud squad
               let userId = currentUserId,
               cloudKit.isAvailable else {
+            #if DEBUG
             print("[SquadVM] Cannot refresh - missing squad, cloudId, userId, or CloudKit unavailable")
+            #endif
             return
         }
 
+        #if DEBUG
         print("[SquadVM] Refreshing squad members from CloudKit...")
+        #endif
 
         do {
             if let found = try await cloudKit.findSquad(byCode: squad.joinCode) {
-                print("[SquadVM] Found squad in CloudKit with \(found.memberIds.count) members: \(found.memberIds)")
+                #if DEBUG
+                print("[SquadVM] Found squad in CloudKit with \(found.memberIds.count) members")
+                #endif
                 await registerSquadMembers(memberIds: found.memberIds, excludingUserId: userId)
             } else {
+                #if DEBUG
                 print("[SquadVM] Squad not found in CloudKit during refresh")
+                #endif
             }
         } catch {
+            #if DEBUG
             print("[SquadVM] Failed to refresh members: \(error.localizedDescription)")
+            #endif
         }
     }
 
@@ -535,18 +587,24 @@ final class SquadViewModel: ObservableObject {
         let knownMemberIds = members.map { $0.firebaseId ?? "nil" }
         let isKnownMember = senderUserId != nil && members.contains(where: { $0.firebaseId == senderUserId })
 
-        print("[SquadVM] Mesh msg type=\(meshEnvelope.message.type), senderId=\(senderUserId ?? "nil"), knownMembers=\(knownMemberIds), isKnown=\(isKnownMember), hasSquad=\(currentSquad != nil), isRefreshing=\(isRefreshingMembers)")
+        #if DEBUG
+        print("[SquadVM] Mesh msg type=\(meshEnvelope.message.type), isKnown=\(isKnownMember), hasSquad=\(currentSquad != nil), isRefreshing=\(isRefreshingMembers)")
+        #endif
 
         if senderUserId != nil,
            !isKnownMember,
            currentSquad != nil,
            !isRefreshingMembers {
+            #if DEBUG
             print("[SquadVM] 🔄 Unknown member detected - refreshing from CloudKit")
+            #endif
             isRefreshingMembers = true
             Task {
                 await refreshSquadMembers()
                 isRefreshingMembers = false
+                #if DEBUG
                 print("[SquadVM] ✅ Refresh complete, members now: \(self.members.count)")
+                #endif
             }
         }
 
@@ -577,7 +635,9 @@ final class SquadViewModel: ObservableObject {
                     do {
                         try modelContext?.save()
                     } catch {
+                        #if DEBUG
                         print("[SquadVM] Failed to persist heartbeat: \(error)")
+                        #endif
                     }
                 }
             }

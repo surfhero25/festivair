@@ -36,15 +36,19 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data
     ) {
         let token = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
-        print("[Push] Device token: \(token)")
-        // Would save this token for push notifications
+        #if DEBUG
+        print("[Push] Device token registered")
+        #endif
+        _ = token  // Would save this token for push notifications
     }
 
     func application(
         _ application: UIApplication,
         didFailToRegisterForRemoteNotificationsWithError error: Error
     ) {
+        #if DEBUG
         print("[Push] Failed to register: \(error)")
+        #endif
     }
 
     // MARK: - Background Tasks
@@ -104,7 +108,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         do {
             try BGTaskScheduler.shared.submit(request)
         } catch {
+            #if DEBUG
             print("[BG] Failed to schedule sync: \(error)")
+            #endif
         }
     }
 
@@ -115,7 +121,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         do {
             try BGTaskScheduler.shared.submit(request)
         } catch {
+            #if DEBUG
             print("[BG] Failed to schedule location: \(error)")
+            #endif
         }
     }
 
@@ -138,7 +146,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         let normalizedCode = code.uppercased().trimmingCharacters(in: .whitespaces)
         guard normalizedCode.count == Constants.Squad.codeLength,
               normalizedCode.allSatisfy({ validChars.contains($0) }) else {
-            print("[URL] Invalid squad code format: \(code)")
+            #if DEBUG
+            print("[URL] Invalid squad code format")
+            #endif
             return false
         }
 

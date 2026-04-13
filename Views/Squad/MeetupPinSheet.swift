@@ -119,14 +119,18 @@ struct MeetupPinSheet: View {
         // Validate user info
         guard let userId = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.userId),
               let displayName = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.displayName) else {
+            #if DEBUG
             print("[MeetupPin] Missing user ID or display name")
+            #endif
             Haptics.error()
             return
         }
 
         // Validate coordinates
         guard CLLocationCoordinate2DIsValid(coordinate) else {
+            #if DEBUG
             print("[MeetupPin] Invalid coordinates")
+            #endif
             Haptics.error()
             return
         }
@@ -215,7 +219,9 @@ private struct PresetPinButton: View {
     MeetupPinSheet(
         coordinate: CLLocationCoordinate2D(latitude: 36.2697, longitude: -115.0078)
     ) { pin in
+        #if DEBUG
         print("Created pin: \(pin.name)")
+        #endif
     }
     .environmentObject(AppState())
 }

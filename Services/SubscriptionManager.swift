@@ -69,7 +69,9 @@ final class SubscriptionManager: ObservableObject {
             availableProducts = products.sorted { $0.price < $1.price }
         } catch {
             errorMessage = "Failed to load products: \(error.localizedDescription)"
+            #if DEBUG
             print("[Subscription] Failed to load products: \(error)")
+            #endif
         }
 
         isLoading = false
@@ -189,7 +191,9 @@ final class SubscriptionManager: ObservableObject {
                     await self.updatePurchasedProducts()
                     await transaction.finish()
                 } catch {
+                    #if DEBUG
                     print("[Subscription] Transaction verification failed: \(error)")
+                    #endif
                 }
             }
         }
@@ -214,7 +218,9 @@ final class SubscriptionManager: ObservableObject {
                     }
                 }
             } catch {
+                #if DEBUG
                 print("[Subscription] Failed to verify transaction: \(error)")
+                #endif
             }
         }
 

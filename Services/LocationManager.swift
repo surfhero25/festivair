@@ -83,7 +83,9 @@ final class LocationManager: NSObject, ObservableObject {
 
     func startUpdating() {
         guard authorizationStatus == .authorizedWhenInUse || authorizationStatus == .authorizedAlways else {
+            #if DEBUG
             print("[Location] Requesting authorization (current: \(authorizationStatus.rawValue))")
+            #endif
             requestAuthorization()
             return
         }
@@ -91,7 +93,9 @@ final class LocationManager: NSObject, ObservableObject {
         configureLocationManager()
         locationManager.startUpdatingLocation()
         isUpdating = true
+        #if DEBUG
         print("[Location] Started location updates (mode: \(updateMode), accuracy: \(updateMode.desiredAccuracy))")
+        #endif
 
         // Start periodic update timer
         startUpdateTimer()
@@ -125,7 +129,9 @@ final class LocationManager: NSObject, ObservableObject {
     @discardableResult
     func startHeadingUpdates() -> Bool {
         guard CLLocationManager.headingAvailable() else {
+            #if DEBUG
             print("[Location] Heading not available on this device")
+            #endif
             isHeadingAvailable = false
             return false
         }
@@ -189,7 +195,9 @@ extension LocationManager: CLLocationManagerDelegate {
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         lastError = error
+        #if DEBUG
         print("[Location] Error: \(error)")
+        #endif
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
@@ -215,7 +223,9 @@ extension LocationManager: CLLocationManagerDelegate {
                     self.locationManager.startUpdatingLocation()
                     self.isUpdating = true
                     self.startUpdateTimer()
+                    #if DEBUG
                     print("[Location] Auto-started updates after authorization granted")
+                    #endif
                 } else {
                     self.locationManager.startUpdatingLocation()
                 }

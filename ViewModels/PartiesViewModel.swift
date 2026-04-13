@@ -51,7 +51,9 @@ final class PartiesViewModel: ObservableObject {
 
         isLoading = true
         errorMessage = nil
+        #if DEBUG
         print("[Parties] Fetching nearby parties at (\(latitude), \(longitude)) radius \(radiusKm)km")
+        #endif
 
         do {
             // Fetch from local database
@@ -63,7 +65,9 @@ final class PartiesViewModel: ObservableObject {
             )
 
             let allParties = try context.fetch(descriptor)
+            #if DEBUG
             print("[Parties] Found \(allParties.count) local parties")
+            #endif
 
             // Filter by distance
             let userLocation = CLLocation(latitude: latitude, longitude: longitude)
@@ -73,7 +77,9 @@ final class PartiesViewModel: ObservableObject {
                 return distanceKm <= radiusKm
             }
 
+            #if DEBUG
             print("[Parties] \(allNearbyParties.count) parties within radius")
+            #endif
 
             // Apply filters (uses allNearbyParties as source)
             applyFilters()
@@ -86,7 +92,9 @@ final class PartiesViewModel: ObservableObject {
 
         } catch {
             errorMessage = "Failed to fetch parties: \(error.localizedDescription)"
+            #if DEBUG
             print("[Parties] ❌ Error: \(error)")
+            #endif
         }
 
         isLoading = false
@@ -95,11 +103,15 @@ final class PartiesViewModel: ObservableObject {
     /// Refresh attendee counts for all nearby parties from CloudKit
     private func refreshAttendeeCounts() async {
         guard cloudKit.isAvailable else {
+            #if DEBUG
             print("[Parties] CloudKit not available for attendee refresh")
+            #endif
             return
         }
 
+        #if DEBUG
         print("[Parties] Refreshing attendee counts from CloudKit...")
+        #endif
 
         for party in allNearbyParties {
             do {
@@ -107,12 +119,16 @@ final class PartiesViewModel: ObservableObject {
                 let approvedCount = attendees.filter { $0.status == "attending" || $0.status == "approved" }.count
 
                 if party.currentAttendeeCount != approvedCount {
+                    #if DEBUG
                     print("[Parties] Updating party '\(party.name)' count: \(party.currentAttendeeCount) -> \(approvedCount)")
+                    #endif
                     party.currentAttendeeCount = approvedCount
                     try? modelContext?.save()
                 }
             } catch {
-                print("[Parties] Failed to fetch attendees for party \(party.id): \(error)")
+                #if DEBUG
+                print("[Parties] Failed to fetch attendees for party: \(error)")
+                #endif
             }
         }
 
@@ -260,7 +276,9 @@ final class PartiesViewModel: ObservableObject {
             throw PartyError.notConfigured
         }
 
-        print("[Parties] User \(user.displayName) requesting to join party '\(party.name)'")
+        #if DEBUG
+        print("[Parties] User requesting to join party")
+        #endif
 
         // Check if already requested or attending
         let partyId = party.id
@@ -273,13 +291,17 @@ final class PartiesViewModel: ObservableObject {
 
         let existing = try context.fetch(existingDescriptor)
         if !existing.isEmpty {
+            #if DEBUG
             print("[Parties] ⚠️ User already requested/attending this party")
+            #endif
             throw PartyError.alreadyRequested
         }
 
         // Check capacity
         if party.isFull {
+            #if DEBUG
             print("[Parties] ⚠️ Party is full")
+            #endif
             throw PartyError.partyFull
         }
 
@@ -290,7 +312,9 @@ final class PartiesViewModel: ObservableObject {
             attendee.status = .attending
             attendee.respondedAt = Date()
             party.currentAttendeeCount += 1
+            #if DEBUG
             print("[Parties] ✅ Auto-approved for open party. Count now: \(party.currentAttendeeCount)")
+            #endif
         }
 
         context.insert(attendee)
@@ -303,9 +327,13 @@ final class PartiesViewModel: ObservableObject {
         if cloudKit.isAvailable {
             do {
                 try await cloudKit.updateParty(party)
+                #if DEBUG
                 print("[Parties] ✅ Synced updated party count to CloudKit: \(party.currentAttendeeCount)")
+                #endif
             } catch {
+                #if DEBUG
                 print("[Parties] ❌ Failed to sync party count: \(error)")
+                #endif
             }
         }
     }
@@ -334,7 +362,9 @@ final class PartiesViewModel: ObservableObject {
                     do {
                         try await cloudKit.deleteAttendee(attendeeId: recordId)
                     } catch {
+                        #if DEBUG
                         print("[Parties] Failed to delete attendee from CloudKit: \(error)")
+                        #endif
                     }
                 }
             }
@@ -350,7 +380,9 @@ final class PartiesViewModel: ObservableObject {
                 do {
                     try await cloudKit.updateParty(party)
                 } catch {
+                    #if DEBUG
                     print("[Parties] Failed to update party count in CloudKit: \(error)")
+                    #endif
                 }
             }
         }
@@ -374,7 +406,9 @@ final class PartiesViewModel: ObservableObject {
             do {
                 try await cloudKit.updateAttendeeStatus(attendeeId: recordId, status: "approved")
             } catch {
+                #if DEBUG
                 print("[Parties] Failed to sync approval to CloudKit: \(error)")
+                #endif
                 // Note: Local update succeeded, cloud sync will retry next time
             }
         }
@@ -395,7 +429,9 @@ final class PartiesViewModel: ObservableObject {
             do {
                 try await cloudKit.updateAttendeeStatus(attendeeId: recordId, status: "declined")
             } catch {
+                #if DEBUG
                 print("[Parties] Failed to sync decline to CloudKit: \(error)")
+                #endif
                 // Note: Local update succeeded, cloud sync will retry next time
             }
         }
@@ -423,14 +459,18 @@ final class PartiesViewModel: ObservableObject {
             throw PartyError.unauthorized
         }
 
-        print("[Parties] Deleting party '\(party.name)' by host \(userId)")
+        #if DEBUG
+        print("[Parties] Deleting party '\(party.name)'")
+        #endif
 
         // Delete from CloudKit first
         if cloudKit.isAvailable {
             do {
                 try await cloudKit.deleteParty(partyId: party.id.uuidString)
             } catch {
+                #if DEBUG
                 print("[Parties] ❌ Failed to delete from CloudKit: \(error)")
+                #endif
                 // Continue with local deletion even if cloud fails
             }
         }
@@ -455,7 +495,9 @@ final class PartiesViewModel: ObservableObject {
         context.delete(party)
         try context.save()
 
+        #if DEBUG
         print("[Parties] ✅ Party deleted successfully")
+        #endif
     }
 
     // MARK: - Filters
@@ -497,11 +539,15 @@ final class PartiesViewModel: ObservableObject {
 
     private func syncPartiesFromCloud(latitude: Double, longitude: Double, radiusKm: Double) async {
         guard cloudKit.isAvailable, let context = modelContext else {
+            #if DEBUG
             print("[Parties] CloudKit not available for party sync")
+            #endif
             return
         }
 
+        #if DEBUG
         print("[Parties] Syncing parties from CloudKit...")
+        #endif
 
         do {
             let cloudParties = try await cloudKit.fetchPartiesNear(
@@ -510,7 +556,9 @@ final class PartiesViewModel: ObservableObject {
                 radiusKm: radiusKm
             )
 
+            #if DEBUG
             print("[Parties] Found \(cloudParties.count) parties in CloudKit")
+            #endif
 
             // Get set of cloud party IDs for deletion check
             let cloudPartyIds = Set(cloudParties.map { $0.id })
@@ -524,7 +572,9 @@ final class PartiesViewModel: ObservableObject {
                 // and no longer exists in cloud
                 if let cloudId = localParty.cloudKitRecordId,
                    !cloudPartyIds.contains(cloudId) {
+                    #if DEBUG
                     print("[Parties] 🗑️ Removing locally deleted party: '\(localParty.name)'")
+                    #endif
 
                     // Delete attendees first
                     let partyId = localParty.id
@@ -554,7 +604,9 @@ final class PartiesViewModel: ObservableObject {
                     // Update existing party with cloud data
                     existingParty.currentAttendeeCount = record.currentAttendeeCount
                     existingParty.isActive = record.isActive
+                    #if DEBUG
                     print("[Parties] Updated existing party '\(record.name)' count: \(record.currentAttendeeCount)")
+                    #endif
                 } else {
                     // Create new local party from cloud
                     let party = Party(
@@ -578,7 +630,9 @@ final class PartiesViewModel: ObservableObject {
                     party.cloudKitRecordId = record.id
 
                     context.insert(party)
+                    #if DEBUG
                     print("[Parties] Created new party from cloud: '\(record.name)' with \(record.currentAttendeeCount) attendees")
+                    #endif
                 }
             }
 
@@ -597,10 +651,14 @@ final class PartiesViewModel: ObservableObject {
             }
             applyFilters()
 
+            #if DEBUG
             print("[Parties] ✅ Sync complete. Displaying \(nearbyParties.count) parties")
+            #endif
 
         } catch {
+            #if DEBUG
             print("[Parties] ❌ CloudKit sync error: \(error)")
+            #endif
         }
     }
 
@@ -613,26 +671,36 @@ final class PartiesViewModel: ObservableObject {
             party.cloudKitRecordId = recordId
             try modelContext?.save()
         } catch {
+            #if DEBUG
             print("[Parties] Failed to sync party to cloud: \(error)")
+            #endif
         }
     }
 
     /// Sync attendee request to CloudKit
     private func syncAttendeeToCloud(_ attendee: PartyAttendee, partyId: String) async {
         guard cloudKit.isAvailable else {
+            #if DEBUG
             print("[Parties] CloudKit not available for attendee sync")
+            #endif
             return
         }
 
-        print("[Parties] Syncing attendee '\(attendee.displayName)' to CloudKit...")
+        #if DEBUG
+        print("[Parties] Syncing attendee to CloudKit...")
+        #endif
 
         do {
             let recordId = try await cloudKit.createAttendeeRequest(partyId: partyId, attendee: attendee)
             attendee.cloudKitRecordId = recordId
             try modelContext?.save()
-            print("[Parties] ✅ Attendee synced with recordId: \(recordId)")
+            #if DEBUG
+            print("[Parties] ✅ Attendee synced")
+            #endif
         } catch {
+            #if DEBUG
             print("[Parties] ❌ Failed to sync attendee to cloud: \(error)")
+            #endif
         }
     }
 
@@ -660,7 +728,9 @@ final class PartiesViewModel: ObservableObject {
     func cleanupStaleParties() async {
         guard let context = modelContext else { return }
 
+        #if DEBUG
         print("[Parties] 🧹 Running stale party cleanup...")
+        #endif
 
         do {
             let descriptor = FetchDescriptor<Party>()
@@ -678,12 +748,16 @@ final class PartiesViewModel: ObservableObject {
                 if party.endTime == nil {
                     // Legacy party with no end time - delete it
                     shouldDelete = true
+                    #if DEBUG
                     print("[Parties] Deleting party '\(party.name)' - no end time set")
+                    #endif
                 } else if party.hasEnded {
                     // Check if it ended more than 24 hours ago
                     if let endTime = party.endTime, Date().timeIntervalSince(endTime) > 86400 {
                         shouldDelete = true
+                        #if DEBUG
                         print("[Parties] Deleting party '\(party.name)' - ended 24+ hours ago")
+                        #endif
                     } else {
                         shouldDelete = false
                     }
@@ -715,12 +789,18 @@ final class PartiesViewModel: ObservableObject {
 
             if deletedCount > 0 {
                 try context.save()
+                #if DEBUG
                 print("[Parties] ✅ Cleaned up \(deletedCount) stale parties")
+                #endif
             } else {
+                #if DEBUG
                 print("[Parties] ✅ No stale parties to clean up")
+                #endif
             }
         } catch {
+            #if DEBUG
             print("[Parties] ❌ Cleanup failed: \(error)")
+            #endif
         }
     }
 }

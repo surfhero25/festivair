@@ -69,7 +69,9 @@ final class MeshCoordinator: ObservableObject {
             }
             .store(in: &cancellables)
 
+        #if DEBUG
         print("[MeshCoordinator] Haven transport configured")
+        #endif
     }
 
     private func setupGatewayBroadcast() {
@@ -84,14 +86,20 @@ final class MeshCoordinator: ObservableObject {
     func start() {
         guard !isActive else { return }
 
+        #if DEBUG
         print("[MeshCoordinator] Starting mesh coordinator...")
-        print("[MeshCoordinator] userId: \(currentUserId ?? "nil")")
+        print("[MeshCoordinator] userId: <redacted>")
+        #endif
 
         meshManager.startAll()
+        #if DEBUG
         print("[MeshCoordinator] Mesh manager started (advertising + browsing)")
+        #endif
 
         locationManager.startUpdating()
+        #if DEBUG
         print("[MeshCoordinator] Location manager started")
+        #endif
 
         gatewayManager.startElection()
 
@@ -115,7 +123,9 @@ final class MeshCoordinator: ObservableObject {
         isActive = false
         meshStatus = .disconnected
 
+        #if DEBUG
         print("[MeshCoordinator] Stopped")
+        #endif
     }
 
     func enterBackground() {
@@ -127,7 +137,9 @@ final class MeshCoordinator: ObservableObject {
         // Start background task for periodic updates
         scheduleBackgroundTask()
 
+        #if DEBUG
         print("[MeshCoordinator] Entered background mode")
+        #endif
     }
 
     func enterForeground() {
@@ -135,7 +147,9 @@ final class MeshCoordinator: ObservableObject {
         startHeartbeat()
         startLocationBroadcast()
 
+        #if DEBUG
         print("[MeshCoordinator] Entered foreground mode")
+        #endif
     }
 
     // MARK: - Heartbeat
@@ -158,7 +172,9 @@ final class MeshCoordinator: ObservableObject {
 
     private func sendHeartbeat() {
         guard let userId = currentUserId, !userId.isEmpty else {
+            #if DEBUG
             print("[MeshCoordinator] Cannot send heartbeat - no valid userId")
+            #endif
             return
         }
 
@@ -205,7 +221,9 @@ final class MeshCoordinator: ObservableObject {
 
     private func broadcastLocation(_ location: Location) {
         guard let userId = currentUserId, !userId.isEmpty else {
+            #if DEBUG
             print("[MeshCoordinator] Cannot broadcast location - no valid userId")
+            #endif
             return
         }
 
@@ -240,7 +258,9 @@ final class MeshCoordinator: ObservableObject {
                 accuracy: location.accuracy
             )
         } catch {
+            #if DEBUG
             print("[MeshCoordinator] Failed to sync location: \(error)")
+            #endif
         }
     }
 
@@ -322,7 +342,9 @@ final class MeshCoordinator: ObservableObject {
         do {
             try BGTaskScheduler.shared.submit(request)
         } catch {
+            #if DEBUG
             print("[MeshCoordinator] Failed to schedule background task: \(error)")
+            #endif
         }
         #endif
     }

@@ -155,7 +155,9 @@ final class GatewayManager: ObservableObject {
         guard isGateway else { return }
         isGateway = false
         onResignGateway?()
+        #if DEBUG
         print("[Gateway] Resigned as gateway")
+        #endif
     }
 
     // MARK: - Network Monitoring

@@ -132,7 +132,9 @@ final class PeerTracker: ObservableObject {
         if let existingStatus = peerStatus.status,
            userStatus.setAt < existingStatus.setAt {
             // Incoming status is older than current - ignore it
-            print("[PeerTracker] Ignoring out-of-order status update (older than current)")
+            #if DEBUG
+        print("[PeerTracker] Ignoring out-of-order status update (older than current)")
+        #endif
             return
         }
 
@@ -191,7 +193,9 @@ final class PeerTracker: ObservableObject {
         let count = peers.count
         peers.removeAll()
         updatePeerLists()
+        #if DEBUG
         print("[PeerTracker] Cleared \(count) peers")
+        #endif
     }
 
     // MARK: - Private Helpers
@@ -249,21 +253,31 @@ extension PeerTracker {
                 if let myCode = myJoinCode, let theirCode = peerJoinCode {
                     if myCode != theirCode {
                         // Different squad - ignore this peer
-                        print("[PeerTracker] ❌ Ignoring \(peerName) - different squad (mine: \(myCode), theirs: \(theirCode))")
+                        #if DEBUG
+                        print("[PeerTracker] ❌ Ignoring \(peerName) - different squad")
+                        #endif
                         return
                     }
-                    print("[PeerTracker] ✅ Accepting \(peerName) - same squad (\(myCode))")
+                    #if DEBUG
+                    print("[PeerTracker] ✅ Accepting \(peerName) - same squad")
+                    #endif
                 } else if myJoinCode != nil && peerJoinCode == nil {
                     // We're in a squad, they're not - ignore (they might be on old version)
                     // However, also allow registered remote members through
                     if peers[userId] == nil {
+                        #if DEBUG
                         print("[PeerTracker] ❌ Ignoring \(peerName) - no joinCode and not registered")
+                        #endif
                         return
                     }
+                    #if DEBUG
                     print("[PeerTracker] ⚠️ Accepting \(peerName) - no joinCode but already registered")
+                    #endif
                 } else if myJoinCode == nil {
                     // No squad - don't accept any peers as squad members
+                    #if DEBUG
                     print("[PeerTracker] ❌ Ignoring \(peerName) - not in a squad yet")
+                    #endif
                     return
                 }
 

@@ -110,14 +110,18 @@ final class AppState: ObservableObject {
         }
 
         // Note: Can't use isOnboarded here since stored properties not yet initialized
-        print("[AppState] Init - userId: \(userId)")
+        #if DEBUG
+        print("[AppState] Init - userId: <redacted>")
+        #endif
 
         let displayName = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.displayName) ?? "Festival Fan"
         let emoji = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.emoji) ?? "🎧"
         let onboardedStatus = UserDefaults.standard.bool(forKey: Constants.UserDefaultsKeys.onboarded)
 
         // Log startup state for debugging (use local vars, not self)
-        print("[App] 🚀 Starting - isOnboarded: \(onboardedStatus), userId: \(userId), displayName: \(displayName), emoji: \(emoji)")
+        #if DEBUG
+        print("[App] 🚀 Starting - isOnboarded: \(onboardedStatus), displayName: \(displayName)")
+        #endif
 
         // Initialize services
         meshManager = MeshNetworkManager(displayName: displayName)
@@ -184,15 +188,23 @@ final class AppState: ObservableObject {
             Task { @MainActor in
                 switch state {
                 case .authorized:
+                    #if DEBUG
                     print("[AppleAuth] Credential still valid")
+                    #endif
                 case .revoked:
+                    #if DEBUG
                     print("[AppleAuth] Credential was revoked - clearing user data")
+                    #endif
                     self?.handleAppleCredentialRevoked()
                 case .notFound:
+                    #if DEBUG
                     print("[AppleAuth] Credential not found - may need to re-authenticate")
+                    #endif
                     // Don't clear immediately - could be a temporary issue
                 case .transferred:
+                    #if DEBUG
                     print("[AppleAuth] Credential transferred")
+                    #endif
                 @unknown default:
                     break
                 }
@@ -208,7 +220,9 @@ final class AppState: ObservableObject {
 
         // Note: We don't clear userId/displayName/emoji since user may want to keep their profile
         // They'll just need to sign in again next time for Apple-specific features
+        #if DEBUG
         print("[AppleAuth] Cleared Apple credentials, user can continue with existing profile")
+        #endif
     }
 
     private func setupStatusRebroadcast() {
@@ -234,7 +248,9 @@ final class AppState: ObservableObject {
         // Broadcast to the new peer
         let message = MeshMessagePayload.statusUpdate(userId: userId, displayName: displayName, status: status, joinCode: joinCode)
         meshManager.broadcast(message)
+        #if DEBUG
         print("[AppState] Re-broadcast status to new peers: \(status.displayText)")
+        #endif
     }
 
     // MARK: - Configuration
@@ -305,7 +321,9 @@ final class AppState: ObservableObject {
 
         // Validate userId is not empty
         guard !userId.isEmpty else {
+            #if DEBUG
             print("[App] ❌ Cannot complete onboarding - userId is empty")
+            #endif
             return
         }
 
@@ -323,9 +341,11 @@ final class AppState: ObservableObject {
         // Force immediate write to disk (important if app is killed quickly)
         UserDefaults.standard.synchronize()
 
-        DebugLogger.success("Onboarding complete - userId: \(userId), name: \(displayName), emoji: \(emoji)", category: "App")
-        print("[App] ✅ Onboarding complete - userId: \(userId), name: \(displayName), emoji: \(emoji)")
+        DebugLogger.success("Onboarding complete - name: \(displayName)", category: "App")
+        #if DEBUG
+        print("[App] ✅ Onboarding complete - name: \(displayName)")
         print("[App] 🔐 User data saved to Keychain (will persist across reinstalls)")
+        #endif
 
         isOnboarded = true
     }
@@ -340,7 +360,9 @@ final class AppState: ObservableObject {
             // Use a placeholder squadId - the mesh uses universalRelayEnabled=true
             // so it will connect to all FestivAir users regardless of squad
             meshManager.configure(squadId: "festivair-global", userId: userId)
-            print("[AppState] Pre-configured mesh with userId: \(userId)")
+            #if DEBUG
+            print("[AppState] Pre-configured mesh")
+            #endif
         }
 
         meshCoordinator.start()

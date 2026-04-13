@@ -269,7 +269,9 @@ final class OfflineMapService: ObservableObject {
                 }
                 downloadedVenues.append(venue)
             } catch {
+                #if DEBUG
                 print("[OfflineMap] Failed to load cached venue: \(error) - marking for deletion")
+                #endif
                 corruptFiles.append(fileURL)
             }
         }
@@ -278,9 +280,13 @@ final class OfflineMapService: ObservableObject {
         for fileURL in corruptFiles {
             do {
                 try fileManager.removeItem(at: fileURL)
+                #if DEBUG
                 print("[OfflineMap] Deleted corrupt cache file: \(fileURL.lastPathComponent)")
+                #endif
             } catch {
+                #if DEBUG
                 print("[OfflineMap] Failed to delete corrupt file: \(error)")
+                #endif
             }
         }
 

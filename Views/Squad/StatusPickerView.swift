@@ -101,7 +101,9 @@ struct StatusPickerView: View {
             // Check if we have mesh peers
             let hasPeers = !appState.meshManager.connectedPeers.isEmpty
             if !hasPeers {
+                #if DEBUG
                 print("[Status] No mesh peers connected - status saved locally only")
+                #endif
                 // Status is saved locally, will be visible when peers connect
             }
 
@@ -111,7 +113,9 @@ struct StatusPickerView: View {
             let message = MeshMessagePayload.statusUpdate(userId: userId, displayName: displayName, status: status, joinCode: joinCode)
             appState.meshManager.broadcast(message)
         } else {
+            #if DEBUG
             print("[Status] Missing user ID or display name - cannot broadcast")
+            #endif
         }
 
         onStatusSet?(status)

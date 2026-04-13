@@ -27,7 +27,9 @@ final class AppleAuthService: NSObject, ObservableObject {
     /// Check if user is already signed in with Apple
     func checkExistingCredential() {
         guard let userIdentifier = KeychainHelper.load(.appleUserIdentifier) else {
+            #if DEBUG
             print("[AppleAuth] No stored Apple ID")
+            #endif
             return
         }
 
@@ -37,14 +39,20 @@ final class AppleAuthService: NSObject, ObservableObject {
             Task { @MainActor in
                 switch state {
                 case .authorized:
+                    #if DEBUG
                     print("[AppleAuth] Existing credential is valid")
+                    #endif
                     self?.userIdentifier = userIdentifier
                     self?.isAuthenticated = true
                 case .revoked, .notFound:
+                    #if DEBUG
                     print("[AppleAuth] Credential revoked or not found, clearing")
+                    #endif
                     self?.clearCredentials()
                 case .transferred:
+                    #if DEBUG
                     print("[AppleAuth] Credential transferred to another device")
+                    #endif
                 @unknown default:
                     break
                 }
@@ -77,7 +85,9 @@ final class AppleAuthService: NSObject, ObservableObject {
         self.email = credential.email ?? KeychainHelper.load(.appleEmail)
         self.isAuthenticated = true
 
-        print("[AppleAuth] Sign in successful - userId: \(credential.user)")
+        #if DEBUG
+        print("[AppleAuth] Sign in successful")
+        #endif
 
         return (credential.user, credential.fullName, self.email)
     }

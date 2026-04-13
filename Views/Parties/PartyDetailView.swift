@@ -407,7 +407,9 @@ struct PartyDetailView: View {
         }
 
         isJoining = true
-        print("[PartyDetail] Joining party '\(party.name)' as user \(userId)")
+        #if DEBUG
+        print("[PartyDetail] Joining party '\(party.name)'")
+        #endif
 
         // Get user info from UserDefaults
         let displayName = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.displayName) ?? "Festival Fan"
@@ -420,11 +422,15 @@ struct PartyDetailView: View {
         do {
             try await viewModel.requestToJoin(party: party, user: user)
             userAttendeeStatus = party.accessType == .open ? .attending : .requested
+            #if DEBUG
             print("[PartyDetail] ✅ Successfully joined party")
+            #endif
         } catch {
             errorMessage = error.localizedDescription
             showError = true
+            #if DEBUG
             print("[PartyDetail] ❌ Failed to join: \(error)")
+            #endif
         }
 
         isJoining = false

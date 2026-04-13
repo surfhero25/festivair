@@ -34,11 +34,13 @@ enum KeychainHelper {
         ]
 
         let status = SecItemAdd(query as CFDictionary, nil)
+        #if DEBUG
         if status != errSecSuccess {
             print("[Keychain] Failed to save \(key.rawValue): \(status)")
         } else {
             print("[Keychain] Saved \(key.rawValue)")
         }
+        #endif
     }
 
     // MARK: - Load
@@ -114,24 +116,32 @@ enum KeychainHelper {
     static func migrateFromUserDefaultsIfNeeded() {
         // Check if we have keychain data already
         if load(.userId) != nil {
+            #if DEBUG
             print("[Keychain] Already have userId in keychain")
+            #endif
             return
         }
 
         // Try to migrate from UserDefaults
         if let userId = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.userId) {
             save(userId, for: .userId)
+            #if DEBUG
             print("[Keychain] Migrated userId from UserDefaults")
+            #endif
         }
 
         if let displayName = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.displayName) {
             save(displayName, for: .displayName)
+            #if DEBUG
             print("[Keychain] Migrated displayName from UserDefaults")
+            #endif
         }
 
         if let emoji = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.emoji) {
             save(emoji, for: .emoji)
+            #if DEBUG
             print("[Keychain] Migrated emoji from UserDefaults")
+            #endif
         }
     }
 }

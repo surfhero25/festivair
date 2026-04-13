@@ -192,7 +192,9 @@ final class SetTimesViewModel: ObservableObject {
     func importFromBundle() async {
         guard let url = Bundle.main.url(forResource: "sample_festivals", withExtension: "json"),
               let data = try? Data(contentsOf: url) else {
+            #if DEBUG
             print("[SetTimes] No sample data found")
+            #endif
             return
         }
 

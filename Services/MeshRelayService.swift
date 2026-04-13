@@ -57,7 +57,9 @@ final class MeshRelayService: ObservableObject {
         // Start packet cleanup timer
         startPacketCleanup()
 
+        #if DEBUG
         print("[MeshRelay] Configured - universal relay enabled")
+        #endif
     }
 
     // MARK: - Gateway Logic (Share internet with mesh)
@@ -111,7 +113,9 @@ final class MeshRelayService: ObservableObject {
         )
 
         meshManager.broadcast(payload)
+        #if DEBUG
         print("[MeshRelay] Announced as gateway")
+        #endif
     }
 
     /// Pull recent data from cloud and distribute to local mesh
@@ -123,12 +127,16 @@ final class MeshRelayService: ObservableObject {
             // Fetch recent squad data from CloudKit
             // This gets updates that came in while we were offline
             // Then broadcasts them to nearby mesh users
+            #if DEBUG
             print("[MeshRelay] Gateway sync from cloud started")
+            #endif
 
             // The CloudKitService will handle fetching and notifying
             // observers about new data
         } catch {
+            #if DEBUG
             print("[MeshRelay] Gateway sync failed: \(error)")
+            #endif
         }
     }
 
@@ -172,9 +180,11 @@ final class MeshRelayService: ObservableObject {
             packetTimestamps.removeValue(forKey: id)
         }
 
+        #if DEBUG
         if !expiredIds.isEmpty {
             print("[MeshRelay] Cleaned up \(expiredIds.count) expired packets")
         }
+        #endif
     }
 
     // MARK: - Encryption Helpers
@@ -253,7 +263,9 @@ final class MeshRelayService: ObservableObject {
             let sealed = try AES.GCM.seal(data, using: key)
             return sealed.combined
         } catch {
+            #if DEBUG
             print("[MeshRelay] Encryption failed: \(error)")
+            #endif
             return nil
         }
     }
@@ -272,7 +284,9 @@ final class MeshRelayService: ObservableObject {
             let sealedBox = try AES.GCM.SealedBox(combined: data)
             return try AES.GCM.open(sealedBox, using: key)
         } catch {
+            #if DEBUG
             print("[MeshRelay] Decryption failed: \(error)")
+            #endif
             return nil
         }
     }

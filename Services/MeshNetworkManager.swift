@@ -94,7 +94,9 @@ final class MeshNetworkManager: NSObject, ObservableObject {
     func configure(squadId: String, userId: String) {
         self.squadId = squadId
         self.userId = userId
-        print("[Mesh] Configured with squadId: \(squadId), userId: \(userId)")
+        #if DEBUG
+        print("[Mesh] Configured with squadId: <redacted>, userId: <redacted>")
+        #endif
 
         // CRITICAL: Recreate advertiser and browser with new discoveryInfo
         // MCNearbyServiceAdvertiser captures discoveryInfo at creation time,
@@ -131,7 +133,9 @@ final class MeshNetworkManager: NSObject, ObservableObject {
             startBrowsing()
         }
 
-        print("[Mesh] Recreated advertiser/browser with discoveryInfo: \(discoveryInfo ?? [:])")
+        #if DEBUG
+        print("[Mesh] Recreated advertiser/browser with updated discoveryInfo")
+        #endif
     }
 
     func startAdvertising() {
@@ -173,7 +177,9 @@ final class MeshNetworkManager: NSObject, ObservableObject {
     func broadcast(_ message: MeshMessagePayload) {
         // Validate userId is present and not empty for messages that require it
         if let userId = message.userId, userId.isEmpty {
+            #if DEBUG
             print("[Mesh] Warning: Attempting to broadcast with empty userId")
+            #endif
             return
         }
         let envelope = MeshEnvelope(message: message, originPeerId: myPeerId.displayName)
@@ -193,7 +199,9 @@ final class MeshNetworkManager: NSObject, ObservableObject {
             try session.send(data, toPeers: peers, with: .reliable)
         } catch {
             lastError = error
+            #if DEBUG
             print("[Mesh] Send error: \(error)")
+            #endif
         }
     }
 
@@ -204,7 +212,9 @@ final class MeshNetworkManager: NSObject, ObservableObject {
     private func relayEnvelope(_ envelope: MeshEnvelope, excluding sender: MCPeerID) {
         // Check TTL before relaying - forwarded() returns nil if TTL exceeded
         guard let forwarded = envelope.forwarded(by: myPeerId.displayName) else {
+            #if DEBUG
             print("[Mesh] Not relaying - TTL exceeded or already forwarded")
+            #endif
             return
         }
 
@@ -270,12 +280,18 @@ extension MeshNetworkManager: MCSessionDelegate {
                     // Notify subscribers about new peer (for re-broadcasting status, etc.)
                     self.peerConnectedSubject.send(peerID)
                 }
+                #if DEBUG
                 print("[Mesh] Connected to: \(peerID.displayName)")
+                #endif
             case .notConnected:
                 self.connectedPeers.removeAll { $0 == peerID }
+                #if DEBUG
                 print("[Mesh] Disconnected from: \(peerID.displayName)")
+                #endif
             case .connecting:
+                #if DEBUG
                 print("[Mesh] Connecting to: \(peerID.displayName)")
+                #endif
             @unknown default:
                 break
             }
@@ -288,7 +304,9 @@ extension MeshNetworkManager: MCSessionDelegate {
             guard let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],
                   let messageIdString = json["messageId"] as? String,
                   let messageId = UUID(uuidString: messageIdString) else {
+                #if DEBUG
                 print("[Mesh] Invalid message format")
+                #endif
                 return
             }
 
@@ -309,7 +327,9 @@ extension MeshNetworkManager: MCSessionDelegate {
             self.relayEnvelope(envelope, excluding: peerID)
 
         } catch {
+            #if DEBUG
             print("[Mesh] Decode error: \(error)")
+            #endif
         }
     }
 
@@ -336,14 +356,18 @@ extension MeshNetworkManager: MCNearbyServiceAdvertiserDelegate {
 
         if universalRelayEnabled {
             // Accept anyone running FestivAir
+            #if DEBUG
             print("[Mesh] Accepting invitation (universal relay): \(peerID.displayName)")
+            #endif
             invitationHandler(true, session)
             return
         }
 
         // Fallback: squad-only mode (if universal relay disabled)
         guard let squadId = squadId else {
+            #if DEBUG
             print("[Mesh] Rejecting invitation - no squad configured")
+            #endif
             invitationHandler(false, nil)
             return
         }
@@ -351,10 +375,14 @@ extension MeshNetworkManager: MCNearbyServiceAdvertiserDelegate {
         if let context = context,
            let info = try? JSONDecoder().decode([String: String].self, from: context),
            info["squad"] == squadId {
+            #if DEBUG
             print("[Mesh] Accepting invitation from squad member: \(peerID.displayName)")
+            #endif
             invitationHandler(true, session)
         } else {
+            #if DEBUG
             print("[Mesh] Rejecting invitation from non-squad peer: \(peerID.displayName)")
+            #endif
             invitationHandler(false, nil)
         }
     }
@@ -364,7 +392,9 @@ extension MeshNetworkManager: MCNearbyServiceAdvertiserDelegate {
             self.lastError = error
             self.isAdvertising = false
         }
+        #if DEBUG
         print("[Mesh] Advertising error: \(error)")
+        #endif
     }
 }
 
@@ -379,27 +409,37 @@ extension MeshNetworkManager: MCNearbyServiceBrowserDelegate {
             // Invite anyone running FestivAir
             let context = try? JSONEncoder().encode(discoveryInfo ?? [:])
             browser.invitePeer(peerID, to: session, withContext: context, timeout: 30)
+            #if DEBUG
             print("[Mesh] Inviting peer (universal relay): \(peerID.displayName)")
+            #endif
             return
         }
 
         // Fallback: squad-only mode
         guard let squadId = squadId else {
+            #if DEBUG
             print("[Mesh] Ignoring peer - no squad configured")
+            #endif
             return
         }
 
         if let peerSquad = info?["squad"], peerSquad == squadId {
             let context = try? JSONEncoder().encode(discoveryInfo ?? [:])
             browser.invitePeer(peerID, to: session, withContext: context, timeout: 30)
+            #if DEBUG
             print("[Mesh] Inviting squad member: \(peerID.displayName)")
+            #endif
         } else {
+            #if DEBUG
             print("[Mesh] Ignoring peer from different squad: \(peerID.displayName)")
+            #endif
         }
     }
 
     func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
+        #if DEBUG
         print("[Mesh] Lost peer: \(peerID.displayName)")
+        #endif
     }
 
     func browser(_ browser: MCNearbyServiceBrowser, didNotStartBrowsingForPeers error: Error) {
@@ -407,6 +447,8 @@ extension MeshNetworkManager: MCNearbyServiceBrowserDelegate {
             self.lastError = error
             self.isBrowsing = false
         }
+        #if DEBUG
         print("[Mesh] Browsing error: \(error)")
+        #endif
     }
 }

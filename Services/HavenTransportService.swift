@@ -51,7 +51,9 @@ final class HavenTransportService: MeshTransport {
             guard let self, !self.isStarted else { return }
             self.isStarted = true
             self.startBrowsing()
+            #if DEBUG
             print("[Haven] Transport started - browsing for \(self.bonjourType)")
+            #endif
         }
     }
 
@@ -63,7 +65,9 @@ final class HavenTransportService: MeshTransport {
             self.reconnectWorkItem = nil
             self.stopBrowsing()
             self.disconnect()
+            #if DEBUG
             print("[Haven] Transport stopped")
+            #endif
         }
     }
 
@@ -89,12 +93,18 @@ final class HavenTransportService: MeshTransport {
         newBrowser.stateUpdateHandler = { [weak self] state in
             switch state {
             case .ready:
+                #if DEBUG
                 print("[Haven] Browser ready")
+                #endif
             case .failed(let error):
+                #if DEBUG
                 print("[Haven] Browser failed: \(error)")
+                #endif
                 self?.restartBrowsingAfterDelay()
             case .cancelled:
+                #if DEBUG
                 print("[Haven] Browser cancelled")
+                #endif
             default:
                 break
             }
@@ -106,12 +116,16 @@ final class HavenTransportService: MeshTransport {
             for change in changes {
                 switch change {
                 case .added(let result):
+                    #if DEBUG
                     print("[Haven] Discovered relay server: \(result.endpoint)")
+                    #endif
                     self.discoveredEndpoint = result.endpoint
                     self.connectToEndpoint(result.endpoint)
 
                 case .removed(let result):
+                    #if DEBUG
                     print("[Haven] Lost relay server: \(result.endpoint)")
+                    #endif
                     if case .service = result.endpoint {
                         // If this was our connected server, the connection state handler
                         // will handle reconnect
@@ -146,7 +160,9 @@ final class HavenTransportService: MeshTransport {
     private func connectToEndpoint(_ endpoint: NWEndpoint) {
         // Don't connect if we already have an active connection
         guard connection == nil || !isConnected else {
+            #if DEBUG
             print("[Haven] Already connected, ignoring new endpoint")
+            #endif
             return
         }
 
@@ -159,7 +175,9 @@ final class HavenTransportService: MeshTransport {
             guard let self else { return }
             switch state {
             case .ready:
+                #if DEBUG
                 print("[Haven] Connected to relay server")
+                #endif
                 self.isConnected = true
                 self.reconnectAttempt = 0
                 self.receiveBuffer = Data()
@@ -167,18 +185,24 @@ final class HavenTransportService: MeshTransport {
                 self.startReceiveLoop()
 
             case .failed(let error):
+                #if DEBUG
                 print("[Haven] Connection failed: \(error)")
+                #endif
                 self.isConnected = false
                 self.connection = nil
                 self.scheduleReconnect()
 
             case .cancelled:
+                #if DEBUG
                 print("[Haven] Connection cancelled")
+                #endif
                 self.isConnected = false
                 self.connection = nil
 
             case .waiting(let error):
+                #if DEBUG
                 print("[Haven] Connection waiting: \(error)")
+                #endif
 
             default:
                 break
@@ -206,7 +230,9 @@ final class HavenTransportService: MeshTransport {
         let delay = min(pow(2.0, Double(reconnectAttempt)), maxReconnectDelay)
         reconnectAttempt += 1
 
+        #if DEBUG
         print("[Haven] Reconnecting in \(delay)s (attempt \(reconnectAttempt))")
+        #endif
 
         let item = DispatchWorkItem { [weak self] in
             guard let self, self.isStarted else { return }
@@ -243,7 +269,9 @@ final class HavenTransportService: MeshTransport {
 
         let envelope = MeshEnvelope(message: heartbeat, originPeerId: displayName)
         sendEnvelope(envelope)
-        print("[Haven] Sent initial heartbeat (joinCode: \(joinCode ?? "none"))")
+        #if DEBUG
+        print("[Haven] Sent initial heartbeat")
+        #endif
     }
 
     // MARK: - Send (Length-Prefixed JSON)
@@ -261,11 +289,15 @@ final class HavenTransportService: MeshTransport {
 
             conn.send(content: frame, completion: .contentProcessed { error in
                 if let error {
+                    #if DEBUG
                     print("[Haven] Send error: \(error)")
+                    #endif
                 }
             })
         } catch {
+            #if DEBUG
             print("[Haven] Encode error: \(error)")
+            #endif
         }
     }
 
@@ -283,7 +315,9 @@ final class HavenTransportService: MeshTransport {
             }
 
             if isComplete {
+                #if DEBUG
                 print("[Haven] Connection closed by server")
+                #endif
                 self.isConnected = false
                 self.connection = nil
                 self.scheduleReconnect()
@@ -291,7 +325,9 @@ final class HavenTransportService: MeshTransport {
             }
 
             if let error {
+                #if DEBUG
                 print("[Haven] Receive error: \(error)")
+                #endif
                 self.isConnected = false
                 self.connection?.cancel()
                 self.connection = nil
@@ -325,7 +361,9 @@ final class HavenTransportService: MeshTransport {
                 let envelope = try JSONDecoder().decode(MeshEnvelope.self, from: jsonData)
                 messageSubject.send(envelope)
             } catch {
+                #if DEBUG
                 print("[Haven] Decode error: \(error)")
+                #endif
             }
         }
     }

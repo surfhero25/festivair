@@ -154,7 +154,9 @@ actor ImageCacheService {
 
             return image
         } catch {
+            #if DEBUG
             print("[ImageCache] Failed to load image from \(url): \(error)")
+            #endif
             return nil
         }
     }

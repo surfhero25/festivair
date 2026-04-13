@@ -47,7 +47,9 @@ final class DebugLogger: ObservableObject {
         }
 
         // Also print to console for Xcode debugging
+        #if DEBUG
         print("[\(category)] \(level.rawValue) \(message)")
+        #endif
     }
 
     func clear() {

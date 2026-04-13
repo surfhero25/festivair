@@ -95,7 +95,9 @@ struct HostDashboardView: View {
         do {
             try await viewModel.approveRequest(attendee, party: party)
         } catch {
+            #if DEBUG
             print("Failed to approve: \(error)")
+            #endif
         }
     }
 
@@ -103,7 +105,9 @@ struct HostDashboardView: View {
         do {
             try await viewModel.declineRequest(attendee)
         } catch {
+            #if DEBUG
             print("Failed to decline: \(error)")
+            #endif
         }
     }
 }

@@ -53,14 +53,18 @@ final class SyncEngine: ObservableObject {
     /// Sync pending changes to CloudKit (only gateway should call this)
     func syncToCloud() async {
         guard gatewayManager?.isGateway == true else {
+            #if DEBUG
             print("[Sync] Not gateway, skipping cloud sync")
+            #endif
             return
         }
 
         guard !isSyncing else { return }
         guard !pendingChanges.isEmpty else { return }
         guard cloudKit.isAvailable else {
+            #if DEBUG
             print("[Sync] CloudKit not available")
+            #endif
             return
         }
 
@@ -82,13 +86,17 @@ final class SyncEngine: ObservableObject {
             }
             savePendingChanges()
 
+            #if DEBUG
             print("[Sync] Successfully synced \(syncedCount) changes")
+            #endif
 
         } catch {
             await MainActor.run {
                 syncError = error
             }
+            #if DEBUG
             print("[Sync] Error: \(error)")
+            #endif
         }
 
         await MainActor.run { isSyncing = false }
@@ -115,21 +123,27 @@ final class SyncEngine: ObservableObject {
             }
 
         } catch {
+            #if DEBUG
             print("[Sync] Pull error: \(error)")
+            #endif
         }
     }
 
     /// Handle sync data received from gateway via mesh
     func handleSyncResponse(data: Data) async {
         guard let modelContext = modelContext else {
+            #if DEBUG
             print("[Sync] No model context configured")
+            #endif
             return
         }
 
         do {
             // Decode sync locations from gateway
             let syncLocations = try JSONDecoder().decode([SyncLocationData].self, from: data)
+            #if DEBUG
             print("[Sync] Received \(syncLocations.count) location updates from gateway")
+            #endif
 
             // Update local SwiftData with remote locations
             for syncLoc in syncLocations {
@@ -148,10 +162,14 @@ final class SyncEngine: ObservableObject {
             }
 
             try modelContext.save()
+            #if DEBUG
             print("[Sync] Updated \(syncLocations.count) user locations from gateway")
+            #endif
 
         } catch {
+            #if DEBUG
             print("[Sync] Failed to process sync response: \(error)")
+            #endif
         }
     }
 
@@ -181,7 +199,9 @@ final class SyncEngine: ObservableObject {
             }
 
         default:
+            #if DEBUG
             print("[Sync] Unknown entity type: \(change.entityType)")
+            #endif
         }
     }
 

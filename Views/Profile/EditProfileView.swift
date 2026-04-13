@@ -378,7 +378,9 @@ struct EditProfileView: View {
                 }
             }
         } catch {
+            #if DEBUG
             print("[EditProfile] Failed to load photo: \(error)")
+            #endif
         }
     }
 

@@ -260,7 +260,9 @@ final class MapViewModel: ObservableObject {
         // Skip if GPS accuracy is too poor for reliable bearing calculation
         // With >100m accuracy, bearing could point in wrong direction
         guard location.accuracy <= 100 else {
+            #if DEBUG
             print("[MapVM] GPS accuracy too poor for navigation: \(location.accuracy)m")
+            #endif
             return
         }
 
@@ -317,7 +319,9 @@ final class MapViewModel: ObservableObject {
     func dismissPin(_ pin: MeetupPin) {
         // Only allow creator to dismiss, or if pin is expired
         guard pin.creatorId == currentUserId || pin.isExpired else {
+            #if DEBUG
             print("[MapVM] Cannot dismiss pin - not creator")
+            #endif
             return
         }
 
@@ -427,7 +431,9 @@ final class MapViewModel: ObservableObject {
 
             // Validate coordinates
             guard isValidCoordinate(latitude: pinPayload.latitude, longitude: pinPayload.longitude) else {
+                #if DEBUG
                 print("[MapVM] Invalid pin coordinates received")
+                #endif
                 return
             }
 
