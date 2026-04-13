@@ -31,6 +31,7 @@
 		FA000002 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100002 /* AppDelegate.swift */; };
 		FA000003 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100003 /* User.swift */; };
 		FA000004 /* Squad.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100004 /* Squad.swift */; };
+		FA000084 /* SquadTier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100084 /* SquadTier.swift */; };
 		FA000005 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100005 /* Event.swift */; };
 		FA000006 /* SetTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100006 /* SetTime.swift */; };
 		FA000007 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100007 /* ChatMessage.swift */; };
@@ -110,6 +111,7 @@
 		FA100002 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FA100003 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		FA100004 /* Squad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Squad.swift; sourceTree = "<group>"; };
+		FA100084 /* SquadTier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquadTier.swift; sourceTree = "<group>"; };
 		FA100005 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		FA100006 /* SetTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetTime.swift; sourceTree = "<group>"; };
 		FA100007 /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
@@ -301,6 +303,7 @@
 			children = (
 				FA100003 /* User.swift */,
 				FA100004 /* Squad.swift */,
+				FA100084 /* SquadTier.swift */,
 				FA100005 /* Event.swift */,
 				FA100006 /* SetTime.swift */,
 				FA100007 /* ChatMessage.swift */,
@@ -551,6 +554,7 @@
 				FA000002 /* AppDelegate.swift in Sources */,
 				FA000003 /* User.swift in Sources */,
 				FA000004 /* Squad.swift in Sources */,
+				FA000084 /* SquadTier.swift in Sources */,
 				FA000005 /* Event.swift in Sources */,
 				FA000006 /* SetTime.swift in Sources */,
 				FA000007 /* ChatMessage.swift in Sources */,

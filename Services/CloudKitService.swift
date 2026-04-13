@@ -811,6 +811,35 @@ final class CloudKitService: ObservableObject {
         #endif
     }
 
+    // MARK: - Squad Tier Operations
+
+    /// Loads the premium state for a squad from CloudKit
+    func loadSquadPremiumState(squadId: String) async throws -> SquadPremiumState {
+        let recordID = CKRecord.ID(recordName: squadId)
+        let record = try await publicDatabase.record(for: recordID)
+
+        let tierString = record["squadTier"] as? String
+        let tier = SquadTier(rawCloudKitValue: tierString)
+        let expiresAt = record["tierExpires"] as? Date
+        let purchasedBy = record["tierPurchasedBy"] as? String
+
+        return SquadPremiumState(tier: tier, expiresAt: expiresAt, purchasedBy: purchasedBy)
+    }
+
+    /// Updates the premium tier for a squad in CloudKit
+    func updateSquadTier(squadId: String, tier: SquadTier, expiresAt: Date?, purchasedBy: String) async throws {
+        let recordID = CKRecord.ID(recordName: squadId)
+        let record = try await publicDatabase.record(for: recordID)
+        record["squadTier"] = tier.rawValue as CKRecordValue
+        if let expires = expiresAt {
+            record["tierExpires"] = expires as CKRecordValue
+        }
+        record["tierPurchasedBy"] = purchasedBy as CKRecordValue
+        try await publicDatabase.save(record)
+    }
+
+    // MARK: - Subscriptions (Real-time updates)
+
     func subscribeToSquadUpdates(squadId: String, onChange: @escaping () -> Void) async throws {
         let predicate = NSPredicate(format: "squadId == %@", squadId)
 
