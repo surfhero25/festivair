@@ -188,12 +188,24 @@ final class LocationManager: NSObject, ObservableObject {
         locationManager.stopUpdatingLocation()
         updateTimer?.invalidate()
         updateTimer = nil
+        // Keep significant location changes running — this keeps the app alive
+        // in background with near-zero battery cost (~500m cell tower changes)
+        locationManager.startMonitoringSignificantLocationChanges()
         #if DEBUG
-        print("[Location] V2: GPS OFF (IDLE tier)")
+        print("[Location] V2: GPS OFF (IDLE tier) — significant changes monitoring active")
         #endif
     }
 
+    /// Stops everything including significant location changes (for app termination)
+    func stopAllV2() {
+        locationManager.stopUpdatingLocation()
+        locationManager.stopMonitoringSignificantLocationChanges()
+        updateTimer?.invalidate()
+        updateTimer = nil
+    }
+
     private func startAmbientUpdates() {
+        locationManager.stopMonitoringSignificantLocationChanges()  // Real GPS takes over
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         locationManager.distanceFilter = 50
         locationManager.startUpdatingLocation()
@@ -208,6 +220,7 @@ final class LocationManager: NSObject, ObservableObject {
     }
 
     private func startNavigateUpdates() {
+        locationManager.stopMonitoringSignificantLocationChanges()  // Real GPS takes over
         updateTimer?.invalidate()
         updateTimer = nil
         locationManager.desiredAccuracy = kCLLocationAccuracyBest

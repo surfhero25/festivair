@@ -37,6 +37,7 @@ final class MeshCoordinator: ObservableObject {
     private var presencePulseTimer: Timer?
     private var ambientResponseTimer: Timer?
     private var navigateResponseTimer: Timer?
+    private var bleBeacon: BLEBeaconService?
 
     @Published private(set) var currentTier: LocationTierManager.LocationTier = .idle
     @Published private(set) var clusterRole: ClusterManager.ClusterRole = .solo
@@ -145,6 +146,10 @@ final class MeshCoordinator: ObservableObject {
         locationManager.updateMode = .background
         stopHeartbeat()
         stopLocationBroadcast()
+
+        // BLE beacon continues in background — this is our lifeline
+        bleBeacon?.startAdvertising()
+        bleBeacon?.startScanning()
 
         // Start background task for periodic updates
         scheduleBackgroundTask()
@@ -376,6 +381,31 @@ final class MeshCoordinator: ObservableObject {
             print("[MeshCoordinator] Failed to create MessageSigner: \(error)")
             #endif
         }
+
+        // BLE beacon for background discovery
+        let beacon = BLEBeaconService()
+        beacon.onWakeNeeded = { [weak self] in
+            Task { @MainActor in
+                self?.handleBLEWake()
+            }
+        }
+        beacon.onSOSDetected = { [weak self] _ in
+            Task { @MainActor in
+                // SOS detected via BLE — wake mesh immediately
+                self?.handleBLEWake()
+            }
+        }
+        beacon.onLocationRequested = { [weak self] in
+            Task { @MainActor in
+                // Someone nearby needs location — wake and respond
+                self?.handleBLEWake()
+            }
+        }
+        self.bleBeacon = beacon
+
+        #if DEBUG
+        print("[MeshCoordinator] BLE beacon initialized")
+        #endif
 
         // Start V2 presence pulse (replaces heartbeat in V2)
         startPresencePulse()
@@ -623,12 +653,31 @@ final class MeshCoordinator: ObservableObject {
     func activateSOS() {
         isSOSActive = true
         locationTierManager?.activateSOS()
+        bleBeacon?.setSOSActive(true)
         // SOS broadcast loop handled by navigate response timer (already running at 3s)
     }
 
     func deactivateSOS() {
         isSOSActive = false
         locationTierManager?.deactivateSOS()
+        bleBeacon?.setSOSActive(false)
+    }
+
+    // MARK: - BLE Background Wake
+
+    /// Called when BLE beacon detects a peer needs communication
+    private func handleBLEWake() {
+        #if DEBUG
+        print("[MeshCoordinator] BLE wake — restarting MPC")
+        #endif
+
+        // Restart MPC if not active
+        if !meshManager.isAdvertising {
+            meshManager.startAll()
+        }
+
+        // Send a presence pulse so peers know we're awake
+        sendPresencePulse()
     }
 
     // MARK: - Background Tasks
