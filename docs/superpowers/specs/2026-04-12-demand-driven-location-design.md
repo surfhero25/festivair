@@ -298,19 +298,96 @@ UserDefaults retains only: theme preference, notification settings, onboarding c
 
 Same battery-weighted scoring (signal 60%, battery 40%), just triggered by events instead of a timer.
 
+### Festival Mode — Drain-Rate Adaptation
+
+Battery tiers react to battery LEVEL. Festival Mode reacts to battery DRAIN RATE — detecting when the user is actively recording video, streaming, or using camera-heavy apps.
+
+**How it works:**
+- Monitor `UIDevice.batteryLevel` delta over rolling 5-minute windows
+- Calculate drain rate in %/hour
+- Adapt FestivAir behavior automatically — no user action required
+
+| Drain Rate | Likely Activity | FestivAir Response |
+|---|---|---|
+| Normal (~5-8%/hr) | Browsing, idle, light use | Standard behavior per battery tier |
+| Elevated (~10-15%/hr) | Social media, maps, music | Presence pulse extends to 8 minutes. Ambient responses slow to every 90s. |
+| High (~15-25%/hr) | Camera recording, video streaming | Ultra-conservative: presence pulse every 10 min, ambient responses every 2 min, only urgent chat + SOS delivered immediately. Subtle notification: "FestivAir reduced activity — battery draining fast" |
+| Critical (>25%/hr) | Extended 4K video, live streaming | Near-silent: presence pulse every 15 min, only SOS delivered. Regular + urgent chat queued. |
+
+**Auto-recovery:** When drain rate drops back to normal (user stops recording), FestivAir automatically restores standard behavior. No manual toggle needed.
+
+**Festival Mode does NOT affect:**
+- SOS (always immediate, always full GPS)
+- Navigate mode if the user actively opened it (they explicitly chose to spend battery)
+- Incoming `preciseLocationRequest` if this device is the only cluster reporter (squad safety overrides conservation)
+
 ### Estimated Battery Impact
 
-| Mode | Current System | New System |
-|---|---|---|
-| IDLE (nobody looking) | ~8% per hour | ~0.5-1% per hour |
-| Ambient (map open) | ~8% per hour | ~3% per hour |
-| Navigate (active tracking, target device) | ~8% per hour | ~6% per hour |
-| Cluster passive member | ~8% per hour | ~0.5% per hour |
-| Cluster reporter (IDLE, no requests) | ~8% per hour | ~1% per hour |
+| Mode | Current System | New System | With Festival Mode (recording video) |
+|---|---|---|---|
+| IDLE (nobody looking) | ~8% per hour | ~0.5-1% per hour | ~0.2% per hour |
+| Ambient (map open) | ~8% per hour | ~3% per hour | ~1% per hour |
+| Navigate (active tracking, target device) | ~8% per hour | ~6% per hour | ~6% (not reduced — user chose this) |
+| Cluster passive member | ~8% per hour | ~0.5% per hour | ~0.1% per hour |
+| Cluster reporter (IDLE, no requests) | ~8% per hour | ~1% per hour | ~0.5% per hour |
 
 ---
 
-## 6. Chat & Communication
+## 6. Live Activity & Dynamic Island
+
+FestivAir uses Live Activities so users never have to leave their Camera, social media, or music apps to stay connected with their squad.
+
+### When Live Activities Appear
+
+| State | Trigger | Dynamic Island (Compact) | Lock Screen (Expanded) |
+|---|---|---|---|
+| IDLE | Not shown | — | — |
+| AMBIENT | User opens map, then leaves app | Subtle dot + "Squad connected" | Squad member count + "All within range" or "Jake 200m away" |
+| NAVIGATE | User taps navigate, then leaves app | Compass arrow + distance ("↗ 120m") | Arrow + distance + member name + direction |
+| SOS | Any squad member triggers SOS | Flashing red pulse | Red banner: "SOS — Jake needs help" + live location |
+
+### Navigation via Dynamic Island
+
+This is the core use case. A user taps navigate to find their squad, then switches to Camera to record a set:
+
+1. Live Activity starts when navigate mode begins
+2. Dynamic Island shows real-time compass arrow + distance (updates every 3 seconds, matching `preciseLocationResponse` frequency)
+3. User switches to Camera — arrow persists in Dynamic Island
+4. As they walk closer, distance counts down: "↗ 80m" → "↗ 40m" → "↗ 10m" → "Arrived"
+5. Within 5m (cluster join threshold), Live Activity auto-dismisses with a haptic tap
+6. If user taps the Dynamic Island, it expands to show full navigation view without leaving current app
+
+### SOS via Live Activity
+
+SOS overrides everything:
+- Immediately shows on all squad members' Dynamic Islands — even mid-video recording
+- Flashing red indicator impossible to miss
+- Tapping it opens FestivAir directly to the SOS member's live location
+- Persists until SOS is cancelled
+
+### Technical Implementation
+
+- Uses `ActivityKit` framework (iOS 16.1+)
+- Live Activity updates via local push from the app's background process (no APNs needed for mesh-delivered updates)
+- `ActivityConfiguration` with two presentations: compact (Dynamic Island) and expanded (Lock Screen)
+- Updates throttled by iOS to ~4 per second max — our 3-second navigate interval fits perfectly
+- Live Activity auto-ends after 8 hours (iOS limit) or when the user stops navigating
+- Requires a new App Extension target: `FestivAirLiveActivity`
+
+### Device Compatibility
+
+| Device | Dynamic Island | Lock Screen Live Activity |
+|---|---|---|
+| iPhone 14 Pro/Pro Max | Yes | Yes |
+| iPhone 15 (all models) | Yes | Yes |
+| iPhone 16 (all models) | Yes | Yes |
+| iPhone 14 / 13 / SE | No | Yes (Lock Screen only) |
+
+Older devices without Dynamic Island still get the Lock Screen Live Activity — they just don't see the compact view while in other apps.
+
+---
+
+## 7. Chat & Communication
 
 ### Three Chat Tiers
 
@@ -352,17 +429,17 @@ Same battery-weighted scoring (signal 60%, battery 40%), just triggered by event
 
 ---
 
-## 7. Files to Modify
+## 8. Files to Modify
 
 ### Core Rewrites (New Logic)
 
 | File | Change |
 |---|---|
-| `Services/MeshCoordinator.swift` | Replace constant broadcast with demand-driven state machine. Remove 30s heartbeat timer. Add request/response handling. |
+| `Services/MeshCoordinator.swift` | Replace constant broadcast with demand-driven state machine. Remove 30s heartbeat timer. Add request/response handling. Start/update/end Live Activities on state transitions. |
 | `Services/MeshNetworkManager.swift` | Add direct messaging (send to specific peers). Replace seenMessageIds Array with Set. Add message signing/verification. |
 | `Services/MeshRelayService.swift` | Replace SHA256 key derivation with Keychain-based squad secret. Add P-256 signing. New message types. |
 | `Services/LocationManager.swift` | Replace always-on GPS with tier-based activation. Add IDLE/AMBIENT/NAVIGATE modes. Remove dual timer system. |
-| `Services/GatewayManager.swift` | Replace 30s election timer with event-driven election. Add battery tier logic. |
+| `Services/GatewayManager.swift` | Replace 30s election timer with event-driven election. Add battery tier logic. Add drain-rate monitoring for Festival Mode. |
 | `Services/PeerTracker.swift` | Add cluster detection via RSSI. Add reporter election. Add cluster centroid calculation. |
 | `Services/HavenTransportService.swift` | Add TLS. Add token-based auth handshake. |
 
@@ -394,7 +471,11 @@ Same battery-weighted scoring (signal 60%, battery 40%), just triggered by event
 | `Services/ClusterManager.swift` | Cluster detection, reporter election, centroid calculation, handoff logic |
 | `Services/LocationTierManager.swift` | State machine for IDLE/AMBIENT/NAVIGATE transitions, request tracking, timeout management |
 | `Services/MessageSigner.swift` | P-256 signing keypair (Secure Enclave) generation, message signing, signature verification |
+| `Services/FestivalModeManager.swift` | Battery drain-rate monitoring, automatic behavior adaptation, recovery detection |
 | `Models/MeshProtocolV2.swift` | New message type definitions, encode/decode with built-in validation |
+| `FestivAirLiveActivity/` | New App Extension target for Live Activities + Dynamic Island |
+| `FestivAirLiveActivity/FestivAirLiveActivity.swift` | ActivityConfiguration, compact + expanded presentations |
+| `FestivAirLiveActivity/LiveActivityAttributes.swift` | Data model for Live Activity state (navigation direction, distance, SOS status) |
 
 ### Haven Node Changes
 
@@ -408,7 +489,7 @@ Same battery-weighted scoring (signal 60%, battery 40%), just triggered by event
 
 ---
 
-## 8. Satellite Readiness & Gap Bridging
+## 9. Satellite Readiness & Gap Bridging
 
 ### The Satellite Bridge
 
@@ -454,7 +535,7 @@ These budgets are enforced at the protocol V2 encoder level. Messages exceeding 
 
 ---
 
-## 9. Premium Model
+## 10. Premium Model
 
 ### Principle
 
@@ -503,7 +584,7 @@ Free users who join a premium squad experience premium features without paying. 
 
 ---
 
-## 10. Haven Relay — Optional Accessory
+## 11. Haven Relay — Optional Accessory
 
 The Haven Pi relay is built into the app from day one but not required.
 
@@ -527,7 +608,7 @@ The Haven Pi relay is built into the app from day one but not required.
 
 ---
 
-## 11. What We're NOT Changing
+## 12. What We're NOT Changing
 
 - MPC as the transport layer (stays — it's the right choice for iOS mesh)
 - SwiftUI views architecture (MVVM stays)
