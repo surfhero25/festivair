@@ -41,6 +41,7 @@ final class ChatViewModel: ObservableObject {
         self.meshManager = meshManager
         self.notificationManager = notificationManager
         setupMeshListener()
+        setupCloudKitListener()
     }
 
     func configure(modelContext: ModelContext, squadId: UUID?, cloudSquadId: String?, joinCode: String?, notificationManager: NotificationManager? = nil) {
@@ -482,36 +483,24 @@ final class ChatViewModel: ObservableObject {
         KeychainHelper.load(.displayName) ?? UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.displayName) ?? "Festival Fan"
     }
 
-    // MARK: - V2 CloudKit Polling
+    // MARK: - V2 CloudKit Push Delivery
 
-    private var cloudPollTimer: Timer?
+    private var cloudKitObserver: AnyCancellable?
     private var lastCloudFetch: Date?
 
-    /// Start polling CloudKit for new messages (when app has internet)
-    func startCloudPolling() {
-        stopCloudPolling()
-
-        // Poll more frequently when chat is visible
-        let interval: TimeInterval = isChatVisible ? 15 : 60
-
-        cloudPollTimer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { [weak self] _ in
-            Task { @MainActor in
-                await self?.pollCloudKit()
+    /// Listen for CloudKit push notifications about new messages
+    func setupCloudKitListener() {
+        cloudKitObserver = NotificationCenter.default.publisher(for: .cloudKitMessageReceived)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                Task { @MainActor in
+                    await self?.fetchNewCloudMessages()
+                }
             }
-        }
-
-        // Immediate first poll
-        Task { @MainActor in
-            await pollCloudKit()
-        }
     }
 
-    func stopCloudPolling() {
-        cloudPollTimer?.invalidate()
-        cloudPollTimer = nil
-    }
-
-    private func pollCloudKit() async {
+    /// Fetch new messages from CloudKit (triggered by push notification)
+    private func fetchNewCloudMessages() async {
         guard let cloudId = cloudSquadId,
               let squadId = currentSquadId,
               cloudKit.isAvailable else { return }
@@ -519,7 +508,7 @@ final class ChatViewModel: ObservableObject {
         do {
             let remoteMessages = try await cloudKit.getMessages(
                 squadId: cloudId,
-                since: lastCloudFetch ?? Date().addingTimeInterval(-3600)  // Last hour on first fetch
+                since: lastCloudFetch ?? Date().addingTimeInterval(-3600)
             )
 
             lastCloudFetch = Date()
@@ -568,12 +557,12 @@ final class ChatViewModel: ObservableObject {
                 do {
                     try modelContext?.save()
                 } catch {
-                    DebugLogger.error("Failed to save polled messages: \(error)", category: "Chat")
+                    DebugLogger.error("Failed to save pushed messages: \(error)", category: "Chat")
                 }
             }
         } catch {
             #if DEBUG
-            print("[Chat] CloudKit poll failed: \(error)")
+            print("[Chat] CloudKit fetch failed: \(error)")
             #endif
         }
     }
@@ -597,26 +586,13 @@ final class ChatViewModel: ObservableObject {
             center.removeDeliveredNotifications(withIdentifiers: chatIds)
         }
 
-        // Start fast polling (15s) while chat is visible
-        startCloudPolling()
+        // One-time fetch to catch anything missed while app was killed
+        Task { await fetchNewCloudMessages() }
     }
 
     // Call this when chat view disappears
     func chatViewDisappeared() {
         isChatVisible = false
         DebugLogger.info("Chat view disappeared - notifications will be sent", category: "Chat")
-
-        // Switch to slow polling (60s) — keep delivering messages in background
-        startCloudPolling()
-    }
-
-    // Call when app enters foreground
-    func appEnteredForeground() {
-        startCloudPolling()
-    }
-
-    // Call when app enters background
-    func appEnteredBackground() {
-        stopCloudPolling()
     }
 }

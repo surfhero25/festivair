@@ -866,7 +866,7 @@ final class CloudKitService: ObservableObject {
         )
         messageSubscription.notificationInfo = notification
 
-        try await privateDatabase.save(messageSubscription)
+        try await publicDatabase.save(messageSubscription)
     }
 }
 

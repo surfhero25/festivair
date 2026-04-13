@@ -1,6 +1,7 @@
 import UIKit
 import UserNotifications
 import BackgroundTasks
+import CloudKit
 
 class AppDelegate: NSObject, UIApplicationDelegate {
 
@@ -49,6 +50,37 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         #if DEBUG
         print("[Push] Failed to register: \(error)")
         #endif
+    }
+
+    // MARK: - CloudKit Push Notifications
+
+    func application(
+        _ application: UIApplication,
+        didReceiveRemoteNotification userInfo: [AnyHashable: Any],
+        fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void
+    ) {
+        // Check if this is a CloudKit notification
+        guard let notification = CKNotification(fromRemoteNotificationDictionary: userInfo) else {
+            completionHandler(.noData)
+            return
+        }
+
+        if let queryNotification = notification as? CKQueryNotification {
+            let subscriptionID = queryNotification.subscriptionID ?? ""
+
+            if subscriptionID.hasPrefix("message-") {
+                // New message — tell ChatViewModel to fetch
+                NotificationCenter.default.post(name: .cloudKitMessageReceived, object: nil)
+                completionHandler(.newData)
+            } else if subscriptionID.hasPrefix("location-") {
+                // Location update — handled by mesh, but good to have
+                completionHandler(.newData)
+            } else {
+                completionHandler(.noData)
+            }
+        } else {
+            completionHandler(.noData)
+        }
     }
 
     // MARK: - Background Tasks
@@ -210,4 +242,5 @@ extension Notification.Name {
     static let navigateToMap = Notification.Name("FestivAir.NavigateToMap")
     static let navigateToChat = Notification.Name("FestivAir.NavigateToChat")
     static let didLeaveSquad = Notification.Name("FestivAir.DidLeaveSquad")
+    static let cloudKitMessageReceived = Notification.Name("FestivAir.CloudKitMessageReceived")
 }
