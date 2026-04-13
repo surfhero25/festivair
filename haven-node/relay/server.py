@@ -8,8 +8,10 @@ asyncio.Queue) so slow writers never block the event loop.
 from __future__ import annotations
 
 import asyncio
+import json
 import logging
 import signal
+import ssl
 import time
 from collections import OrderedDict
 from typing import Any
@@ -22,6 +24,7 @@ from relay.config import (
     PORT,
     configure_logging,
 )
+import relay.config as config
 from relay.protocol import (
     ProtocolError,
     decode_frames,
@@ -31,6 +34,40 @@ from relay.protocol import (
 from relay.squad_filter import ClientInfo, SquadRouter
 
 log = logging.getLogger(__name__)
+
+
+# ── Auth frame helper ────────────────────────────────────────────────
+
+async def read_frame(reader: asyncio.StreamReader) -> bytes:
+    """Read a single length-prefixed frame from the stream."""
+    from relay.protocol import HEADER_SIZE, MAX_PAYLOAD_SIZE
+    import struct
+    header = await reader.readexactly(HEADER_SIZE)
+    (payload_len,) = struct.unpack("!I", header)
+    if payload_len > MAX_PAYLOAD_SIZE:
+        raise ProtocolError(f"Declared payload length {payload_len} exceeds maximum")
+    return await reader.readexactly(payload_len)
+
+
+# ── Rate limiter ─────────────────────────────────────────────────────
+
+class ClientRateLimiter:
+    """Simple token bucket rate limiter."""
+    def __init__(self, rate: float = 10.0, burst: int = 20):
+        self.rate = rate  # tokens per second
+        self.burst = burst
+        self.tokens = burst
+        self.last_refill = time.monotonic()
+
+    def allow(self) -> bool:
+        now = time.monotonic()
+        elapsed = now - self.last_refill
+        self.tokens = min(self.burst, self.tokens + elapsed * self.rate)
+        self.last_refill = now
+        if self.tokens >= 1:
+            self.tokens -= 1
+            return True
+        return False
 
 
 # ── Deduplication ────────────────────────────────────────────────────
@@ -82,10 +119,17 @@ class HavenRelay:
     async def start(self) -> None:
         """Bind the server socket and begin accepting connections."""
         configure_logging()
+        ssl_context = None
+        if config.TLS_CERT_PATH and config.TLS_KEY_PATH:
+            ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+            ssl_context.load_cert_chain(config.TLS_CERT_PATH, config.TLS_KEY_PATH)
+            ssl_context.minimum_version = ssl.TLSVersion.TLSv1_3
+            log.info("TLS enabled (TLS 1.3)")
         self._server = await asyncio.start_server(
             self._handle_client,
             HOST,
             PORT,
+            ssl=ssl_context,
         )
         addrs = ", ".join(str(s.getsockname()) for s in self._server.sockets)
         log.info("Haven relay listening on %s", addrs)
@@ -137,6 +181,26 @@ class HavenRelay:
 
         log.info("New connection from %s", addr)
 
+        # Authenticate: first frame must contain auth_token
+        try:
+            auth_frame = await asyncio.wait_for(
+                read_frame(reader),
+                timeout=10.0
+            )
+            auth_data = json.loads(auth_frame)
+            token = auth_data.get("auth_token")
+            if config.AUTH_TOKEN and token != config.AUTH_TOKEN:
+                log.warning("Auth failed from %s", addr)
+                writer.close()
+                await writer.wait_closed()
+                return
+            log.info("Client authenticated: %s", addr)
+        except (asyncio.TimeoutError, json.JSONDecodeError, Exception) as e:
+            log.warning("Auth handshake failed from %s: %s", addr, e)
+            writer.close()
+            await writer.wait_closed()
+            return
+
         # We don't know the peer_id until the first heartbeat, so use a
         # temporary placeholder that will be replaced.
         queue: asyncio.Queue[bytes] = asyncio.Queue(maxsize=256)
@@ -148,6 +212,9 @@ class HavenRelay:
         self._tasks.add(write_task)
         if read_task is not None:
             self._tasks.add(read_task)
+
+        rate_limiter = ClientRateLimiter(rate=config.MAX_MSG_PER_SEC, burst=config.MAX_BURST)
+        protocol_errors = 0
 
         buffer = b""
         try:
@@ -162,16 +229,30 @@ class HavenRelay:
                     frames = decode_frames(buffer)
                 except ProtocolError as exc:
                     log.warning("Protocol error from %s: %s", addr, exc)
-                    break
+                    protocol_errors += 1
+                    if protocol_errors >= config.MAX_PROTOCOL_ERRORS:
+                        log.warning("Too many protocol errors from %s, disconnecting", addr)
+                        break
+                    continue
 
                 consumed = sum(size for _, size in frames)
                 buffer = buffer[consumed:]
 
+                disconnect = False
                 for envelope, _ in frames:
+                    if not rate_limiter.allow():
+                        log.warning("Rate limited client %s", addr)
+                        continue
+
                     try:
                         validate_envelope(envelope)
                     except ProtocolError as exc:
                         log.warning("Invalid envelope from %s: %s", addr, exc)
+                        protocol_errors += 1
+                        if protocol_errors >= config.MAX_PROTOCOL_ERRORS:
+                            log.warning("Too many protocol errors from %s, disconnecting", addr)
+                            disconnect = True
+                            break
                         continue
 
                     # First valid message: register the client
@@ -215,6 +296,9 @@ class HavenRelay:
                         peer_id,
                         len(targets),
                     )
+
+                if disconnect:
+                    break
 
         except asyncio.CancelledError:
             pass

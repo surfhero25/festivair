@@ -16,6 +16,7 @@ from typing import Any
 # ── Length-prefix constants ───────────────────────────────────────────
 HEADER_SIZE: int = 4  # bytes
 MAX_PAYLOAD_SIZE: int = 1_048_576  # 1 MiB safety cap
+MAX_JSON_DEPTH: int = 5
 
 # ── Required top-level MeshEnvelope fields ───────────────────────────
 _REQUIRED_ENVELOPE_FIELDS: set[str] = {
@@ -43,6 +44,20 @@ VALID_MESSAGE_TYPES: set[str] = {
 
 class ProtocolError(Exception):
     """Raised when a frame or envelope fails validation."""
+
+
+# ── JSON depth validation ─────────────────────────────────────────────
+
+def _check_depth(obj: Any, depth: int = 0) -> None:
+    """Reject deeply nested JSON to prevent CPU abuse."""
+    if depth > MAX_JSON_DEPTH:
+        raise ProtocolError(f"JSON nesting depth exceeds {MAX_JSON_DEPTH}")
+    if isinstance(obj, dict):
+        for v in obj.values():
+            _check_depth(v, depth + 1)
+    elif isinstance(obj, list):
+        for v in obj:
+            _check_depth(v, depth + 1)
 
 
 # ── Encoding ─────────────────────────────────────────────────────────
@@ -100,6 +115,7 @@ def decode_frames(buffer: bytes) -> list[tuple[dict[str, Any], int]]:
         except json.JSONDecodeError as exc:
             raise ProtocolError(f"Malformed JSON in frame: {exc}") from exc
 
+        _check_depth(data)
         results.append((data, frame_end - offset))
         offset = frame_end
 

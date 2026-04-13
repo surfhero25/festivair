@@ -40,7 +40,30 @@ pip install --upgrade pip -q
 pip install -r "$PROJECT_DIR/relay/requirements.txt" -q
 echo "    Dependencies installed."
 
-# ── 3. Systemd service ──────────────────────────────────────────────
+# ── 3. TLS certificate ──────────────────────────────────────────────
+CERT_DIR="$PROJECT_DIR/certs"
+if [ ! -f "$CERT_DIR/server.crt" ]; then
+    echo "Generating self-signed TLS certificate..."
+    mkdir -p "$CERT_DIR"
+    openssl req -x509 -newkey rsa:2048 -keyout "$CERT_DIR/server.key" \
+        -out "$CERT_DIR/server.crt" -days 365 -nodes \
+        -subj "/CN=festivair-haven/O=FestivAir"
+    echo "    Certificate generated at $CERT_DIR/"
+fi
+
+# ── 4. Auth token ────────────────────────────────────────────────────
+ENV_FILE="$PROJECT_DIR/.env"
+if [ ! -f "$ENV_FILE" ]; then
+    TOKEN=$(openssl rand -hex 32)
+    cat > "$ENV_FILE" << EOF
+FESTIVAIR_TLS_CERT=$CERT_DIR/server.crt
+FESTIVAIR_TLS_KEY=$CERT_DIR/server.key
+FESTIVAIR_AUTH_TOKEN=$TOKEN
+EOF
+    echo "    Auth token generated in $ENV_FILE"
+fi
+
+# ── 5. Systemd service ──────────────────────────────────────────────
 echo "==> Creating systemd service: $SERVICE_NAME..."
 
 CURRENT_USER=$(whoami)

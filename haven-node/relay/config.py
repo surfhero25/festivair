@@ -1,6 +1,7 @@
 """Haven relay server configuration."""
 
 import logging
+import os
 import sys
 
 # ── Network ──────────────────────────────────────────────────────────
@@ -11,6 +12,18 @@ MAX_CLIENTS: int = 100
 # ── Deduplication ────────────────────────────────────────────────────
 DEDUP_MAX_ENTRIES: int = 1000
 DEDUP_TTL_SECONDS: int = 300  # 5 minutes
+
+# ── TLS Configuration ────────────────────────────────────────────────
+TLS_CERT_PATH: str = os.environ.get("FESTIVAIR_TLS_CERT", "")
+TLS_KEY_PATH: str = os.environ.get("FESTIVAIR_TLS_KEY", "")
+
+# ── Authentication ────────────────────────────────────────────────────
+AUTH_TOKEN: str = os.environ.get("FESTIVAIR_AUTH_TOKEN", "")
+
+# ── Rate Limiting ─────────────────────────────────────────────────────
+MAX_MSG_PER_SEC: float = 10.0
+MAX_BURST: int = 20
+MAX_PROTOCOL_ERRORS: int = 3
 
 # ── mDNS ─────────────────────────────────────────────────────────────
 MDNS_SERVICE_TYPE: str = "_festivair-haven._tcp.local."
