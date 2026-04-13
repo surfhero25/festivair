@@ -29,6 +29,14 @@ final class MapViewModel: ObservableObject {
     @Published var selectedPin: MeetupPin?
     private var pinCleanupTimer: Timer?
 
+    // MARK: - V2 Demand-Driven Location
+
+    @Published var isMapVisible: Bool = false
+    private var renewalTimer: Timer?
+    private var v2Signer: MessageSignerProtocol?
+    private var v2MeshManager: MeshNetworkManager?
+    private var v2NavigateTarget: String?  // userId we're navigating to
+
     // MARK: - Group Positioning
     @Published var groupCentroid: GroupCentroid?
     @Published var isCollaborativeGPSEnabled = true
@@ -290,6 +298,173 @@ final class MapViewModel: ObservableObject {
         bearing = (bearing + 360).truncatingRemainder(dividingBy: 360)
 
         return bearing
+    }
+
+    // MARK: - V2 Demand-Driven Location Methods
+
+    /// Called when the map view appears — sends locationRequest to trigger peer responses
+    func mapDidAppear(signer: MessageSignerProtocol, meshManager: MeshNetworkManager) {
+        isMapVisible = true
+        v2Signer = signer
+        v2MeshManager = meshManager
+        sendLocationRequest()
+        startRenewalTimer()
+    }
+
+    /// Called when the map view disappears — stops requests
+    func mapDidDisappear() {
+        isMapVisible = false
+        stopRenewalTimer()
+
+        // If navigating, send stop
+        if let target = v2NavigateTarget {
+            sendStopPreciseLocation(for: target)
+            v2NavigateTarget = nil
+        }
+    }
+
+    private func sendLocationRequest() {
+        guard let userId = KeychainHelper.load(.userId),
+              let joinCode = KeychainHelper.load(.currentJoinCode)
+                ?? UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.currentJoinCode),
+              let signer = v2Signer,
+              let meshManager = v2MeshManager
+        else { return }
+
+        let payload = V2LocationRequest(requesterID: userId)
+        do {
+            let envelope = try V2EnvelopeBuilder.build(
+                type: .locationRequest,
+                payload: payload,
+                originPeerId: userId,
+                squadId: joinCode,
+                signer: signer
+            )
+            let data = try envelope.encode()
+            meshManager.broadcastRaw(data)
+        } catch {
+            #if DEBUG
+            print("[Map] V2 locationRequest failed: \(error)")
+            #endif
+        }
+    }
+
+    /// V2: Start navigating to a specific member — sends preciseLocationRequest
+    func startNavigatingV2(to targetUserId: String) {
+        guard let userId = KeychainHelper.load(.userId),
+              let joinCode = KeychainHelper.load(.currentJoinCode)
+                ?? UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.currentJoinCode),
+              let signer = v2Signer,
+              let meshManager = v2MeshManager
+        else { return }
+
+        v2NavigateTarget = targetUserId
+
+        let payload = V2PreciseLocationRequest(requesterID: userId, targetMemberID: targetUserId)
+        do {
+            let envelope = try V2EnvelopeBuilder.build(
+                type: .preciseLocationRequest,
+                payload: payload,
+                originPeerId: userId,
+                targetPeerId: targetUserId,
+                squadId: joinCode,
+                signer: signer
+            )
+            let data = try envelope.encode()
+            // Send direct if possible, broadcast as fallback
+            if let peer = meshManager.peerById(targetUserId) {
+                meshManager.sendDirect(data, to: peer)
+            } else {
+                meshManager.broadcastRaw(data)
+            }
+        } catch {
+            #if DEBUG
+            print("[Map] V2 preciseLocationRequest failed: \(error)")
+            #endif
+        }
+    }
+
+    /// V2: Stop navigating
+    func stopNavigatingV2() {
+        guard let target = v2NavigateTarget else { return }
+        sendStopPreciseLocation(for: target)
+        v2NavigateTarget = nil
+    }
+
+    private func sendStopPreciseLocation(for targetUserId: String) {
+        guard let userId = KeychainHelper.load(.userId),
+              let joinCode = KeychainHelper.load(.currentJoinCode)
+                ?? UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.currentJoinCode),
+              let signer = v2Signer,
+              let meshManager = v2MeshManager
+        else { return }
+
+        let payload = V2StopPreciseLocation(requesterID: userId)
+        do {
+            let envelope = try V2EnvelopeBuilder.build(
+                type: .stopPreciseLocation,
+                payload: payload,
+                originPeerId: userId,
+                targetPeerId: targetUserId,
+                squadId: joinCode,
+                signer: signer
+            )
+            let data = try envelope.encode()
+            if let peer = meshManager.peerById(targetUserId) {
+                meshManager.sendDirect(data, to: peer)
+            } else {
+                meshManager.broadcastRaw(data)
+            }
+        } catch {
+            #if DEBUG
+            print("[Map] V2 stopPreciseLocation failed: \(error)")
+            #endif
+        }
+    }
+
+    private func startRenewalTimer() {
+        renewalTimer = Timer.scheduledTimer(
+            withTimeInterval: Constants.ProtocolV2.requestRenewalInterval,
+            repeats: true
+        ) { [weak self] _ in
+            Task { @MainActor in
+                self?.sendRenewal()
+            }
+        }
+    }
+
+    private func stopRenewalTimer() {
+        renewalTimer?.invalidate()
+        renewalTimer = nil
+    }
+
+    private func sendRenewal() {
+        guard isMapVisible,
+              let userId = KeychainHelper.load(.userId),
+              let joinCode = KeychainHelper.load(.currentJoinCode)
+                ?? UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.currentJoinCode),
+              let signer = v2Signer,
+              let meshManager = v2MeshManager
+        else { return }
+
+        let mode: RenewalMode = (v2NavigateTarget != nil) ? .precise : .ambient
+        let payload = V2RequestRenewal(requesterID: userId, mode: mode)
+
+        do {
+            let envelope = try V2EnvelopeBuilder.build(
+                type: .requestRenewal,
+                payload: payload,
+                originPeerId: userId,
+                squadId: joinCode,
+                signer: signer
+            )
+            let data = try envelope.encode()
+            meshManager.broadcastRaw(data)
+        } catch {
+            #if DEBUG
+            print("[Map] V2 renewal failed: \(error)")
+            #endif
+        }
     }
 
     // MARK: - Meetup Pins
