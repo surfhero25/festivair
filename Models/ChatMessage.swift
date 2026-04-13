@@ -213,7 +213,7 @@ struct MeshEnvelope: Codable {
     /// Check if this message is for our squad
     var isForMySquad: Bool {
         guard let target = targetSquadId else { return true }  // Broadcast
-        let mySquad = UserDefaults.standard.string(forKey: "FestivAir.CurrentSquadId")
+        let mySquad = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.currentSquadId)
         return target == mySquad
     }
 

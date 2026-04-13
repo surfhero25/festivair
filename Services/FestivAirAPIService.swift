@@ -8,7 +8,12 @@ actor FestivAirAPIService {
     // MARK: - Configuration
 
     private let baseURL = "http://187.124.249.219:8080"
-    private let apiKey = "729ffc0bd17d3a9813ce485eca5534bd1a506fa0302db109c7f14e0fe809a8b3"
+    private let apiKey: String = {
+        guard let key = Bundle.main.infoDictionary?["FESTIVAIR_API_KEY"] as? String, !key.isEmpty else {
+            fatalError("FESTIVAIR_API_KEY not set in Info.plist")
+        }
+        return key
+    }()
 
     private let decoder: JSONDecoder = {
         let d = JSONDecoder()
