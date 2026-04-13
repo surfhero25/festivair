@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		191063C0FB80E6BB52A1E3D0 /* FacilityAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0F56E579DF515E3C30C55F /* FacilityAnnotationView.swift */; };
+		1D2B4A0ED605A544A10CEE2C /* BLEBeaconService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD7E95BC21472001E4EFE35 /* BLEBeaconService.swift */; };
 		284E3C76D2C8EA545D5E83EA /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EBDF0112E44416898A7FCC /* Logger.swift */; };
 		3130C2334D8C4D3F2BCA6EEF /* MeetupPinAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DF3A50BE907782B4154A02 /* MeetupPinAnnotationView.swift */; };
 		34C778E2AF623D621FAF0FB0 /* NearestFacilityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9461A15400A977C8CCE3DF8 /* NearestFacilityView.swift */; };
@@ -31,7 +32,6 @@
 		FA000002 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100002 /* AppDelegate.swift */; };
 		FA000003 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100003 /* User.swift */; };
 		FA000004 /* Squad.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100004 /* Squad.swift */; };
-		FA000084 /* SquadTier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100084 /* SquadTier.swift */; };
 		FA000005 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100005 /* Event.swift */; };
 		FA000006 /* SetTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100006 /* SetTime.swift */; };
 		FA000007 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100007 /* ChatMessage.swift */; };
@@ -84,6 +84,7 @@
 		FA000081 /* MessageSigner.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100081 /* MessageSigner.swift */; };
 		FA000082 /* LocationTierManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100082 /* LocationTierManager.swift */; };
 		FA000083 /* ClusterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100083 /* ClusterManager.swift */; };
+		FA000084 /* SquadTier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100084 /* SquadTier.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -98,6 +99,7 @@
 		6D31BB2C948F6355357CDB65 /* FestivalVenue.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FestivalVenue.swift; sourceTree = "<group>"; };
 		72F32915774BD3B194646905 /* PrivacyPolicyView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PrivacyPolicyView.swift; path = Views/Settings/PrivacyPolicyView.swift; sourceTree = "<group>"; };
 		7B5B92B291AC48A8D6D27A16 /* MeetupPinSheet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MeetupPinSheet.swift; sourceTree = "<group>"; };
+		7FD7E95BC21472001E4EFE35 /* BLEBeaconService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BLEBeaconService.swift; sourceTree = "<group>"; };
 		82D950024CB9E274C8CDDB8E /* AppleAuthService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppleAuthService.swift; sourceTree = "<group>"; };
 		8F5F60D5A0655FD44ACF2A81 /* CompassArrowView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CompassArrowView.swift; sourceTree = "<group>"; };
 		B18892BD3FD344CE44117EA5 /* MeetupPin.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MeetupPin.swift; sourceTree = "<group>"; };
@@ -111,7 +113,6 @@
 		FA100002 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FA100003 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		FA100004 /* Squad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Squad.swift; sourceTree = "<group>"; };
-		FA100084 /* SquadTier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquadTier.swift; sourceTree = "<group>"; };
 		FA100005 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		FA100006 /* SetTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetTime.swift; sourceTree = "<group>"; };
 		FA100007 /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
@@ -166,6 +167,7 @@
 		FA100081 /* MessageSigner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageSigner.swift; sourceTree = "<group>"; };
 		FA100082 /* LocationTierManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTierManager.swift; sourceTree = "<group>"; };
 		FA100083 /* ClusterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClusterManager.swift; sourceTree = "<group>"; };
+		FA100084 /* SquadTier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquadTier.swift; sourceTree = "<group>"; };
 		FA200000 /* FestivAir.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FestivAir.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -338,6 +340,7 @@
 				FA100081 /* MessageSigner.swift */,
 				FA100082 /* LocationTierManager.swift */,
 				FA100083 /* ClusterManager.swift */,
+				7FD7E95BC21472001E4EFE35 /* BLEBeaconService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -625,6 +628,7 @@
 				FA000081 /* MessageSigner.swift in Sources */,
 				FA000082 /* LocationTierManager.swift in Sources */,
 				FA000083 /* ClusterManager.swift in Sources */,
+				1D2B4A0ED605A544A10CEE2C /* BLEBeaconService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
