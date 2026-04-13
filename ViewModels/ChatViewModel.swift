@@ -482,6 +482,102 @@ final class ChatViewModel: ObservableObject {
         KeychainHelper.load(.displayName) ?? UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.displayName) ?? "Festival Fan"
     }
 
+    // MARK: - V2 CloudKit Polling
+
+    private var cloudPollTimer: Timer?
+    private var lastCloudFetch: Date?
+
+    /// Start polling CloudKit for new messages (when app has internet)
+    func startCloudPolling() {
+        stopCloudPolling()
+
+        // Poll more frequently when chat is visible
+        let interval: TimeInterval = isChatVisible ? 15 : 60
+
+        cloudPollTimer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { [weak self] _ in
+            Task { @MainActor in
+                await self?.pollCloudKit()
+            }
+        }
+
+        // Immediate first poll
+        Task { @MainActor in
+            await pollCloudKit()
+        }
+    }
+
+    func stopCloudPolling() {
+        cloudPollTimer?.invalidate()
+        cloudPollTimer = nil
+    }
+
+    private func pollCloudKit() async {
+        guard let cloudId = cloudSquadId,
+              let squadId = currentSquadId,
+              cloudKit.isAvailable else { return }
+
+        do {
+            let remoteMessages = try await cloudKit.getMessages(
+                squadId: cloudId,
+                since: lastCloudFetch ?? Date().addingTimeInterval(-3600)  // Last hour on first fetch
+            )
+
+            lastCloudFetch = Date()
+
+            let existingIds = Set(messages.map { $0.id.uuidString })
+            var didInsert = false
+
+            for msg in remoteMessages {
+                // Skip our own messages
+                if let userId = currentUserId, msg.senderId == userId { continue }
+
+                // Deduplicate by message ID
+                guard !existingIds.contains(msg.id) else { continue }
+
+                let message = ChatMessage(
+                    id: UUID(uuidString: msg.id) ?? UUID(),
+                    senderId: UUID(uuidString: msg.senderId) ?? UUID(),
+                    senderName: msg.senderName,
+                    text: msg.text,
+                    squadId: squadId,
+                    timestamp: msg.timestamp,
+                    isDelivered: true,
+                    isSynced: true
+                )
+
+                modelContext?.insert(message)
+                messages.append(message)
+                didInsert = true
+
+                // Send local notification if chat isn't visible
+                if !isChatVisible {
+                    if let notifMgr = notificationManager {
+                        Task {
+                            await notifMgr.sendNewMessageNotification(
+                                senderName: msg.senderName,
+                                messageText: msg.text,
+                                squadId: squadId.uuidString
+                            )
+                        }
+                    }
+                }
+            }
+
+            if didInsert {
+                messages.sort { $0.timestamp < $1.timestamp }
+                do {
+                    try modelContext?.save()
+                } catch {
+                    DebugLogger.error("Failed to save polled messages: \(error)", category: "Chat")
+                }
+            }
+        } catch {
+            #if DEBUG
+            print("[Chat] CloudKit poll failed: \(error)")
+            #endif
+        }
+    }
+
     // MARK: - Chat Visibility
 
     // Call this when chat view appears
@@ -500,11 +596,27 @@ final class ChatViewModel: ObservableObject {
                 .map { $0.request.identifier }
             center.removeDeliveredNotifications(withIdentifiers: chatIds)
         }
+
+        // Start fast polling (15s) while chat is visible
+        startCloudPolling()
     }
 
     // Call this when chat view disappears
     func chatViewDisappeared() {
         isChatVisible = false
         DebugLogger.info("Chat view disappeared - notifications will be sent", category: "Chat")
+
+        // Switch to slow polling (60s) — keep delivering messages in background
+        startCloudPolling()
+    }
+
+    // Call when app enters foreground
+    func appEnteredForeground() {
+        startCloudPolling()
+    }
+
+    // Call when app enters background
+    func appEnteredBackground() {
+        stopCloudPolling()
     }
 }
