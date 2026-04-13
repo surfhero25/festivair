@@ -123,7 +123,7 @@ final class AppState: ObservableObject {
         #endif
 
         let displayName = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.displayName) ?? "Festival Fan"
-        let emoji = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.emoji) ?? "🎧"
+        let _ = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.emoji) ?? "🎧"
         let onboardedStatus = UserDefaults.standard.bool(forKey: Constants.UserDefaultsKeys.onboarded)
 
         // Log startup state for debugging (use local vars, not self)

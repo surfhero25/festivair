@@ -384,7 +384,7 @@ final class ChatViewModel: ObservableObject {
         let sanitized = text.sanitizedForMesh
         guard !sanitized.isEmpty else { return }
 
-        guard let userId = getUserIdV2(),
+        guard let _ = getUserIdV2(),
               let joinCode = getJoinCodeV2() else { return }
 
         let displayName = getDisplayNameV2()
@@ -395,12 +395,14 @@ final class ChatViewModel: ObservableObject {
 
         // Start fallback timer — if no mesh activity in 30s, send standalone
         regularChatFallbackTimer?.invalidate()
+        nonisolated(unsafe) let captureSigner = signer
+        nonisolated(unsafe) let captureMeshManager = meshManager
         regularChatFallbackTimer = Timer.scheduledTimer(
             withTimeInterval: Constants.ProtocolV2.chatFallbackDelay,
             repeats: false
         ) { [weak self] _ in
             Task { @MainActor in
-                self?.flushPendingMessages(signer: signer, meshManager: meshManager)
+                self?.flushPendingMessages(signer: captureSigner, meshManager: captureMeshManager)
             }
         }
     }

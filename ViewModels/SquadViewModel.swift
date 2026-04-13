@@ -584,7 +584,6 @@ final class SquadViewModel: ObservableObject {
 
         // Check if this message is from an unknown squad member - if so, refresh from CloudKit
         let senderUserId = meshEnvelope.message.userId
-        let knownMemberIds = members.map { $0.firebaseId ?? "nil" }
         let isKnownMember = senderUserId != nil && members.contains(where: { $0.firebaseId == senderUserId })
 
         #if DEBUG
