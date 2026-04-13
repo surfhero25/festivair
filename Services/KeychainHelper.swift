@@ -12,6 +12,9 @@ enum KeychainHelper {
         case emoji = "emoji"
         case appleUserIdentifier = "appleUserIdentifier"  // Sign in with Apple ID
         case appleEmail = "appleEmail"  // Email from Apple (may be relay)
+        case squadSecret        // 256-bit AES key for current squad
+        case currentSquadId     // Squad ID (moved from UserDefaults)
+        case currentJoinCode    // Join code (moved from UserDefaults)
     }
 
     // MARK: - Save
@@ -27,7 +30,7 @@ enum KeychainHelper {
             kSecAttrService as String: service,
             kSecAttrAccount as String: key.rawValue,
             kSecValueData as String: data,
-            kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlock
+            kSecAttrAccessible as String: kSecAttrAccessibleWhenUnlockedThisDeviceOnly
         ]
 
         let status = SecItemAdd(query as CFDictionary, nil)
@@ -73,6 +76,38 @@ enum KeychainHelper {
         SecItemDelete(query as CFDictionary)
     }
 
+    // MARK: - Data (binary)
+
+    static func saveData(_ data: Data, for key: Key) {
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: service,
+            kSecAttrAccount as String: key.rawValue
+        ]
+        SecItemDelete(query as CFDictionary)
+        let addQuery: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: service,
+            kSecAttrAccount as String: key.rawValue,
+            kSecValueData as String: data,
+            kSecAttrAccessible as String: kSecAttrAccessibleWhenUnlockedThisDeviceOnly
+        ]
+        SecItemAdd(addQuery as CFDictionary, nil)
+    }
+
+    static func loadData(for key: Key) -> Data? {
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: service,
+            kSecAttrAccount as String: key.rawValue,
+            kSecReturnData as String: true,
+            kSecMatchLimit as String: kSecMatchLimitOne
+        ]
+        var result: AnyObject?
+        guard SecItemCopyMatching(query as CFDictionary, &result) == errSecSuccess else { return nil }
+        return result as? Data
+    }
+
     // MARK: - Migration
 
     /// Migrate data from UserDefaults to Keychain (call on app launch)
@@ -98,31 +133,5 @@ enum KeychainHelper {
             save(emoji, for: .emoji)
             print("[Keychain] Migrated emoji from UserDefaults")
         }
-    }
-
-    /// Restore Keychain data to UserDefaults (for app components that use UserDefaults)
-    static func restoreToUserDefaults() {
-        if let userId = load(.userId) {
-            UserDefaults.standard.set(userId, forKey: Constants.UserDefaultsKeys.userId)
-            print("[Keychain] Restored userId to UserDefaults")
-        }
-
-        if let displayName = load(.displayName) {
-            UserDefaults.standard.set(displayName, forKey: Constants.UserDefaultsKeys.displayName)
-            print("[Keychain] Restored displayName to UserDefaults")
-        }
-
-        if let emoji = load(.emoji) {
-            UserDefaults.standard.set(emoji, forKey: Constants.UserDefaultsKeys.emoji)
-            print("[Keychain] Restored emoji to UserDefaults")
-        }
-
-        // If we restored any user data, mark as onboarded
-        if load(.userId) != nil && load(.displayName) != nil {
-            UserDefaults.standard.set(true, forKey: Constants.UserDefaultsKeys.onboarded)
-            print("[Keychain] Restored onboarded status")
-        }
-
-        UserDefaults.standard.synchronize()
     }
 }

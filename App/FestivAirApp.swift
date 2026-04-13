@@ -94,18 +94,19 @@ final class AppState: ObservableObject {
 
     // MARK: - Init
     init() {
-        // CRITICAL: First try to restore user data from Keychain (persists across reinstalls)
+        // Migrate from UserDefaults to Keychain if needed
         KeychainHelper.migrateFromUserDefaultsIfNeeded()
-        KeychainHelper.restoreToUserDefaults()
 
-        // Check if onboarded (may have been restored from Keychain)
+        // Check if onboarded
         isOnboarded = UserDefaults.standard.bool(forKey: Constants.UserDefaultsKeys.onboarded)
 
-        // Get or create user ID
-        let userId = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.userId) ?? UUID().uuidString
-        if UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.userId) == nil {
-            UserDefaults.standard.set(userId, forKey: Constants.UserDefaultsKeys.userId)
-            UserDefaults.standard.synchronize()
+        // Load identity from Keychain (authoritative source)
+        let userId: String
+        if let stored = KeychainHelper.load(.userId) {
+            userId = stored
+        } else {
+            userId = UUID().uuidString
+            KeychainHelper.save(userId, for: .userId)
         }
 
         // Note: Can't use isOnboarded here since stored properties not yet initialized
