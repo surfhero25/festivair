@@ -36,6 +36,7 @@ private struct ChatContentView: View {
     @ObservedObject var chatViewModel: ChatViewModel
     @ObservedObject var gatewayManager: GatewayManager
     @State private var messageText = ""
+    @State private var isUrgentMode = false
     @FocusState private var isInputFocused: Bool
 
     private var currentUserId: String? {
@@ -124,10 +125,18 @@ private struct ChatContentView: View {
                 }
 
                 // Input bar
-                ChatInputBar(
-                    text: $messageText,
-                    isFocused: $isInputFocused,
-                    onSend: sendMessage
+                ChatInputBarV2(
+                    messageText: $messageText,
+                    isUrgentMode: isUrgentMode,
+                    urgentRemaining: chatViewModel.urgentRemaining,
+                    canSendUrgent: chatViewModel.canSendUrgent,
+                    onSend: {
+                        sendMessage()
+                        isUrgentMode = false
+                    },
+                    onToggleUrgent: {
+                        withAnimation { isUrgentMode.toggle() }
+                    }
                 )
             }
             .navigationTitle("Squad Chat")

@@ -73,6 +73,7 @@ final class AppState: ObservableObject {
     let peerTracker: PeerTracker
     let cloudKit: CloudKitService
     let havenTransport: HavenTransportService
+    let sosManager: SOSManager
 
     // MARK: - Singleton Services
     let subscriptionManager = SubscriptionManager.shared
@@ -132,6 +133,7 @@ final class AppState: ObservableObject {
         peerTracker = PeerTracker()
         cloudKit = CloudKitService.shared
         havenTransport = HavenTransportService()
+        sosManager = SOSManager(meshManager: meshManager, locationManager: locationManager)
 
         // Initialize ViewModels
         squadViewModel = SquadViewModel(cloudKit: cloudKit, meshManager: meshManager, peerTracker: peerTracker)

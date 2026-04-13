@@ -152,6 +152,14 @@ private struct SquadMapContentView: View {
 
                 // Floating UI
                 VStack(spacing: 0) {
+                    // SOS Banner — shows when another squad member has SOS active
+                    if appState.sosManager.isSOSActive, let memberName = appState.sosManager.sosActiveMember {
+                        SOSBannerView(memberName: memberName) {
+                            // Navigate to SOS member on map
+                        }
+                        .transition(.move(edge: .top).combined(with: .opacity))
+                    }
+
                     // Connection status bar
                     ConnectionStatusBar()
                         .padding(.horizontal)
@@ -259,6 +267,9 @@ private struct SquadMapContentView: View {
                         ) {
                             showMemberList = true
                         }
+
+                        // SOS button
+                        SOSButtonView(sosManager: appState.sosManager)
                     }
                     .padding(.horizontal, 16)
                     .padding(.vertical, 10)
