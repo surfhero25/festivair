@@ -145,7 +145,7 @@ final class SquadViewModel: ObservableObject {
                     // - The squad creator's tier determines how many members they can INVITE
                     // - This means 1 Basic user can create a squad and 14 free friends can join
                     if memberCount >= Constants.Squad.maxMembers {
-                        throw SquadError.tierLimitReached(currentLimit: Constants.Squad.maxMembers, tier: .vip)
+                        throw SquadError.tierLimitReached(currentLimit: Constants.Squad.maxMembers, tier: .seasonPass)
                     }
 
                     try await cloudKit.joinSquad(squadId: found.id, userId: userId)
@@ -670,11 +670,11 @@ enum SquadError: LocalizedError {
             return "You're already in this squad"
         case .tierLimitReached(let limit, let tier):
             if tier == .free {
-                return "Free accounts can only join squads with up to \(limit) members. Upgrade to join larger groups!"
-            } else if tier == .basic {
-                return "Basic accounts can only join squads with up to \(limit) members. Upgrade to VIP for squads up to 12!"
+                return "Free squads support up to \(limit) members. Upgrade to a Festival Pass for larger groups!"
+            } else if tier == .festivalPass {
+                return "Festival Pass squads support up to \(limit) members. Upgrade to Crew Pass for squads up to 20!"
             }
-            return "This squad exceeds your membership limit of \(limit) members"
+            return "This squad has reached its \(limit)-member limit"
         case .networkError(let error):
             return error.localizedDescription
         }

@@ -62,7 +62,7 @@ struct SettingsView: View {
                                 // Tier badge
                                 if let user = currentUser, user.isPremium {
                                     HStack(spacing: 4) {
-                                        Image(systemName: user.tier == .vip ? "crown.fill" : "star.fill")
+                                        Image(systemName: user.tier == .seasonPass ? "crown.fill" : "ticket.fill")
                                             .font(.caption2)
                                         Text(user.tier.displayName)
                                             .font(.caption)
@@ -87,7 +87,7 @@ struct SettingsView: View {
                 Section {
                     if let user = currentUser, user.isPremium {
                         HStack {
-                            Label(user.tier.displayName, systemImage: user.tier == .vip ? "crown.fill" : "star.fill")
+                            Label(user.tier.displayName, systemImage: user.tier == .seasonPass ? "crown.fill" : "ticket.fill")
                                 .foregroundStyle(.purple)
                             Spacer()
                             if let expires = user.premiumExpiresAt {

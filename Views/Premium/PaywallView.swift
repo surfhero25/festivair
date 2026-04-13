@@ -6,8 +6,7 @@ struct PaywallView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var subscriptionManager = SubscriptionManager.shared
 
-    @State private var selectedTier: PremiumTier = .basic
-    @State private var isYearly = false
+    @State private var selectedTier: PremiumTier = .festivalPass
     @State private var isPurchasing = false
     @State private var showError = false
     @State private var errorMessage = ""
@@ -91,8 +90,9 @@ struct PaywallView: View {
 
     private var tierSelector: some View {
         HStack(spacing: 0) {
-            tierButton(tier: .basic, label: "Basic", icon: "star.fill")
-            tierButton(tier: .vip, label: "VIP", icon: "crown.fill")
+            tierButton(tier: .festivalPass, label: "Festival", icon: "ticket.fill")
+            tierButton(tier: .crewPass, label: "Crew", icon: "person.3.fill")
+            tierButton(tier: .seasonPass, label: "Season", icon: "crown.fill")
         }
         .background(Color(.systemGray5))
         .clipShape(RoundedRectangle(cornerRadius: 12))
@@ -128,49 +128,37 @@ struct PaywallView: View {
                 featureRow(
                     icon: "person.3.fill",
                     title: "Squad Size",
-                    free: "4 members",
-                    basic: "8 members",
-                    vip: "12 members"
+                    values: [.festivalPass: "8 members", .crewPass: "20 members", .seasonPass: "20 members"]
                 )
 
                 featureRow(
-                    icon: "photo.stack",
-                    title: "Profile Gallery",
-                    free: nil,
-                    basic: "6 photos",
-                    vip: "6 photos"
+                    icon: "megaphone.fill",
+                    title: "Announcements",
+                    values: [.festivalPass: "Included", .crewPass: "Included", .seasonPass: "Included"]
                 )
 
                 featureRow(
-                    icon: "party.popper.fill",
-                    title: "Host Parties",
-                    free: nil,
-                    basic: "Open only",
-                    vip: "All types"
+                    icon: "map.fill",
+                    title: "Offline Maps",
+                    values: [.festivalPass: "Included", .crewPass: "Included", .seasonPass: "Included"]
                 )
 
                 featureRow(
-                    icon: "lock.fill",
-                    title: "Exclusive Parties",
-                    free: nil,
-                    basic: nil,
-                    vip: "Create & Join"
+                    icon: "paintbrush.fill",
+                    title: "Custom Themes",
+                    values: [.crewPass: "Included", .seasonPass: "Included"]
                 )
 
                 featureRow(
-                    icon: "checkmark.seal.fill",
-                    title: "VIP Badge",
-                    free: nil,
-                    basic: nil,
-                    vip: "Included"
+                    icon: "mappin.and.ellipse",
+                    title: "After Party Pins",
+                    values: [.crewPass: "Included", .seasonPass: "Included"]
                 )
 
                 featureRow(
-                    icon: "chart.bar.fill",
-                    title: "Festival Analytics",
-                    free: nil,
-                    basic: "Basic",
-                    vip: "Full"
+                    icon: "clock.arrow.circlepath",
+                    title: "Festival History",
+                    values: [.seasonPass: "Included"]
                 )
             }
         }
@@ -179,7 +167,7 @@ struct PaywallView: View {
         .clipShape(RoundedRectangle(cornerRadius: 12))
     }
 
-    private func featureRow(icon: String, title: String, free: String?, basic: String?, vip: String?) -> some View {
+    private func featureRow(icon: String, title: String, values: [PremiumTier: String]) -> some View {
         HStack {
             Image(systemName: icon)
                 .frame(width: 24)
@@ -190,9 +178,7 @@ struct PaywallView: View {
 
             Spacer()
 
-            // Show value for selected tier
-            let value = selectedTier == .basic ? basic : vip
-            if let value = value {
+            if let value = values[selectedTier] {
                 Text(value)
                     .font(.caption)
                     .foregroundStyle(.purple)
@@ -212,33 +198,40 @@ struct PaywallView: View {
 
     private var pricingSection: some View {
         VStack(spacing: 12) {
-            // Billing Toggle
-            HStack {
-                Text("Billing")
-                    .font(.headline)
-                Spacer()
-                Picker("Billing", selection: $isYearly) {
-                    Text("Monthly").tag(false)
-                    Text("Yearly").tag(true)
-                }
-                .pickerStyle(.segmented)
-                .frame(width: 180)
-            }
+            Text("Pricing")
+                .font(.headline)
+                .frame(maxWidth: .infinity, alignment: .leading)
 
             // Price Card
             if let product = currentProduct {
                 priceCard(product: product)
+            } else {
+                // Fallback when StoreKit products haven't loaded
+                VStack(spacing: 4) {
+                    Text(selectedTier.priceText)
+                        .font(.system(size: 36, weight: .bold))
+                    Text(selectedTier == .seasonPass ? "/year" : "/event")
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                }
+                .frame(maxWidth: .infinity)
+                .padding()
+                .background(Color.purple.opacity(0.1))
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(Color.purple, lineWidth: 2)
+                )
             }
         }
     }
 
     private var currentProduct: Product? {
         let productID: SubscriptionManager.ProductID
-        switch (selectedTier, isYearly) {
-        case (.basic, false): productID = .basicMonthly
-        case (.basic, true): productID = .basicYearly
-        case (.vip, false): productID = .vipMonthly
-        case (.vip, true): productID = .vipYearly
+        switch selectedTier {
+        case .festivalPass: productID = .festivalPass
+        case .crewPass: productID = .crewPass
+        case .seasonPass: productID = .seasonPass
         default: return nil
         }
         return subscriptionManager.product(for: productID)
@@ -250,22 +243,19 @@ struct PaywallView: View {
                 Text(product.displayPrice)
                     .font(.system(size: 36, weight: .bold))
 
-                Text(isYearly ? "/year" : "/month")
+                Text(selectedTier == .seasonPass ? "/year" : "/event")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             }
 
-            if isYearly {
-                let monthlySavings = calculateMonthlySavings()
-                if monthlySavings > 0 {
-                    Text("Save \(monthlySavings)% vs monthly")
-                        .font(.caption)
-                        .foregroundStyle(.green)
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 4)
-                        .background(Color.green.opacity(0.1))
-                        .clipShape(Capsule())
-                }
+            if selectedTier == .seasonPass {
+                Text("Best value for festival regulars")
+                    .font(.caption)
+                    .foregroundStyle(.green)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 4)
+                    .background(Color.green.opacity(0.1))
+                    .clipShape(Capsule())
             }
         }
         .frame(maxWidth: .infinity)
@@ -278,22 +268,6 @@ struct PaywallView: View {
         )
     }
 
-    private func calculateMonthlySavings() -> Int {
-        let monthlyID: SubscriptionManager.ProductID = selectedTier == .vip ? .vipMonthly : .basicMonthly
-        let yearlyID: SubscriptionManager.ProductID = selectedTier == .vip ? .vipYearly : .basicYearly
-
-        guard let monthly = subscriptionManager.product(for: monthlyID),
-              let yearly = subscriptionManager.product(for: yearlyID) else {
-            return 0
-        }
-
-        let yearlyMonthly = (yearly.price as NSDecimalNumber).doubleValue / 12
-        let monthlyPrice = (monthly.price as NSDecimalNumber).doubleValue
-        let savings = (1 - yearlyMonthly / monthlyPrice) * 100
-
-        return Int(savings)
-    }
-
     // MARK: - Purchase Button
 
     private var purchaseButton: some View {
@@ -303,7 +277,7 @@ struct PaywallView: View {
             }
         } label: {
             HStack {
-                Image(systemName: selectedTier == .vip ? "crown.fill" : "star.fill")
+                Image(systemName: selectedTier == .seasonPass ? "crown.fill" : "ticket.fill")
                 Text("Subscribe to \(selectedTier.displayName)")
             }
             .font(.headline)

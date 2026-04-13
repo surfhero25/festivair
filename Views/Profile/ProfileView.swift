@@ -269,7 +269,7 @@ struct ProfileView: View {
 
                 if user.isPremium {
                     statItem(
-                        icon: user.tier == .vip ? "crown.fill" : "star.fill",
+                        icon: user.tier == .seasonPass ? "crown.fill" : "ticket.fill",
                         value: user.tier.displayName,
                         label: "Membership"
                     )

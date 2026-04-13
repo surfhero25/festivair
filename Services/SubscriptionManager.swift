@@ -17,22 +17,15 @@ final class SubscriptionManager: ObservableObject {
 
     // MARK: - Product IDs
     enum ProductID: String, CaseIterable {
-        case basicMonthly = "com.festivair.basic.monthly"
-        case basicYearly = "com.festivair.basic.yearly"
-        case vipMonthly = "com.festivair.vip.monthly"
-        case vipYearly = "com.festivair.vip.yearly"
+        case festivalPass = "com.festivair.festivalpass"
+        case crewPass = "com.festivair.crewpass"
+        case seasonPass = "com.festivair.seasonpass"
 
         var tier: PremiumTier {
             switch self {
-            case .basicMonthly, .basicYearly: return .basic
-            case .vipMonthly, .vipYearly: return .vip
-            }
-        }
-
-        var isYearly: Bool {
-            switch self {
-            case .basicYearly, .vipYearly: return true
-            default: return false
+            case .festivalPass: return .festivalPass
+            case .crewPass: return .crewPass
+            case .seasonPass: return .seasonPass
             }
         }
     }
@@ -130,11 +123,10 @@ final class SubscriptionManager: ObservableObject {
 
     /// Check if user has a specific tier or higher
     func hasAccess(to tier: PremiumTier) -> Bool {
-        switch tier {
-        case .free: return true
-        case .basic: return currentTier == .basic || currentTier == .vip
-        case .vip: return currentTier == .vip
-        }
+        let tiers: [PremiumTier] = [.free, .festivalPass, .crewPass, .seasonPass]
+        guard let currentIndex = tiers.firstIndex(of: currentTier),
+              let requiredIndex = tiers.firstIndex(of: tier) else { return false }
+        return currentIndex >= requiredIndex
     }
 
     /// Get the squad member limit for current tier
@@ -142,9 +134,9 @@ final class SubscriptionManager: ObservableObject {
         currentTier.squadLimit
     }
 
-    /// Check if user can host exclusive parties (VIP only)
+    /// Check if user can host exclusive parties (Crew Pass or Season Pass)
     var canHostExclusiveParties: Bool {
-        currentTier == .vip
+        hasAccess(to: .crewPass)
     }
 
     /// Check if user can upload gallery photos (Basic+)
@@ -152,11 +144,11 @@ final class SubscriptionManager: ObservableObject {
         currentTier != .free
     }
 
-    /// Check if user can create parties (Basic+ for open, VIP for exclusive)
+    /// Check if user can create parties (Festival Pass+ for open, Crew Pass+ for exclusive)
     func canCreateParty(accessType: String) -> Bool {
         switch accessType {
-        case "open": return currentTier != .free
-        case "approval", "inviteOnly": return currentTier == .vip
+        case "open": return hasAccess(to: .festivalPass)
+        case "approval", "inviteOnly": return hasAccess(to: .crewPass)
         default: return false
         }
     }
@@ -167,18 +159,11 @@ final class SubscriptionManager: ObservableObject {
         availableProducts.first { $0.id == productID.rawValue }
     }
 
-    func basicProducts() -> [Product] {
-        availableProducts.filter {
-            $0.id == ProductID.basicMonthly.rawValue ||
-            $0.id == ProductID.basicYearly.rawValue
-        }
-    }
-
-    func vipProducts() -> [Product] {
-        availableProducts.filter {
-            $0.id == ProductID.vipMonthly.rawValue ||
-            $0.id == ProductID.vipYearly.rawValue
-        }
+    func products(for tier: PremiumTier) -> [Product] {
+        let targetIDs: [String] = ProductID.allCases
+            .filter { $0.tier == tier }
+            .map { $0.rawValue }
+        return availableProducts.filter { targetIDs.contains($0.id) }
     }
 
     // MARK: - Private Helpers
@@ -212,7 +197,7 @@ final class SubscriptionManager: ObservableObject {
 
                     // Determine tier from product ID
                     if let productID = ProductID(rawValue: transaction.productID) {
-                        if productID.tier.rawValue > highestTier.rawValue {
+                        if productID.tier > highestTier {
                             highestTier = productID.tier
                         }
                     }
@@ -261,7 +246,7 @@ enum SubscriptionError: LocalizedError {
 
 extension PremiumTier: Comparable {
     static func < (lhs: PremiumTier, rhs: PremiumTier) -> Bool {
-        let order: [PremiumTier] = [.free, .basic, .vip]
+        let order: [PremiumTier] = [.free, .festivalPass, .crewPass, .seasonPass]
         guard let lhsIndex = order.firstIndex(of: lhs),
               let rhsIndex = order.firstIndex(of: rhs) else {
             return false

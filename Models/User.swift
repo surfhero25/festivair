@@ -96,7 +96,7 @@ final class User {
     }
 
     var canHostExclusiveParties: Bool {
-        tier == .vip
+        tier == .crewPass || tier == .seasonPass
     }
 
     var squadLimit: Int {
@@ -239,32 +239,34 @@ enum UserBadge: String, Codable, CaseIterable {
 
 enum PremiumTier: String, Codable, CaseIterable {
     case free = "free"
-    case basic = "basic"    // $4.99/month
-    case vip = "vip"        // $14.99/month
+    case festivalPass = "festivalPass"
+    case crewPass = "crewPass"
+    case seasonPass = "seasonPass"
 
     var displayName: String {
         switch self {
         case .free: return "Free"
-        case .basic: return "Basic"
-        case .vip: return "VIP"
+        case .festivalPass: return "Festival Pass"
+        case .crewPass: return "Crew Pass"
+        case .seasonPass: return "Season Pass"
         }
     }
 
     var squadLimit: Int {
-        // Increased limits thanks to universal mesh relay
-        // More users = better mesh = can handle larger squads
         switch self {
-        case .free: return 6      // Was 4
-        case .basic: return 15    // Was 8
-        case .vip: return 25      // Was 12
+        case .free: return Constants.Squad.freeMemberLimit
+        case .festivalPass: return Constants.Squad.festivalPassMemberLimit
+        case .crewPass: return Constants.Squad.crewPassMemberLimit
+        case .seasonPass: return Constants.Squad.seasonPassMemberLimit
         }
     }
 
-    var monthlyPrice: String {
+    var priceText: String {
         switch self {
         case .free: return "Free"
-        case .basic: return "$4.99/mo"
-        case .vip: return "$14.99/mo"
+        case .festivalPass: return Constants.Subscriptions.festivalPassPrice
+        case .crewPass: return Constants.Subscriptions.crewPassPrice
+        case .seasonPass: return Constants.Subscriptions.seasonPassPrice
         }
     }
 }

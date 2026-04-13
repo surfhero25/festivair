@@ -298,7 +298,7 @@ struct EditProfileView: View {
     private var premiumSection: some View {
         Section("Membership") {
             HStack {
-                Image(systemName: user.tier == .vip ? "crown.fill" : "star.fill")
+                Image(systemName: user.tier == .seasonPass ? "crown.fill" : "ticket.fill")
                     .foregroundStyle(.purple)
                 VStack(alignment: .leading) {
                     Text("\(user.tier.displayName) Member")

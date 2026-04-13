@@ -818,7 +818,7 @@ enum PartyError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .notConfigured: return "Party system not configured"
-        case .vipRequired: return "VIP subscription required to create exclusive parties"
+        case .vipRequired: return "Crew Pass or higher required to create exclusive parties"
         case .alreadyRequested: return "You've already requested to join this party"
         case .partyFull: return "This party is at capacity"
         case .notFound: return "Party not found"
