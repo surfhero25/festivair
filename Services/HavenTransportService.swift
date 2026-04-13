@@ -1,6 +1,7 @@
 import Foundation
 import Network
 import Combine
+import CryptoKit
 
 /// TCP transport that discovers and connects to a Haven relay server
 /// (Raspberry Pi running an asyncio TCP server) via Bonjour.
@@ -168,7 +169,20 @@ final class HavenTransportService: MeshTransport {
 
         disconnect()
 
-        let parameters = NWParameters.tcp
+        let tlsOptions = NWProtocolTLS.Options()
+
+        // Accept self-signed certificates (Haven relay uses self-signed)
+        sec_protocol_options_set_verify_block(
+            tlsOptions.securityProtocolOptions,
+            { _, trust, completion in
+                // Accept all certificates for local network Haven nodes
+                // Haven is discovered via Bonjour on the LAN — not internet-facing
+                completion(true)
+            },
+            DispatchQueue(label: "com.festivair.tls-verify")
+        )
+
+        let parameters = NWParameters(tls: tlsOptions)
         let newConnection = NWConnection(to: endpoint, using: parameters)
 
         newConnection.stateUpdateHandler = { [weak self] state in
@@ -181,6 +195,7 @@ final class HavenTransportService: MeshTransport {
                 self.isConnected = true
                 self.reconnectAttempt = 0
                 self.receiveBuffer = Data()
+                self.sendAuthToken()
                 self.sendInitialHeartbeat()
                 self.startReceiveLoop()
 
@@ -248,6 +263,36 @@ final class HavenTransportService: MeshTransport {
         queue.asyncAfter(deadline: .now() + delay, execute: item)
     }
 
+    // MARK: - Auth Token Handshake
+
+    /// Send auth token as first frame (before any other messages)
+    private func sendAuthToken() {
+        guard let joinCode = KeychainHelper.load(.currentJoinCode)
+                ?? UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.currentJoinCode) else { return }
+
+        // Auth token is SHA256 of the squad secret (if available) or joinCode as fallback
+        let tokenData: Data
+        if let secret = KeychainHelper.loadData(for: .squadSecret) {
+            tokenData = secret  // Will be hashed server-side
+        } else {
+            tokenData = joinCode.data(using: .utf8) ?? Data()
+        }
+
+        // Create SHA256 hash as hex string for the token
+        let hash = SHA256.hash(data: tokenData)
+        let tokenHex = hash.compactMap { String(format: "%02x", $0) }.joined()
+
+        let authFrame: [String: Any] = ["auth_token": tokenHex]
+
+        guard let jsonData = try? JSONSerialization.data(withJSONObject: authFrame) else { return }
+
+        sendFrame(jsonData)
+
+        #if DEBUG
+        print("[Haven] Auth token sent")
+        #endif
+    }
+
     // MARK: - Initial Heartbeat
 
     /// On connect, send a heartbeat with our joinCode so the server can route messages
@@ -275,6 +320,23 @@ final class HavenTransportService: MeshTransport {
     }
 
     // MARK: - Send (Length-Prefixed JSON)
+
+    /// Send raw JSON data as a length-prefixed frame
+    private func sendFrame(_ jsonData: Data) {
+        guard let conn = connection, isConnected else { return }
+
+        var length = UInt32(jsonData.count).bigEndian
+        var frame = Data(bytes: &length, count: 4)
+        frame.append(jsonData)
+
+        conn.send(content: frame, completion: .contentProcessed { error in
+            if let error {
+                #if DEBUG
+                print("[Haven] Send error: \(error)")
+                #endif
+            }
+        })
+    }
 
     private func sendEnvelope(_ envelope: MeshEnvelope) {
         guard let conn = connection, isConnected else { return }
