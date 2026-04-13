@@ -278,7 +278,7 @@ struct PaywallView: View {
         } label: {
             HStack {
                 Image(systemName: selectedTier == .seasonPass ? "crown.fill" : "ticket.fill")
-                Text("Subscribe to \(selectedTier.displayName)")
+                Text(selectedTier == .seasonPass ? "Subscribe to Season Pass" : "Buy \(selectedTier.displayName)")
             }
             .font(.headline)
             .frame(maxWidth: .infinity)
@@ -326,10 +326,17 @@ struct PaywallView: View {
 
     private var termsSection: some View {
         VStack(spacing: 8) {
-            Text("Subscription auto-renews unless cancelled at least 24 hours before the end of the current period.")
-                .font(.caption2)
-                .foregroundStyle(.secondary)
-                .multilineTextAlignment(.center)
+            if selectedTier == .seasonPass {
+                Text("Subscription auto-renews unless cancelled at least 24 hours before the end of the current period.")
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
+            } else {
+                Text("One-time purchase for a single event. No recurring charges.")
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
+            }
 
             HStack(spacing: 16) {
                 if let termsURL = URL(string: "https://festivair.app/terms") {

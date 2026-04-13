@@ -1,10 +1,11 @@
 import SwiftUI
 
-/// SOS emergency button — long press to activate, tap to cancel when active.
+/// SOS emergency button — long press fills ring, then confirmation alert before activating.
 struct SOSButtonView: View {
     @ObservedObject var sosManager: SOSManager
     @State private var isLongPressing = false
     @State private var longPressProgress: CGFloat = 0
+    @State private var showConfirmation = false
 
     var body: some View {
         Button {
@@ -27,9 +28,9 @@ struct SOSButtonView: View {
                             .rotationEffect(.degrees(-90))
                     }
 
-                    Image(systemName: sosManager.isSOSActive ? "sos" : "sos")
-                        .font(.title3)
-                        .fontWeight(.semibold)
+                    Text("SOS")
+                        .font(.caption)
+                        .fontWeight(.bold)
                         .foregroundStyle(sosManager.isSOSActive ? .white : .red)
                 }
 
@@ -53,9 +54,8 @@ struct SOSButtonView: View {
                     isLongPressing = false
                     longPressProgress = 0
                     if !sosManager.isSOSActive {
-                        sosManager.activate()
-                        let generator = UINotificationFeedbackGenerator()
-                        generator.notificationOccurred(.warning)
+                        // Show confirmation instead of activating directly
+                        showConfirmation = true
                     }
                 }
         )
@@ -63,6 +63,16 @@ struct SOSButtonView: View {
             if !newValue {
                 withAnimation { longPressProgress = 0 }
             }
+        }
+        .alert("Activate SOS?", isPresented: $showConfirmation) {
+            Button("Cancel", role: .cancel) { }
+            Button("Send SOS", role: .destructive) {
+                sosManager.activate()
+                let generator = UINotificationFeedbackGenerator()
+                generator.notificationOccurred(.warning)
+            }
+        } message: {
+            Text("This will alert all squad members with your live location. Use only for real emergencies.")
         }
     }
 }

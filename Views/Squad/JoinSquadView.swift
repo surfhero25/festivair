@@ -192,7 +192,7 @@ struct JoinSquadContent: View {
             .padding(.horizontal)
 
             // Code input - tap to focus the hidden text field
-            HStack(spacing: 8) {
+            HStack(spacing: 6) {
                 ForEach(0..<Constants.Squad.codeLength, id: \.self) { index in
                     CodeDigitView(
                         digit: index < squadCode.count ? String(squadCode[squadCode.index(squadCode.startIndex, offsetBy: index)]) : "",
@@ -261,8 +261,8 @@ struct CodeDigitView: View {
 
     var body: some View {
         Text(digit.isEmpty ? " " : digit)
-            .font(.title.monospaced())
-            .frame(width: 44, height: 56)
+            .font(.title3.monospaced())
+            .frame(width: 36, height: 48)
             .background(.secondary.opacity(0.1))
             .clipShape(RoundedRectangle(cornerRadius: 8))
             .overlay(
