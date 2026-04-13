@@ -14,7 +14,7 @@ final class GatewayManager: ObservableObject {
     @Published private(set) var batteryLevel: Int = 100
 
     // MARK: - Configuration
-    private let electionInterval: TimeInterval = 30
+    private let electionInterval: TimeInterval = 900  // 15-minute fallback; elections are event-driven via triggerElection()
     private let minBatteryForGateway = 20 // Don't be gateway if below 20%
     private let gatewayRotationBattery = 30 // Rotate if battery drops below 30%
 
@@ -72,6 +72,18 @@ final class GatewayManager: ObservableObject {
         if gatewayPeerId == peerId {
             performElection()
         }
+    }
+
+    // MARK: - V2 Event-Driven Election
+
+    /// Triggers re-election. Called when connectivity changes, peers join/leave, or battery drops.
+    func triggerElection() {
+        performElection()
+    }
+
+    /// Returns the current battery tier for V2 protocol decisions
+    var currentBatteryTier: Constants.BatteryTier.Tier {
+        Constants.BatteryTier.tier(for: Float(batteryLevel) / 100.0)
     }
 
     // MARK: - Gateway Election
