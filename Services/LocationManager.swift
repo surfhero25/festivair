@@ -9,6 +9,8 @@ final class LocationManager: NSObject, ObservableObject {
     @Published private(set) var currentLocation: Location?
     @Published private(set) var authorizationStatus: CLAuthorizationStatus = .notDetermined
     @Published private(set) var isUpdating = false
+    /// Current V2 location tier (set by LocationTierManager)
+    @Published var currentV2Tier: LocationTierManager.LocationTier = .idle
     @Published private(set) var lastError: Error?
     @Published private(set) var deviceHeading: Double? // Compass heading in degrees (0-360, 0 = North)
     @Published private(set) var isHeadingAvailable: Bool = CLLocationManager.headingAvailable()
@@ -162,6 +164,55 @@ final class LocationManager: NSObject, ObservableObject {
         updateTimer = Timer.scheduledTimer(withTimeInterval: updateMode.updateInterval, repeats: true) { [weak self] _ in
             self?.locationManager.requestLocation()
         }
+    }
+
+    // MARK: - V2 Tier-Based Control
+
+    /// Configures GPS based on the current location tier. Called by LocationTierManager.
+    func applyTier(_ tier: LocationTierManager.LocationTier) {
+        currentV2Tier = tier
+        switch tier {
+        case .idle:
+            stopV2Updates()
+        case .ambient:
+            startAmbientUpdates()
+        case .navigate:
+            startNavigateUpdates()
+        }
+    }
+
+    private func stopV2Updates() {
+        locationManager.stopUpdatingLocation()
+        updateTimer?.invalidate()
+        updateTimer = nil
+        #if DEBUG
+        print("[Location] V2: GPS OFF (IDLE tier)")
+        #endif
+    }
+
+    private func startAmbientUpdates() {
+        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+        locationManager.distanceFilter = 50
+        locationManager.startUpdatingLocation()
+        // Timer for periodic location callbacks
+        updateTimer?.invalidate()
+        updateTimer = Timer.scheduledTimer(withTimeInterval: Constants.ProtocolV2.ambientResponseInterval, repeats: true) { [weak self] _ in
+            self?.locationManager.requestLocation()
+        }
+        #if DEBUG
+        print("[Location] V2: Ambient mode (100m accuracy, 60s interval)")
+        #endif
+    }
+
+    private func startNavigateUpdates() {
+        updateTimer?.invalidate()
+        updateTimer = nil
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.distanceFilter = kCLDistanceFilterNone  // Every movement
+        locationManager.startUpdatingLocation()
+        #if DEBUG
+        print("[Location] V2: Navigate mode (best accuracy, continuous)")
+        #endif
     }
 
     private func processLocation(_ clLocation: CLLocation) {
