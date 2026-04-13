@@ -38,9 +38,10 @@ final class MeshNetworkManager: NSObject, ObservableObject {
         peerConnectedSubject.eraseToAnyPublisher()
     }
 
-    // Track seen messages to prevent duplicates (use Array for FIFO ordering)
-    private var seenMessageIds: [UUID] = []
-    private let seenMessageIdLimit = 1000
+    // Track seen messages to prevent duplicates (Set + timestamp-based expiration)
+    private var seenMessageIds: Set<UUID> = []
+    private var seenMessageTimestamps: [UUID: Date] = [:]
+    private let seenMessageMaxAge: TimeInterval = 300  // 5 minutes
 
     // MARK: - User Info
     private var squadId: String?
@@ -221,6 +222,39 @@ final class MeshNetworkManager: NSObject, ObservableObject {
         // Process if it's for our squad or if it's a broadcast
         return envelope.isForMySquad
     }
+
+    private func cleanExpiredMessageIds() {
+        let cutoff = Date().addingTimeInterval(-seenMessageMaxAge)
+        let expired = seenMessageTimestamps.filter { $0.value < cutoff }.map { $0.key }
+        for id in expired {
+            seenMessageIds.remove(id)
+            seenMessageTimestamps.removeValue(forKey: id)
+        }
+    }
+
+    // MARK: - Direct Messaging (V2)
+
+    /// Sends data to a specific peer, not broadcast.
+    func sendDirect(_ data: Data, to peerId: MCPeerID) {
+        guard session.connectedPeers.contains(peerId) else {
+            #if DEBUG
+            print("[Mesh] Cannot send direct — peer not connected")
+            #endif
+            return
+        }
+        do {
+            try session.send(data, toPeers: [peerId], with: .reliable)
+        } catch {
+            #if DEBUG
+            print("[Mesh] Direct send failed: \(error.localizedDescription)")
+            #endif
+        }
+    }
+
+    /// Finds a connected MCPeerID by display name.
+    func peerById(_ displayName: String) -> MCPeerID? {
+        session.connectedPeers.first { $0.displayName == displayName }
+    }
 }
 
 // MARK: - MCSessionDelegate
@@ -258,14 +292,11 @@ extension MeshNetworkManager: MCSessionDelegate {
                 return
             }
 
-            // Deduplicate
+            // Time-based dedup
+            cleanExpiredMessageIds()
             guard !seenMessageIds.contains(messageId) else { return }
-            seenMessageIds.append(messageId)
-
-            // Prune old message IDs (FIFO - remove oldest first)
-            if seenMessageIds.count > seenMessageIdLimit {
-                seenMessageIds.removeFirst(seenMessageIds.count - seenMessageIdLimit)
-            }
+            seenMessageIds.insert(messageId)
+            seenMessageTimestamps[messageId] = Date()
 
             let envelope = try JSONDecoder().decode(MeshEnvelope.self, from: data)
 
