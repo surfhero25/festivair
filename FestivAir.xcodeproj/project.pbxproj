@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -17,6 +17,9 @@
 		6C83B227D2B4A5135E5EFD92 /* CompassArrowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5F60D5A0655FD44ACF2A81 /* CompassArrowView.swift */; };
 		7E75DDADCAEE5E0BD23B9B59 /* UserStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1559BEEC51BB1B6BD87AB51B /* UserStatus.swift */; };
 		860AB547076DC66D990AD42F /* Facility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32811D64DD5DAF9365935C02 /* Facility.swift */; };
+		9792002D2F8D98F300058D69 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9792002C2F8D98F300058D69 /* WidgetKit.framework */; };
+		9792002F2F8D98F300058D69 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9792002E2F8D98F300058D69 /* SwiftUI.framework */; };
+		979200402F8D98F400058D69 /* FestivAirLiveActivityExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 9792002A2F8D98F200058D69 /* FestivAirLiveActivityExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		9CBB535C5AA864557A90B02D /* OfflineMapsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E23BF3E3DAEE5180A176507 /* OfflineMapsView.swift */; };
 		9CDA09B654F9D71347442C1D /* FestivalVenue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D31BB2C948F6355357CDB65 /* FestivalVenue.swift */; };
 		AB4661981DEB57F5F4C010B5 /* StatusBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB300A529F3B2EE8EB97A0E /* StatusBadgeView.swift */; };
@@ -94,6 +97,30 @@
 		FA000096 /* SOSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100096 /* SOSManager.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		9792003E2F8D98F400058D69 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FA600000 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 979200292F8D98F200058D69;
+			remoteInfo = FestivAirLiveActivityExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		979200412F8D98F400058D69 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				979200402F8D98F400058D69 /* FestivAirLiveActivityExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		1559BEEC51BB1B6BD87AB51B /* UserStatus.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UserStatus.swift; sourceTree = "<group>"; };
 		3032CF85A85E48273BE1F9A7 /* TermsOfServiceView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TermsOfServiceView.swift; path = Views/Settings/TermsOfServiceView.swift; sourceTree = "<group>"; };
@@ -109,6 +136,9 @@
 		7FD7E95BC21472001E4EFE35 /* BLEBeaconService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BLEBeaconService.swift; sourceTree = "<group>"; };
 		82D950024CB9E274C8CDDB8E /* AppleAuthService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppleAuthService.swift; sourceTree = "<group>"; };
 		8F5F60D5A0655FD44ACF2A81 /* CompassArrowView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CompassArrowView.swift; sourceTree = "<group>"; };
+		9792002A2F8D98F200058D69 /* FestivAirLiveActivityExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FestivAirLiveActivityExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		9792002C2F8D98F300058D69 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		9792002E2F8D98F300058D69 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		B18892BD3FD344CE44117EA5 /* MeetupPin.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MeetupPin.swift; sourceTree = "<group>"; };
 		B4EAC8CAB10A1319CA039C7D /* FacilityDetailSheet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FacilityDetailSheet.swift; sourceTree = "<group>"; };
 		B9461A15400A977C8CCE3DF8 /* NearestFacilityView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NearestFacilityView.swift; sourceTree = "<group>"; };
@@ -175,7 +205,6 @@
 		FA100082 /* LocationTierManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTierManager.swift; sourceTree = "<group>"; };
 		FA100083 /* ClusterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClusterManager.swift; sourceTree = "<group>"; };
 		FA100084 /* SquadTier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquadTier.swift; sourceTree = "<group>"; };
-		FA200000 /* FestivAir.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FestivAir.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA100090 /* SOSButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SOSButtonView.swift; sourceTree = "<group>"; };
 		FA100091 /* SOSBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SOSBannerView.swift; sourceTree = "<group>"; };
 		FA100092 /* ChatInputBarV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInputBarV2.swift; sourceTree = "<group>"; };
@@ -183,9 +212,33 @@
 		FA100094 /* StaleAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaleAnnotationView.swift; sourceTree = "<group>"; };
 		FA100095 /* AnnouncementBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementBannerView.swift; sourceTree = "<group>"; };
 		FA100096 /* SOSManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SOSManager.swift; sourceTree = "<group>"; };
+		FA200000 /* FestivAir.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FestivAir.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		979200442F8D98F400058D69 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 979200292F8D98F200058D69 /* FestivAirLiveActivityExtension */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		979200302F8D98F300058D69 /* FestivAirLiveActivity */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (979200442F8D98F400058D69 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = FestivAirLiveActivity; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
+		979200272F8D98F200058D69 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9792002F2F8D98F300058D69 /* SwiftUI.framework in Frameworks */,
+				9792002D2F8D98F300058D69 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FA300000 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -204,7 +257,6 @@
 				32811D64DD5DAF9365935C02 /* Facility.swift */,
 				6D31BB2C948F6355357CDB65 /* FestivalVenue.swift */,
 			);
-			name = Models;
 			path = Models;
 			sourceTree = "<group>";
 		};
@@ -231,7 +283,6 @@
 				E8594871E45603E20EC23F3E /* Map */,
 				D5EB80E34C613016AE30915B /* Settings */,
 			);
-			name = Views;
 			path = Views;
 			sourceTree = "<group>";
 		};
@@ -243,13 +294,21 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
+		9792002B2F8D98F300058D69 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9792002C2F8D98F300058D69 /* WidgetKit.framework */,
+				9792002E2F8D98F300058D69 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		B4ACB3A102921687DCCA2663 /* Services */ = {
 			isa = PBXGroup;
 			children = (
 				ED423ECB54015D8469849A7E /* OfflineMapService.swift */,
 				C31DAA4D43D20183091F3EAE /* ProximityHapticsManager.swift */,
 			);
-			name = Services;
 			path = Services;
 			sourceTree = "<group>";
 		};
@@ -262,7 +321,6 @@
 				4173C3AFFFF0D531044B121B /* StatusPickerView.swift */,
 				4AB300A529F3B2EE8EB97A0E /* StatusBadgeView.swift */,
 			);
-			name = Squad;
 			path = Squad;
 			sourceTree = "<group>";
 		};
@@ -271,7 +329,6 @@
 			children = (
 				4E23BF3E3DAEE5180A176507 /* OfflineMapsView.swift */,
 			);
-			name = Settings;
 			path = Settings;
 			sourceTree = "<group>";
 		};
@@ -283,7 +340,6 @@
 				B9461A15400A977C8CCE3DF8 /* NearestFacilityView.swift */,
 				B4EAC8CAB10A1319CA039C7D /* FacilityDetailSheet.swift */,
 			);
-			name = Map;
 			path = Map;
 			sourceTree = "<group>";
 		};
@@ -297,6 +353,8 @@
 				FA400005 /* Views */,
 				FA400006 /* Utilities */,
 				FA400007 /* Resources */,
+				979200302F8D98F300058D69 /* FestivAirLiveActivity */,
+				9792002B2F8D98F300058D69 /* Frameworks */,
 				FA400099 /* Products */,
 				195E9842BFE53AE7F5433472 /* Models */,
 				B4ACB3A102921687DCCA2663 /* Services */,
@@ -487,10 +545,20 @@
 			path = Analytics;
 			sourceTree = "<group>";
 		};
+		FA400018 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				FA100092 /* ChatInputBarV2.swift */,
+				FA100095 /* AnnouncementBannerView.swift */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
 		FA400099 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				FA200000 /* FestivAir.app */,
+				9792002A2F8D98F200058D69 /* FestivAirLiveActivityExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -503,18 +571,31 @@
 			name = FestivAir;
 			sourceTree = "<group>";
 		};
-		FA400018 /* Chat */ = {
-			isa = PBXGroup;
-			children = (
-				FA100092 /* ChatInputBarV2.swift */,
-				FA100095 /* AnnouncementBannerView.swift */,
-			);
-			path = Chat;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		979200292F8D98F200058D69 /* FestivAirLiveActivityExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 979200452F8D98F400058D69 /* Build configuration list for PBXNativeTarget "FestivAirLiveActivityExtension" */;
+			buildPhases = (
+				979200262F8D98F200058D69 /* Sources */,
+				979200272F8D98F200058D69 /* Frameworks */,
+				979200282F8D98F200058D69 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				979200302F8D98F300058D69 /* FestivAirLiveActivity */,
+			);
+			name = FestivAirLiveActivityExtension;
+			packageProductDependencies = (
+			);
+			productName = FestivAirLiveActivityExtension;
+			productReference = 9792002A2F8D98F200058D69 /* FestivAirLiveActivityExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		FA500000 /* FestivAir */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = FA700000 /* Build configuration list for PBXNativeTarget "FestivAir" */;
@@ -522,10 +603,12 @@
 				FA500001 /* Sources */,
 				FA300000 /* Frameworks */,
 				FA500002 /* Resources */,
+				979200412F8D98F400058D69 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				9792003F2F8D98F400058D69 /* PBXTargetDependency */,
 			);
 			name = FestivAir;
 			productName = FestivAir;
@@ -539,9 +622,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1500;
+				LastSwiftUpdateCheck = 2620;
 				LastUpgradeCheck = 2620;
 				TargetAttributes = {
+					979200292F8D98F200058D69 = {
+						CreatedOnToolsVersion = 26.2;
+					};
 					FA500000 = {
 						CreatedOnToolsVersion = 15.0;
 					};
@@ -561,11 +647,19 @@
 			projectRoot = "";
 			targets = (
 				FA500000 /* FestivAir */,
+				979200292F8D98F200058D69 /* FestivAirLiveActivityExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		979200282F8D98F200058D69 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FA500002 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -578,6 +672,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		979200262F8D98F200058D69 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FA500001 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -670,7 +771,75 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		9792003F2F8D98F400058D69 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 979200292F8D98F200058D69 /* FestivAirLiveActivityExtension */;
+			targetProxy = 9792003E2F8D98F400058D69 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		979200422F8D98F400058D69 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FestivAirLiveActivity/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = FestivAirLiveActivity;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.festivair.app.FestivAirLiveActivity;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		979200432F8D98F400058D69 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FestivAirLiveActivity/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = FestivAirLiveActivity;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.festivair.app.FestivAirLiveActivity;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		FA800000 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -859,6 +1028,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		979200452F8D98F400058D69 /* Build configuration list for PBXNativeTarget "FestivAirLiveActivityExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				979200422F8D98F400058D69 /* Debug */,
+				979200432F8D98F400058D69 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		FA700000 /* Build configuration list for PBXNativeTarget "FestivAir" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

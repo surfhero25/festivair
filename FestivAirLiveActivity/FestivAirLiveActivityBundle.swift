@@ -1,3 +1,10 @@
+//
+//  FestivAirLiveActivityBundle.swift
+//  FestivAirLiveActivity
+//
+//  Created by David Jackson on 4/13/26.
+//
+
 import WidgetKit
 import SwiftUI
 
