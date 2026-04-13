@@ -408,7 +408,126 @@ Same battery-weighted scoring (signal 60%, battery 40%), just triggered by event
 
 ---
 
-## 8. What We're NOT Changing
+## 8. Satellite Readiness & Gap Bridging
+
+### The Satellite Bridge
+
+iPhone 14+ has Emergency SOS via satellite. iPhone 16+ has satellite messaging. Apple has not yet opened satellite APIs to third-party apps — but our architecture doesn't need them.
+
+**How it works today, with no special code:**
+- Squad members are split across a festival. Group A has cell signal. Group B is in a dead zone.
+- One device in Group B has an iPhone 16 with satellite data capability
+- That device wins the gateway election (it has internet access — the gateway algorithm doesn't care if it's WiFi, cellular, or satellite)
+- Gateway syncs tiny squad data to CloudKit over satellite
+- Group A's devices pull from CloudKit over their cell signal
+- The dead zone gap is bridged. No Pi needed. No special satellite code.
+
+**Why this works with our design:**
+- CloudKit handles the transport layer — it syncs over whatever internet the device has
+- Our demand-driven protocol generates minimal data — satellite bandwidth is enough
+- Gateway election is already connectivity-aware
+
+### Future Satellite Integration (When Apple Opens APIs)
+
+When Apple exposes satellite APIs to third-party apps (likely iOS 19 or 20):
+- Add satellite as a third transport alongside MPC mesh and Haven TCP
+- Urgent chat + SOS messages sent direct over satellite (no CloudKit round-trip)
+- PresencePulse over satellite for basic "I'm alive" when completely off-grid
+
+### Message Payload Budgets
+
+To ensure satellite-friendliness now and future-proof for direct satellite transport, all protocol V2 messages have maximum payload sizes:
+
+| Message Type | Max Payload | Notes |
+|---|---|---|
+| `presencePulse` | 100 bytes | battery + status + clusterID — no location, minimal data |
+| `locationResponse` | 200 bytes | lat/lng + clusterInfo — fits in one satellite frame |
+| `preciseLocationResponse` | 150 bytes | lat/lng + heading + speed + accuracy |
+| `urgentChat` | 500 bytes | ~250 characters of text + metadata |
+| `chat` | 500 bytes | same budget as urgent |
+| `squadAnnouncement` | 1,000 bytes | longer text + optional pin coordinates |
+| `sos` | 150 bytes | location + identity — must be tiny for fastest delivery |
+| `locationRequest` | 50 bytes | just requesterID |
+| `preciseLocationRequest` | 80 bytes | requesterID + targetMemberID |
+
+These budgets are enforced at the protocol V2 encoder level. Messages exceeding budget are rejected before sending.
+
+---
+
+## 9. Premium Model
+
+### Principle
+
+The squad is the product, not the person's phone. Premium state lives on the squad record in CloudKit, not on any device. If the paying member's phone dies, the squad stays premium.
+
+### How It Works
+
+- Premium user creates a squad → squad record gets `tier: festivalPass` + `tierExpires: date`
+- Members join → their device reads the squad tier from CloudKit → unlocks premium features locally
+- Creator's phone dies → nothing changes for the rest of the squad (key holder succession keeps it running)
+- Creator comes back online → resumes authority
+
+### Tiers
+
+| Tier | Squad Size | Price | Features |
+|---|---|---|---|
+| **Free** | 4 members | $0 | Messaging (urgent + regular), location + navigation, SOS, basic map, cluster intelligence |
+| **Festival Pass** | 8 members | $2.99/event | Squad announcements, offline venue maps, set time alerts, schedule builder, festival summary card |
+| **Crew Pass** | 20 members | $6.99/event | Everything above + custom squad themes, priority relay, after party pins with invite-only access |
+| **Season Pass** | 20 members | $14.99/year | Everything, always active, past festival history + memories |
+
+### Free User Value
+
+Free users are not freeloaders — they ARE the mesh infrastructure. Every free user's phone is a relay node that makes the network stronger for everyone. The free tier must be genuinely useful (messaging + location + navigation + SOS) so users stay on the network.
+
+### Conversion Funnel
+
+Free users who join a premium squad experience premium features without paying. When they want those features for their own squad, they upgrade. The experience sells itself.
+
+### Revenue Beyond Subscriptions
+
+**Festival organizer partnerships (B2B):** $500-5,000 per festival. Organizers get an "official festival app" with pre-loaded venue maps, schedules, vendor locations. FestivAir gets promoted to all attendees — massive user acquisition at zero cost.
+
+**Sponsored map pins:** Food vendors, merch booths, sponsors pay $50-200 for a branded pin on the festival map. Non-intrusive and actually useful to users.
+
+### Cost Structure
+
+| Cost | Amount | Notes |
+|---|---|---|
+| Apple Developer Program | $99/year | Required |
+| CloudKit | $0 | Free tier covers millions of records. P2P mesh means minimal server load. |
+| Haven Pi hardware | ~$50/unit | Optional, user-purchased or provided by festival partners |
+| Domain + hosting | ~$12/year | Static site |
+| App Store commission | 15% of IAP | Apple Small Business Program (under $1M) |
+| **Marginal cost per squad** | **~$0** | Mesh is P2P. CloudKit syncs are tiny. No custom servers. |
+
+---
+
+## 10. Haven Relay — Optional Accessory
+
+The Haven Pi relay is built into the app from day one but not required.
+
+**Auto-discovery:** App discovers Haven nodes via Bonjour. If one is nearby, it connects with TLS + token auth. If not, mesh-only mode. Zero configuration needed from the user.
+
+**When it's valuable:**
+- Early days with low FestivAir adoption (sparse mesh)
+- Very large venues (1+ mile across) with dead zones between areas
+- Camping areas, parking lots, far stages with low crowd density
+- Indoor/underground areas where BLE doesn't carry
+
+**When it's unnecessary:**
+- 250+ FestivAir users at a festival (mesh is dense enough)
+- Dense crowd areas (main stages, food courts)
+- When satellite-capable iPhones bridge the gap via gateway sync
+
+**Distribution model:**
+- Festival organizer partnerships include placing 3-4 Pi relays at the venue (we provide, they power)
+- Power users / large groups can purchase as an accessory
+- Over time as adoption grows, Haven becomes less necessary
+
+---
+
+## 11. What We're NOT Changing
 
 - MPC as the transport layer (stays — it's the right choice for iOS mesh)
 - SwiftUI views architecture (MVVM stays)
