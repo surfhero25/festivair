@@ -64,6 +64,12 @@ final class AppState: ObservableObject {
     @Published var currentSquad: Squad?
     @Published var isOnboarded: Bool
 
+    /// True only when user has a valid Apple ID stored in Keychain.
+    /// All squad/SOS features require authentication — no anonymous users.
+    var isAuthenticated: Bool {
+        KeychainHelper.load(.appleUserIdentifier) != nil
+    }
+
     // MARK: - Services
     let meshManager: MeshNetworkManager
     let locationManager: LocationManager
@@ -102,12 +108,13 @@ final class AppState: ObservableObject {
         isOnboarded = UserDefaults.standard.bool(forKey: Constants.UserDefaultsKeys.onboarded)
 
         // Load identity from Keychain (authoritative source)
+        // Only Apple-authenticated users have a userId — no random UUID fallback
         let userId: String
         if let stored = KeychainHelper.load(.userId) {
             userId = stored
         } else {
-            userId = UUID().uuidString
-            KeychainHelper.save(userId, for: .userId)
+            // No userId — user must complete onboarding with Sign in with Apple
+            userId = ""
         }
 
         // Note: Can't use isOnboarded here since stored properties not yet initialized
@@ -178,10 +185,18 @@ final class AppState: ObservableObject {
         AppState.shared = self
     }
 
-    /// Check if Apple ID credential is still valid (not revoked)
+    /// Check if Apple ID credential is still valid (not revoked).
+    /// If no Apple credential exists, forces re-onboarding regardless of the onboarded flag.
     private func validateAppleCredentialIfNeeded() {
         guard let appleUserId = KeychainHelper.load(.appleUserIdentifier) else {
-            // User didn't sign in with Apple, nothing to validate
+            // No Apple credential — this install is unauthenticated.
+            // Force back through onboarding so the user must sign in with Apple.
+            if isOnboarded {
+                #if DEBUG
+                print("[AppleAuth] No Apple credential but isOnboarded=true (old install) — requiring re-auth")
+                #endif
+                isOnboarded = false
+            }
             return
         }
 
@@ -195,7 +210,7 @@ final class AppState: ObservableObject {
                     #endif
                 case .revoked:
                     #if DEBUG
-                    print("[AppleAuth] Credential was revoked - clearing user data")
+                    print("[AppleAuth] Credential was revoked - clearing user data and requiring re-auth")
                     #endif
                     self?.handleAppleCredentialRevoked()
                 case .notFound:
@@ -214,16 +229,21 @@ final class AppState: ObservableObject {
         }
     }
 
-    /// Handle when Apple ID credential is revoked
+    /// Handle when Apple ID credential is revoked.
+    /// Forces the user back through onboarding to re-authenticate.
     private func handleAppleCredentialRevoked() {
         // Clear Apple-specific keychain data
         KeychainHelper.delete(.appleUserIdentifier)
         KeychainHelper.delete(.appleEmail)
+        // Also clear userId since it was derived from the Apple identifier
+        KeychainHelper.delete(.userId)
 
-        // Note: We don't clear userId/displayName/emoji since user may want to keep their profile
-        // They'll just need to sign in again next time for Apple-specific features
+        // Force back to onboarding — Apple auth is mandatory
+        isOnboarded = false
+        UserDefaults.standard.set(false, forKey: Constants.UserDefaultsKeys.onboarded)
+
         #if DEBUG
-        print("[AppleAuth] Cleared Apple credentials, user can continue with existing profile")
+        print("[AppleAuth] Credential revoked — cleared auth data, sending back to onboarding")
         #endif
     }
 
@@ -318,13 +338,19 @@ final class AppState: ObservableObject {
     // MARK: - Onboarding
 
     func completeOnboarding(displayName: String, emoji: String) {
-        // Use existing userId from init() — do NOT overwrite it, services already cached it
-        let userId = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.userId) ?? ""
-
-        // Validate userId is not empty
-        guard !userId.isEmpty else {
+        // Require Apple auth — userId must be the Apple user identifier from Keychain.
+        // No anonymous UUID fallback. If this is nil the user hasn't authenticated yet.
+        guard let userId = KeychainHelper.load(.userId), !userId.isEmpty else {
             #if DEBUG
-            print("[App] ❌ Cannot complete onboarding - userId is empty")
+            print("[App] ❌ Cannot complete onboarding — no Apple-authenticated userId in Keychain")
+            #endif
+            return
+        }
+
+        // Double-check Apple identifier is also present (belt-and-suspenders)
+        guard KeychainHelper.load(.appleUserIdentifier) != nil else {
+            #if DEBUG
+            print("[App] ❌ Cannot complete onboarding — missing Apple user identifier")
             #endif
             return
         }

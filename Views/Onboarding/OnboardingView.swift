@@ -427,8 +427,10 @@ struct ProfileSetupView: View {
 
             isSigningIn = true
 
-            // Store Apple ID in Keychain
+            // Apple user identifier becomes the canonical userId for this installation.
+            // This ensures identity persists across reinstalls and is never anonymous.
             KeychainHelper.save(credential.user, for: .appleUserIdentifier)
+            KeychainHelper.save(credential.user, for: .userId)
 
             if let email = credential.email {
                 KeychainHelper.save(email, for: .appleEmail)
@@ -445,17 +447,17 @@ struct ProfileSetupView: View {
             }
 
             #if DEBUG
-            print("[AppleAuth] Sign in success")
+            print("[AppleAuth] Sign in success — userId set to Apple identifier")
             #endif
 
             isSigningIn = false
-            showManualEntry = true  // Show emoji picker
+            showManualEntry = true  // Show name/emoji picker after auth
 
         case .failure(let error):
             if let authError = error as? ASAuthorizationError, authError.code == .canceled {
-                // User cancelled - not an error
+                // User cancelled — keep them on the Apple sign-in screen, auth is required
                 #if DEBUG
-                print("[AppleAuth] User cancelled sign in")
+                print("[AppleAuth] User cancelled sign in — auth is mandatory, staying on sign-in screen")
                 #endif
             } else {
                 errorMessage = error.localizedDescription

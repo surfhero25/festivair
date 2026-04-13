@@ -10,12 +10,13 @@ struct ContentView: View {
 
     var body: some View {
         Group {
-            if appState.isOnboarded {
+            if appState.isOnboarded && appState.isAuthenticated {
                 MainTabView()
                     .onAppear {
                         appState.startServices()
                     }
             } else {
+                // Either not onboarded or Apple auth missing (old installs without auth)
                 OnboardingView()
             }
         }
