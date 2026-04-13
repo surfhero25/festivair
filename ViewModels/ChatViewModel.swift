@@ -324,6 +324,164 @@ final class ChatViewModel: ObservableObject {
         }
     }
 
+    // MARK: - V2 Chat Tiers
+
+    @Published var urgentSendCount: Int = 0
+    private var urgentSendTimestamps: [Date] = []
+    private var pendingRegularMessages: [(V2ChatPayload, String)] = []  // (payload, squadId)
+    private var regularChatFallbackTimer: Timer?
+
+    /// Whether the user can send an urgent message (rate limited)
+    var canSendUrgent: Bool {
+        urgentSendTimestamps.removeAll { $0 < Date().addingTimeInterval(-Constants.ProtocolV2.urgentChatRateWindow) }
+        return urgentSendTimestamps.count < Constants.ProtocolV2.urgentChatRateLimit
+    }
+
+    /// Remaining urgent messages in current window
+    var urgentRemaining: Int {
+        urgentSendTimestamps.removeAll { $0 < Date().addingTimeInterval(-Constants.ProtocolV2.urgentChatRateWindow) }
+        return max(0, Constants.ProtocolV2.urgentChatRateLimit - urgentSendTimestamps.count)
+    }
+
+    /// Sends a V2 urgent chat — immediate delivery
+    func sendUrgentV2(text: String, signer: MessageSignerProtocol, meshManager: MeshNetworkManager) {
+        guard canSendUrgent else {
+            #if DEBUG
+            print("[Chat] Urgent rate limit reached")
+            #endif
+            return
+        }
+
+        let sanitized = text.sanitizedForMesh
+        guard !sanitized.isEmpty else { return }
+
+        guard let userId = getUserIdV2(),
+              let joinCode = getJoinCodeV2() else { return }
+
+        let displayName = getDisplayNameV2()
+        let payload = V2ChatPayload(messageId: UUID().uuidString, text: sanitized, senderName: displayName)
+
+        do {
+            let envelope = try V2EnvelopeBuilder.build(
+                type: .urgentChat,
+                payload: payload,
+                originPeerId: userId,
+                squadId: joinCode,
+                signer: signer
+            )
+            let data = try envelope.encode()
+            meshManager.broadcastRaw(data)
+            urgentSendTimestamps.append(Date())
+        } catch {
+            #if DEBUG
+            print("[Chat] Urgent send failed: \(error)")
+            #endif
+        }
+    }
+
+    /// Sends a V2 regular chat — piggybacks or falls back to standalone
+    func sendRegularV2(text: String, signer: MessageSignerProtocol, meshManager: MeshNetworkManager) {
+        let sanitized = text.sanitizedForMesh
+        guard !sanitized.isEmpty else { return }
+
+        guard let userId = getUserIdV2(),
+              let joinCode = getJoinCodeV2() else { return }
+
+        let displayName = getDisplayNameV2()
+        let payload = V2ChatPayload(messageId: UUID().uuidString, text: sanitized, senderName: displayName)
+
+        // Queue for piggyback
+        pendingRegularMessages.append((payload, joinCode))
+
+        // Start fallback timer — if no mesh activity in 30s, send standalone
+        regularChatFallbackTimer?.invalidate()
+        regularChatFallbackTimer = Timer.scheduledTimer(
+            withTimeInterval: Constants.ProtocolV2.chatFallbackDelay,
+            repeats: false
+        ) { [weak self] _ in
+            Task { @MainActor in
+                self?.flushPendingMessages(signer: signer, meshManager: meshManager)
+            }
+        }
+    }
+
+    /// Flushes queued regular messages — called by fallback timer or when other mesh activity happens
+    func flushPendingMessages(signer: MessageSignerProtocol, meshManager: MeshNetworkManager) {
+        regularChatFallbackTimer?.invalidate()
+        regularChatFallbackTimer = nil
+
+        guard let userId = getUserIdV2() else { return }
+
+        for (payload, squadId) in pendingRegularMessages {
+            do {
+                let envelope = try V2EnvelopeBuilder.build(
+                    type: .chat,
+                    payload: payload,
+                    originPeerId: userId,
+                    squadId: squadId,
+                    signer: signer
+                )
+                let data = try envelope.encode()
+                meshManager.broadcastRaw(data)
+            } catch {
+                #if DEBUG
+                print("[Chat] Regular send failed: \(error)")
+                #endif
+            }
+        }
+        pendingRegularMessages.removeAll()
+    }
+
+    /// Sends a squad announcement (squad creator only) — immediate + includes optional map pin
+    func sendAnnouncementV2(text: String, pinLatitude: Double? = nil, pinLongitude: Double? = nil, signer: MessageSignerProtocol, meshManager: MeshNetworkManager) {
+        let sanitized = text.sanitizedForMesh
+        guard !sanitized.isEmpty else { return }
+
+        guard let userId = getUserIdV2(),
+              let joinCode = getJoinCodeV2() else { return }
+
+        let displayName = getDisplayNameV2()
+        let payload = V2SquadAnnouncement(
+            announcementId: UUID().uuidString,
+            text: sanitized,
+            senderName: displayName,
+            pinLatitude: pinLatitude,
+            pinLongitude: pinLongitude
+        )
+
+        do {
+            let envelope = try V2EnvelopeBuilder.build(
+                type: .squadAnnouncement,
+                payload: payload,
+                originPeerId: userId,
+                squadId: joinCode,
+                signer: signer
+            )
+            let data = try envelope.encode()
+            meshManager.broadcastRaw(data)
+        } catch {
+            #if DEBUG
+            print("[Chat] Announcement send failed: \(error)")
+            #endif
+        }
+    }
+
+    // MARK: - V2 Helpers
+
+    private func getUserIdV2() -> String? {
+        KeychainHelper.load(.userId) ?? UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.userId)
+    }
+
+    private func getJoinCodeV2() -> String? {
+        KeychainHelper.load(.currentJoinCode) ?? UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.currentJoinCode)
+    }
+
+    private func getDisplayNameV2() -> String {
+        KeychainHelper.load(.displayName) ?? UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.displayName) ?? "Festival Fan"
+    }
+
+    // MARK: - Chat Visibility
+
     // Call this when chat view appears
     func chatViewAppeared() {
         // Ensure we're on main actor (this class is @MainActor)
