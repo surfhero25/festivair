@@ -1,5 +1,6 @@
 import Foundation
 import CryptoKit
+import Security
 import Combine
 
 /// Universal mesh relay service - every phone helps relay encrypted data for all app users
@@ -178,7 +179,64 @@ final class MeshRelayService: ObservableObject {
 
     // MARK: - Encryption Helpers
 
+    // MARK: - SquadCrypto
+
+    enum SquadCrypto {
+        /// Generates a random 256-bit squad secret.
+        static func generateSecret() -> Data {
+            var bytes = [UInt8](repeating: 0, count: 32)
+            let status = SecRandomCopyBytes(kSecRandomDefault, 32, &bytes)
+            precondition(status == errSecSuccess, "Failed to generate random bytes")
+            return Data(bytes)
+        }
+
+        /// Encrypts data using AES-GCM with the squad secret.
+        static func encrypt(_ data: Data, with secret: Data) throws -> Data {
+            let key = SymmetricKey(data: secret)
+            let sealed = try AES.GCM.seal(data, using: key)
+            guard let combined = sealed.combined else {
+                throw CryptoError.encryptionFailed
+            }
+            return combined
+        }
+
+        /// Decrypts data using AES-GCM with the squad secret.
+        static func decrypt(_ data: Data, with secret: Data) throws -> Data {
+            let key = SymmetricKey(data: secret)
+            let sealedBox = try AES.GCM.SealedBox(combined: data)
+            return try AES.GCM.open(sealedBox, using: key)
+        }
+
+        /// Loads the current squad secret from Keychain.
+        static func currentSecret() -> Data? {
+            KeychainHelper.loadData(for: .squadSecret)
+        }
+
+        /// Saves a squad secret to Keychain.
+        static func saveSecret(_ secret: Data) {
+            KeychainHelper.saveData(secret, for: .squadSecret)
+        }
+
+        /// Removes the squad secret (on squad leave).
+        static func clearSecret() {
+            KeychainHelper.delete(.squadSecret)
+        }
+
+        enum CryptoError: Error, LocalizedError {
+            case encryptionFailed
+            case noSquadSecret
+
+            var errorDescription: String? {
+                switch self {
+                case .encryptionFailed: return "AES-GCM encryption failed"
+                case .noSquadSecret: return "No squad secret in Keychain"
+                }
+            }
+        }
+    }
+
     /// Get or derive encryption key for a squad
+    @available(*, deprecated, message: "Use SquadCrypto instead")
     func getSquadKey(_ squadId: String) -> SymmetricKey {
         // Derive key from squad ID
         // In production, use proper key exchange when joining squad
@@ -187,6 +245,7 @@ final class MeshRelayService: ObservableObject {
     }
 
     /// Encrypt data for a specific squad
+    @available(*, deprecated, message: "Use SquadCrypto instead")
     func encrypt(_ data: Data, forSquad squadId: String) -> Data? {
         let key = getSquadKey(squadId)
 
@@ -200,6 +259,7 @@ final class MeshRelayService: ObservableObject {
     }
 
     /// Decrypt data from a squad (returns nil if we don't have the key)
+    @available(*, deprecated, message: "Use SquadCrypto instead")
     func decrypt(_ data: Data, forSquad squadId: String) -> Data? {
         // Only decrypt if it's our squad
         guard squadId == currentSquadId else {
