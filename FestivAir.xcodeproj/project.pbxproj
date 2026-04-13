@@ -85,6 +85,13 @@
 		FA000082 /* LocationTierManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100082 /* LocationTierManager.swift */; };
 		FA000083 /* ClusterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100083 /* ClusterManager.swift */; };
 		FA000084 /* SquadTier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100084 /* SquadTier.swift */; };
+		FA000090 /* SOSButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100090 /* SOSButtonView.swift */; };
+		FA000091 /* SOSBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100091 /* SOSBannerView.swift */; };
+		FA000092 /* ChatInputBarV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100092 /* ChatInputBarV2.swift */; };
+		FA000093 /* ClusterAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100093 /* ClusterAnnotationView.swift */; };
+		FA000094 /* StaleAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100094 /* StaleAnnotationView.swift */; };
+		FA000095 /* AnnouncementBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100095 /* AnnouncementBannerView.swift */; };
+		FA000096 /* SOSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100096 /* SOSManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -169,6 +176,13 @@
 		FA100083 /* ClusterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClusterManager.swift; sourceTree = "<group>"; };
 		FA100084 /* SquadTier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquadTier.swift; sourceTree = "<group>"; };
 		FA200000 /* FestivAir.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FestivAir.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA100090 /* SOSButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SOSButtonView.swift; sourceTree = "<group>"; };
+		FA100091 /* SOSBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SOSBannerView.swift; sourceTree = "<group>"; };
+		FA100092 /* ChatInputBarV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatInputBarV2.swift; sourceTree = "<group>"; };
+		FA100093 /* ClusterAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClusterAnnotationView.swift; sourceTree = "<group>"; };
+		FA100094 /* StaleAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaleAnnotationView.swift; sourceTree = "<group>"; };
+		FA100095 /* AnnouncementBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnouncementBannerView.swift; sourceTree = "<group>"; };
+		FA100096 /* SOSManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SOSManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -341,6 +355,7 @@
 				FA100082 /* LocationTierManager.swift */,
 				FA100083 /* ClusterManager.swift */,
 				7FD7E95BC21472001E4EFE35 /* BLEBeaconService.swift */,
+				FA100096 /* SOSManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -363,6 +378,7 @@
 				FA100020 /* ContentView.swift */,
 				FA400010 /* Onboarding */,
 				FA400011 /* Squad */,
+				FA400018 /* Chat */,
 				FA400012 /* SetTimes */,
 				FA400013 /* Settings */,
 				FA400014 /* Profile */,
@@ -411,6 +427,10 @@
 				FA100024 /* JoinSquadView.swift */,
 				FA100025 /* QRCodeView.swift */,
 				FA100026 /* ChatView.swift */,
+				FA100090 /* SOSButtonView.swift */,
+				FA100091 /* SOSBannerView.swift */,
+				FA100093 /* ClusterAnnotationView.swift */,
+				FA100094 /* StaleAnnotationView.swift */,
 			);
 			path = Squad;
 			sourceTree = "<group>";
@@ -481,6 +501,15 @@
 				8BC73D49E392A6B348D73443 /* Views */,
 			);
 			name = FestivAir;
+			sourceTree = "<group>";
+		};
+		FA400018 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				FA100092 /* ChatInputBarV2.swift */,
+				FA100095 /* AnnouncementBannerView.swift */,
+			);
+			path = Chat;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -629,6 +658,13 @@
 				FA000082 /* LocationTierManager.swift in Sources */,
 				FA000083 /* ClusterManager.swift in Sources */,
 				1D2B4A0ED605A544A10CEE2C /* BLEBeaconService.swift in Sources */,
+				FA000090 /* SOSButtonView.swift in Sources */,
+				FA000091 /* SOSBannerView.swift in Sources */,
+				FA000092 /* ChatInputBarV2.swift in Sources */,
+				FA000093 /* ClusterAnnotationView.swift in Sources */,
+				FA000094 /* StaleAnnotationView.swift in Sources */,
+				FA000095 /* AnnouncementBannerView.swift in Sources */,
+				FA000096 /* SOSManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
