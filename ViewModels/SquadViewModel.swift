@@ -103,7 +103,7 @@ final class SquadViewModel: ObservableObject {
         // Validate join code format before any network calls
         let validChars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"
         let normalizedCode = code.uppercased().trimmingCharacters(in: .whitespaces)
-        guard normalizedCode.count == 6,
+        guard normalizedCode.count == Constants.Squad.codeLength,
               normalizedCode.allSatisfy({ validChars.contains($0) }) else {
             throw SquadError.squadNotFound  // Invalid format treated as not found
         }

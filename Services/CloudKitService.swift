@@ -35,6 +35,9 @@ final class CloudKitService: ObservableObject {
     @Published private(set) var currentUserRecordID: CKRecord.ID?
     @Published private(set) var lastError: Error?
 
+    // MARK: - Join Rate Limiting
+    private var joinAttemptTimestamps: [Date] = []
+
     // MARK: - Init
     private init() {
         // Use default container (configure in entitlements)
@@ -183,6 +186,7 @@ final class CloudKitService: ObservableObject {
         record["joinCode"] = joinCode
         record["memberIds"] = [creatorId]
         record["createdAt"] = Date()
+        record["squadTier"] = "free" as CKRecordValue
 
         // Use PUBLIC database so other users can find and join
         print("[CloudKit] Creating squad '\(name)' with code '\(joinCode)' in PUBLIC database...")
@@ -266,6 +270,33 @@ final class CloudKitService: ObservableObject {
         memberIds.removeAll { $0 == userId }
         record["memberIds"] = memberIds
         try await publicDatabase.save(record)
+    }
+
+    func isJoinCodeUnique(_ code: String) async throws -> Bool {
+        let predicate = NSPredicate(format: "joinCode == %@", code)
+        let query = CKQuery(recordType: RecordType.squad, predicate: predicate)
+        let (results, _) = try await publicDatabase.records(matching: query, resultsLimit: 1)
+        return results.isEmpty
+    }
+
+    func generateUniqueJoinCode() async throws -> String {
+        for _ in 0..<10 {
+            let code = Squad.generateJoinCode()
+            if try await isJoinCodeUnique(code) {
+                return code
+            }
+        }
+        throw CKError(.serverRejectedRequest)
+    }
+
+    func canAttemptJoin() -> Bool {
+        let cutoff = Date().addingTimeInterval(-Constants.Squad.joinAttemptRateWindow)
+        joinAttemptTimestamps.removeAll { $0 < cutoff }
+        return joinAttemptTimestamps.count < Constants.Squad.joinAttemptRateLimit
+    }
+
+    func recordJoinAttempt() {
+        joinAttemptTimestamps.append(Date())
     }
 
     // MARK: - Location Operations

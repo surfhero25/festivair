@@ -67,8 +67,8 @@ struct JoinSquadView: View {
     }
 
     private func joinSquad() {
-        guard squadCode.count == 6 else {
-            errorMessage = "Please enter a 6-character code"
+        guard squadCode.count == Constants.Squad.codeLength else {
+            errorMessage = "Please enter a \(Constants.Squad.codeLength)-character code"
             showError = true
             return
         }
@@ -193,7 +193,7 @@ struct JoinSquadContent: View {
 
             // Code input - tap to focus the hidden text field
             HStack(spacing: 8) {
-                ForEach(0..<6, id: \.self) { index in
+                ForEach(0..<Constants.Squad.codeLength, id: \.self) { index in
                     CodeDigitView(
                         digit: index < squadCode.count ? String(squadCode[squadCode.index(squadCode.startIndex, offsetBy: index)]) : "",
                         isFocused: isCodeFieldFocused && index == squadCode.count
@@ -214,14 +214,14 @@ struct JoinSquadContent: View {
                 .frame(width: 1, height: 1)
                 .opacity(0.01)
                 .onChange(of: squadCode) { _, newValue in
-                    squadCode = String(newValue.prefix(6)).uppercased()
-                    // Auto-join when 6 characters entered
-                    if squadCode.count == 6 {
+                    squadCode = String(newValue.prefix(Constants.Squad.codeLength)).uppercased()
+                    // Auto-join when codeLength characters entered
+                    if squadCode.count == Constants.Squad.codeLength {
                         isCodeFieldFocused = false
                     }
                 }
                 .onSubmit {
-                    if squadCode.count == 6 {
+                    if squadCode.count == Constants.Squad.codeLength {
                         onJoin()
                     }
                 }
@@ -243,9 +243,9 @@ struct JoinSquadContent: View {
                         .padding()
                 }
             }
-            .background(squadCode.count == 6 && !isLoading ? .purple : .gray)
+            .background(squadCode.count == Constants.Squad.codeLength && !isLoading ? .purple : .gray)
             .clipShape(RoundedRectangle(cornerRadius: 16))
-            .disabled(squadCode.count != 6 || isLoading)
+            .disabled(squadCode.count != Constants.Squad.codeLength || isLoading)
             .padding()
         }
         .sheet(isPresented: $showScanner) {

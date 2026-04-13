@@ -54,14 +54,16 @@ class AppDelegate: NSObject, UIApplicationDelegate {
             forTaskWithIdentifier: "com.festivair.mesh-sync",
             using: nil
         ) { task in
-            self.handleMeshSyncTask(task as! BGProcessingTask)
+            guard let processingTask = task as? BGProcessingTask else { return }
+            self.handleMeshSyncTask(processingTask)
         }
 
         BGTaskScheduler.shared.register(
             forTaskWithIdentifier: "com.festivair.location-update",
             using: nil
         ) { task in
-            self.handleLocationUpdateTask(task as! BGAppRefreshTask)
+            guard let refreshTask = task as? BGAppRefreshTask else { return }
+            self.handleLocationUpdateTask(refreshTask)
         }
     }
 
@@ -131,10 +133,10 @@ class AppDelegate: NSObject, UIApplicationDelegate {
             return false
         }
 
-        // Validate join code format (6 chars, alphanumeric excluding confusing chars)
+        // Validate join code format (codeLength chars, alphanumeric excluding confusing chars)
         let validChars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"
         let normalizedCode = code.uppercased().trimmingCharacters(in: .whitespaces)
-        guard normalizedCode.count == 6,
+        guard normalizedCode.count == Constants.Squad.codeLength,
               normalizedCode.allSatisfy({ validChars.contains($0) }) else {
             print("[URL] Invalid squad code format: \(code)")
             return false

@@ -152,7 +152,7 @@ extension Color {
 // MARK: - String Extensions
 extension String {
     var isValidSquadCode: Bool {
-        count == 6 && allSatisfy { Constants.Squad.codeCharacters.contains($0) }
+        count == Constants.Squad.codeLength && allSatisfy { Constants.Squad.codeCharacters.contains($0) }
     }
 
     func truncated(to length: Int, trailing: String = "...") -> String {
