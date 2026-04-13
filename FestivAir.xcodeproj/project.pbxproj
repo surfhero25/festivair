@@ -80,6 +80,7 @@
 		FA000070 /* HavenTransportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100070 /* HavenTransportService.swift */; };
 		FA000071 /* MeshTransportProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100071 /* MeshTransportProtocol.swift */; };
 		FA000080 /* MeshProtocolV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100080 /* MeshProtocolV2.swift */; };
+		FA000081 /* MessageSigner.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100081 /* MessageSigner.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -158,6 +159,7 @@
 		FA100070 /* HavenTransportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HavenTransportService.swift; sourceTree = "<group>"; };
 		FA100071 /* MeshTransportProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeshTransportProtocol.swift; sourceTree = "<group>"; };
 		FA100080 /* MeshProtocolV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeshProtocolV2.swift; sourceTree = "<group>"; };
+		FA100081 /* MessageSigner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageSigner.swift; sourceTree = "<group>"; };
 		FA200000 /* FestivAir.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FestivAir.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -326,6 +328,7 @@
 				82D950024CB9E274C8CDDB8E /* AppleAuthService.swift */,
 				FA100070 /* HavenTransportService.swift */,
 				FA100071 /* MeshTransportProtocol.swift */,
+				FA100081 /* MessageSigner.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -609,6 +612,7 @@
 				FA000070 /* HavenTransportService.swift in Sources */,
 				FA000071 /* MeshTransportProtocol.swift in Sources */,
 				FA000080 /* MeshProtocolV2.swift in Sources */,
+				FA000081 /* MessageSigner.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
