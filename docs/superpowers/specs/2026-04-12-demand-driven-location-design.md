@@ -45,7 +45,17 @@ Each squad member's device operates in one of three states. A device is always i
 - Broadcasts: `preciseLocationResponse` every 3 seconds, sent ONLY to the requesting peer (not broadcast)
 - Triggered by: receiving `preciseLocationRequest` from a specific squad member
 - Timeout: drops to previous state when requester sends `stopPreciseLocation` OR 90 seconds with no `requestRenewal`
-- Battery cost: ~6% per hour (target device only; requester also runs GPS-best for its own position)
+- Battery cost: ~6% per hour (target device only)
+
+### One-Sided Navigation Principle
+
+Navigation is always one-sided. When User A navigates to User B:
+- User B's device activates GPS and streams precise location to User A
+- User A's device runs GPS locally ONLY to show their own position on their own screen — it does NOT broadcast to anyone
+- User A's location is invisible to User B unless User B independently opens the map (which would send a separate `locationRequest`)
+- This means navigating to someone costs battery on the target's device, but the requester's location is never shared as a side effect
+
+The only time both sides see each other is when both independently choose to look.
 
 ### State Priority
 
@@ -69,6 +79,32 @@ When the app enters background:
 
 When the app returns to foreground:
 - Restores to whatever state incoming requests dictate (e.g., if someone has the map open, device re-enters AMBIENT on next `locationRequest`)
+
+### Stale Pin Display
+
+When a user opens the map, there's a 1-3+ second delay while `locationRequest` traverses the mesh (longer with multi-hop). To eliminate perceived delay:
+- Immediately show last known positions as **faded/grayed pins** with a timestamp label ("5 min ago")
+- As fresh `locationResponse` messages arrive, pins snap to live positions and regain full opacity
+- If a peer doesn't respond within 10 seconds, their pin stays faded with "Last seen X min ago"
+- Stale pins older than 1 hour are hidden entirely (they've likely left the festival)
+
+### SOS Mode
+
+For genuine emergencies (medical, lost minor, security):
+- Activated via dedicated SOS button (long-press to prevent accidental activation)
+- Overrides ALL battery tiers — broadcasts precise GPS to entire squad continuously (every 3 seconds)
+- Triggers urgent notification to all squad members with distinct alarm sound and vibration pattern
+- Shows a persistent red banner on all squad members' screens with the SOS member's live location
+- Persists until manually cancelled by the SOS sender
+- SOS messages bypass all rate limits and chat queuing
+
+### Low-Power Map Mode
+
+When the requester (person opening the map) is below 15% battery:
+- Their own position pin uses last-known location or hundred-meter accuracy — no GPS-best activation
+- Peer location requests still work normally (peers handle their own tier based on THEIR battery)
+- Navigate mode still available but requester's own pin may be less precise
+- A subtle indicator shows "Your location is approximate (low battery)"
 
 ---
 
@@ -144,6 +180,8 @@ When the app returns to foreground:
 | `urgentChat` | Broadcast to squad | message, priority flag | User-initiated |
 | `chat` | Broadcast to squad | message | Piggybacks on next mesh activity |
 | `squadAnnouncement` | Broadcast to squad | message, pinLocation (optional), announcementID | Squad creator only |
+| `sos` | Broadcast to squad | lat/lng (best), heading, speed, userID | Every 3s until cancelled |
+| `sosCancelled` | Broadcast to squad | userID | On manual cancel |
 
 ### Removed Message Types
 
@@ -191,6 +229,14 @@ These are built into the protocol V2 implementation, not separate tasks.
 - Key rotation: new secret generated when any member leaves (forward secrecy)
 - New members receive the current secret from squad creator during join handshake
 - If squad creator is offline during a join, any existing member who has the secret can distribute it
+
+**Squad leader succession (key holder chain):**
+- Every member who has the squad secret is a potential key holder
+- If the squad creator's device goes offline (battery dies, leaves mesh), the longest-tenured online member becomes the **acting key authority**
+- Acting authority can: distribute the secret to new joiners, trigger key rotation if a member is kicked
+- Authority is determined by join timestamp (stored with peer info) — no election needed, it's deterministic
+- When the original creator comes back online, they automatically resume authority
+- This ensures the squad never gets locked out because one phone died
 
 ### 4.2 Message Signing
 
