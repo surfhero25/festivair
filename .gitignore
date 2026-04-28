@@ -29,3 +29,5 @@ Pods/
 
 # Claude
 .claude/
+
+.sentryclirc

@@ -95,6 +95,7 @@
 		FA000094 /* StaleAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100094 /* StaleAnnotationView.swift */; };
 		FA000095 /* AnnouncementBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100095 /* AnnouncementBannerView.swift */; };
 		FA000096 /* SOSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100096 /* SOSManager.swift */; };
+		256C20C1858D41B58440DD3A /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = 801D6E2945AA49DC840D540A /* Sentry */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -226,7 +227,18 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		979200302F8D98F300058D69 /* FestivAirLiveActivity */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (979200442F8D98F400058D69 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = FestivAirLiveActivity; sourceTree = "<group>"; };
+		979200302F8D98F300058D69 /* FestivAirLiveActivity */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				979200442F8D98F400058D69 /* PBXFileSystemSynchronizedBuildFileExceptionSet */,
+			);
+			explicitFileTypes = {
+			};
+			explicitFolders = (
+			);
+			path = FestivAirLiveActivity;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -236,6 +248,7 @@
 			files = (
 				9792002F2F8D98F300058D69 /* SwiftUI.framework in Frameworks */,
 				9792002D2F8D98F300058D69 /* WidgetKit.framework in Frameworks */,
+				256C20C1858D41B58440DD3A /* Sentry in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -243,6 +256,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				256C20C1858D41B58440DD3A /* Sentry in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -604,6 +618,7 @@
 				FA300000 /* Frameworks */,
 				FA500002 /* Resources */,
 				979200412F8D98F400058D69 /* Embed Foundation Extensions */,
+				E9A63C8A58C0490EB51E685C /* Upload Debug Symbols to Sentry */,
 			);
 			buildRules = (
 			);
@@ -614,6 +629,9 @@
 			productName = FestivAir;
 			productReference = FA200000 /* FestivAir.app */;
 			productType = "com.apple.product-type.application";
+			packageProductDependencies = (
+				801D6E2945AA49DC840D540A /* Sentry */,
+			);
 		};
 /* End PBXNativeTarget section */
 
@@ -648,6 +666,9 @@
 			targets = (
 				FA500000 /* FestivAir */,
 				979200292F8D98F200058D69 /* FestivAirLiveActivityExtension */,
+			);
+			packageReferences = (
+				00E5F7857DF046EC928B11AD /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
 			);
 		};
 /* End PBXProject section */
@@ -992,6 +1013,8 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_USER_SCRIPT_SANDBOXING = "NO";
 			};
 			name = Debug;
 		};
@@ -1022,6 +1045,8 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_USER_SCRIPT_SANDBOXING = "NO";
 			};
 			name = Release;
 		};
@@ -1056,6 +1081,54 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		E9A63C8A58C0490EB51E685C /* Upload Debug Symbols to Sentry */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# This script is responsible for uploading debug symbols and source context for Sentry.
+if which sentry-cli >/dev/null; then
+  export SENTRY_ORG=claude-jy
+  export SENTRY_PROJECT=apple-festivair-ios
+  ERROR=$(sentry-cli debug-files upload --include-sources \"$DWARF_DSYM_FOLDER_PATH\" 2>&1 >/dev/null)
+  if [ ! $? -eq 0 ]; then
+    echo \"warning: sentry-cli - $ERROR\"
+  fi
+else
+  echo \"warning: sentry-cli not installed, download from https://github.com/getsentry/sentry-cli/releases\"
+fi
+";
+			name = "Upload Debug Symbols to Sentry";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		00E5F7857DF046EC928B11AD /* XCRemoteSwiftPackageReference "sentry-cocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/getsentry/sentry-cocoa/";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		801D6E2945AA49DC840D540A /* Sentry */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 00E5F7857DF046EC928B11AD /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
+			productName = Sentry;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = FA600000 /* Project object */;
 }

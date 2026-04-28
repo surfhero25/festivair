@@ -2,6 +2,7 @@ import UIKit
 import UserNotifications
 import BackgroundTasks
 import CloudKit
+import Sentry
 
 class AppDelegate: NSObject, UIApplicationDelegate {
 
@@ -9,6 +10,20 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
+        SentrySDK.start { options in
+            options.dsn = "https://23696f7b3df37934bbbf4387b282857d@o4511293544202240.ingest.us.sentry.io/4511293837017088"
+            options.environment = {
+                #if DEBUG
+                return "debug"
+                #else
+                return "production"
+                #endif
+            }()
+            options.tracesSampleRate = 0.2
+            options.attachScreenshot = true
+            options.attachViewHierarchy = true
+        }
+
         // Register for push notifications
         registerForPushNotifications()
 
