@@ -227,6 +227,29 @@ final class MeshNetworkManager: NSObject, ObservableObject {
         sendEnvelope(forwarded, to: targets)
     }
 
+    /// V2 relay: forward already-encoded protocol messages without trying to
+    /// reinterpret them as the older MeshEnvelope shape.
+    private func relayV2Envelope(_ envelope: V2Envelope, excluding sender: MCPeerID) {
+        guard let forwarded = envelope.forwarded(by: myPeerId.displayName) else {
+            #if DEBUG
+            print("[Mesh] Not relaying V2 - TTL exceeded or already forwarded")
+            #endif
+            return
+        }
+
+        let targets = connectedPeers.filter { $0 != sender }
+        guard !targets.isEmpty else { return }
+
+        do {
+            let data = try forwarded.encode()
+            try session.send(data, toPeers: targets, with: .reliable)
+        } catch {
+            #if DEBUG
+            print("[Mesh] V2 relay failed: \(error)")
+            #endif
+        }
+    }
+
     /// Check if a message should be processed locally
     private func shouldProcessLocally(_ envelope: MeshEnvelope) -> Bool {
         // Process if it's for our squad or if it's a broadcast
@@ -329,6 +352,15 @@ extension MeshNetworkManager: MCSessionDelegate {
             guard !seenMessageIds.contains(messageId) else { return }
             seenMessageIds.insert(messageId)
             seenMessageTimestamps[messageId] = Date()
+
+            if json["version"] != nil {
+                let envelope = try V2Envelope.decode(from: data)
+                DispatchQueue.main.async {
+                    self.messageSubject.send((data, peerID))
+                }
+                self.relayV2Envelope(envelope, excluding: peerID)
+                return
+            }
 
             let envelope = try JSONDecoder().decode(MeshEnvelope.self, from: data)
 

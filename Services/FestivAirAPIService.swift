@@ -7,12 +7,16 @@ actor FestivAirAPIService {
 
     // MARK: - Configuration
 
-    private let baseURL = "http://187.124.249.219:8080"
-    private let apiKey: String = {
-        guard let key = Bundle.main.infoDictionary?["FESTIVAIR_API_KEY"] as? String, !key.isEmpty else {
-            fatalError("FESTIVAIR_API_KEY not set in Info.plist")
-        }
-        return key
+    private let baseURL: URL = {
+        let configuredURL = Bundle.main.infoDictionary?["FESTIVAIR_API_BASE_URL"] as? String
+        let urlString = Self.configValue(configuredURL)
+        return URL(string: urlString?.isEmpty == false ? urlString! : "https://api.festivair.app")
+            ?? URL(string: "https://api.festivair.app")!
+    }()
+
+    private let apiKey: String? = {
+        let key = Bundle.main.infoDictionary?["FESTIVAIR_API_KEY"] as? String
+        return Self.configValue(key)
     }()
 
     private let decoder: JSONDecoder = {
@@ -20,6 +24,16 @@ actor FestivAirAPIService {
         d.dateDecodingStrategy = .iso8601
         return d
     }()
+
+    private static func configValue(_ rawValue: String?) -> String? {
+        let trimmed = rawValue?.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard let trimmed,
+              !trimmed.isEmpty,
+              !(trimmed.hasPrefix("$(") && trimmed.hasSuffix(")")) else {
+            return nil
+        }
+        return trimmed
+    }
 
     // MARK: - Event Models
 
@@ -59,13 +73,20 @@ actor FestivAirAPIService {
 
     /// Fetch upcoming events
     func fetchUpcomingEvents(limit: Int = 50) async throws -> [APIEvent] {
-        let url = URL(string: "\(baseURL)/events/?upcoming=true&limit=\(limit)")!
+        var components = URLComponents(url: baseURL.appendingPathComponent("events/"), resolvingAgainstBaseURL: false)!
+        components.queryItems = [
+            URLQueryItem(name: "upcoming", value: "true"),
+            URLQueryItem(name: "limit", value: String(limit))
+        ]
+        guard let url = components.url else { throw APIError.invalidURL }
         return try await request(url: url)
     }
 
     /// Fetch a specific event
     func fetchEvent(id: String) async throws -> APIEvent {
-        let url = URL(string: "\(baseURL)/events/\(id)")!
+        let url = baseURL
+            .appendingPathComponent("events")
+            .appendingPathComponent(id)
         return try await request(url: url)
     }
 
@@ -73,7 +94,10 @@ actor FestivAirAPIService {
 
     /// Fetch vendor locations for a specific event (for map pins)
     func fetchVendorLocations(eventId: String) async throws -> [APIVendorLocation] {
-        let url = URL(string: "\(baseURL)/vendors/locations/\(eventId)")!
+        let url = baseURL
+            .appendingPathComponent("vendors")
+            .appendingPathComponent("locations")
+            .appendingPathComponent(eventId)
         return try await request(url: url)
     }
 
@@ -81,7 +105,9 @@ actor FestivAirAPIService {
 
     private func request<T: Decodable>(url: URL) async throws -> T {
         var req = URLRequest(url: url)
-        req.setValue(apiKey, forHTTPHeaderField: "x-api-key")
+        if let apiKey {
+            req.setValue(apiKey, forHTTPHeaderField: "x-api-key")
+        }
         req.timeoutInterval = 10
 
         let (data, response) = try await URLSession.shared.data(for: req)
@@ -95,10 +121,12 @@ actor FestivAirAPIService {
     }
 
     enum APIError: Error, LocalizedError {
+        case invalidURL
         case requestFailed
 
         var errorDescription: String? {
             switch self {
+            case .invalidURL: return "Invalid API URL"
             case .requestFailed: return "API request failed"
             }
         }

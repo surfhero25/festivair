@@ -21,6 +21,8 @@ final class SOSManager: ObservableObject {
 
     private var broadcastTimer: Timer?
     private var messageSigner: MessageSignerProtocol?
+    var onLocalSOSActivated: (() -> Void)?
+    var onLocalSOSDeactivated: (() -> Void)?
 
     // MARK: - Init
 
@@ -43,6 +45,7 @@ final class SOSManager: ObservableObject {
 
         // Force GPS to best accuracy
         locationManager.applyTier(.navigate)
+        onLocalSOSActivated?()
 
         // Start broadcasting
         broadcastTimer = Timer.scheduledTimer(
@@ -70,6 +73,7 @@ final class SOSManager: ObservableObject {
 
         // Send cancellation
         sendSOSCancelled()
+        onLocalSOSDeactivated?()
 
         #if DEBUG
         print("[SOS] DEACTIVATED")
@@ -80,12 +84,16 @@ final class SOSManager: ObservableObject {
 
     /// Called when we receive an SOS from another squad member
     func handleIncomingSOS(userId: String, latitude: Double, longitude: Double) {
+        let isRepeatUpdate = isSOSActive && sosActiveMember == userId
+
         isSOSActive = true
         sosActiveMember = userId
         sosLocation = (latitude, longitude)
 
-        // Send local notification with alarm
-        sendSOSNotification(from: userId, lat: latitude, lng: longitude)
+        // SOS packets repeat every few seconds. Notify once, then just refresh the location.
+        if !isRepeatUpdate {
+            sendSOSNotification(from: userId, lat: latitude, lng: longitude)
+        }
     }
 
     /// Called when we receive an SOS cancellation
@@ -100,7 +108,7 @@ final class SOSManager: ObservableObject {
     // MARK: - Broadcasting
 
     private func broadcastSOS() {
-        guard let userId = KeychainHelper.load(.userId),
+        guard let userId = KeychainHelper.currentUserId,
               let signer = messageSigner,
               let location = locationManager.currentLocation,
               let joinCode = KeychainHelper.load(.currentJoinCode)
@@ -133,7 +141,7 @@ final class SOSManager: ObservableObject {
     }
 
     private func sendSOSCancelled() {
-        guard let userId = KeychainHelper.load(.userId),
+        guard let userId = KeychainHelper.currentUserId,
               let signer = messageSigner,
               let joinCode = KeychainHelper.load(.currentJoinCode)
                 ?? UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.currentJoinCode)

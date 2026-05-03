@@ -430,7 +430,7 @@ struct ProfileSetupView: View {
             // Apple user identifier becomes the canonical userId for this installation.
             // This ensures identity persists across reinstalls and is never anonymous.
             KeychainHelper.save(credential.user, for: .appleUserIdentifier)
-            KeychainHelper.save(credential.user, for: .userId)
+            KeychainHelper.saveCurrentUserId(credential.user)
 
             if let email = credential.email {
                 KeychainHelper.save(email, for: .appleEmail)

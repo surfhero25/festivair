@@ -184,6 +184,14 @@ final class CloudKitService: ObservableObject {
     // MARK: - Squad Operations (PUBLIC database so all users can find/join)
 
     func createSquad(name: String, joinCode: String, creatorId: String) async throws -> String {
+        guard try await isJoinCodeUnique(joinCode) else {
+            throw NSError(
+                domain: "CloudKitService",
+                code: 409,
+                userInfo: [NSLocalizedDescriptionKey: "A squad already exists with this join code."]
+            )
+        }
+
         let squadId = UUID().uuidString
         let recordID = CKRecord.ID(recordName: squadId)
         let record = CKRecord(recordType: RecordType.squad, recordID: recordID)
@@ -337,12 +345,12 @@ final class CloudKitService: ObservableObject {
 
     func updateLocation(squadId: String, userId: String, latitude: Double, longitude: Double, accuracy: Double) async throws {
         let recordName = "\(squadId)_\(userId)"
-        let recordID = CKRecord.ID(recordName: recordName, zoneID: zoneID)
+        let recordID = CKRecord.ID(recordName: recordName)
 
         // Try to fetch existing record or create new one
         let record: CKRecord
         do {
-            record = try await privateDatabase.record(for: recordID)
+            record = try await publicDatabase.record(for: recordID)
         } catch {
             record = CKRecord(recordType: RecordType.location, recordID: recordID)
         }
@@ -354,14 +362,14 @@ final class CloudKitService: ObservableObject {
         record["accuracy"] = accuracy
         record["timestamp"] = Date()
 
-        try await privateDatabase.save(record)
+        try await publicDatabase.save(record)
     }
 
     func getSquadLocations(squadId: String) async throws -> [(userId: String, latitude: Double, longitude: Double, timestamp: Date)] {
         let predicate = NSPredicate(format: "squadId == %@", squadId)
         let query = CKQuery(recordType: RecordType.location, predicate: predicate)
 
-        let results = try await privateDatabase.records(matching: query)
+        let results = try await publicDatabase.records(matching: query)
 
         var locations: [(userId: String, latitude: Double, longitude: Double, timestamp: Date)] = []
 

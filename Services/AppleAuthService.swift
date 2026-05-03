@@ -73,6 +73,7 @@ final class AppleAuthService: NSObject, ObservableObject {
 
         // Store the user identifier in Keychain (persists across reinstalls)
         KeychainHelper.save(credential.user, for: .appleUserIdentifier)
+        KeychainHelper.saveCurrentUserId(credential.user)
 
         // Email is only provided on first sign in
         if let email = credential.email {

@@ -2,6 +2,7 @@ import Foundation
 import SwiftData
 import Combine
 import UserNotifications
+import CryptoKit
 
 @MainActor
 final class ChatViewModel: ObservableObject {
@@ -23,11 +24,34 @@ final class ChatViewModel: ObservableObject {
 
     // MARK: - Current User
     private var currentUserId: String? {
-        UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.userId)
+        KeychainHelper.currentUserId
     }
 
     private var currentUserName: String {
         UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.displayName) ?? "Me"
+    }
+
+    nonisolated static func senderUUID(for userId: String) -> UUID {
+        if let uuid = UUID(uuidString: userId) {
+            return uuid
+        }
+
+        let digest = SHA256.hash(data: Data(userId.utf8))
+        var bytes = Array(digest.prefix(16))
+        bytes[6] = (bytes[6] & 0x0F) | 0x50
+        bytes[8] = (bytes[8] & 0x3F) | 0x80
+
+        return UUID(uuid: (
+            bytes[0], bytes[1], bytes[2], bytes[3],
+            bytes[4], bytes[5], bytes[6], bytes[7],
+            bytes[8], bytes[9], bytes[10], bytes[11],
+            bytes[12], bytes[13], bytes[14], bytes[15]
+        ))
+    }
+
+    func isMessageFromCurrentUser(_ message: ChatMessage) -> Bool {
+        guard let userId = currentUserId else { return false }
+        return message.senderId == Self.senderUUID(for: userId)
     }
 
     // MARK: - Squad
@@ -88,7 +112,7 @@ final class ChatViewModel: ObservableObject {
             return
         }
 
-        let userIdUUID = UUID(uuidString: userId) ?? UUID()
+        let userIdUUID = Self.senderUUID(for: userId)
         let trimmedText = text.trimmingCharacters(in: .whitespacesAndNewlines)
 
         // Create local message (delivered immediately since it's local)
@@ -199,7 +223,7 @@ final class ChatViewModel: ObservableObject {
 
                 let message = ChatMessage(
                     id: UUID(uuidString: msg.id) ?? UUID(),
-                    senderId: UUID(uuidString: msg.senderId) ?? UUID(),
+                    senderId: Self.senderUUID(for: msg.senderId),
                     senderName: msg.senderName,
                     text: msg.text,
                     squadId: squadId,
@@ -272,7 +296,7 @@ final class ChatViewModel: ObservableObject {
 
         // Skip our own messages
         if let userId = currentUserId,
-           chatPayload.senderId.uuidString == userId {
+           chatPayload.senderId == Self.senderUUID(for: userId) {
             DebugLogger.info("Skipping own message", category: "Chat")
             return
         }
@@ -472,7 +496,7 @@ final class ChatViewModel: ObservableObject {
     // MARK: - V2 Helpers
 
     private func getUserIdV2() -> String? {
-        KeychainHelper.load(.userId) ?? UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.userId)
+        KeychainHelper.currentUserId
     }
 
     private func getJoinCodeV2() -> String? {
@@ -525,7 +549,7 @@ final class ChatViewModel: ObservableObject {
 
                 let message = ChatMessage(
                     id: UUID(uuidString: msg.id) ?? UUID(),
-                    senderId: UUID(uuidString: msg.senderId) ?? UUID(),
+                    senderId: Self.senderUUID(for: msg.senderId),
                     senderName: msg.senderName,
                     text: msg.text,
                     squadId: squadId,

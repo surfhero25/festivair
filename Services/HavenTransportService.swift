@@ -13,7 +13,7 @@ final class HavenTransportService: MeshTransport {
 
     // MARK: - MeshTransport Conformance
 
-    var messagePublisher: AnyPublisher<MeshEnvelope, Never> {
+    var messagePublisher: AnyPublisher<Any, Never> {
         messageSubject.eraseToAnyPublisher()
     }
 
@@ -21,7 +21,7 @@ final class HavenTransportService: MeshTransport {
 
     // MARK: - Private State
 
-    private let messageSubject = PassthroughSubject<MeshEnvelope, Never>()
+    private let messageSubject = PassthroughSubject<Any, Never>()
     private let queue = DispatchQueue(label: "com.festivair.haven-transport", qos: .userInitiated)
 
     private var browser: NWBrowser?
@@ -282,7 +282,10 @@ final class HavenTransportService: MeshTransport {
         let hash = SHA256.hash(data: tokenData)
         let tokenHex = hash.compactMap { String(format: "%02x", $0) }.joined()
 
-        let authFrame: [String: Any] = ["auth_token": tokenHex]
+        let authFrame: [String: Any] = [
+            "auth_token": tokenHex,
+            "join_code": joinCode
+        ]
 
         guard let jsonData = try? JSONSerialization.data(withJSONObject: authFrame) else { return }
 
@@ -420,8 +423,14 @@ final class HavenTransportService: MeshTransport {
 
             // Decode and publish
             do {
-                let envelope = try JSONDecoder().decode(MeshEnvelope.self, from: jsonData)
-                messageSubject.send(envelope)
+                if let json = try JSONSerialization.jsonObject(with: jsonData) as? [String: Any],
+                   json["version"] != nil {
+                    _ = try V2Envelope.decode(from: jsonData)
+                    messageSubject.send(jsonData)
+                } else {
+                    let envelope = try JSONDecoder().decode(MeshEnvelope.self, from: jsonData)
+                    messageSubject.send(envelope)
+                }
             } catch {
                 #if DEBUG
                 print("[Haven] Decode error: \(error)")

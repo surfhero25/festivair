@@ -19,6 +19,16 @@ fi
 source "$VENV_DIR/bin/activate"
 export PYTHONPATH="$PROJECT_DIR"
 
+ENV_FILE="$PROJECT_DIR/.env"
+if [ -f "$ENV_FILE" ]; then
+    set -a
+    # shellcheck disable=SC1090
+    source "$ENV_FILE"
+    set +a
+else
+    echo "WARNING: $ENV_FILE not found. Run install.sh or set FESTIVAIR_AUTH_TOKEN manually."
+fi
+
 # Trap signals to forward them to child processes
 cleanup() {
     echo "Shutting down Haven node..."

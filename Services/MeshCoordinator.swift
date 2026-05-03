@@ -38,6 +38,7 @@ final class MeshCoordinator: ObservableObject {
     private var ambientResponseTimer: Timer?
     private var navigateResponseTimer: Timer?
     private var bleBeacon: BLEBeaconService?
+    private weak var sosManager: SOSManager?
 
     @Published private(set) var currentTier: LocationTierManager.LocationTier = .idle
     @Published private(set) var clusterRole: ClusterManager.ClusterRole = .solo
@@ -52,7 +53,7 @@ final class MeshCoordinator: ObservableObject {
 
     // MARK: - Current User
     private var currentUserId: String? {
-        UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.userId)
+        KeychainHelper.currentUserId
     }
 
     // MARK: - Init
@@ -77,14 +78,33 @@ final class MeshCoordinator: ObservableObject {
 
         haven.messagePublisher
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] envelope in
-                self?.handleMeshMessage(envelope)
+            .sink { [weak self] message in
+                if let data = message as? Data {
+                    self?.handleV2Message(data)
+                } else {
+                    self?.handleMeshMessage(message)
+                }
             }
             .store(in: &cancellables)
 
         #if DEBUG
         print("[MeshCoordinator] Haven transport configured")
         #endif
+    }
+
+    func configureSOSManager(_ sosManager: SOSManager) {
+        self.sosManager = sosManager
+
+        sosManager.onLocalSOSActivated = { [weak self] in
+            self?.activateSOS()
+        }
+        sosManager.onLocalSOSDeactivated = { [weak self] in
+            self?.deactivateSOS()
+        }
+
+        if let signer = messageSigner {
+            sosManager.configure(signer: signer)
+        }
     }
 
     private func setupGatewayBroadcast() {
@@ -265,7 +285,8 @@ final class MeshCoordinator: ObservableObject {
     }
 
     private func syncLocationToCloud(_ location: Location) async {
-        guard let squadId = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.currentSquadId),
+        guard let squadId = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.currentCloudSquadId)
+                ?? UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.currentSquadId),
               let userId = currentUserId else { return }
 
         do {
@@ -311,8 +332,12 @@ final class MeshCoordinator: ObservableObject {
         // Handle messages that need gateway sync
         meshManager.messagePublisher
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] envelope, _ in
-                self?.handleMeshMessage(envelope)
+            .sink { [weak self] message, _ in
+                if let data = message as? Data {
+                    self?.handleV2Message(data)
+                } else {
+                    self?.handleMeshMessage(message)
+                }
             }
             .store(in: &cancellables)
     }
@@ -378,6 +403,9 @@ final class MeshCoordinator: ObservableObject {
         // Message signer
         do {
             self.messageSigner = try MessageSigner()
+            if let signer = messageSigner {
+                sosManager?.configure(signer: signer)
+            }
         } catch {
             #if DEBUG
             print("[MeshCoordinator] Failed to create MessageSigner: \(error)")
@@ -592,6 +620,10 @@ final class MeshCoordinator: ObservableObject {
 
     func handleV2Message(_ data: Data) {
         guard let envelope = try? V2Envelope.decode(from: data) else { return }
+        guard let myJoinCode = KeychainHelper.load(.currentJoinCode)
+            ?? UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.currentJoinCode)
+        else { return }
+        guard envelope.squadId == myJoinCode else { return }
 
         // Verify signature if we have the sender's public key
         // (For now, accept all valid envelopes — key exchange comes with squad join)
@@ -642,8 +674,20 @@ final class MeshCoordinator: ObservableObject {
             }
 
         case .sos:
-            // SOS handled by SOS-specific handler (Phase 3)
-            break
+            if let payload = try? JSONDecoder().decode(V2SOSPayload.self, from: envelope.payload),
+               payload.userId != currentUserId {
+                sosManager?.handleIncomingSOS(
+                    userId: payload.userId,
+                    latitude: payload.latitude,
+                    longitude: payload.longitude
+                )
+            }
+
+        case .sosCancelled:
+            if let payload = try? JSONDecoder().decode(V2SOSCancelled.self, from: envelope.payload),
+               payload.userId != currentUserId {
+                sosManager?.handleSOSCancelled(userId: payload.userId)
+            }
 
         default:
             break

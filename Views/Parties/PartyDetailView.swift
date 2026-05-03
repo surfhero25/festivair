@@ -14,7 +14,7 @@ struct PartyDetailView: View {
     @State private var userAttendeeStatus: AttendeeStatus?
 
     private var currentUserId: String? {
-        UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.userId)
+        KeychainHelper.currentUserId
     }
 
     private var isHost: Bool {

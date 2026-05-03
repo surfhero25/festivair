@@ -50,7 +50,7 @@ final class MapViewModel: ObservableObject {
 
     // MARK: - Current User
     private var currentUserId: String? {
-        UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.userId)
+        KeychainHelper.currentUserId
     }
 
     // MARK: - Init

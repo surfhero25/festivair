@@ -39,10 +39,6 @@ private struct ChatContentView: View {
     @State private var isUrgentMode = false
     @FocusState private var isInputFocused: Bool
 
-    private var currentUserId: String? {
-        UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.userId)
-    }
-
     private var currentUserEmoji: String {
         UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.emoji) ?? "🎧"
     }
@@ -89,7 +85,7 @@ private struct ChatContentView: View {
                                 ForEach(chatViewModel.messages, id: \.id) { message in
                                     ChatBubble(
                                         message: message,
-                                        isMe: message.senderId.uuidString == currentUserId,
+                                        isMe: chatViewModel.isMessageFromCurrentUser(message),
                                         currentUserEmoji: currentUserEmoji
                                     )
                                     .id(message.id)

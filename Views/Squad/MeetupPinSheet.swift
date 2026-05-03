@@ -117,7 +117,7 @@ struct MeetupPinSheet: View {
 
     private func createPin() {
         // Validate user info
-        guard let userId = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.userId),
+        guard let userId = KeychainHelper.currentUserId,
               let displayName = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.displayName) else {
             #if DEBUG
             print("[MeetupPin] Missing user ID or display name")

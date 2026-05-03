@@ -10,6 +10,7 @@ runs (`pytest -m 'not integration'`).
 from __future__ import annotations
 
 import asyncio
+import hashlib
 import importlib
 import json
 import struct
@@ -63,10 +64,13 @@ async def relay_server(monkeypatch):
 # ── Client helpers ────────────────────────────────────────────────────
 
 
-async def open_authed_client(host, port, token="test-token"):
+async def open_authed_client(host, port, token="test-token", join_code=None):
     """Open a TCP connection and complete the auth handshake."""
     reader, writer = await asyncio.open_connection(host, port)
-    writer.write(frame_bytes({"auth_token": token}))
+    auth_frame = {"auth_token": token}
+    if join_code is not None:
+        auth_frame["join_code"] = join_code
+    writer.write(frame_bytes(auth_frame))
     await writer.drain()
     return reader, writer
 
@@ -115,6 +119,18 @@ class TestAuth:
         writer.write(frame_bytes(make_v1_envelope()))
         await writer.drain()
         # No reply expected (sender excluded), but socket should stay open.
+        await asyncio.sleep(0.1)
+        assert not reader.at_eof(), "Server unexpectedly closed connection"
+        writer.close()
+        await writer.wait_closed()
+
+    async def test_join_code_token_accepted(self, relay_server):
+        _, host, port = relay_server
+        join_code = "ABC123"
+        token = hashlib.sha256(join_code.encode("utf-8")).hexdigest()
+        reader, writer = await open_authed_client(host, port, token, join_code)
+        writer.write(frame_bytes(make_v1_envelope(join_code=join_code)))
+        await writer.drain()
         await asyncio.sleep(0.1)
         assert not reader.at_eof(), "Server unexpectedly closed connection"
         writer.close()

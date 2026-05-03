@@ -14,7 +14,7 @@ struct PartiesView: View {
     @State private var showFilters = false
 
     private var currentUserId: String? {
-        UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.userId)
+        KeychainHelper.currentUserId
     }
 
     var body: some View {

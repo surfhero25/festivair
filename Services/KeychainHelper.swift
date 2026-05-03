@@ -17,6 +17,89 @@ enum KeychainHelper {
         case currentJoinCode    // Join code (moved from UserDefaults)
     }
 
+    // MARK: - Shared App Identity
+
+    /// The signed-in user's stable ID. Keychain is the source of truth, but
+    /// UserDefaults is kept in sync because older app components still read it.
+    static var currentUserId: String? {
+        if let userId = load(.userId), !userId.isEmpty {
+            mirror(userId, toUserDefaultsKey: Constants.UserDefaultsKeys.userId)
+            return userId
+        }
+
+        if let legacyUserId = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.userId),
+           !legacyUserId.isEmpty {
+            return legacyUserId
+        }
+
+        return nil
+    }
+
+    static func saveCurrentUserId(_ userId: String) {
+        save(userId, for: .userId)
+        mirror(userId, toUserDefaultsKey: Constants.UserDefaultsKeys.userId)
+    }
+
+    static func saveCurrentSquad(id: String, joinCode: String, cloudId: String? = nil) {
+        save(id, for: .currentSquadId)
+        save(joinCode, for: .currentJoinCode)
+        mirror(id, toUserDefaultsKey: Constants.UserDefaultsKeys.currentSquadId)
+        mirror(joinCode, toUserDefaultsKey: Constants.UserDefaultsKeys.currentJoinCode)
+        if let cloudId {
+            mirror(cloudId, toUserDefaultsKey: Constants.UserDefaultsKeys.currentCloudSquadId)
+        } else {
+            UserDefaults.standard.removeObject(forKey: Constants.UserDefaultsKeys.currentCloudSquadId)
+        }
+    }
+
+    static func clearCurrentSquad() {
+        delete(.currentSquadId)
+        delete(.currentJoinCode)
+        UserDefaults.standard.removeObject(forKey: Constants.UserDefaultsKeys.currentSquadId)
+        UserDefaults.standard.removeObject(forKey: Constants.UserDefaultsKeys.currentJoinCode)
+        UserDefaults.standard.removeObject(forKey: Constants.UserDefaultsKeys.currentCloudSquadId)
+    }
+
+    static func mirrorIdentityToUserDefaults() {
+        if let userId = load(.userId) {
+            mirror(userId, toUserDefaultsKey: Constants.UserDefaultsKeys.userId)
+        }
+        if let displayName = load(.displayName) {
+            mirror(displayName, toUserDefaultsKey: Constants.UserDefaultsKeys.displayName)
+        }
+        if let emoji = load(.emoji) {
+            mirror(emoji, toUserDefaultsKey: Constants.UserDefaultsKeys.emoji)
+        }
+        if let squadId = load(.currentSquadId) {
+            mirror(squadId, toUserDefaultsKey: Constants.UserDefaultsKeys.currentSquadId)
+        }
+        if let joinCode = load(.currentJoinCode) {
+            mirror(joinCode, toUserDefaultsKey: Constants.UserDefaultsKeys.currentJoinCode)
+        }
+    }
+
+    static func clearUserData() {
+        delete(.userId)
+        delete(.displayName)
+        delete(.emoji)
+        delete(.appleUserIdentifier)
+        delete(.appleEmail)
+        delete(.squadSecret)
+        clearCurrentSquad()
+
+        UserDefaults.standard.removeObject(forKey: Constants.UserDefaultsKeys.userId)
+        UserDefaults.standard.removeObject(forKey: Constants.UserDefaultsKeys.displayName)
+        UserDefaults.standard.removeObject(forKey: Constants.UserDefaultsKeys.emoji)
+        UserDefaults.standard.removeObject(forKey: Constants.UserDefaultsKeys.onboarded)
+        UserDefaults.standard.removeObject(forKey: "FestivAir.CurrentUserStatus")
+    }
+
+    private static func mirror(_ value: String, toUserDefaultsKey key: String) {
+        if UserDefaults.standard.string(forKey: key) != value {
+            UserDefaults.standard.set(value, forKey: key)
+        }
+    }
+
     // MARK: - Save
 
     static func save(_ value: String, for key: Key) {
@@ -143,5 +226,7 @@ enum KeychainHelper {
             print("[Keychain] Migrated emoji from UserDefaults")
             #endif
         }
+
+        mirrorIdentityToUserDefaults()
     }
 }

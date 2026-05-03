@@ -22,21 +22,16 @@ final class SquadViewModel: ObservableObject {
 
     // MARK: - Current User
     private var currentUserId: String? {
-        UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.userId)
+        KeychainHelper.currentUserId
     }
 
-    /// Gets the current user ID, or creates one if it doesn't exist
-    /// This is a failsafe in case AppState.init() didn't save it properly
-    private func getOrCreateUserId() -> String {
-        if let existing = currentUserId {
-            return existing
+    private func requireCurrentUserId() throws -> String {
+        guard KeychainHelper.load(.appleUserIdentifier) != nil,
+              let userId = currentUserId,
+              !userId.isEmpty else {
+            throw SquadError.notAuthenticated
         }
-        let newId = UUID().uuidString
-        UserDefaults.standard.set(newId, forKey: Constants.UserDefaultsKeys.userId)
-        #if DEBUG
-        print("[SquadVM] Created missing userId")
-        #endif
-        return newId
+        return userId
     }
 
     // MARK: - Init
@@ -55,14 +50,27 @@ final class SquadViewModel: ObservableObject {
     // MARK: - Squad Operations
 
     func createSquad(name: String, joinCode: String? = nil) async throws {
-        // Always ensure we have a userId (creates one if missing)
-        let userId = getOrCreateUserId()
+        let userId = try requireCurrentUserId()
 
         isLoading = true
         defer { isLoading = false }
 
-        // Use provided code or generate new one
-        let finalJoinCode = joinCode ?? Squad.generateJoinCode()
+        // Use provided code or generate new one. When CloudKit is available,
+        // check the code so two squads do not accidentally share one.
+        var finalJoinCode = joinCode ?? Squad.generateJoinCode()
+        if cloudKit.isAvailable {
+            do {
+                if joinCode == nil {
+                    finalJoinCode = try await cloudKit.generateUniqueJoinCode()
+                } else if !(try await cloudKit.isJoinCodeUnique(finalJoinCode)) {
+                    finalJoinCode = try await cloudKit.generateUniqueJoinCode()
+                }
+            } catch {
+                #if DEBUG
+                print("[Squad] Join code uniqueness check failed, continuing with local code: \(error.localizedDescription)")
+                #endif
+            }
+        }
 
         // Create local squad
         let squad = Squad(name: name, joinCode: finalJoinCode)
@@ -76,9 +84,11 @@ final class SquadViewModel: ObservableObject {
         }
 
         // Sync to CloudKit (optional, works offline - ignore errors for local-first)
+        var cloudSquadId: String?
         if cloudKit.isAvailable {
             do {
                 let cloudId = try await cloudKit.createSquad(name: name, joinCode: finalJoinCode, creatorId: userId)
+                cloudSquadId = cloudId
                 squad.cloudKitRecordId = cloudId // Reusing field for CloudKit ID
                 try modelContext?.save()
             } catch {
@@ -90,8 +100,11 @@ final class SquadViewModel: ObservableObject {
         }
 
         currentSquad = squad
-        UserDefaults.standard.set(squad.id.uuidString, forKey: Constants.UserDefaultsKeys.currentSquadId)
-        UserDefaults.standard.set(finalJoinCode, forKey: Constants.UserDefaultsKeys.currentJoinCode)
+        KeychainHelper.saveCurrentSquad(
+            id: squad.id.uuidString,
+            joinCode: finalJoinCode,
+            cloudId: cloudSquadId
+        )
 
         // CRITICAL: Clear all peers when creating squad - they were added before filtering was active
         peerTracker.clearAllPeers()
@@ -114,8 +127,7 @@ final class SquadViewModel: ObservableObject {
             throw SquadError.squadNotFound  // Invalid format treated as not found
         }
 
-        // Always ensure we have a userId (creates one if missing)
-        let userId = getOrCreateUserId()
+        let userId = try requireCurrentUserId()
 
         isLoading = true
         defer { isLoading = false }
@@ -209,8 +221,11 @@ final class SquadViewModel: ObservableObject {
         }
 
         currentSquad = squad
-        UserDefaults.standard.set(squad.id.uuidString, forKey: Constants.UserDefaultsKeys.currentSquadId)
-        UserDefaults.standard.set(normalizedCode, forKey: Constants.UserDefaultsKeys.currentJoinCode)
+        KeychainHelper.saveCurrentSquad(
+            id: squad.id.uuidString,
+            joinCode: normalizedCode,
+            cloudId: cloudSquadId
+        )
 
         // CRITICAL: Clear all peers when joining squad - they were added before filtering was active
         peerTracker.clearAllPeers()
@@ -337,8 +352,7 @@ final class SquadViewModel: ObservableObject {
         members = []
         memberLocations = [:]
         peerTracker.clearAllPeers()
-        UserDefaults.standard.removeObject(forKey: Constants.UserDefaultsKeys.currentSquadId)
-        UserDefaults.standard.removeObject(forKey: Constants.UserDefaultsKeys.currentJoinCode)
+        KeychainHelper.clearCurrentSquad()
 
         // Stop mesh networking
         meshManager.stopAll()
@@ -365,10 +379,12 @@ final class SquadViewModel: ObservableObject {
                 for loc in locations {
                     // Validate coordinates before using
                     guard loc.latitude >= -90, loc.latitude <= 90,
-                          loc.longitude >= -180, loc.longitude <= 180,
-                          let userId = UUID(uuidString: loc.userId) else {
+                          loc.longitude >= -180, loc.longitude <= 180 else {
                         continue
                     }
+                    let localUserId = members.first { $0.firebaseId == loc.userId }?.id
+                        ?? UUID(uuidString: loc.userId)
+                    guard let userId = localUserId else { continue }
                     let location = Location(
                         latitude: loc.latitude,
                         longitude: loc.longitude,
@@ -416,7 +432,7 @@ final class SquadViewModel: ObservableObject {
         guard let modelContext = modelContext else { return }
 
         // Ensure we have a userId first - if not, don't load stale squad data
-        let userId = getOrCreateUserId()
+        guard let userId = currentUserId else { return }
 
         let descriptor = FetchDescriptor<SquadMembership>(
             sortBy: [SortDescriptor(\.joinedAt, order: .reverse)]
@@ -439,10 +455,13 @@ final class SquadViewModel: ObservableObject {
 
                 currentSquad = squad
 
-                // Ensure joinCode is saved to UserDefaults (for mesh filtering)
-                if UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.currentJoinCode) == nil {
-                    UserDefaults.standard.set(squad.joinCode, forKey: Constants.UserDefaultsKeys.currentJoinCode)
-                }
+                // Keep the active squad available to older components while
+                // Keychain remains the source of truth.
+                KeychainHelper.saveCurrentSquad(
+                    id: squad.id.uuidString,
+                    joinCode: squad.joinCode,
+                    cloudId: squad.cloudKitRecordId
+                )
 
                 // Configure mesh SYNCHRONOUSLY before any async work
                 meshManager.configure(squadId: squad.id.uuidString, userId: userId)
@@ -488,7 +507,7 @@ final class SquadViewModel: ObservableObject {
         currentSquad = nil
         members = []
         memberLocations = [:]
-        UserDefaults.standard.removeObject(forKey: Constants.UserDefaultsKeys.currentSquadId)
+        KeychainHelper.clearCurrentSquad()
         #if DEBUG
         print("[SquadVM] Cleared all stale squad data")
         #endif
@@ -531,9 +550,8 @@ final class SquadViewModel: ObservableObject {
     private func getOrCreateCurrentUser() async throws -> User? {
         guard let modelContext = modelContext else { return nil }
 
-        let userId = currentUserId ?? UUID().uuidString
-        if currentUserId == nil {
-            UserDefaults.standard.set(userId, forKey: Constants.UserDefaultsKeys.userId)
+        guard let userId = currentUserId else {
+            throw SquadError.notAuthenticated
         }
 
         // Try to find existing user

@@ -26,7 +26,7 @@ private struct MemberListContentView: View {
     var onNavigateToPeer: ((PeerTracker.PeerStatus) -> Void)?
 
     private var currentUserId: String? {
-        UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.userId)
+        KeychainHelper.currentUserId
     }
 
     var body: some View {

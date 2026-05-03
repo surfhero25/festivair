@@ -202,6 +202,26 @@ final class V2RoundTripTests: XCTestCase {
     }
 }
 
+final class ChatIdentityTests: XCTestCase {
+
+    func testSenderUUIDKeepsUUIDUserIdsUnchanged() {
+        let userId = "9469EAD3-42B6-4E0D-8A37-5DC53B80F841"
+        XCTAssertEqual(ChatViewModel.senderUUID(for: userId), UUID(uuidString: userId))
+    }
+
+    func testSenderUUIDIsStableForAppleStyleUserIds() {
+        let userId = "001234.abcdef1234567890abcdef1234567890.1234"
+        XCTAssertEqual(ChatViewModel.senderUUID(for: userId), ChatViewModel.senderUUID(for: userId))
+    }
+
+    func testSenderUUIDDiffersForDifferentAppleStyleUserIds() {
+        XCTAssertNotEqual(
+            ChatViewModel.senderUUID(for: "apple-user-one"),
+            ChatViewModel.senderUUID(for: "apple-user-two")
+        )
+    }
+}
+
 final class V2EnvelopeBuilderTests: XCTestCase {
 
     func testBuilderProducesValidEnvelope() throws {

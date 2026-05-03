@@ -103,6 +103,7 @@ final class AppState: ObservableObject {
     init() {
         // Migrate from UserDefaults to Keychain if needed
         KeychainHelper.migrateFromUserDefaultsIfNeeded()
+        KeychainHelper.mirrorIdentityToUserDefaults()
 
         // Check if onboarded
         isOnboarded = UserDefaults.standard.bool(forKey: Constants.UserDefaultsKeys.onboarded)
@@ -159,6 +160,7 @@ final class AppState: ObservableObject {
 
         // Configure Haven TCP transport
         meshCoordinator.configureHaven(havenTransport)
+        meshCoordinator.configureSOSManager(sosManager)
 
         // Configure peer tracker
         peerTracker.configure(notificationManager: notificationManager)
@@ -233,10 +235,7 @@ final class AppState: ObservableObject {
     /// Forces the user back through onboarding to re-authenticate.
     private func handleAppleCredentialRevoked() {
         // Clear Apple-specific keychain data
-        KeychainHelper.delete(.appleUserIdentifier)
-        KeychainHelper.delete(.appleEmail)
-        // Also clear userId since it was derived from the Apple identifier
-        KeychainHelper.delete(.userId)
+        KeychainHelper.clearUserData()
 
         // Force back to onboarding — Apple auth is mandatory
         isOnboarded = false
@@ -261,7 +260,7 @@ final class AppState: ObservableObject {
         guard let status: UserStatus = UserDefaults.standard.codable(forKey: "FestivAir.CurrentUserStatus"),
               status.isActive else { return }
 
-        guard let userId = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.userId),
+        guard let userId = KeychainHelper.currentUserId,
               let displayName = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.displayName) else { return }
 
         // Get current squad join code for filtering
@@ -357,11 +356,12 @@ final class AppState: ObservableObject {
 
         // CRITICAL: Save to Keychain FIRST (persists across app reinstalls)
         // Do this before setting isOnboarded to avoid race condition on crash
-        KeychainHelper.save(userId, for: .userId)
+        KeychainHelper.saveCurrentUserId(userId)
         KeychainHelper.save(displayName, for: .displayName)
         KeychainHelper.save(emoji, for: .emoji)
 
         // Save to UserDefaults (for app components)
+        UserDefaults.standard.set(userId, forKey: Constants.UserDefaultsKeys.userId)
         UserDefaults.standard.set(displayName, forKey: Constants.UserDefaultsKeys.displayName)
         UserDefaults.standard.set(emoji, forKey: Constants.UserDefaultsKeys.emoji)
         UserDefaults.standard.set(true, forKey: Constants.UserDefaultsKeys.onboarded)
@@ -383,7 +383,7 @@ final class AppState: ObservableObject {
     func startServices() {
         // Pre-configure mesh with userId even without a squad
         // This ensures heartbeats and location broadcasts have proper identity
-        let userId = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.userId) ?? ""
+        let userId = KeychainHelper.currentUserId ?? ""
         if !userId.isEmpty {
             // Use a placeholder squadId - the mesh uses universalRelayEnabled=true
             // so it will connect to all FestivAir users regardless of squad

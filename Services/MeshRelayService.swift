@@ -143,7 +143,7 @@ final class MeshRelayService: ObservableObject {
     // MARK: - Helpers
 
     private var currentUserId: String {
-        UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.userId) ?? UUID().uuidString
+        KeychainHelper.currentUserId ?? ""
     }
 
     private var currentSquadId: String? {

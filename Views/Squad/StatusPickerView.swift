@@ -95,7 +95,7 @@ struct StatusPickerView: View {
         UserDefaults.standard.setCodable(status, forKey: "FestivAir.CurrentUserStatus")
 
         // Broadcast to squad
-        if let userId = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.userId),
+        if let userId = KeychainHelper.currentUserId,
            let displayName = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.displayName) {
 
             // Check if we have mesh peers

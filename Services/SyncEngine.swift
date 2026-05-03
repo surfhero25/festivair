@@ -109,7 +109,8 @@ final class SyncEngine: ObservableObject {
 
         do {
             // Fetch updates (squad locations, messages, etc.)
-            if let squadId = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.currentSquadId) {
+            if let squadId = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.currentCloudSquadId)
+                ?? UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.currentSquadId) {
                 let locations = try await cloudKit.getSquadLocations(squadId: squadId)
 
                 // Broadcast to mesh peers

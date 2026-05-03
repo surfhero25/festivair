@@ -5,8 +5,8 @@ import Combine
 /// Both MultipeerConnectivity and Haven TCP transports conform to this,
 /// allowing the coordinator to receive messages from any transport.
 protocol MeshTransport: AnyObject {
-    /// Publisher that emits decoded MeshEnvelope messages from this transport
-    var messagePublisher: AnyPublisher<MeshEnvelope, Never> { get }
+    /// Publisher that emits decoded V1 MeshEnvelope messages or raw V2 Data.
+    var messagePublisher: AnyPublisher<Any, Never> { get }
 
     /// Whether the transport is currently connected and able to send/receive
     var isConnected: Bool { get }

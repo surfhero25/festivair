@@ -24,8 +24,8 @@ struct SettingsView: View {
     @Query private var users: [User]
 
     private var currentUser: User? {
-        let userId = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.userId)
-        return users.first { $0.id.uuidString == userId }
+        guard let userId = KeychainHelper.currentUserId else { return nil }
+        return users.first { $0.firebaseId == userId || $0.id.uuidString == userId }
     }
 
     var body: some View {
@@ -406,32 +406,26 @@ struct SettingsView: View {
         appState.stopServices()
 
         // Delete from CloudKit
-        if let userId = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.userId) {
+        let userId = KeychainHelper.currentUserId
+        if let userId {
             try? await appState.cloudKit.deleteUserData(userId: userId)
         }
 
         // Clear all local data
         clearLocalUserData()
-        clearAllLocalData()
+        clearAllLocalData(userId: userId)
 
         // Reset onboarding
         appState.isOnboarded = false
     }
 
     private func clearLocalUserData() {
-        UserDefaults.standard.removeObject(forKey: Constants.UserDefaultsKeys.userId)
-        UserDefaults.standard.removeObject(forKey: Constants.UserDefaultsKeys.displayName)
-        UserDefaults.standard.removeObject(forKey: Constants.UserDefaultsKeys.emoji)
-        UserDefaults.standard.removeObject(forKey: Constants.UserDefaultsKeys.currentSquadId)
-        UserDefaults.standard.removeObject(forKey: Constants.UserDefaultsKeys.onboarded)
-        UserDefaults.standard.removeObject(forKey: "FestivAir.CurrentUserStatus")
+        KeychainHelper.clearUserData()
     }
 
-    private func clearAllLocalData() {
+    private func clearAllLocalData(userId: String?) {
         // Clear all SwiftData entities for this user
         // Messages, party attendance, etc. are linked to user
-        let userId = UserDefaults.standard.string(forKey: Constants.UserDefaultsKeys.userId)
-
         // Delete user-specific messages
         if let squadId = appState.squadViewModel.currentSquad?.id {
             let messageDescriptor = FetchDescriptor<ChatMessage>(

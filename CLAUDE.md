@@ -17,7 +17,7 @@ Festival squad tracking app. iOS (SwiftUI + SwiftData + MultipeerConnectivity) +
 - **`User.firebaseId` is also probably misnamed** (actually stores CloudKit user record ID), but was NOT renamed in the cleanup pass — only `Squad.firebaseId` was. Be cautious before refactoring further.
 
 ## Resolved (2026-05-02)
-- ~~Hardcoded API key in `FestivAirAPIService.swift`~~ — verified loaded from Info.plist via `Bundle.main.infoDictionary["FESTIVAIR_API_KEY"]`. Commit `627bb72` correctly fixed it.
+- ~~Hardcoded API key in app config~~ — `Info.plist` now uses build-setting placeholders for `FESTIVAIR_API_BASE_URL` and `FESTIVAIR_API_KEY`; unresolved placeholders are ignored at runtime.
 - ~~`MeshEnvelope.isForMySquad` hardcoded string~~ — already uses `Constants.UserDefaultsKeys.currentSquadId`. Landmine note was stale.
 - ~~`MeshCoordinator.setupV2()` not called from `start()`~~ — now invoked at end of `start()` (V2 components instantiate alongside V1; presencePulse runs concurrently with heartbeat).
 - ~~V2 message types not in Haven whitelist~~ — Haven now dispatches by envelope `version`. `V2_VALID_MESSAGE_TYPES` whitelisted; `route_message` and squad assignment use envelope-level `squadId` for V2.

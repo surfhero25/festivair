@@ -46,6 +46,10 @@ sudo systemctl restart festivair-haven  # restart
 
 Messages use length-prefix framing: a 4-byte big-endian uint32 payload length followed by a UTF-8 JSON body conforming to the MeshEnvelope schema.
 
+The first frame is an auth handshake. Clients may send the node token from
+`FESTIVAIR_AUTH_TOKEN`, or a SHA-256 hex digest of their squad join code with
+that join code included as `join_code`.
+
 ## Testing with netcat
 
 ```bash
@@ -77,11 +81,11 @@ pytest -m "not integration"       # unit tests only (~0.1s)
 pytest tests/test_protocol.py -v  # one file
 ```
 
-83 tests covering: V1 + V2 envelope validation and dispatch, frame
+84 tests covering: V1 + V2 envelope validation and dispatch, frame
 encoding/decoding, protocol fuzzing (oversized payloads, malformed JSON,
 deep nesting), squad routing rules for V1 and V2, MessageDedup TTL +
 capacity eviction, ClientRateLimiter token bucket, end-to-end TCP
-integration with auth handshake (correct/wrong/missing token + server
+integration with auth handshake (node token, squad-code token, wrong/missing token + server
 refusal to start without `FESTIVAIR_AUTH_TOKEN`).
 
 ## Project structure

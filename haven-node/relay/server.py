@@ -8,6 +8,8 @@ asyncio.Queue) so slow writers never block the event loop.
 from __future__ import annotations
 
 import asyncio
+import hashlib
+import hmac
 import json
 import logging
 import signal
@@ -37,6 +39,20 @@ log = logging.getLogger(__name__)
 
 
 # ── Auth frame helper ────────────────────────────────────────────────
+
+def auth_token_is_valid(token: str | None, join_code: str | None = None) -> bool:
+    """Return True for the node token or a squad-code-derived token."""
+    if not token:
+        return False
+
+    if config.AUTH_TOKEN and hmac.compare_digest(token, config.AUTH_TOKEN):
+        return True
+
+    if isinstance(join_code, str) and join_code:
+        expected = hashlib.sha256(join_code.encode("utf-8")).hexdigest()
+        return hmac.compare_digest(token, expected)
+
+    return False
 
 async def read_frame(reader: asyncio.StreamReader) -> bytes:
     """Read a single length-prefixed frame from the stream."""
@@ -195,7 +211,8 @@ class HavenRelay:
             )
             auth_data = json.loads(auth_frame)
             token = auth_data.get("auth_token")
-            if token != config.AUTH_TOKEN:
+            join_code = auth_data.get("join_code")
+            if not auth_token_is_valid(token, join_code):
                 log.warning("Auth failed from %s", addr)
                 writer.close()
                 await writer.wait_closed()
