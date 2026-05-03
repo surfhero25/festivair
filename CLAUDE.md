@@ -31,7 +31,7 @@ Festival squad tracking app. iOS (SwiftUI + SwiftData + MultipeerConnectivity) +
 
 ## Verify after changes
 - iOS build: `xcodebuild -project FestivAir.xcodeproj -scheme FestivAir -configuration Release -destination 'generic/platform=iOS' build CODE_SIGNING_ALLOWED=NO` (target zero warnings — confirmed clean state).
-- iOS tests (when simulator works): `xcodebuild -project FestivAir.xcodeproj -scheme FestivAirTests -destination 'platform=iOS Simulator,name=<sim-name>' test`. The `FestivAirTests` target was added 2026-05-02 via `scripts/add_test_target.rb` (idempotent, also re-syncs new test source files). `build-for-testing` already passes — full execution blocked by the local CoreSimulator symlink/TCC issue (see `mac_mini_session_progress.md`).
+- iOS tests: `xcodebuild -project FestivAir.xcodeproj -scheme FestivAirTests -destination 'platform=iOS Simulator,id=<UUID>' test` — **DO NOT pass `CODE_SIGNING_ALLOWED=NO` for tests.** That flag strips the team-id prefix from `application-identifier`, and `AppState.init` calls `CloudKitService.shared` → `CKContainer.default()`, which throws an ObjC exception on launch and crashes the test runner before tests start. The default Apple Development signing works fine on the simulator. **Verified working 2026-05-02 on Mac mini: 25 tests pass in ~3s.** The `FestivAirTests` target was added 2026-05-02 via `scripts/add_test_target.rb` (idempotent, also re-syncs new test source files).
 - Haven: `cd haven-node && .venv/bin/pytest` (83 tests, ~3s, includes V1/V2 routing E2E and auth fail-closed). Use `pytest -m "not integration"` for fast unit-only feedback. Run server live with `python -m relay.server`.
 
 ## Release tooling (added 2026-05-02)
