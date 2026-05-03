@@ -42,7 +42,7 @@ fastlane is configured at `fastlane/Appfile` + `fastlane/Fastfile`. Three lanes:
 
 ASC API key: `BYF7TNAA54` at `~/private_keys/AuthKey_BYF7TNAA54.p8` (mode 600, copied from iMac on 2026-05-02).
 Issuer: `69a6de85-e2c7-47e3-e053-5b8c7c11a4d1`. Team: `8JZLCG9CS2`. Bundle: `com.festivair.app`.
-Last verified TestFlight build: **43** (next will be 44).
+Last verified TestFlight build: **44** (shipped 2026-05-02 from Mac mini, ~3.5 min total).
 
 The legacy manual flow in `~/.claude/skills/ios-release/SKILL.md` still works as a fallback. Prefer `fastlane beta` for routine ships.
 
