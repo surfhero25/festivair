@@ -12,11 +12,14 @@
 		284E3C76D2C8EA545D5E83EA /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EBDF0112E44416898A7FCC /* Logger.swift */; };
 		3130C2334D8C4D3F2BCA6EEF /* MeetupPinAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DF3A50BE907782B4154A02 /* MeetupPinAnnotationView.swift */; };
 		34C778E2AF623D621FAF0FB0 /* NearestFacilityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9461A15400A977C8CCE3DF8 /* NearestFacilityView.swift */; };
+		39151675CCFF823B0240FC3E /* MeshTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6244C6558688BBDF0B6ADDBB /* MeshTestHelpers.swift */; };
 		51CF225CE78AD13497333411 /* AppleAuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D950024CB9E274C8CDDB8E /* AppleAuthService.swift */; };
 		5ADFC9427F1529C696F03214 /* MeetupPinSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5B92B291AC48A8D6D27A16 /* MeetupPinSheet.swift */; };
+		5FA1017EBE0D288368F11DD1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88D83F58A71F54BFB41E89DD /* Foundation.framework */; };
 		6C83B227D2B4A5135E5EFD92 /* CompassArrowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5F60D5A0655FD44ACF2A81 /* CompassArrowView.swift */; };
 		7E75DDADCAEE5E0BD23B9B59 /* UserStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1559BEEC51BB1B6BD87AB51B /* UserStatus.swift */; };
 		860AB547076DC66D990AD42F /* Facility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32811D64DD5DAF9365935C02 /* Facility.swift */; };
+		88B2A428EF409660A40A3FDB /* V2EnvelopeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E012CCD366D1433C9B5C134D /* V2EnvelopeTests.swift */; };
 		9792002D2F8D98F300058D69 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9792002C2F8D98F300058D69 /* WidgetKit.framework */; };
 		9792002F2F8D98F300058D69 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9792002E2F8D98F300058D69 /* SwiftUI.framework */; };
 		979200402F8D98F400058D69 /* FestivAirLiveActivityExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 9792002A2F8D98F200058D69 /* FestivAirLiveActivityExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -30,6 +33,7 @@
 		D1B8D73A257EBA46E0E9003B /* OfflineMapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED423ECB54015D8469849A7E /* OfflineMapService.swift */; };
 		D95786093BF97D77316E6BDA /* ProximityHapticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31DAA4D43D20183091F3EAE /* ProximityHapticsManager.swift */; };
 		E1D7A3E9088291E95CC419E6 /* StatusPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4173C3AFFFF0D531044B121B /* StatusPickerView.swift */; };
+		ECBEAE1171025181F9BA70BE /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = 801D6E2945AA49DC840D540A /* Sentry */; };
 		F80DF14C344780E2743AA3F4 /* FacilityDetailSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EAC8CAB10A1319CA039C7D /* FacilityDetailSheet.swift */; };
 		FA000001 /* FestivAirApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100001 /* FestivAirApp.swift */; };
 		FA000002 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100002 /* AppDelegate.swift */; };
@@ -95,10 +99,16 @@
 		FA000094 /* StaleAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100094 /* StaleAnnotationView.swift */; };
 		FA000095 /* AnnouncementBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100095 /* AnnouncementBannerView.swift */; };
 		FA000096 /* SOSManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100096 /* SOSManager.swift */; };
-		256C20C1858D41B58440DD3A /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = 801D6E2945AA49DC840D540A /* Sentry */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		69770304E5A9A12A9C44EB22 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FA600000 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FA500000;
+			remoteInfo = FestivAir;
+		};
 		9792003E2F8D98F400058D69 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = FA600000 /* Project object */;
@@ -131,11 +141,13 @@
 		4AB300A529F3B2EE8EB97A0E /* StatusBadgeView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = StatusBadgeView.swift; sourceTree = "<group>"; };
 		4E23BF3E3DAEE5180A176507 /* OfflineMapsView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OfflineMapsView.swift; sourceTree = "<group>"; };
 		5FF27C8C8D847ECE4366383E /* FacilityFilterBar.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FacilityFilterBar.swift; sourceTree = "<group>"; };
+		6244C6558688BBDF0B6ADDBB /* MeshTestHelpers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MeshTestHelpers.swift; sourceTree = "<group>"; };
 		6D31BB2C948F6355357CDB65 /* FestivalVenue.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FestivalVenue.swift; sourceTree = "<group>"; };
 		72F32915774BD3B194646905 /* PrivacyPolicyView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PrivacyPolicyView.swift; path = Views/Settings/PrivacyPolicyView.swift; sourceTree = "<group>"; };
 		7B5B92B291AC48A8D6D27A16 /* MeetupPinSheet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MeetupPinSheet.swift; sourceTree = "<group>"; };
 		7FD7E95BC21472001E4EFE35 /* BLEBeaconService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BLEBeaconService.swift; sourceTree = "<group>"; };
 		82D950024CB9E274C8CDDB8E /* AppleAuthService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppleAuthService.swift; sourceTree = "<group>"; };
+		88D83F58A71F54BFB41E89DD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		8F5F60D5A0655FD44ACF2A81 /* CompassArrowView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CompassArrowView.swift; sourceTree = "<group>"; };
 		9792002A2F8D98F200058D69 /* FestivAirLiveActivityExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FestivAirLiveActivityExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		9792002C2F8D98F300058D69 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -143,9 +155,11 @@
 		B18892BD3FD344CE44117EA5 /* MeetupPin.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MeetupPin.swift; sourceTree = "<group>"; };
 		B4EAC8CAB10A1319CA039C7D /* FacilityDetailSheet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FacilityDetailSheet.swift; sourceTree = "<group>"; };
 		B9461A15400A977C8CCE3DF8 /* NearestFacilityView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NearestFacilityView.swift; sourceTree = "<group>"; };
+		BECACB541677864E840BF61B /* FestivAirTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FestivAirTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C31DAA4D43D20183091F3EAE /* ProximityHapticsManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProximityHapticsManager.swift; sourceTree = "<group>"; };
 		D5DF3A50BE907782B4154A02 /* MeetupPinAnnotationView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MeetupPinAnnotationView.swift; sourceTree = "<group>"; };
 		DC0F56E579DF515E3C30C55F /* FacilityAnnotationView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FacilityAnnotationView.swift; sourceTree = "<group>"; };
+		E012CCD366D1433C9B5C134D /* V2EnvelopeTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = V2EnvelopeTests.swift; sourceTree = "<group>"; };
 		ED423ECB54015D8469849A7E /* OfflineMapService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OfflineMapService.swift; sourceTree = "<group>"; };
 		FA100001 /* FestivAirApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FestivAirApp.swift; sourceTree = "<group>"; };
 		FA100002 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -217,7 +231,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		979200442F8D98F400058D69 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		979200442F8D98F400058D69 /* Exceptions for "FestivAirLiveActivity" folder in "FestivAirLiveActivityExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -230,7 +244,7 @@
 		979200302F8D98F300058D69 /* FestivAirLiveActivity */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				979200442F8D98F400058D69 /* PBXFileSystemSynchronizedBuildFileExceptionSet */,
+				979200442F8D98F400058D69 /* Exceptions for "FestivAirLiveActivity" folder in "FestivAirLiveActivityExtension" target */,
 			);
 			explicitFileTypes = {
 			};
@@ -242,13 +256,21 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		4FE5A30FA1FE2E28968D3A93 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5FA1017EBE0D288368F11DD1 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		979200272F8D98F200058D69 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				9792002F2F8D98F300058D69 /* SwiftUI.framework in Frameworks */,
 				9792002D2F8D98F300058D69 /* WidgetKit.framework in Frameworks */,
-				256C20C1858D41B58440DD3A /* Sentry in Frameworks */,
+				ECBEAE1171025181F9BA70BE /* Sentry in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -256,7 +278,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				256C20C1858D41B58440DD3A /* Sentry in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -313,9 +334,20 @@
 			children = (
 				9792002C2F8D98F300058D69 /* WidgetKit.framework */,
 				9792002E2F8D98F300058D69 /* SwiftUI.framework */,
+				E12BE0E2A0DA08F83BED3B0E /* iOS */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
+		};
+		AEA035301499933447EDB2AF /* FestivAirTests */ = {
+			isa = PBXGroup;
+			children = (
+				6244C6558688BBDF0B6ADDBB /* MeshTestHelpers.swift */,
+				E012CCD366D1433C9B5C134D /* V2EnvelopeTests.swift */,
+			);
+			name = FestivAirTests;
+			path = FestivAirTests;
+			sourceTree = SOURCE_ROOT;
 		};
 		B4ACB3A102921687DCCA2663 /* Services */ = {
 			isa = PBXGroup;
@@ -346,6 +378,14 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		E12BE0E2A0DA08F83BED3B0E /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				88D83F58A71F54BFB41E89DD /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
 		E8594871E45603E20EC23F3E /* Map */ = {
 			isa = PBXGroup;
 			children = (
@@ -374,6 +414,7 @@
 				B4ACB3A102921687DCCA2663 /* Services */,
 				6F3CC33F8CE26E28555BBC1F /* Views */,
 				FF1566103342A823886C3348 /* FestivAir */,
+				AEA035301499933447EDB2AF /* FestivAirTests */,
 			);
 			sourceTree = "<group>";
 		};
@@ -573,6 +614,7 @@
 			children = (
 				FA200000 /* FestivAir.app */,
 				9792002A2F8D98F200058D69 /* FestivAirLiveActivityExtension.appex */,
+				BECACB541677864E840BF61B /* FestivAirTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -588,6 +630,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		72DACDBB293821FD5C19AF8B /* FestivAirTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BBFC94C2648779568105BBAB /* Build configuration list for PBXNativeTarget "FestivAirTests" */;
+			buildPhases = (
+				F5D311C4AE9CF525B63767ED /* Sources */,
+				4FE5A30FA1FE2E28968D3A93 /* Frameworks */,
+				8071158DDCBAEDE3F818D19E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BFCC63D3B6A286AB3B307DAA /* PBXTargetDependency */,
+			);
+			name = FestivAirTests;
+			productName = FestivAirTests;
+			productReference = BECACB541677864E840BF61B /* FestivAirTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		979200292F8D98F200058D69 /* FestivAirLiveActivityExtension */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 979200452F8D98F400058D69 /* Build configuration list for PBXNativeTarget "FestivAirLiveActivityExtension" */;
@@ -605,6 +665,7 @@
 			);
 			name = FestivAirLiveActivityExtension;
 			packageProductDependencies = (
+				801D6E2945AA49DC840D540A /* Sentry */,
 			);
 			productName = FestivAirLiveActivityExtension;
 			productReference = 9792002A2F8D98F200058D69 /* FestivAirLiveActivityExtension.appex */;
@@ -626,12 +687,12 @@
 				9792003F2F8D98F400058D69 /* PBXTargetDependency */,
 			);
 			name = FestivAir;
-			productName = FestivAir;
-			productReference = FA200000 /* FestivAir.app */;
-			productType = "com.apple.product-type.application";
 			packageProductDependencies = (
 				801D6E2945AA49DC840D540A /* Sentry */,
 			);
+			productName = FestivAir;
+			productReference = FA200000 /* FestivAir.app */;
+			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
@@ -660,20 +721,28 @@
 				Base,
 			);
 			mainGroup = FA400000;
+			packageReferences = (
+				00E5F7857DF046EC928B11AD /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
+			);
 			productRefGroup = FA400099 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				FA500000 /* FestivAir */,
 				979200292F8D98F200058D69 /* FestivAirLiveActivityExtension */,
-			);
-			packageReferences = (
-				00E5F7857DF046EC928B11AD /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
+				72DACDBB293821FD5C19AF8B /* FestivAirTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		8071158DDCBAEDE3F818D19E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		979200282F8D98F200058D69 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -692,11 +761,38 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		E9A63C8A58C0490EB51E685C /* Upload Debug Symbols to Sentry */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+			);
+			name = "Upload Debug Symbols to Sentry";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# This script is responsible for uploading debug symbols and source context for Sentry.\nif which sentry-cli >/dev/null; then\n  export SENTRY_ORG=claude-jy\n  export SENTRY_PROJECT=apple-festivair-ios\n  ERROR=$(sentry-cli debug-files upload --include-sources \"$DWARF_DSYM_FOLDER_PATH\" 2>&1 >/dev/null)\n  if [ ! $? -eq 0 ]; then\n    echo \"warning: sentry-cli - $ERROR\"\n  fi\nelse\n  echo \"warning: sentry-cli not installed, download from https://github.com/getsentry/sentry-cli/releases\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		979200262F8D98F200058D69 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5D311C4AE9CF525B63767ED /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				39151675CCFF823B0240FC3E /* MeshTestHelpers.swift in Sources */,
+				88B2A428EF409660A40A3FDB /* V2EnvelopeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -798,9 +894,37 @@
 			target = 979200292F8D98F200058D69 /* FestivAirLiveActivityExtension */;
 			targetProxy = 9792003E2F8D98F400058D69 /* PBXContainerItemProxy */;
 		};
+		BFCC63D3B6A286AB3B307DAA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = FestivAir;
+			target = FA500000 /* FestivAir */;
+			targetProxy = 69770304E5A9A12A9C44EB22 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		5763E5A124F2260996F44E83 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8JZLCG9CS2;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.festivair.app.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FestivAir.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/FestivAir";
+			};
+			name = Debug;
+		};
 		979200422F8D98F400058D69 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -858,6 +982,29 @@
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		F44EEC9933B532B81B7BBE57 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8JZLCG9CS2;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.festivair.app.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FestivAir.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/FestivAir";
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -994,7 +1141,9 @@
 				CODE_SIGN_ENTITLEMENTS = Resources/FestivAir.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 7;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = FestivAir;
@@ -1013,8 +1162,6 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_USER_SCRIPT_SANDBOXING = "NO";
 			};
 			name = Debug;
 		};
@@ -1026,7 +1173,9 @@
 				CODE_SIGN_ENTITLEMENTS = Resources/FestivAir.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 7;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = FestivAir;
@@ -1045,8 +1194,6 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_USER_SCRIPT_SANDBOXING = "NO";
 			};
 			name = Release;
 		};
@@ -1058,6 +1205,15 @@
 			buildConfigurations = (
 				979200422F8D98F400058D69 /* Debug */,
 				979200432F8D98F400058D69 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BBFC94C2648779568105BBAB /* Build configuration list for PBXNativeTarget "FestivAirTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F44EEC9933B532B81B7BBE57 /* Release */,
+				5763E5A124F2260996F44E83 /* Debug */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1081,35 +1237,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		E9A63C8A58C0490EB51E685C /* Upload Debug Symbols to Sentry */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# This script is responsible for uploading debug symbols and source context for Sentry.
-if which sentry-cli >/dev/null; then
-  export SENTRY_ORG=claude-jy
-  export SENTRY_PROJECT=apple-festivair-ios
-  ERROR=$(sentry-cli debug-files upload --include-sources \"$DWARF_DSYM_FOLDER_PATH\" 2>&1 >/dev/null)
-  if [ ! $? -eq 0 ]; then
-    echo \"warning: sentry-cli - $ERROR\"
-  fi
-else
-  echo \"warning: sentry-cli not installed, download from https://github.com/getsentry/sentry-cli/releases\"
-fi
-";
-			name = "Upload Debug Symbols to Sentry";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin XCRemoteSwiftPackageReference section */
 		00E5F7857DF046EC928B11AD /* XCRemoteSwiftPackageReference "sentry-cocoa" */ = {

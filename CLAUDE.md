@@ -30,7 +30,8 @@ Festival squad tracking app. iOS (SwiftUI + SwiftData + MultipeerConnectivity) +
 `[4 bytes big-endian uint32 length] + [UTF-8 JSON]` — both sides must match.
 
 ## Verify after changes
-- iOS: build Release in Xcode (target zero warnings — confirmed clean state).
+- iOS build: `xcodebuild -project FestivAir.xcodeproj -scheme FestivAir -configuration Release -destination 'generic/platform=iOS' build CODE_SIGNING_ALLOWED=NO` (target zero warnings — confirmed clean state).
+- iOS tests (when simulator works): `xcodebuild -project FestivAir.xcodeproj -scheme FestivAirTests -destination 'platform=iOS Simulator,name=<sim-name>' test`. The `FestivAirTests` target was added 2026-05-02 via `scripts/add_test_target.rb` (idempotent, also re-syncs new test source files). `build-for-testing` already passes — full execution blocked by the local CoreSimulator symlink/TCC issue (see `mac_mini_session_progress.md`).
 - Haven: `cd haven-node && .venv/bin/pytest` (83 tests, ~3s, includes V1/V2 routing E2E and auth fail-closed). Use `pytest -m "not integration"` for fast unit-only feedback. Run server live with `python -m relay.server`.
 
 ## Release tooling (added 2026-05-02)
