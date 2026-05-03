@@ -79,7 +79,7 @@ final class SquadViewModel: ObservableObject {
         if cloudKit.isAvailable {
             do {
                 let cloudId = try await cloudKit.createSquad(name: name, joinCode: finalJoinCode, creatorId: userId)
-                squad.firebaseId = cloudId // Reusing field for CloudKit ID
+                squad.cloudKitRecordId = cloudId // Reusing field for CloudKit ID
                 try modelContext?.save()
             } catch {
                 // CloudKit sync failed (e.g., schema not deployed) - continue with local-only squad
@@ -189,12 +189,12 @@ final class SquadViewModel: ObservableObject {
             // Reuse existing local squad
             squad = existing
             if let cloudId = cloudSquadId {
-                squad.firebaseId = cloudId
+                squad.cloudKitRecordId = cloudId
             }
         } else {
             // Create new local squad
             squad = Squad(name: squadName, joinCode: normalizedCode)
-            squad.firebaseId = cloudSquadId
+            squad.cloudKitRecordId = cloudSquadId
             modelContext?.insert(squad)
         }
 
@@ -306,7 +306,7 @@ final class SquadViewModel: ObservableObject {
         defer { isLoading = false }
 
         // Remove from CloudKit
-        if let cloudId = squad.firebaseId, cloudKit.isAvailable {
+        if let cloudId = squad.cloudKitRecordId, cloudKit.isAvailable {
             try await cloudKit.leaveSquad(squadId: cloudId, userId: userId)
         }
 
@@ -359,7 +359,7 @@ final class SquadViewModel: ObservableObject {
         members = memberships.compactMap { $0.user }
 
         // Fetch remote locations if connected
-        if let cloudId = squad.firebaseId, cloudKit.isAvailable {
+        if let cloudId = squad.cloudKitRecordId, cloudKit.isAvailable {
             do {
                 let locations = try await cloudKit.getSquadLocations(squadId: cloudId)
                 for loc in locations {
@@ -497,7 +497,7 @@ final class SquadViewModel: ObservableObject {
     /// Refresh squad members from CloudKit (called at app launch and pull-to-refresh)
     func refreshSquadMembers() async {
         guard let squad = currentSquad,
-              squad.firebaseId != nil,  // Ensure we have a cloud squad
+              squad.cloudKitRecordId != nil,  // Ensure we have a cloud squad
               let userId = currentUserId,
               cloudKit.isAvailable else {
             #if DEBUG

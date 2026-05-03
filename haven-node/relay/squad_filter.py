@@ -83,15 +83,19 @@ class SquadRouter:
         """Determine which clients should receive *envelope*.
 
         Routing rules (in priority order):
-            1. If the envelope has a ``targetSquadId``, send only to
+            1. If the envelope has a V1 ``targetSquadId``, send only to
                clients in that squad (excluding the sender).
-            2. If the inner message carries a ``joinCode``, send to
-               clients sharing that code (excluding the sender).
+            2. V2 envelopes carry ``squadId`` at the top level; V1
+               envelopes nest ``joinCode`` inside ``message``. Either
+               value, when present and known, narrows the routing set.
             3. Otherwise broadcast to every connected client except the
                sender.
         """
         target_squad = envelope.get("targetSquadId")
-        join_code = (envelope.get("message") or {}).get("joinCode")
+        if "version" in envelope:
+            join_code = envelope.get("squadId")
+        else:
+            join_code = (envelope.get("message") or {}).get("joinCode")
 
         # Determine the set of candidate peer IDs
         if target_squad and target_squad in self._squads:

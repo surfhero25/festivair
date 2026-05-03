@@ -8,7 +8,7 @@ final class Squad {
     var joinCode: String
     var createdAt: Date
     var currentEventId: String?
-    var firebaseId: String?
+    @Attribute(originalName: "firebaseId") var cloudKitRecordId: String?
 
     @Relationship(deleteRule: .nullify, inverse: \SquadMembership.squad)
     var memberships: [SquadMembership]?

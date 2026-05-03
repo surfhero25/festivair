@@ -11,15 +11,19 @@ Festival squad tracking app. iOS (SwiftUI + SwiftData + MultipeerConnectivity) +
 - Load project state: `project_festivair.md` for current branch status.
 
 ## Landmines
-- **V2 message types are NOT in Haven's whitelist.** V2 messages sent through the relay are rejected. V2 works peer-to-peer only until Haven is updated.
-- **`MeshCoordinator.setupV2()` exists but is NOT called from `start()`.** V2 components are nil at runtime — wiring incomplete.
 - **`joinCode` is the universal discriminator.** Used by Haven `squad_filter`, ChatViewModel, PeerTracker. ALL THREE must agree. Missing UserDefaults write at squad join = silent message drop everywhere.
-- **`MeshEnvelope.isForMySquad` reads UserDefaults with the HARDCODED string "FestivAir.CurrentSquadId"**, not Constants. Renaming the constant doesn't fix this — grep for the literal.
-- **`squadId` vs `joinCode` confusion.** ChatMessage.squadId = local SwiftData UUID. MeshMessagePayload.squadId is REPURPOSED (emoji in heartbeats, joinCode in chat). MeshMessagePayload.joinCode is the actual routing key. Three different identifiers, all called "squad".
-- **`Squad.firebaseId` is misnamed** — actually stores CloudKit record ID.
-- **Haven auth bypass:** if `FESTIVAIR_AUTH_TOKEN` env var is unset, server skips auth entirely. Verify before deploying.
-- **Hardcoded API key** in `FestivAirAPIService.swift` line 13 — violates env var rule, needs to move.
-- **Background task double registration** — both AppDelegate and MeshCoordinator register the same BGTasks IDs. Second registration silently ignored.
+- **`squadId` vs `joinCode` confusion.** ChatMessage.squadId = local SwiftData UUID. MeshMessagePayload.squadId is REPURPOSED (emoji in heartbeats, joinCode in chat). MeshMessagePayload.joinCode is the actual routing key. Three different identifiers, all called "squad" — see header comment in `Models/ChatMessage.swift`. Still NOT renamed because the wire-protocol field name is shared with Haven; lockstep iOS+Python rename required.
+- **V2 envelope shape ≠ V1.** V2 puts `version`, `type`, `payload`, and `squadId` at the envelope top level (no nested `message`, no `joinCode`). Haven detects V2 by the `version` field — see `protocol.py::is_v2_envelope`. Keep `V2_VALID_MESSAGE_TYPES` (Python) in sync with `V2MessageType` (Swift).
+- **`User.firebaseId` is also probably misnamed** (actually stores CloudKit user record ID), but was NOT renamed in the cleanup pass — only `Squad.firebaseId` was. Be cautious before refactoring further.
+
+## Resolved (2026-05-02)
+- ~~Hardcoded API key in `FestivAirAPIService.swift`~~ — verified loaded from Info.plist via `Bundle.main.infoDictionary["FESTIVAIR_API_KEY"]`. Commit `627bb72` correctly fixed it.
+- ~~`MeshEnvelope.isForMySquad` hardcoded string~~ — already uses `Constants.UserDefaultsKeys.currentSquadId`. Landmine note was stale.
+- ~~`MeshCoordinator.setupV2()` not called from `start()`~~ — now invoked at end of `start()` (V2 components instantiate alongside V1; presencePulse runs concurrently with heartbeat).
+- ~~V2 message types not in Haven whitelist~~ — Haven now dispatches by envelope `version`. `V2_VALID_MESSAGE_TYPES` whitelisted; `route_message` and squad assignment use envelope-level `squadId` for V2.
+- ~~Haven auth bypass when `FESTIVAIR_AUTH_TOKEN` unset~~ — server now refuses to start (`SystemExit(1)`) and the per-connection check no longer silently allows empty tokens.
+- ~~Background task double registration~~ — `MeshCoordinator.registerBackgroundTasks()` extension was dead code (zero callers); deleted. AppDelegate is the only registration site now.
+- ~~`Squad.firebaseId` misnamed~~ — renamed to `cloudKitRecordId` with `@Attribute(originalName: "firebaseId")` to migrate existing SwiftData stores.
 
 ## Wire protocol (iOS ↔ Haven)
 `[4 bytes big-endian uint32 length] + [UTF-8 JSON]` — both sides must match.

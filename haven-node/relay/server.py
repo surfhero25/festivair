@@ -119,6 +119,12 @@ class HavenRelay:
     async def start(self) -> None:
         """Bind the server socket and begin accepting connections."""
         configure_logging()
+        if not config.AUTH_TOKEN:
+            log.critical(
+                "FESTIVAIR_AUTH_TOKEN is unset; refusing to start. "
+                "Set the env var to a non-empty secret."
+            )
+            raise SystemExit(1)
         ssl_context = None
         if config.TLS_CERT_PATH and config.TLS_KEY_PATH:
             ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
@@ -189,7 +195,7 @@ class HavenRelay:
             )
             auth_data = json.loads(auth_frame)
             token = auth_data.get("auth_token")
-            if config.AUTH_TOKEN and token != config.AUTH_TOKEN:
+            if token != config.AUTH_TOKEN:
                 log.warning("Auth failed from %s", addr)
                 writer.close()
                 await writer.wait_closed()
@@ -265,9 +271,14 @@ class HavenRelay:
                         )
                         self._router.register(client)
 
-                    # Extract joinCode from heartbeat or any message
-                    msg = envelope.get("message", {})
-                    join_code = msg.get("joinCode")
+                    # Extract squad key — V2 envelopes carry `squadId` at the top
+                    # level; V1 envelopes nest `joinCode` inside `message`.
+                    if "version" in envelope:
+                        msg = {"type": envelope.get("type")}
+                        join_code = envelope.get("squadId")
+                    else:
+                        msg = envelope.get("message", {})
+                        join_code = msg.get("joinCode")
                     if join_code and client is not None:
                         self._router.assign_squad(peer_id, join_code)
 

@@ -18,7 +18,7 @@ HEADER_SIZE: int = 4  # bytes
 MAX_PAYLOAD_SIZE: int = 1_048_576  # 1 MiB safety cap
 MAX_JSON_DEPTH: int = 5
 
-# ── Required top-level MeshEnvelope fields ───────────────────────────
+# ── Required top-level V1 MeshEnvelope fields ────────────────────────
 _REQUIRED_ENVELOPE_FIELDS: set[str] = {
     "messageId",
     "message",
@@ -28,7 +28,23 @@ _REQUIRED_ENVELOPE_FIELDS: set[str] = {
     "timestamp",
 }
 
-# ── Valid MeshMessagePayload types ───────────────────────────────────
+# ── Required top-level V2 envelope fields ────────────────────────────
+# V2 envelopes carry `type` and `payload` at the top level (no nested
+# `message`) and a `version` field that distinguishes them from V1.
+_REQUIRED_V2_ENVELOPE_FIELDS: set[str] = {
+    "version",
+    "messageId",
+    "type",
+    "payload",
+    "originPeerId",
+    "squadId",
+    "visitedPeers",
+    "ttl",
+    "timestamp",
+    "signature",
+}
+
+# ── Valid V1 MeshMessagePayload types ────────────────────────────────
 VALID_MESSAGE_TYPES: set[str] = {
     "locationUpdate",
     "chatMessage",
@@ -39,6 +55,24 @@ VALID_MESSAGE_TYPES: set[str] = {
     "findMe",
     "statusUpdate",
     "meetupPin",
+}
+
+# ── Valid V2 message types ───────────────────────────────────────────
+# Mirror of V2MessageType in iOS Models/MeshProtocolV2.swift. Keep in sync.
+V2_VALID_MESSAGE_TYPES: set[str] = {
+    "presencePulse",
+    "locationRequest",
+    "locationResponse",
+    "preciseLocationRequest",
+    "preciseLocationResponse",
+    "stopPreciseLocation",
+    "requestRenewal",
+    "clusterHandoff",
+    "urgentChat",
+    "chat",
+    "squadAnnouncement",
+    "sos",
+    "sosCancelled",
 }
 
 
@@ -124,18 +158,28 @@ def decode_frames(buffer: bytes) -> list[tuple[dict[str, Any], int]]:
 
 # ── Validation ───────────────────────────────────────────────────────
 
-def validate_envelope(data: dict[str, Any]) -> None:
-    """Validate that *data* matches the MeshEnvelope schema.
+def is_v2_envelope(data: dict[str, Any]) -> bool:
+    """Distinguish V2 envelopes from V1 by the presence of a ``version`` field."""
+    return "version" in data
 
-    Checks:
-        - All required top-level fields are present.
-        - ``message`` is a dict with a valid ``type`` field.
-        - ``visitedPeers`` is a list.
-        - ``ttl`` is an integer >= 0.
+
+def validate_envelope(data: dict[str, Any]) -> None:
+    """Validate that *data* matches either the V1 or V2 envelope schema.
+
+    Dispatches on the presence of a top-level ``version`` field: V2
+    envelopes have ``version``/``type``/``payload`` at the top level,
+    V1 envelopes nest the message inside a ``message`` object.
 
     Raises:
         ProtocolError: On any schema violation.
     """
+    if is_v2_envelope(data):
+        _validate_v2_envelope(data)
+    else:
+        _validate_v1_envelope(data)
+
+
+def _validate_v1_envelope(data: dict[str, Any]) -> None:
     missing = _REQUIRED_ENVELOPE_FIELDS - set(data.keys())
     if missing:
         raise ProtocolError(f"Missing required envelope fields: {missing}")
@@ -156,3 +200,26 @@ def validate_envelope(data: dict[str, Any]) -> None:
     ttl = data["ttl"]
     if not isinstance(ttl, int) or ttl < 0:
         raise ProtocolError(f"'ttl' must be a non-negative integer, got {ttl!r}")
+
+
+def _validate_v2_envelope(data: dict[str, Any]) -> None:
+    missing = _REQUIRED_V2_ENVELOPE_FIELDS - set(data.keys())
+    if missing:
+        raise ProtocolError(f"Missing required V2 envelope fields: {missing}")
+
+    msg_type = data.get("type")
+    if msg_type not in V2_VALID_MESSAGE_TYPES:
+        raise ProtocolError(
+            f"Invalid V2 message type '{msg_type}'; expected one of {V2_VALID_MESSAGE_TYPES}"
+        )
+
+    if not isinstance(data["visitedPeers"], list):
+        raise ProtocolError("'visitedPeers' must be an array")
+
+    ttl = data["ttl"]
+    if not isinstance(ttl, int) or ttl < 0:
+        raise ProtocolError(f"'ttl' must be a non-negative integer, got {ttl!r}")
+
+    squad_id = data.get("squadId")
+    if not isinstance(squad_id, str) or not squad_id:
+        raise ProtocolError("V2 envelope 'squadId' must be a non-empty string")

@@ -119,6 +119,8 @@ final class MeshCoordinator: ObservableObject {
         startHeartbeat()
         startLocationBroadcast()
 
+        setupV2()
+
         isActive = true
         meshStatus = .searching
 
@@ -709,20 +711,5 @@ final class MeshCoordinator: ObservableObject {
         if gatewayManager.isGateway {
             await syncEngine.syncToCloud()
         }
-    }
-}
-
-// MARK: - Background Task Registration
-extension MeshCoordinator {
-    static func registerBackgroundTasks() {
-        #if os(iOS)
-        BGTaskScheduler.shared.register(
-            forTaskWithIdentifier: "com.festivair.mesh-sync",
-            using: nil
-        ) { task in
-            // Handle task
-            task.setTaskCompleted(success: true)
-        }
-        #endif
     }
 }

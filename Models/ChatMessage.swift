@@ -37,6 +37,14 @@ final class ChatMessage: Identifiable {
 }
 
 // MARK: - Mesh Message Wrapper
+//
+// Three identifiers in this app are colloquially called "squad" — keep them straight:
+//   1. `Squad.id`              — local SwiftData UUID, never on the wire.
+//   2. `MeshMessagePayload.squadId` — REPURPOSED: holds an emoji in heartbeats, the
+//                                    joinCode in chat. NOT the SwiftData UUID. Do not
+//                                    use for routing — use `joinCode` below.
+//   3. `MeshMessagePayload.joinCode` — the universal routing key, agreed across
+//                                    iOS, Haven `squad_filter`, and PeerTracker.
 struct MeshMessagePayload: Codable {
     let type: MeshMessageType
     let userId: String?
@@ -44,14 +52,14 @@ struct MeshMessagePayload: Codable {
     let chat: ChatMessagePayload?
     let peerId: String?
     let signalStrength: Int?
-    let squadId: String?
+    let squadId: String?  // Repurposed: emoji in heartbeats, joinCode in chat. NOT for routing.
     let syncData: Data?
     let batteryLevel: Int?
     let hasService: Bool?
     let enabled: Bool?
     let status: StatusPayload?
     let meetupPin: MeetupPinPayload?
-    let joinCode: String?  // Squad join code for filtering peers
+    let joinCode: String?  // Authoritative routing key — agree with Haven squad_filter.
 
     enum MeshMessageType: String, Codable {
         case locationUpdate
