@@ -279,17 +279,27 @@ class HavenRelay:
                     else:
                         msg = envelope.get("message", {})
                         join_code = msg.get("joinCode")
-                    if join_code and client is not None:
-                        self._router.assign_squad(peer_id, join_code)
 
                     # Dedup
                     message_id = envelope["messageId"]
                     if self._dedup.is_duplicate(message_id):
                         log.debug("Duplicate message %s from %s", message_id, peer_id)
+                        # Still update squad membership so the peer is
+                        # routable for future messages from others.
+                        if join_code and client is not None:
+                            self._router.assign_squad(peer_id, join_code)
                         continue
 
-                    # Route
+                    # Route against the squad map AS IT IS NOW. Assigning
+                    # the squad must happen AFTER routing — otherwise a
+                    # peer announcing a squad that no other peer has joined
+                    # would route to its own one-member squad (excluding
+                    # itself) and reach nobody, instead of the documented
+                    # broadcast-fallback behavior.
                     targets = self._router.route_message(envelope, peer_id)
+
+                    if join_code and client is not None:
+                        self._router.assign_squad(peer_id, join_code)
                     if targets:
                         frame = encode_frame(envelope)
                         for target in targets:

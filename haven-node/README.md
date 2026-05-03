@@ -66,6 +66,24 @@ sys.stdout.buffer.write(frame)
 " | nc localhost 7331
 ```
 
+## Tests
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r relay/requirements-dev.txt
+pytest                            # full suite (~3s; includes integration)
+pytest -m "not integration"       # unit tests only (~0.1s)
+pytest tests/test_protocol.py -v  # one file
+```
+
+83 tests covering: V1 + V2 envelope validation and dispatch, frame
+encoding/decoding, protocol fuzzing (oversized payloads, malformed JSON,
+deep nesting), squad routing rules for V1 and V2, MessageDedup TTL +
+capacity eviction, ClientRateLimiter token bucket, end-to-end TCP
+integration with auth handshake (correct/wrong/missing token + server
+refusal to start without `FESTIVAIR_AUTH_TOKEN`).
+
 ## Project structure
 
 ```

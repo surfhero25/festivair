@@ -24,13 +24,14 @@ Festival squad tracking app. iOS (SwiftUI + SwiftData + MultipeerConnectivity) +
 - ~~Haven auth bypass when `FESTIVAIR_AUTH_TOKEN` unset~~ — server now refuses to start (`SystemExit(1)`) and the per-connection check no longer silently allows empty tokens.
 - ~~Background task double registration~~ — `MeshCoordinator.registerBackgroundTasks()` extension was dead code (zero callers); deleted. AppDelegate is the only registration site now.
 - ~~`Squad.firebaseId` misnamed~~ — renamed to `cloudKitRecordId` with `@Attribute(originalName: "firebaseId")` to migrate existing SwiftData stores.
+- ~~Haven `route_message` "broadcast on unknown squad" rule was unreachable~~ — server.py was assigning the squad BEFORE routing, so any joinCode/squadId in the envelope became a known (1-member) squad before routing checked it. Fixed by reordering to route-then-assign. Found by `pytest tests/test_server_integration.py::TestV1RoutingE2E::test_unknown_join_code_broadcasts`.
 
 ## Wire protocol (iOS ↔ Haven)
 `[4 bytes big-endian uint32 length] + [UTF-8 JSON]` — both sides must match.
 
 ## Verify after changes
 - iOS: build Release in Xcode (target zero warnings — confirmed clean state).
-- Haven: `cd haven-node && python -m relay.server` for local test.
+- Haven: `cd haven-node && .venv/bin/pytest` (83 tests, ~3s, includes V1/V2 routing E2E and auth fail-closed). Use `pytest -m "not integration"` for fast unit-only feedback. Run server live with `python -m relay.server`.
 
 ## Release tooling (added 2026-05-02)
 fastlane is configured at `fastlane/Appfile` + `fastlane/Fastfile`. Three lanes:

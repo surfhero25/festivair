@@ -39,3 +39,9 @@ fastlane/screenshots
 fastlane/test_output
 *.ipa
 *.xcarchive
+
+# Python (haven-node)
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/

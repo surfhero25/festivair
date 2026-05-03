@@ -1,0 +1,15 @@
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+addopts = "-ra --strict-markers --strict-config"
+markers = [
+    "integration: tests that bind a real TCP port and exercise the full server",
+]
+filterwarnings = [
+    "error",
+    "ignore::DeprecationWarning:zeroconf.*",
+    # asyncio socket cleanup is non-deterministic at GC time;
+    # ResourceWarnings from leaked transports are noisy but not real bugs.
+    "ignore::ResourceWarning",
+    "ignore::pytest.PytestUnraisableExceptionWarning",
+]
