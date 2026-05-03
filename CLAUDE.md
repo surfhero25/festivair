@@ -28,5 +28,19 @@ Festival squad tracking app. iOS (SwiftUI + SwiftData + MultipeerConnectivity) +
 - iOS: build Release in Xcode (target zero warnings — confirmed clean state).
 - Haven: `cd haven-node && python -m relay.server` for local test.
 
+## Release tooling (added 2026-05-02)
+fastlane is configured at `fastlane/Appfile` + `fastlane/Fastfile`. Three lanes:
+- `fastlane beta` — auto-bumps to next available TF build number, archives, uploads to TestFlight
+- `fastlane archive_only` — local archive only, no upload (use to test the build pipeline)
+- `fastlane tf_build_number` — read-only, prints current TestFlight build number
+
+ASC API key: `BYF7TNAA54` at `~/private_keys/AuthKey_BYF7TNAA54.p8` (mode 600, copied from iMac on 2026-05-02).
+Issuer: `69a6de85-e2c7-47e3-e053-5b8c7c11a4d1`. Team: `8JZLCG9CS2`. Bundle: `com.festivair.app`.
+Last verified TestFlight build: **43** (next will be 44).
+
+The legacy manual flow in `~/.claude/skills/ios-release/SKILL.md` still works as a fallback. Prefer `fastlane beta` for routine ships.
+
+Note: skill memory previously claimed root `ExportOptions.plist` had a stale team `K59N3U8X8K` — this is outdated. The file was already corrected to `8JZLCG9CS2` and works with fastlane out of the box.
+
 ## End of session
 Update `architecture_festivair.md` if architecture changed. Update `project_festivair.md` if branch status / merge readiness changed.

@@ -31,3 +31,11 @@ Pods/
 .claude/
 
 .sentryclirc
+
+# fastlane (commit Appfile + Fastfile, ignore generated output)
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+*.ipa
+*.xcarchive
