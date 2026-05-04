@@ -1256,7 +1256,7 @@
 		801D6E2945AA49DC840D540A /* Sentry */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 00E5F7857DF046EC928B11AD /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
-			productName = Sentry;
+			productName = "Sentry-Dynamic";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

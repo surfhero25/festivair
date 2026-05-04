@@ -48,5 +48,7 @@ The legacy manual flow in `~/.claude/skills/ios-release/SKILL.md` still works as
 
 Note: skill memory previously claimed root `ExportOptions.plist` had a stale team `K59N3U8X8K` — this is outdated. The file was already corrected to `8JZLCG9CS2` and works with fastlane out of the box.
 
+Sentry SPM product is `Sentry-Dynamic` (not the static `Sentry`) so Xcode emits a Sentry.framework.dSYM into the archive's dSYMs folder. This stops the `Upload Symbols Failed ... Sentry.framework UUIDs ...` warning during `-exportArchive` (build 45 on 2026-05-03 was the last build that hit it; switched immediately after). If you ever swap back to the static product to shrink binary size, ASC will resume warning and Apple won't symbolicate Sentry-frame crashes in Xcode Organizer (Sentry's own crash reports keep working either way via the `Upload Debug Symbols to Sentry` build phase).
+
 ## End of session
 Update `architecture_festivair.md` if architecture changed. Update `project_festivair.md` if branch status / merge readiness changed.
