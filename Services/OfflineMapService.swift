@@ -24,6 +24,9 @@ final class OfflineMapService: ObservableObject {
     private let fileManager = FileManager.default
     private let cacheDirectory: URL
     private var downloadTasks: [UUID: URLSessionDownloadTask] = [:]
+    /// Maps a synthesized FestivalVenue.id back to its bundled slug (e.g. UUID → "burning-man") so we can
+    /// locate `Resources/festival_pois/<slug>.geojson`. Populated during loadBundledFestivals().
+    private var venueSlugById: [UUID: String] = [:]
 
     // MARK: - Configuration
     private let maxCacheSize: Int64 = 100_000_000 // 100 MB
@@ -48,9 +51,10 @@ final class OfflineMapService: ObservableObject {
         isLoading = true
         error = nil
 
-        // In production, this would fetch from API
-        // For now, load sample data
-        availableVenues = loadSampleVenues()
+        // Load the bundled festival catalogue (89 entries from Resources/festivals.json).
+        // Falls back to the legacy hardcoded sample list only if the bundle resource is missing.
+        let bundled = loadBundledFestivals()
+        availableVenues = bundled.isEmpty ? loadSampleVenues() : bundled
 
         // Update download status for each venue
         for i in availableVenues.indices {
@@ -88,9 +92,21 @@ final class OfflineMapService: ObservableObject {
         }
 
         do {
-            // In production, download from API
-            // For now, generate sample data
-            let bundle = generateSampleBundle(for: venue)
+            // Pull facilities from the bundled OSM POI GeoJSON for this venue. Falls back to the
+            // synthetic sample bundle only if no POI file exists for this slug (rare, e.g. Burning Man).
+            let realFacilities = loadBundledFacilities(for: venue)
+            let bundle: VenueDataBundle
+            if realFacilities.isEmpty {
+                bundle = generateSampleBundle(for: venue)
+            } else {
+                bundle = VenueDataBundle(
+                    venue: venue,
+                    facilities: realFacilities,
+                    stages: [],
+                    version: 1,
+                    generatedAt: Date()
+                )
+            }
 
             // Save to cache
             let encoder = JSONEncoder()
@@ -298,7 +314,117 @@ final class OfflineMapService: ObservableObject {
         }
     }
 
-    // MARK: - Sample Data (for development/demo)
+    // MARK: - Bundled festival data
+
+    private struct BundledFestival: Codable {
+        let id: String      // slug, e.g. "burning-man"
+        let name: String
+        let lat: Double
+        let lon: Double
+        let attendance: Int
+        let notes: String?
+    }
+
+    private struct GeoJSONFeatureCollection: Codable {
+        let features: [Feature]
+        struct Feature: Codable {
+            let geometry: Geometry
+            let properties: [String: AnyCodable]?
+        }
+        struct Geometry: Codable {
+            let type: String
+            let coordinates: [Double] // GeoJSON: [lon, lat]
+        }
+    }
+
+    /// Bare-minimum heterogeneous-value Codable shim for GeoJSON properties (we only need a handful of strings).
+    private struct AnyCodable: Codable {
+        let value: Any
+        init(from decoder: Decoder) throws {
+            let c = try decoder.singleValueContainer()
+            if let s = try? c.decode(String.self) { value = s; return }
+            if let b = try? c.decode(Bool.self) { value = b; return }
+            if let i = try? c.decode(Int.self) { value = i; return }
+            if let d = try? c.decode(Double.self) { value = d; return }
+            value = ""
+        }
+        func encode(to encoder: Encoder) throws {
+            var c = encoder.singleValueContainer()
+            try c.encode(String(describing: value))
+        }
+    }
+
+    /// Maps OSM categories (as emitted by `scripts/build_festival_poi.py`) to FestivAir FacilityTypes.
+    /// Categories without a sensible match are dropped at load time.
+    private static let osmCategoryToFacilityType: [String: FacilityType] = [
+        "toilet": .bathroom,
+        "water": .water,
+        "first_aid": .medical,
+        "aed": .medical,
+        "hospital": .medical,
+        "clinic": .medical,
+        "info": .info,
+        "charging": .charging,
+        "shop": .merchandise,
+        "cafe": .food
+    ]
+
+    private func loadBundledFestivals() -> [FestivalVenue] {
+        guard let url = Bundle.main.url(forResource: "festivals", withExtension: "json"),
+              let data = try? Data(contentsOf: url),
+              let entries = try? JSONDecoder().decode([BundledFestival].self, from: data)
+        else {
+            return []
+        }
+        venueSlugById.removeAll(keepingCapacity: true)
+        return entries.map { entry in
+            let radiusKm: Double = entry.attendance >= 40_000 ? 4.0 : (entry.attendance >= 10_000 ? 2.5 : 1.5)
+            let latDelta = radiusKm / 111.0
+            let lonDelta = radiusKm / (111.0 * cos(entry.lat * .pi / 180))
+            let venue = FestivalVenue(
+                name: entry.name,
+                description: entry.notes,
+                minLatitude: entry.lat - latDelta,
+                maxLatitude: entry.lat + latDelta,
+                minLongitude: entry.lon - lonDelta,
+                maxLongitude: entry.lon + lonDelta,
+                eventId: nil,
+                imageUrl: nil
+            )
+            venueSlugById[venue.id] = entry.id
+            return venue
+        }
+    }
+
+    /// Loads facilities for a venue from `Resources/festival_pois/<slug>.geojson`.
+    /// Returns an empty array if the bundle has no POI file for this venue (e.g. Burning Man — desert isn't on OSM).
+    private func loadBundledFacilities(for venue: FestivalVenue) -> [Facility] {
+        guard let slug = venueSlugById[venue.id] else { return [] }
+        guard let url = Bundle.main.url(forResource: slug, withExtension: "geojson", subdirectory: "festival_pois"),
+              let data = try? Data(contentsOf: url),
+              let collection = try? JSONDecoder().decode(GeoJSONFeatureCollection.self, from: data)
+        else {
+            return []
+        }
+        return collection.features.compactMap { feature -> Facility? in
+            guard feature.geometry.type == "Point",
+                  feature.geometry.coordinates.count == 2 else { return nil }
+            let lon = feature.geometry.coordinates[0]
+            let lat = feature.geometry.coordinates[1]
+            let category = (feature.properties?["category"]?.value as? String) ?? ""
+            guard let type = Self.osmCategoryToFacilityType[category] else { return nil }
+            let name = (feature.properties?["name"]?.value as? String) ?? type.displayName
+            return Facility(
+                name: name,
+                type: type,
+                latitude: lat,
+                longitude: lon,
+                venueId: venue.id
+            )
+        }
+    }
+
+    // MARK: - Sample Data (legacy helpers — replaced by loadBundledFestivals/loadBundledFacilities)
 
     private func loadSampleVenues() -> [FestivalVenue] {
         [

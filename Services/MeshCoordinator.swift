@@ -625,8 +625,44 @@ final class MeshCoordinator: ObservableObject {
         else { return }
         guard envelope.squadId == myJoinCode else { return }
 
-        // Verify signature if we have the sender's public key
-        // (For now, accept all valid envelopes — key exchange comes with squad join)
+        // Signature verification — cryptographically bind every action (especially SOS) to a known sender.
+        //
+        // 1. Resolve the sender's public key:
+        //    - Prefer one already pinned in our PublicKeyDirectory (TOFU lock — survives across launches).
+        //    - Otherwise, accept the key embedded in this envelope and pin it (first-write-wins).
+        // 2. Verify the ECDSA signature covers the full integrity-critical signing input.
+        // 3. Anything that fails verification is dropped silently.
+        let directory = PublicKeyDirectory.shared
+        let pinnedKey = directory.publicKey(for: envelope.originPeerId)
+        let candidateKey = pinnedKey ?? envelope.senderPublicKey
+
+        guard let pubKey = candidateKey else {
+            #if DEBUG
+            print("[MeshCoordinator] V2 drop: no public key available for \(envelope.originPeerId)")
+            #endif
+            return
+        }
+        // If the envelope embedded a key that conflicts with what we already pinned, treat as hostile.
+        if let pinned = pinnedKey, let embedded = envelope.senderPublicKey, pinned != embedded {
+            #if DEBUG
+            print("[MeshCoordinator] V2 drop: public-key conflict for \(envelope.originPeerId) — possible impersonation")
+            #endif
+            return
+        }
+        guard MessageSigner.verify(
+            signature: envelope.signature,
+            data: envelope.signingInput,
+            publicKey: pubKey
+        ) else {
+            #if DEBUG
+            print("[MeshCoordinator] V2 drop: signature verification failed for \(envelope.type.rawValue) from \(envelope.originPeerId)")
+            #endif
+            return
+        }
+        // Signature verified — pin the key if this was the bootstrap (TOFU).
+        if pinnedKey == nil, let embedded = envelope.senderPublicKey {
+            directory.record(userId: envelope.originPeerId, publicKey: embedded)
+        }
 
         do {
             try envelope.validatePayloadContent()
@@ -645,6 +681,8 @@ final class MeshCoordinator: ObservableObject {
 
         case .preciseLocationRequest:
             if let payload = try? JSONDecoder().decode(V2PreciseLocationRequest.self, from: envelope.payload) {
+                // Only the named target should enter high-accuracy mode; everyone else just relays the envelope.
+                guard payload.targetMemberID == currentUserId else { break }
                 locationTierManager?.handlePreciseLocationRequest(from: payload.requesterID, targetMemberID: payload.targetMemberID)
             }
 

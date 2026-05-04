@@ -2,6 +2,31 @@ import Foundation
 import MultipeerConnectivity
 import Combine
 
+extension MCPeerID {
+    /// Separator embedded in MCPeerID.displayName so peers can be looked up by stable userId.
+    /// Wire format: "<humanDisplayName>|<userId>".
+    static let peerIdUserIdSeparator: Character = "|"
+
+    /// Build a peer ID with a stable userId suffix.
+    static func make(displayName: String, userId: String) -> MCPeerID {
+        // MCPeerID.displayName is capped at 63 bytes by MultipeerConnectivity; trim aggressively if needed.
+        let safeName = displayName.prefix(40)
+        return MCPeerID(displayName: "\(safeName)\(peerIdUserIdSeparator)\(userId)")
+    }
+
+    /// Stable userId embedded in the peer's displayName. Returns nil for legacy peers without a suffix.
+    var embeddedUserId: String? {
+        let parts = displayName.split(separator: MCPeerID.peerIdUserIdSeparator, maxSplits: 1)
+        return parts.count == 2 ? String(parts[1]) : nil
+    }
+
+    /// Human-readable portion of the displayName (the part before the userId suffix).
+    var humanDisplayName: String {
+        let parts = displayName.split(separator: MCPeerID.peerIdUserIdSeparator, maxSplits: 1)
+        return parts.count == 2 ? String(parts[0]) : displayName
+    }
+}
+
 /// Manages peer-to-peer mesh networking via Multipeer Connectivity
 /// Now supports UNIVERSAL RELAY - connects to all FestivAir users, not just squad members
 /// Users automatically relay encrypted messages for other squads (without reading them)
@@ -57,9 +82,26 @@ final class MeshNetworkManager: NSObject, ObservableObject {
     private var displayName: String
 
     // MARK: - Init
-    init(displayName: String) {
+    init(displayName: String, userId: String) {
         self.displayName = displayName
-        self.myPeerId = MCPeerID(displayName: displayName)
+        self.userId = userId.isEmpty ? nil : userId
+        // Always embed a userId suffix so peers can be looked up stably.
+        // For pre-onboarded users without an Apple-issued userId, fall back to a per-install UUID
+        // persisted in UserDefaults so the peer ID stays stable across launches.
+        let stableId: String
+        if !userId.isEmpty {
+            stableId = userId
+        } else {
+            let key = Constants.UserDefaultsKeys.peerStableId
+            if let cached = UserDefaults.standard.string(forKey: key) {
+                stableId = cached
+            } else {
+                let fresh = UUID().uuidString.lowercased()
+                UserDefaults.standard.set(fresh, forKey: key)
+                stableId = fresh
+            }
+        }
+        self.myPeerId = MCPeerID.make(displayName: displayName, userId: stableId)
         super.init()
         setupSession()
     }
@@ -306,9 +348,10 @@ final class MeshNetworkManager: NSObject, ObservableObject {
         }
     }
 
-    /// Finds a connected MCPeerID by display name.
-    func peerById(_ displayName: String) -> MCPeerID? {
-        session.connectedPeers.first { $0.displayName == displayName }
+    /// Finds a connected MCPeerID by stable userId (embedded in the peer's displayName).
+    /// Returns nil for peers running pre-userId-suffix builds — that legacy fallback is gone.
+    func peerById(_ userId: String) -> MCPeerID? {
+        session.connectedPeers.first { $0.embeddedUserId == userId }
     }
 }
 

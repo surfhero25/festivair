@@ -96,6 +96,14 @@ final class MapViewModel: ObservableObject {
         uwbLockSubscription = finder.$isPrecisionLocked
             .receive(on: DispatchQueue.main)
             .assign(to: \.isPrecisionMode, on: self)
+
+        // Keep the UWB squad-membership gate in sync with the current squad roster.
+        $memberAnnotations
+            .receive(on: DispatchQueue.main)
+            .sink { [weak finder] annotations in
+                finder?.currentSquadMemberIds = Set(annotations.map { $0.id })
+            }
+            .store(in: &cancellables)
     }
 
     /// Clear all squad-related data (called when leaving squad)
@@ -241,14 +249,14 @@ final class MapViewModel: ObservableObject {
         }
 
         // Kick off UWB precision ranging — silent no-op on devices without U1/U2 hardware.
-        // Uses MCPeerID display name as the routing key (the same string each peer's MeshNetworkManager registers with).
-        uwbFinder?.startRanging(to: member.displayName)
+        // Routes by stable userId (embedded in MCPeerID.displayName) so it works regardless of human display name.
+        uwbFinder?.startRanging(to: member.id)
     }
 
     /// Stop navigation
     func stopNavigating() {
         if let target = navigationTarget {
-            uwbFinder?.stopRanging(to: target.displayName)
+            uwbFinder?.stopRanging(to: target.id)
         }
         navigationTarget = nil
         isNavigating = false

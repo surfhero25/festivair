@@ -59,6 +59,7 @@ enum Constants {
         static let lowPowerMode = "FestivAir.LowPowerMode"
         static let notifyBefore = "FestivAir.NotifyBefore"
         static let ageConfirmed = "FestivAir.AgeConfirmed"  // User confirmed they are 18+
+        static let peerStableId = "FestivAir.PeerStableId"  // Per-install UUID embedded in MCPeerID.displayName so peers can be looked up by a stable id even before Apple sign-in completes
     }
 
     // MARK: - Firebase Collections

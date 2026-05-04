@@ -43,15 +43,19 @@ final class UWBPrecisionFinder: NSObject, ObservableObject {
     private weak var meshManager: MeshNetworkManager?
     private var inboundSubscription: AnyCancellable?
 
-    /// Maps peer.displayName → live NISession for that peer.
+    /// Maps peer userId → live NISession for that peer.
     private var sessions: [String: NSObject] = [:]
 
-    /// Maps peer.displayName → MCPeerID, captured at handshake time.
+    /// Maps peer userId → MCPeerID, captured at handshake time.
     private var peerIDs: [String: MCPeerID] = [:]
 
-    /// Display name of the peer currently selected as the navigation target.
+    /// userId of the peer currently selected as the navigation target.
     /// Direction/distance Published values mirror this peer's session.
-    private var activeTargetDisplayName: String?
+    private var activeTargetUserId: String?
+
+    /// Optional gate: when set, only peers whose userId is in `currentSquadMemberIds` may initiate UWB ranging with us.
+    /// Set by the host app whenever squad membership changes; nil means "accept any peer" (used in tests).
+    var currentSquadMemberIds: Set<String>?
 
     /// Magic frame prefix that identifies UWB-control bytes on the mesh side.
     static let framePrefix: [UInt8] = Array("FAUWB!\0\0".utf8)
@@ -90,15 +94,15 @@ final class UWBPrecisionFinder: NSObject, ObservableObject {
 
     // MARK: - Public control
 
-    /// Begin (or refocus) precision ranging toward `peerDisplayName`.
-    /// No-op if the local device lacks UWB hardware. The transport must already have a connected MCPeerID matching the name.
-    func startRanging(to peerDisplayName: String) {
+    /// Begin (or refocus) precision ranging toward `peerUserId`.
+    /// No-op if the local device lacks UWB hardware or the peer isn't currently connected via MPC.
+    func startRanging(to peerUserId: String) {
         guard isHardwareSupported else { return }
         guard let mesh = meshManager else { return }
-        guard let peerID = mesh.peerById(peerDisplayName) else { return }
+        guard let peerID = mesh.peerById(peerUserId) else { return }
 
-        activeTargetDisplayName = peerDisplayName
-        peerIDs[peerDisplayName] = peerID
+        activeTargetUserId = peerUserId
+        peerIDs[peerUserId] = peerID
 
         // Reset published state so stale values don't bleed across targets.
         distance = nil
@@ -108,13 +112,13 @@ final class UWBPrecisionFinder: NSObject, ObservableObject {
         if #available(iOS 14.0, *) {
             #if canImport(NearbyInteraction)
             // Reuse existing session for this peer if any, otherwise create new.
-            let session = (sessions[peerDisplayName] as? NISession) ?? NISession()
+            let session = (sessions[peerUserId] as? NISession) ?? NISession()
             session.delegate = self
-            sessions[peerDisplayName] = session
+            sessions[peerUserId] = session
 
             guard let token = session.discoveryToken else {
                 #if DEBUG
-                print("[UWB] No discovery token yet for \(peerDisplayName)")
+                print("[UWB] No discovery token yet for \(peerUserId)")
                 #endif
                 return
             }
@@ -123,14 +127,14 @@ final class UWBPrecisionFinder: NSObject, ObservableObject {
         }
     }
 
-    /// Stop precision ranging toward `peerDisplayName`. Tears down the local session and tells the peer to do the same.
-    func stopRanging(to peerDisplayName: String) {
-        if let peerID = peerIDs[peerDisplayName] {
+    /// Stop precision ranging toward `peerUserId`. Tears down the local session and tells the peer to do the same.
+    func stopRanging(to peerUserId: String) {
+        if let peerID = peerIDs[peerUserId] {
             sendStop(to: peerID)
         }
-        invalidateSession(for: peerDisplayName)
-        if activeTargetDisplayName == peerDisplayName {
-            activeTargetDisplayName = nil
+        invalidateSession(for: peerUserId)
+        if activeTargetUserId == peerUserId {
+            activeTargetUserId = nil
             distance = nil
             direction = nil
             isPrecisionLocked = false
@@ -139,8 +143,8 @@ final class UWBPrecisionFinder: NSObject, ObservableObject {
 
     /// Stop ranging for all current peers. Used during sign-out / app teardown.
     func stopAll() {
-        for name in Array(sessions.keys) {
-            stopRanging(to: name)
+        for userId in Array(sessions.keys) {
+            stopRanging(to: userId)
         }
     }
 
@@ -148,6 +152,20 @@ final class UWBPrecisionFinder: NSObject, ObservableObject {
 
     private func handleInbound(payload: Data, from peerID: MCPeerID) {
         guard let kindByte = payload.first, let kind = FrameKind(rawValue: kindByte) else { return }
+        // Require a stable userId on the inbound peer; pre-userId-suffix builds are rejected outright.
+        guard let peerUserId = peerID.embeddedUserId else {
+            #if DEBUG
+            print("[UWB] Reject inbound from peer without embedded userId: \(peerID.displayName)")
+            #endif
+            return
+        }
+        // Squad-membership gate: if a roster has been published, drop frames from non-members.
+        if let allowList = currentSquadMemberIds, !allowList.contains(peerUserId) {
+            #if DEBUG
+            print("[UWB] Reject inbound from non-squad peer: \(peerUserId)")
+            #endif
+            return
+        }
         let body = payload.dropFirst()
 
         switch kind {
@@ -155,10 +173,10 @@ final class UWBPrecisionFinder: NSObject, ObservableObject {
             if #available(iOS 14.0, *) {
                 #if canImport(NearbyInteraction)
                 guard isHardwareSupported, let token = decodeToken(body) else { return }
-                peerIDs[peerID.displayName] = peerID
-                let session = (sessions[peerID.displayName] as? NISession) ?? NISession()
+                peerIDs[peerUserId] = peerID
+                let session = (sessions[peerUserId] as? NISession) ?? NISession()
                 session.delegate = self
-                sessions[peerID.displayName] = session
+                sessions[peerUserId] = session
                 runSession(session, peerToken: token)
                 if let myToken = session.discoveryToken {
                     sendToken(myToken, kind: .tokenResponse, to: peerID)
@@ -169,15 +187,15 @@ final class UWBPrecisionFinder: NSObject, ObservableObject {
         case .tokenResponse:
             if #available(iOS 14.0, *) {
                 #if canImport(NearbyInteraction)
-                guard let session = sessions[peerID.displayName] as? NISession,
+                guard let session = sessions[peerUserId] as? NISession,
                       let token = decodeToken(body) else { return }
                 runSession(session, peerToken: token)
                 #endif
             }
 
         case .stop:
-            invalidateSession(for: peerID.displayName)
-            if activeTargetDisplayName == peerID.displayName {
+            invalidateSession(for: peerUserId)
+            if activeTargetUserId == peerUserId {
                 distance = nil
                 direction = nil
                 isPrecisionLocked = false
@@ -255,8 +273,8 @@ extension UWBPrecisionFinder: NISessionDelegate {
     @MainActor
     private func applyUpdate(session: NISession, nearbyObjects: [NINearbyObject]) {
         // Find which peer this session belongs to.
-        guard let peerName = sessions.first(where: { ($0.value as? NISession) === session })?.key else { return }
-        guard peerName == activeTargetDisplayName else { return }
+        guard let peerUserId = sessions.first(where: { ($0.value as? NISession) === session })?.key else { return }
+        guard peerUserId == activeTargetUserId else { return }
         guard let object = nearbyObjects.first else {
             isPrecisionLocked = false
             return
@@ -272,9 +290,9 @@ extension UWBPrecisionFinder: NISessionDelegate {
             // Tear down on permanent removal; on timeout, keep session alive — peer may come back into range.
             switch reason {
             case .peerEnded:
-                if let peerName = self.sessions.first(where: { ($0.value as? NISession) === session })?.key {
-                    self.invalidateSession(for: peerName)
-                    if peerName == self.activeTargetDisplayName {
+                if let peerUserId = self.sessions.first(where: { ($0.value as? NISession) === session })?.key {
+                    self.invalidateSession(for: peerUserId)
+                    if peerUserId == self.activeTargetUserId {
                         self.distance = nil
                         self.direction = nil
                         self.isPrecisionLocked = false
@@ -308,9 +326,9 @@ extension UWBPrecisionFinder: NISessionDelegate {
 
     nonisolated func session(_ session: NISession, didInvalidateWith error: Error) {
         Task { @MainActor in
-            if let peerName = self.sessions.first(where: { ($0.value as? NISession) === session })?.key {
-                self.invalidateSession(for: peerName)
-                if peerName == self.activeTargetDisplayName {
+            if let peerUserId = self.sessions.first(where: { ($0.value as? NISession) === session })?.key {
+                self.invalidateSession(for: peerUserId)
+                if peerUserId == self.activeTargetUserId {
                     self.distance = nil
                     self.direction = nil
                     self.isPrecisionLocked = false

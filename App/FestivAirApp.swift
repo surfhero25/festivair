@@ -134,7 +134,7 @@ final class AppState: ObservableObject {
         #endif
 
         // Initialize services
-        meshManager = MeshNetworkManager(displayName: displayName)
+        meshManager = MeshNetworkManager(displayName: displayName, userId: userId)
         locationManager = LocationManager()
         gatewayManager = GatewayManager(peerId: userId)
         syncEngine = SyncEngine()
