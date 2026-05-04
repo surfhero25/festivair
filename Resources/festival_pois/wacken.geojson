@@ -1,0 +1,1924 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3066789,
+          54.1340371
+        ]
+      },
+      "properties": {
+        "id": "osm-n-373086767",
+        "category": "info",
+        "name": "Info",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3088533,
+          54.1344631
+        ]
+      },
+      "properties": {
+        "id": "osm-n-373086768",
+        "category": "info",
+        "name": "Info",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3568691,
+          54.1132698
+        ]
+      },
+      "properties": {
+        "id": "osm-n-375503940",
+        "category": "info",
+        "name": "Info",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.4146938,
+          54.1268353
+        ]
+      },
+      "properties": {
+        "id": "osm-n-448176524",
+        "category": "info",
+        "name": "Info",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3748373,
+          54.1522402
+        ]
+      },
+      "properties": {
+        "id": "osm-n-753309198",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3704928,
+          54.1542253
+        ]
+      },
+      "properties": {
+        "id": "osm-n-1445723411",
+        "category": "info",
+        "name": "Info",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3713018,
+          54.1549038
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3467678032",
+        "category": "info",
+        "name": "Kreis Dithmarschen",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.4142418,
+          54.1268058
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3625465622",
+        "category": "info",
+        "name": "Info",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3338326,
+          54.1236299
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4916270983",
+        "category": "info",
+        "name": "Info",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3259723,
+          54.1242862
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4916307405",
+        "category": "info",
+        "name": "Info",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3351066,
+          54.1202345
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4923924268",
+        "category": "info",
+        "name": "Info",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3369842,
+          54.1220565
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4923924299",
+        "category": "info",
+        "name": "Kreis Radverkehrsnetz Kreis Rendsburg-Eckernf\u00f6rde und Kiel",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3404764,
+          54.1220384
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4923924301",
+        "category": "info",
+        "name": "Kreis Radverkehrsnetz Kreis Rendsburg-Eckernf\u00f6rde und Kiel",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3203585,
+          54.1253102
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4923924302",
+        "category": "info",
+        "name": "Kreis Radverkehrsnetz Kreis Rendsburg-Eckernf\u00f6rde und Kiel",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3155359,
+          54.1247365
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4929809139",
+        "category": "info",
+        "name": "Info",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3156304,
+          54.1249668
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4929809140",
+        "category": "info",
+        "name": "Info",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3178359,
+          54.1250446
+        ]
+      },
+      "properties": {
+        "id": "osm-n-9944177059",
+        "category": "charging",
+        "name": "Charging",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3349658,
+          54.1322272
+        ]
+      },
+      "properties": {
+        "id": "osm-n-10983787482",
+        "category": "info",
+        "name": "Heu-Herberge Beldorf",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3744546,
+          54.1523594
+        ]
+      },
+      "properties": {
+        "id": "osm-n-10983787502",
+        "category": "info",
+        "name": "Urlaubsregion Hanerau-Hademarschen",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3726374,
+          54.1543008
+        ]
+      },
+      "properties": {
+        "id": "osm-n-10983794910",
+        "category": "info",
+        "name": "Fischerh\u00fctte",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3941934,
+          54.1371889
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11220118924",
+        "category": "info",
+        "name": "Info",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3281426,
+          54.1265705
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11235169012",
+        "category": "info",
+        "name": "Info",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3941313,
+          54.1372111
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11822870065",
+        "category": "info",
+        "name": "Info",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3912426,
+          54.1309479
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11822870066",
+        "category": "info",
+        "name": "Info",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3277761,
+          54.1098336
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11909151364",
+        "category": "info",
+        "name": "Kreis Dithmarschen",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3279438,
+          54.124599
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11909151366",
+        "category": "info",
+        "name": "Info",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.4131663,
+          54.1254167
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12508849709",
+        "category": "charging",
+        "name": "Charging",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3546753,
+          54.1516242
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12712722878",
+        "category": "info",
+        "name": "Kreis Dithmarschen",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3181162,
+          54.124988
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12712739216",
+        "category": "info",
+        "name": "Info",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3223232,
+          54.1385954
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12712748591",
+        "category": "info",
+        "name": "Kreis Dithmarschen",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3578166,
+          54.1204126
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12766790230",
+        "category": "info",
+        "name": "Radverkehrsnetz Kreis Rendsburg-Eckernf\u00f6rde und Kiel",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3759395,
+          54.1226256
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12766799516",
+        "category": "info",
+        "name": "Kreis Radverkehrsnetz Kreis Rendsburg-Eckernf\u00f6rde und Kiel",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3204027,
+          54.1259971
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12774354119",
+        "category": "info",
+        "name": "Info",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.4245328,
+          54.1226326
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12774378553",
+        "category": "info",
+        "name": "Kreis Radverkehrsnetz Kreis Rendsburg-Eckernf\u00f6rde und Kiel",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.379575,
+          54.1230845
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12774399861",
+        "category": "info",
+        "name": "Info",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.4228658,
+          54.123523
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12774400618",
+        "category": "info",
+        "name": "Info",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.4158619,
+          54.126614
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12774405882",
+        "category": "info",
+        "name": "Kreis Radverkehrsnetz Kreis Rendsburg-Eckernf\u00f6rde und Kiel",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3148988,
+          54.1335111
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12774540393",
+        "category": "info",
+        "name": "Kreis Dithmarschen",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3357503,
+          54.1480937
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12774563332",
+        "category": "info",
+        "name": "Kreis Dithmarschen",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.361749,
+          54.1508349
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12774563333",
+        "category": "info",
+        "name": "Kreis Dithmarschen",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3091358,
+          54.1361894
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12802802828",
+        "category": "info",
+        "name": "Kreis Dithmarschen",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3091027,
+          54.1364703
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12802802829",
+        "category": "info",
+        "name": "Kreis Dithmarschen",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3215644,
+          54.1248288
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12806119440",
+        "category": "info",
+        "name": "Info",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3201848,
+          54.1256089
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12806136361",
+        "category": "info",
+        "name": "Kreis Radverkehrsnetz Kreis Rendsburg-Eckernf\u00f6rde und Kiel",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3262376,
+          54.1236771
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12806148565",
+        "category": "info",
+        "name": "Info",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.415021,
+          54.1267449
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12876598990",
+        "category": "info",
+        "name": "Info",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3517259,
+          54.1314322
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13710405292",
+        "category": "info",
+        "name": "Radverkehrsnetz Kreis Rendsburg-Eckernf\u00f6rde und Kiel",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3556553,
+          54.125042
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13710405293",
+        "category": "info",
+        "name": "Radverkehrsnetz Kreis Rendsburg-Eckernf\u00f6rde und Kiel",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3511396,
+          54.1327457
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13710405295",
+        "category": "info",
+        "name": "Radverkehrsnetz Kreis Rendsburg-Eckernf\u00f6rde und Kiel",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3709685,
+          54.1418919
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13710408618",
+        "category": "info",
+        "name": "Info",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3798916,
+          54.1427265
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13710408619",
+        "category": "info",
+        "name": "Radverkehrsnetz Kreis Rendsburg-Eckernf\u00f6rde und Kiel",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3717278,
+          54.1416956
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13710408620",
+        "category": "info",
+        "name": "Info",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.4152403,
+          54.1270695
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13710412794",
+        "category": "info",
+        "name": "Kreis Radverkehrsnetz Kreis Rendsburg-Eckernf\u00f6rde und Kiel",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.4125365,
+          54.1229649
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13710412795",
+        "category": "info",
+        "name": "Kreis Radverkehrsnetz Kreis Rendsburg-Eckernf\u00f6rde und Kiel",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.4147475,
+          54.1265394
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13710412796",
+        "category": "info",
+        "name": "Kreis Radverkehrsnetz Kreis Rendsburg-Eckernf\u00f6rde und Kiel",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.4155838,
+          54.123111
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13710412797",
+        "category": "info",
+        "name": "Kreis Radverkehrsnetz Kreis Rendsburg-Eckernf\u00f6rde und Kiel",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.410397,
+          54.1277009
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13712983212",
+        "category": "info",
+        "name": "Kreis Radverkehrsnetz Kreis Rendsburg-Eckernf\u00f6rde und Kiel",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.4073546,
+          54.1294635
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13712983213",
+        "category": "info",
+        "name": "Kreis Radverkehrsnetz Kreis Rendsburg-Eckernf\u00f6rde und Kiel",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3704501,
+          54.138146
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13712983214",
+        "category": "info",
+        "name": "Radverkehrsnetz Kreis Rendsburg-Eckernf\u00f6rde und Kiel",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3608558,
+          54.1337272
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13712983215",
+        "category": "info",
+        "name": "Radverkehrsnetz Kreis Rendsburg-Eckernf\u00f6rde und Kiel",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3786897,
+          54.1454925
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13715505666",
+        "category": "info",
+        "name": "Radverkehrsnetz Kreis Rendsburg-Eckernf\u00f6rde und Kiel",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3776701,
+          54.1486716
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13715505667",
+        "category": "info",
+        "name": "Radverkehrsnetz Kreis Rendsburg-Eckernf\u00f6rde und Kiel",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.4122316,
+          54.1260867
+        ]
+      },
+      "properties": {
+        "id": "osm-w-185944600",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.4119289,
+          54.125804
+        ]
+      },
+      "properties": {
+        "id": "osm-w-185944601",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.4065971,
+          54.1292357
+        ]
+      },
+      "properties": {
+        "id": "osm-w-208436701",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.4132834,
+          54.1254558
+        ]
+      },
+      "properties": {
+        "id": "osm-w-224581795",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.4172602,
+          54.1250637
+        ]
+      },
+      "properties": {
+        "id": "osm-w-272040556",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.4152894,
+          54.1257103
+        ]
+      },
+      "properties": {
+        "id": "osm-w-357223773",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": "yes",
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.4126605,
+          54.1274567
+        ]
+      },
+      "properties": {
+        "id": "osm-w-403574945",
+        "category": "parking",
+        "name": "Hans-Bauer-Platz",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.4139012,
+          54.1227528
+        ]
+      },
+      "properties": {
+        "id": "osm-w-680523389",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.4142057,
+          54.1267077
+        ]
+      },
+      "properties": {
+        "id": "osm-w-778818313",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.4141429,
+          54.1272272
+        ]
+      },
+      "properties": {
+        "id": "osm-w-778818314",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.4092043,
+          54.1293576
+        ]
+      },
+      "properties": {
+        "id": "osm-w-923497533",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.4166583,
+          54.1258802
+        ]
+      },
+      "properties": {
+        "id": "osm-w-923497539",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.418539,
+          54.1252097
+        ]
+      },
+      "properties": {
+        "id": "osm-w-931709201",
+        "category": "fuel",
+        "name": "Star",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "Mo-Fr 05:30-22:00; Sa-Su 07:00-22:00",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.4194801,
+          54.124481
+        ]
+      },
+      "properties": {
+        "id": "osm-w-931709203",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3559966,
+          54.1250371
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1050450531",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.4160959,
+          54.1263695
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1099617174",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.4090733,
+          54.1308697
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1210994103",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.4078157,
+          54.1303424
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1210994104",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3897418,
+          54.1241289
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1211082423",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3510442,
+          54.1320865
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1212755569",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.418877,
+          54.1241505
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1256310403",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.4081315,
+          54.1295396
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1256619375",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.4098704,
+          54.1303061
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1256619376",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.4108249,
+          54.1298377
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1256619378",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.4112949,
+          54.1288588
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1256619379",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.3261373,
+          54.1237391
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1345228235",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.4146114,
+          54.126037
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1350083479",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.4116902,
+          54.1256346
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1352015117",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.4129916,
+          54.1251428
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1352015132",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.4126317,
+          54.1251793
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1352015133",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.4125332,
+          54.1267689
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1352015136",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.411568,
+          54.1268559
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1352015139",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.4070099,
+          54.1250701
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1352288498",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.4052406,
+          54.1247942
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1352288503",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.4068116,
+          54.1261873
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1352288507",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.4077932,
+          54.1286799
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1352837712",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.4108997,
+          54.1200387
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1353886500",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.4151893,
+          54.116631
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1353945207",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          9.4148856,
+          54.1227065
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1354148197",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    }
+  ]
+}

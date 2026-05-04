@@ -1,0 +1,3634 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.230634,
+          5.5618014
+        ]
+      },
+      "properties": {
+        "id": "osm-n-1134471771",
+        "category": "fuel",
+        "name": "Total",
+        "wheelchair": "limited",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2156089,
+          5.5590844
+        ]
+      },
+      "properties": {
+        "id": "osm-n-1405374124",
+        "category": "clinic",
+        "name": "Odorna Medical Center",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "24/7",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2032224,
+          5.563017
+        ]
+      },
+      "properties": {
+        "id": "osm-n-1405374127",
+        "category": "fuel",
+        "name": "Shell",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.232571,
+          5.5629555
+        ]
+      },
+      "properties": {
+        "id": "osm-n-1601716626",
+        "category": "fuel",
+        "name": "Goil",
+        "wheelchair": "limited",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2077917,
+          5.5654234
+        ]
+      },
+      "properties": {
+        "id": "osm-n-1686172379",
+        "category": "fuel",
+        "name": "Fuel",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2095995,
+          5.5662728
+        ]
+      },
+      "properties": {
+        "id": "osm-n-1728032224",
+        "category": "clinic",
+        "name": "Adabraka clinic",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "24/7",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2119701,
+          5.5674138
+        ]
+      },
+      "properties": {
+        "id": "osm-n-1728032263",
+        "category": "fuel",
+        "name": "Fly Over Total",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2094009,
+          5.5581027
+        ]
+      },
+      "properties": {
+        "id": "osm-n-2059614201",
+        "category": "fuel",
+        "name": "Engen",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2288377,
+          5.5677867
+        ]
+      },
+      "properties": {
+        "id": "osm-n-2815762581",
+        "category": "fuel",
+        "name": "Awudome Gas Station",
+        "wheelchair": "limited",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2030948,
+          5.5470197
+        ]
+      },
+      "properties": {
+        "id": "osm-n-2836552450",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2215187,
+          5.5608719
+        ]
+      },
+      "properties": {
+        "id": "osm-n-2857639701",
+        "category": "fuel",
+        "name": "Total",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2045506,
+          5.5484576
+        ]
+      },
+      "properties": {
+        "id": "osm-n-2926170811",
+        "category": "fuel",
+        "name": "Total",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2060919,
+          5.5470761
+        ]
+      },
+      "properties": {
+        "id": "osm-n-2926170815",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2153787,
+          5.5679858
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3109291541",
+        "category": "fuel",
+        "name": "Goil",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2146411,
+          5.5653554
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3109297585",
+        "category": "fuel",
+        "name": "TotalEnergies Adabraka",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2037138,
+          5.5559751
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3109313734",
+        "category": "fuel",
+        "name": "Total Liberia Road",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2148847,
+          5.5676819
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3797168203",
+        "category": "fuel",
+        "name": "Puma",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.230341,
+          5.5622307
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4158904870",
+        "category": "fuel",
+        "name": "Shell",
+        "wheelchair": "limited",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2093811,
+          5.5565231
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4237277078",
+        "category": "fuel",
+        "name": "AP",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2092262,
+          5.5570747
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4237278889",
+        "category": "fuel",
+        "name": "Fuel",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2162835,
+          5.5717625
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4250092743",
+        "category": "fuel",
+        "name": "Power",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "Mo-Su,PH 08:00-18:00+",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2010772,
+          5.5548363
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4299079390",
+        "category": "cafe",
+        "name": "Vidae Caf\u00e9",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2305402,
+          5.5597292
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4305848900",
+        "category": "fuel",
+        "name": "Total",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2101835,
+          5.5551367
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4369634542",
+        "category": "fuel",
+        "name": "Goil",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2112043,
+          5.5523517
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4429993095",
+        "category": "clinic",
+        "name": "Medical & Dental Council Ghana",
+        "wheelchair": "limited",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2143901,
+          5.5687074
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4448633363",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2297983,
+          5.5358766
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4987993763",
+        "category": "fuel",
+        "name": "Total",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2135332,
+          5.5705279
+        ]
+      },
+      "properties": {
+        "id": "osm-n-5007810969",
+        "category": "fuel",
+        "name": "Goil",
+        "wheelchair": "limited",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2082791,
+          5.5392359
+        ]
+      },
+      "properties": {
+        "id": "osm-n-5052248814",
+        "category": "cafe",
+        "name": "Jamestown Caf\u00e9",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.208527,
+          5.5543241
+        ]
+      },
+      "properties": {
+        "id": "osm-n-5150562248",
+        "category": "clinic",
+        "name": "SIC Bob Freeman Clinic",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2158713,
+          5.5719427
+        ]
+      },
+      "properties": {
+        "id": "osm-n-5199351810",
+        "category": "fuel",
+        "name": "Allied",
+        "wheelchair": "limited",
+        "fee": null,
+        "opening_hours": "Mo-Su,PH 08:00-18:00+",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2133657,
+          5.5654918
+        ]
+      },
+      "properties": {
+        "id": "osm-n-5223255497",
+        "category": "fuel",
+        "name": "So",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2254175,
+          5.5649144
+        ]
+      },
+      "properties": {
+        "id": "osm-n-5331312434",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2247079,
+          5.5648896
+        ]
+      },
+      "properties": {
+        "id": "osm-n-5331313086",
+        "category": "fuel",
+        "name": "Fuel",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2039394,
+          5.5514896
+        ]
+      },
+      "properties": {
+        "id": "osm-n-5755779938",
+        "category": "hospital",
+        "name": "Nyaho Medical Centre",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2129975,
+          5.5590821
+        ]
+      },
+      "properties": {
+        "id": "osm-n-5775921568",
+        "category": "fuel",
+        "name": "Total Liberty Avenue",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2063852,
+          5.5444776
+        ]
+      },
+      "properties": {
+        "id": "osm-n-6213041912",
+        "category": "clinic",
+        "name": "Club Road Clinic",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2130002,
+          5.5452956
+        ]
+      },
+      "properties": {
+        "id": "osm-n-6215800485",
+        "category": "fuel",
+        "name": "Total",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2109694,
+          5.5355779
+        ]
+      },
+      "properties": {
+        "id": "osm-n-6299269212",
+        "category": "fuel",
+        "name": "Total",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.199548,
+          5.5540441
+        ]
+      },
+      "properties": {
+        "id": "osm-n-6348544326",
+        "category": "cafe",
+        "name": "Park View Cafe",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.203644,
+          5.5515285
+        ]
+      },
+      "properties": {
+        "id": "osm-n-6353338565",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2288776,
+          5.5354164
+        ]
+      },
+      "properties": {
+        "id": "osm-n-6398641723",
+        "category": "fuel",
+        "name": "Korle Bu Total",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2175512,
+          5.5688461
+        ]
+      },
+      "properties": {
+        "id": "osm-n-6435419885",
+        "category": "toilet",
+        "name": "Gye Nyame",
+        "wheelchair": "no",
+        "fee": "yes",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2255132,
+          5.5298769
+        ]
+      },
+      "properties": {
+        "id": "osm-n-6437245687",
+        "category": "fuel",
+        "name": "Fuel",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2253979,
+          5.530505
+        ]
+      },
+      "properties": {
+        "id": "osm-n-6437259299",
+        "category": "shop",
+        "name": "Shop",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2253772,
+          5.5303943
+        ]
+      },
+      "properties": {
+        "id": "osm-n-6437259301",
+        "category": "shop",
+        "name": "Shop",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2021568,
+          5.5632981
+        ]
+      },
+      "properties": {
+        "id": "osm-n-6437976666",
+        "category": "cafe",
+        "name": "Cafe",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2095748,
+          5.5531675
+        ]
+      },
+      "properties": {
+        "id": "osm-n-6732242008",
+        "category": "fuel",
+        "name": "Rootsenaf Gas",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2085015,
+          5.5541261
+        ]
+      },
+      "properties": {
+        "id": "osm-n-6989588759",
+        "category": "clinic",
+        "name": "Clinic",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2119898,
+          5.5568562
+        ]
+      },
+      "properties": {
+        "id": "osm-n-7273684610",
+        "category": "fuel",
+        "name": "Total",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.22828,
+          5.535664
+        ]
+      },
+      "properties": {
+        "id": "osm-n-7629520512",
+        "category": "shop",
+        "name": "To God Be The Glory",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2141144,
+          5.561609
+        ]
+      },
+      "properties": {
+        "id": "osm-n-7727444139",
+        "category": "hospital",
+        "name": "Hospital",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2103476,
+          5.5660003
+        ]
+      },
+      "properties": {
+        "id": "osm-n-7810005711",
+        "category": "clinic",
+        "name": "Shalina",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2129899,
+          5.5403333
+        ]
+      },
+      "properties": {
+        "id": "osm-n-8953954351",
+        "category": "clinic",
+        "name": "James Town Usher Clinic",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2156421,
+          5.5414358
+        ]
+      },
+      "properties": {
+        "id": "osm-n-8955816303",
+        "category": "fuel",
+        "name": "Fraga Oil",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2137769,
+          5.5619488
+        ]
+      },
+      "properties": {
+        "id": "osm-n-8976806587",
+        "category": "hospital",
+        "name": "Atta Quarshie Merton Memorial Hospital",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1958723,
+          5.5486176
+        ]
+      },
+      "properties": {
+        "id": "osm-n-9602350575",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2041482,
+          5.5501445
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11059414406",
+        "category": "toilet",
+        "name": "Ayalolo Terminal Rest Room",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2052237,
+          5.5471906
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11059493806",
+        "category": "toilet",
+        "name": "Ashiedu Keteke Public toilets",
+        "wheelchair": null,
+        "fee": "yes",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2037846,
+          5.5472037
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11310004470",
+        "category": "shop",
+        "name": "Jeroady Enterprise Fan Milk Agent",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2033052,
+          5.5678546
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13167244695",
+        "category": "cafe",
+        "name": "Palm Moments",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2068753,
+          5.5419749
+        ]
+      },
+      "properties": {
+        "id": "osm-w-155291678",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2017088,
+          5.5551879
+        ]
+      },
+      "properties": {
+        "id": "osm-w-187123665",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2105876,
+          5.5354051
+        ]
+      },
+      "properties": {
+        "id": "osm-w-187483813",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1949202,
+          5.5518736
+        ]
+      },
+      "properties": {
+        "id": "osm-w-206835023",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2040714,
+          5.5438009
+        ]
+      },
+      "properties": {
+        "id": "osm-w-215369273",
+        "category": "parking",
+        "name": "Kwame Nkrumah Memorial Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.202693,
+          5.5527425
+        ]
+      },
+      "properties": {
+        "id": "osm-w-279446886",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.204131,
+          5.5530079
+        ]
+      },
+      "properties": {
+        "id": "osm-w-279446888",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2036159,
+          5.5526976
+        ]
+      },
+      "properties": {
+        "id": "osm-w-279446889",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2234721,
+          5.537867
+        ]
+      },
+      "properties": {
+        "id": "osm-w-298258033",
+        "category": "hospital",
+        "name": "Korle Bu Policlinic",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1993902,
+          5.5622992
+        ]
+      },
+      "properties": {
+        "id": "osm-w-298260306",
+        "category": "hospital",
+        "name": "Ridge Hospital",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1996153,
+          5.561981
+        ]
+      },
+      "properties": {
+        "id": "osm-w-298260313",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1979558,
+          5.5625563
+        ]
+      },
+      "properties": {
+        "id": "osm-w-298260322",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2039046,
+          5.5466177
+        ]
+      },
+      "properties": {
+        "id": "osm-w-301512487",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2272021,
+          5.5380807
+        ]
+      },
+      "properties": {
+        "id": "osm-w-303162760",
+        "category": "hospital",
+        "name": "Korle Bu Teaching Hospital",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2017659,
+          5.5603454
+        ]
+      },
+      "properties": {
+        "id": "osm-w-307927692",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2132424,
+          5.5446455
+        ]
+      },
+      "properties": {
+        "id": "osm-w-316141751",
+        "category": "hospital",
+        "name": "Princess Marie Louie Children's Hospital",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2109569,
+          5.5492349
+        ]
+      },
+      "properties": {
+        "id": "osm-w-316141752",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2030241,
+          5.5437261
+        ]
+      },
+      "properties": {
+        "id": "osm-w-316143878",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2026375,
+          5.5438201
+        ]
+      },
+      "properties": {
+        "id": "osm-w-316143880",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2144007,
+          5.5675544
+        ]
+      },
+      "properties": {
+        "id": "osm-w-356783114",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2039941,
+          5.5453635
+        ]
+      },
+      "properties": {
+        "id": "osm-w-364350980",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2160678,
+          5.5680561
+        ]
+      },
+      "properties": {
+        "id": "osm-w-382169978",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2112371,
+          5.5474448
+        ]
+      },
+      "properties": {
+        "id": "osm-w-388245639",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2112114,
+          5.5504009
+        ]
+      },
+      "properties": {
+        "id": "osm-w-388245642",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2153906,
+          5.5489522
+        ]
+      },
+      "properties": {
+        "id": "osm-w-388248488",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1960103,
+          5.5510399
+        ]
+      },
+      "properties": {
+        "id": "osm-w-439346942",
+        "category": "hospital",
+        "name": "Civil Service Polyclinic",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.194574,
+          5.5497589
+        ]
+      },
+      "properties": {
+        "id": "osm-w-439346955",
+        "category": "cafe",
+        "name": "ev cafeteria",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2158454,
+          5.5688038
+        ]
+      },
+      "properties": {
+        "id": "osm-w-505067348",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1942732,
+          5.5481098
+        ]
+      },
+      "properties": {
+        "id": "osm-w-508827079",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2339997,
+          5.5373156
+        ]
+      },
+      "properties": {
+        "id": "osm-w-546191909",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2275888,
+          5.5379663
+        ]
+      },
+      "properties": {
+        "id": "osm-w-546191938",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2065386,
+          5.5406482
+        ]
+      },
+      "properties": {
+        "id": "osm-w-546664042",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2077661,
+          5.5395208
+        ]
+      },
+      "properties": {
+        "id": "osm-w-546664075",
+        "category": "clinic",
+        "name": "Cathedral Clinic and Lab Limited",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2009332,
+          5.5565105
+        ]
+      },
+      "properties": {
+        "id": "osm-w-607178000",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2007695,
+          5.5573891
+        ]
+      },
+      "properties": {
+        "id": "osm-w-607178001",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2015168,
+          5.5528792
+        ]
+      },
+      "properties": {
+        "id": "osm-w-626367184",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2314193,
+          5.5631976
+        ]
+      },
+      "properties": {
+        "id": "osm-w-632373616",
+        "category": "parking",
+        "name": "Accra Metropolitan Assembly",
+        "wheelchair": null,
+        "fee": "yes",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2053285,
+          5.5432986
+        ]
+      },
+      "properties": {
+        "id": "osm-w-659620148",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1957449,
+          5.5537482
+        ]
+      },
+      "properties": {
+        "id": "osm-w-673958983",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1977664,
+          5.5559699
+        ]
+      },
+      "properties": {
+        "id": "osm-w-673960768",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2073806,
+          5.5572083
+        ]
+      },
+      "properties": {
+        "id": "osm-w-674053564",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2060871,
+          5.5573915
+        ]
+      },
+      "properties": {
+        "id": "osm-w-674055408",
+        "category": "parking",
+        "name": "AirtelTigo",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2035213,
+          5.5514641
+        ]
+      },
+      "properties": {
+        "id": "osm-w-678520546",
+        "category": "parking",
+        "name": "The Octagon",
+        "wheelchair": null,
+        "fee": "yes",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2031965,
+          5.5552517
+        ]
+      },
+      "properties": {
+        "id": "osm-w-685747996",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2025135,
+          5.555258
+        ]
+      },
+      "properties": {
+        "id": "osm-w-685747997",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2017264,
+          5.5545924
+        ]
+      },
+      "properties": {
+        "id": "osm-w-685747998",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2302935,
+          5.5560468
+        ]
+      },
+      "properties": {
+        "id": "osm-w-720354115",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2261759,
+          5.535768
+        ]
+      },
+      "properties": {
+        "id": "osm-w-740752828",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": null,
+        "fee": "yes",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2261545,
+          5.5356569
+        ]
+      },
+      "properties": {
+        "id": "osm-w-740752829",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": null,
+        "fee": "yes",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2179206,
+          5.5477285
+        ]
+      },
+      "properties": {
+        "id": "osm-w-772655800",
+        "category": "fuel",
+        "name": "Total",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.218387,
+          5.548851
+        ]
+      },
+      "properties": {
+        "id": "osm-w-772838811",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2187837,
+          5.5493032
+        ]
+      },
+      "properties": {
+        "id": "osm-w-772838812",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2118896,
+          5.5545974
+        ]
+      },
+      "properties": {
+        "id": "osm-w-772867055",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2085402,
+          5.5564258
+        ]
+      },
+      "properties": {
+        "id": "osm-w-773074705",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2085934,
+          5.5579231
+        ]
+      },
+      "properties": {
+        "id": "osm-w-773074715",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2108467,
+          5.5588083
+        ]
+      },
+      "properties": {
+        "id": "osm-w-773082896",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2102356,
+          5.5586486
+        ]
+      },
+      "properties": {
+        "id": "osm-w-773082897",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2049992,
+          5.5539872
+        ]
+      },
+      "properties": {
+        "id": "osm-w-775437761",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.204965,
+          5.5549247
+        ]
+      },
+      "properties": {
+        "id": "osm-w-775439737",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.207978,
+          5.5569216
+        ]
+      },
+      "properties": {
+        "id": "osm-w-775669626",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2024174,
+          5.5467378
+        ]
+      },
+      "properties": {
+        "id": "osm-w-775860422",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2017028,
+          5.5459188
+        ]
+      },
+      "properties": {
+        "id": "osm-w-775876613",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2047291,
+          5.5431083
+        ]
+      },
+      "properties": {
+        "id": "osm-w-775879018",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2060284,
+          5.5425335
+        ]
+      },
+      "properties": {
+        "id": "osm-w-775888065",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2057709,
+          5.5417518
+        ]
+      },
+      "properties": {
+        "id": "osm-w-775888066",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2058509,
+          5.5410574
+        ]
+      },
+      "properties": {
+        "id": "osm-w-775888069",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2069726,
+          5.5497868
+        ]
+      },
+      "properties": {
+        "id": "osm-w-775929485",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2057577,
+          5.5473264
+        ]
+      },
+      "properties": {
+        "id": "osm-w-775929509",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2046658,
+          5.5476067
+        ]
+      },
+      "properties": {
+        "id": "osm-w-775929511",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.204953,
+          5.5479083
+        ]
+      },
+      "properties": {
+        "id": "osm-w-775929512",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2098184,
+          5.5436249
+        ]
+      },
+      "properties": {
+        "id": "osm-w-776162321",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2101234,
+          5.544069
+        ]
+      },
+      "properties": {
+        "id": "osm-w-776162325",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2137943,
+          5.5462342
+        ]
+      },
+      "properties": {
+        "id": "osm-w-776428101",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2154679,
+          5.5448624
+        ]
+      },
+      "properties": {
+        "id": "osm-w-776454502",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2166473,
+          5.5562483
+        ]
+      },
+      "properties": {
+        "id": "osm-w-776711040",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2158694,
+          5.5560418
+        ]
+      },
+      "properties": {
+        "id": "osm-w-776713602",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2135934,
+          5.5550063
+        ]
+      },
+      "properties": {
+        "id": "osm-w-776715268",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2124006,
+          5.5568006
+        ]
+      },
+      "properties": {
+        "id": "osm-w-776723592",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2127607,
+          5.5584468
+        ]
+      },
+      "properties": {
+        "id": "osm-w-776790131",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2119144,
+          5.5564843
+        ]
+      },
+      "properties": {
+        "id": "osm-w-776795987",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2116124,
+          5.5588917
+        ]
+      },
+      "properties": {
+        "id": "osm-w-776801313",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2147966,
+          5.5462463
+        ]
+      },
+      "properties": {
+        "id": "osm-w-777224715",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2107407,
+          5.5432842
+        ]
+      },
+      "properties": {
+        "id": "osm-w-777388470",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2104174,
+          5.5419426
+        ]
+      },
+      "properties": {
+        "id": "osm-w-777392714",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2133741,
+          5.5413006
+        ]
+      },
+      "properties": {
+        "id": "osm-w-777406110",
+        "category": "fuel",
+        "name": "Shell",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2145416,
+          5.5416563
+        ]
+      },
+      "properties": {
+        "id": "osm-w-777406130",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2143931,
+          5.5410895
+        ]
+      },
+      "properties": {
+        "id": "osm-w-777406131",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2148432,
+          5.5412555
+        ]
+      },
+      "properties": {
+        "id": "osm-w-777406132",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2146684,
+          5.5332057
+        ]
+      },
+      "properties": {
+        "id": "osm-w-777909911",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2111111,
+          5.5354163
+        ]
+      },
+      "properties": {
+        "id": "osm-w-777942074",
+        "category": "shop",
+        "name": "Total",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2109996,
+          5.53542
+        ]
+      },
+      "properties": {
+        "id": "osm-w-777942075",
+        "category": "fuel",
+        "name": "Total",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2257936,
+          5.5380777
+        ]
+      },
+      "properties": {
+        "id": "osm-w-781758074",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2045885,
+          5.5633354
+        ]
+      },
+      "properties": {
+        "id": "osm-w-785911112",
+        "category": "hospital",
+        "name": "Accra Psychiatric Hospital",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "24/7",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2044306,
+          5.5618213
+        ]
+      },
+      "properties": {
+        "id": "osm-w-786211189",
+        "category": "hospital",
+        "name": "Adabraka Polyclinic",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2100966,
+          5.5535249
+        ]
+      },
+      "properties": {
+        "id": "osm-w-788124254",
+        "category": "hospital",
+        "name": "C&J Medicare Hospital",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "24/7",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.225951,
+          5.537202
+        ]
+      },
+      "properties": {
+        "id": "osm-w-835540596",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1983048,
+          5.5593612
+        ]
+      },
+      "properties": {
+        "id": "osm-w-845821963",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1980005,
+          5.5598088
+        ]
+      },
+      "properties": {
+        "id": "osm-w-845821964",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1995098,
+          5.5476753
+        ]
+      },
+      "properties": {
+        "id": "osm-w-878739827",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2199548,
+          5.5609235
+        ]
+      },
+      "properties": {
+        "id": "osm-w-878840261",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1944484,
+          5.5534965
+        ]
+      },
+      "properties": {
+        "id": "osm-w-878869267",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.209218,
+          5.5673463
+        ]
+      },
+      "properties": {
+        "id": "osm-w-879202651",
+        "category": "cafe",
+        "name": "Congo Spot",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.209076,
+          5.567346
+        ]
+      },
+      "properties": {
+        "id": "osm-w-879202652",
+        "category": "cafe",
+        "name": "Cafe",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2306413,
+          5.5597733
+        ]
+      },
+      "properties": {
+        "id": "osm-w-879392589",
+        "category": "fuel",
+        "name": "Fuel",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2355074,
+          5.5404843
+        ]
+      },
+      "properties": {
+        "id": "osm-w-882023126",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2184895,
+          5.56356
+        ]
+      },
+      "properties": {
+        "id": "osm-w-883247016",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1946309,
+          5.5515572
+        ]
+      },
+      "properties": {
+        "id": "osm-w-883637194",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1950744,
+          5.5497901
+        ]
+      },
+      "properties": {
+        "id": "osm-w-902206652",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1983268,
+          5.5522014
+        ]
+      },
+      "properties": {
+        "id": "osm-w-902210539",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1938201,
+          5.549194
+        ]
+      },
+      "properties": {
+        "id": "osm-w-904651350",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1939253,
+          5.5497211
+        ]
+      },
+      "properties": {
+        "id": "osm-w-904651351",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1982454,
+          5.5485959
+        ]
+      },
+      "properties": {
+        "id": "osm-w-911238461",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2273659,
+          5.5372496
+        ]
+      },
+      "properties": {
+        "id": "osm-w-918183579",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2279824,
+          5.5374697
+        ]
+      },
+      "properties": {
+        "id": "osm-w-918183581",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2291931,
+          5.5422713
+        ]
+      },
+      "properties": {
+        "id": "osm-w-980615152",
+        "category": "clinic",
+        "name": "Dialysis Center",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2284817,
+          5.5417626
+        ]
+      },
+      "properties": {
+        "id": "osm-w-980616603",
+        "category": "clinic",
+        "name": "Urology and Nephrology Centre of Excellence",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "Mo,Fr 08:00-14:00 \"Urology and Nephrology\"; We 08:00-14:00 \"Nephrology only\"",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2261551,
+          5.5394523
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1008795607",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2265293,
+          5.5388597
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1008795608",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2054109,
+          5.5534344
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1105437715",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "no",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2015127,
+          5.5609322
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1336507042",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.207005,
+          5.5403692
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1443185809",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.1949022,
+          5.5494963
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1443188000",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2053412,
+          5.5544474
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1496141273",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2276254,
+          5.5420879
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1496687995",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2274872,
+          5.5422468
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1496687996",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2275301,
+          5.5425438
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1496687997",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2276291,
+          5.5423213
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1496687998",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2287971,
+          5.5420306
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1496688005",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2288244,
+          5.5416745
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1496688006",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -0.2280713,
+          5.5415227
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1496688007",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    }
+  ]
+}

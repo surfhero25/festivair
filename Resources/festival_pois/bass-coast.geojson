@@ -1,0 +1,138 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -121.4505519,
+          49.780982
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4989228126",
+        "category": "cafe",
+        "name": "Simon's Cafe",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -121.4507196,
+          49.7804576
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4989228423",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "no",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -121.4505685,
+          49.7806126
+        ]
+      },
+      "properties": {
+        "id": "osm-n-5109345726",
+        "category": "info",
+        "name": "Info",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -121.450359,
+          49.7807143
+        ]
+      },
+      "properties": {
+        "id": "osm-n-5109399325",
+        "category": "info",
+        "name": "Info",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -121.4439383,
+          49.7798962
+        ]
+      },
+      "properties": {
+        "id": "osm-w-232331138",
+        "category": "parking",
+        "name": "Hell's Gate Parking Lot",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -121.4465244,
+          49.782321
+        ]
+      },
+      "properties": {
+        "id": "osm-w-525060065",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -121.4421272,
+          49.7778474
+        ]
+      },
+      "properties": {
+        "id": "osm-w-525060074",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    }
+  ]
+}

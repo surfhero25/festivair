@@ -1,0 +1,81 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -7.8755008,
+          39.7334231
+        ]
+      },
+      "properties": {
+        "id": "osm-n-2893492870",
+        "category": "charging",
+        "name": "Centro Ci\u00eancia Viva da Floresta",
+        "wheelchair": "yes",
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -7.8765887,
+          39.7333148
+        ]
+      },
+      "properties": {
+        "id": "osm-w-705709792",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -7.8771352,
+          39.7345366
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1359697924",
+        "category": "cafe",
+        "name": "Baleia",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -7.8770731,
+          39.7343467
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1359697926",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    }
+  ]
+}

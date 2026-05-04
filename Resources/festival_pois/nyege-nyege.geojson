@@ -1,0 +1,1620 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.1967091,
+          0.4196174
+        ]
+      },
+      "properties": {
+        "id": "osm-n-293913060",
+        "category": "cafe",
+        "name": "Rumours Cafe",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2080637,
+          0.4258297
+        ]
+      },
+      "properties": {
+        "id": "osm-n-1014800309",
+        "category": "cafe",
+        "name": "The Source",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2089993,
+          0.4201566
+        ]
+      },
+      "properties": {
+        "id": "osm-n-1014802537",
+        "category": "clinic",
+        "name": "IMC Jinja",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2136805,
+          0.4326694
+        ]
+      },
+      "properties": {
+        "id": "osm-n-1193851517",
+        "category": "fuel",
+        "name": "Gapco Petrol Station",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2145289,
+          0.4327433
+        ]
+      },
+      "properties": {
+        "id": "osm-n-1193851519",
+        "category": "fuel",
+        "name": "Petro",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2147086,
+          0.4321055
+        ]
+      },
+      "properties": {
+        "id": "osm-n-1193851520",
+        "category": "fuel",
+        "name": "Shell",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2133283,
+          0.4301852
+        ]
+      },
+      "properties": {
+        "id": "osm-n-1193851522",
+        "category": "fuel",
+        "name": "Shell",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2109153,
+          0.4320204
+        ]
+      },
+      "properties": {
+        "id": "osm-n-1193851558",
+        "category": "fuel",
+        "name": "Total",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2082712,
+          0.4245052
+        ]
+      },
+      "properties": {
+        "id": "osm-n-1319855742",
+        "category": "cafe",
+        "name": "Zabuli Eats and Treats",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2087981,
+          0.4272364
+        ]
+      },
+      "properties": {
+        "id": "osm-n-1322227678",
+        "category": "hospital",
+        "name": "Victoria Clinic",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2074282,
+          0.4247744
+        ]
+      },
+      "properties": {
+        "id": "osm-n-2079672223",
+        "category": "cafe",
+        "name": "Flavours Coffee Bar",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2109551,
+          0.4213398
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3065006323",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2122075,
+          0.4335756
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3087233815",
+        "category": "hospital",
+        "name": "Medical Clinic",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2121297,
+          0.4311546
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3176564806",
+        "category": "cafe",
+        "name": "Banzee Internet Cafe",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "24/7",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2109846,
+          0.4296972
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3393076395",
+        "category": "fuel",
+        "name": "Prakash Petroleum",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2080538,
+          0.4320546
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3393076524",
+        "category": "clinic",
+        "name": "Clinic",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2114073,
+          0.4288939
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3543547245",
+        "category": "cafe",
+        "name": "Space Caf\u00e9",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2102913,
+          0.4308712
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3543547246",
+        "category": "fuel",
+        "name": "Total",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2097638,
+          0.4296158
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4038263115",
+        "category": "clinic",
+        "name": "Medicare-Jinja",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2084251,
+          0.4321681
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4038268387",
+        "category": "shop",
+        "name": "Havant and Sons Ltd",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "Mo-Su 09:00-21:00",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2093666,
+          0.4317018
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4038268388",
+        "category": "shop",
+        "name": "Macau College",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "Mo-Su 09:00-21:00",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2111624,
+          0.4279273
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4040029216",
+        "category": "shop",
+        "name": "Butembe Vet",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "Mo-Sa 09:00-18:00",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2090733,
+          0.424404
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4040029223",
+        "category": "clinic",
+        "name": "Marie Stopes Uganda",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.211808,
+          0.429643
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4040029229",
+        "category": "shop",
+        "name": "Namato Contractors",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "Mo-Sa 08:00-18:00",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2115332,
+          0.4291153
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4040029231",
+        "category": "shop",
+        "name": "Rise Safaris",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "Mo-Su 09:00-21:00",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2029296,
+          0.4299122
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4040033255",
+        "category": "clinic",
+        "name": "Jinja Nile Medical Center",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2124536,
+          0.4334584
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4040404306",
+        "category": "clinic",
+        "name": "Modern Dental Clinic",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2148269,
+          0.4299943
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4040404331",
+        "category": "shop",
+        "name": "Shop",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "Mo-Sa 08:00-18:00",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.21491,
+          0.4307802
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4040404341",
+        "category": "shop",
+        "name": "Shop",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "Mo-Sa 08:00-18:00",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2149315,
+          0.4316384
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4040404373",
+        "category": "shop",
+        "name": "Shop",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "Mo-Su 09:00-21:00",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.211748,
+          0.4356992
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4040429573",
+        "category": "clinic",
+        "name": "D'ACE Medicare",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2064573,
+          0.4331498
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4040429581",
+        "category": "clinic",
+        "name": "Krystal Children's Medical Centre",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2082924,
+          0.4263914
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4041460019",
+        "category": "cafe",
+        "name": "Space Cafe",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2087729,
+          0.4317325
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4041584276",
+        "category": "clinic",
+        "name": "International Medical Centre",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2134509,
+          0.432722
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4041833941",
+        "category": "shop",
+        "name": "Shop",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "Mo-Su 09:00-21:00",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2150602,
+          0.4296108
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4043423093",
+        "category": "shop",
+        "name": "Shop",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "Mo-Su 09:00-21:00",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2148269,
+          0.4299943
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4043423099",
+        "category": "shop",
+        "name": "Shop",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "Mo-Sa 08:00-18:00",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.1960819,
+          0.4381351
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4396987892",
+        "category": "clinic",
+        "name": "Clinic",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.1961177,
+          0.4383547
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4396995689",
+        "category": "hospital",
+        "name": "Hospital",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.1947844,
+          0.417408
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4825676631",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2068224,
+          0.4234044
+        ]
+      },
+      "properties": {
+        "id": "osm-n-5297503121",
+        "category": "cafe",
+        "name": "The Deli",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "Mo-Su 09:00-19:00",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.204248,
+          0.4290991
+        ]
+      },
+      "properties": {
+        "id": "osm-n-9787649917",
+        "category": "hospital",
+        "name": "Family Hope Center",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2092514,
+          0.4220953
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11056451835",
+        "category": "clinic",
+        "name": "UGANDA PHARMACUTICALS LTD",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2015958,
+          0.4377165
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11056451842",
+        "category": "clinic",
+        "name": "CHILDREN UNIT REFERAL HOSPITAL",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.1968046,
+          0.4209262
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11056451864",
+        "category": "clinic",
+        "name": "SOURCE OF THE NILE",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2034641,
+          0.4302176
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11056451900",
+        "category": "clinic",
+        "name": "NILE MEDICAL CENTRE",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2041023,
+          0.432018
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11056451941",
+        "category": "hospital",
+        "name": "TASO",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2017541,
+          0.4378967
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11056452096",
+        "category": "hospital",
+        "name": "HOPE MEMORIAL",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2089279,
+          0.419605
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11056452108",
+        "category": "clinic",
+        "name": "JINJA INTERNATIONAL CLINIC CENTRE",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2042098,
+          0.420546
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11056452117",
+        "category": "clinic",
+        "name": "DMO CLINIC",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2007084,
+          0.4349839
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11056452119",
+        "category": "clinic",
+        "name": "RANA MEDICAL CENTRE",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.1910171,
+          0.4266442
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11056452156",
+        "category": "hospital",
+        "name": "BUKAYA",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.210384,
+          0.4266437
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11056452160",
+        "category": "clinic",
+        "name": "ALSHAFA MEDICAL CENTRE",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2043808,
+          0.4301542
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11056452204",
+        "category": "clinic",
+        "name": "JINJA REFERAL HOSPITAL",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.1983057,
+          0.4351123
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11056452223",
+        "category": "clinic",
+        "name": "ISLAMIC HEALTH CENTRE",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2034642,
+          0.4337189
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11056452295",
+        "category": "clinic",
+        "name": "FAMILY LIFE EDUCATION PROGRAM",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2085328,
+          0.4320721
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11056452311",
+        "category": "hospital",
+        "name": "VITHI MEDICAL CENTRE",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2048748,
+          0.4205641
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11056452338",
+        "category": "clinic",
+        "name": "DIRECTORATE OF HEALTH SERVICES (DOM)",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2038325,
+          0.425124
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11056452353",
+        "category": "clinic",
+        "name": "AIDS INFORMATION CENTRE B",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2086943,
+          0.4212787
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11056452369",
+        "category": "clinic",
+        "name": "JINJA DIVISION CENTRAL CLINIC",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2030867,
+          0.4317828
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11056452380",
+        "category": "clinic",
+        "name": "PARTNERS' HOUSE",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2084517,
+          0.4214416
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11056452436",
+        "category": "clinic",
+        "name": "JINJA CENTRAL",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2040573,
+          0.4299009
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11056452446",
+        "category": "clinic",
+        "name": "JINJA",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2076207,
+          0.4277234
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11056452461",
+        "category": "clinic",
+        "name": "JINJA ISLAMIC HEALTH CENTRE",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2033237,
+          0.4247449
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13375729802",
+        "category": "hospital",
+        "name": "Keyawell Medical Centre",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2078804,
+          0.4140152
+        ]
+      },
+      "properties": {
+        "id": "osm-w-194317401",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.1972401,
+          0.4317847
+        ]
+      },
+      "properties": {
+        "id": "osm-w-260596707",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.1971977,
+          0.4328135
+        ]
+      },
+      "properties": {
+        "id": "osm-w-260596708",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.1971734,
+          0.4209419
+        ]
+      },
+      "properties": {
+        "id": "osm-w-263386217",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2020973,
+          0.4380498
+        ]
+      },
+      "properties": {
+        "id": "osm-w-301511020",
+        "category": "hospital",
+        "name": "Jinja Referral Hospital Children's Unit",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.209343,
+          0.4244184
+        ]
+      },
+      "properties": {
+        "id": "osm-w-302251024",
+        "category": "clinic",
+        "name": "Clinic on Aids Research and Other Diseases",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.208108,
+          0.4219826
+        ]
+      },
+      "properties": {
+        "id": "osm-w-302394463",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2116479,
+          0.4337813
+        ]
+      },
+      "properties": {
+        "id": "osm-w-302835444",
+        "category": "shop",
+        "name": "Chicken Feeds",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2097611,
+          0.4266642
+        ]
+      },
+      "properties": {
+        "id": "osm-w-303116776",
+        "category": "fuel",
+        "name": "Fuel",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2075324,
+          0.416754
+        ]
+      },
+      "properties": {
+        "id": "osm-w-319964112",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2099867,
+          0.431446
+        ]
+      },
+      "properties": {
+        "id": "osm-w-321985764",
+        "category": "fuel",
+        "name": "Oilcom",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2089774,
+          0.431538
+        ]
+      },
+      "properties": {
+        "id": "osm-w-321985771",
+        "category": "fuel",
+        "name": "Kobil",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2113135,
+          0.4298526
+        ]
+      },
+      "properties": {
+        "id": "osm-w-332195040",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2087921,
+          0.4320983
+        ]
+      },
+      "properties": {
+        "id": "osm-w-365691768",
+        "category": "fuel",
+        "name": "Fuel",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2087579,
+          0.4368031
+        ]
+      },
+      "properties": {
+        "id": "osm-w-462394980",
+        "category": "hospital",
+        "name": "Whisper Hospital",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2049105,
+          0.4306336
+        ]
+      },
+      "properties": {
+        "id": "osm-w-798646087",
+        "category": "hospital",
+        "name": "Jinja Hospital",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2020438,
+          0.4380322
+        ]
+      },
+      "properties": {
+        "id": "osm-w-801602047",
+        "category": "hospital",
+        "name": "Mukesh Madhvani Children's Hospital",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2075205,
+          0.4316647
+        ]
+      },
+      "properties": {
+        "id": "osm-w-801607040",
+        "category": "hospital",
+        "name": "Rippon Medical Services",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.1954432,
+          0.4388217
+        ]
+      },
+      "properties": {
+        "id": "osm-w-801657535",
+        "category": "hospital",
+        "name": "Hospital",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.2106224,
+          0.4268451
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1220214540",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    }
+  ]
+}

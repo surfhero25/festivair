@@ -1,0 +1,451 @@
+{
+  "generated": "2026-05-04T02:53:50Z",
+  "festivals": [
+    {
+      "id": "burning-man",
+      "feature_count": 68,
+      "status": "fetched"
+    },
+    {
+      "id": "afrikaburn",
+      "feature_count": 0,
+      "status": "fetched"
+    },
+    {
+      "id": "midburn",
+      "feature_count": 0,
+      "status": "fetched"
+    },
+    {
+      "id": "nowhere",
+      "feature_count": 0,
+      "status": "fetched"
+    },
+    {
+      "id": "burning-seed",
+      "feature_count": 0,
+      "status": "fetched"
+    },
+    {
+      "id": "kiwiburn",
+      "feature_count": 0,
+      "status": "fetched"
+    },
+    {
+      "id": "borderland",
+      "feature_count": 7,
+      "status": "fetched"
+    },
+    {
+      "id": "boom-festival",
+      "feature_count": 4,
+      "status": "fetched"
+    },
+    {
+      "id": "ozora",
+      "feature_count": 64,
+      "status": "fetched"
+    },
+    {
+      "id": "universo-paralello",
+      "feature_count": 0,
+      "status": "fetched"
+    },
+    {
+      "id": "rainbow-serpent",
+      "feature_count": 0,
+      "status": "fetched"
+    },
+    {
+      "id": "earthcore",
+      "feature_count": 0,
+      "status": "fetched"
+    },
+    {
+      "id": "lightning-in-a-bottle",
+      "feature_count": 0,
+      "status": "fetched"
+    },
+    {
+      "id": "symbiosis-gathering",
+      "feature_count": 0,
+      "status": "fetched"
+    },
+    {
+      "id": "lucidity-festival",
+      "feature_count": 2,
+      "status": "fetched"
+    },
+    {
+      "id": "sonic-bloom",
+      "feature_count": 0,
+      "status": "fetched"
+    },
+    {
+      "id": "beloved-festival",
+      "feature_count": 0,
+      "status": "fetched"
+    },
+    {
+      "id": "backwoods-music-festival",
+      "feature_count": 0,
+      "status": "fetched"
+    },
+    {
+      "id": "imagine-festival",
+      "feature_count": 0,
+      "status": "fetched"
+    },
+    {
+      "id": "forest-festival",
+      "feature_count": 19,
+      "status": "fetched"
+    },
+    {
+      "id": "lost-lands",
+      "feature_count": 426,
+      "status": "fetched"
+    },
+    {
+      "id": "bonnaroo",
+      "feature_count": 108,
+      "status": "fetched"
+    },
+    {
+      "id": "coachella",
+      "feature_count": 65,
+      "status": "fetched"
+    },
+    {
+      "id": "edc-las-vegas",
+      "feature_count": 14,
+      "status": "fetched"
+    },
+    {
+      "id": "okeechobee",
+      "feature_count": 0,
+      "status": "fetched"
+    },
+    {
+      "id": "shambhala",
+      "feature_count": 1,
+      "status": "fetched"
+    },
+    {
+      "id": "bass-coast",
+      "feature_count": 7,
+      "status": "fetched"
+    },
+    {
+      "id": "motion-notion",
+      "feature_count": 0,
+      "status": "fetched"
+    },
+    {
+      "id": "envision-festival",
+      "feature_count": 0,
+      "status": "fetched"
+    },
+    {
+      "id": "tribal-gathering",
+      "feature_count": 0,
+      "status": "fetched"
+    },
+    {
+      "id": "cosmic-convergence",
+      "feature_count": 0,
+      "status": "fetched"
+    },
+    {
+      "id": "rezonance",
+      "feature_count": 0,
+      "status": "fetched"
+    },
+    {
+      "id": "vortex-trance",
+      "feature_count": 0,
+      "status": "fetched"
+    },
+    {
+      "id": "alpaca-gathering",
+      "feature_count": 236,
+      "status": "fetched"
+    },
+    {
+      "id": "rainbow-mountain",
+      "feature_count": 0,
+      "status": "fetched"
+    },
+    {
+      "id": "glastonbury",
+      "feature_count": 15,
+      "status": "fetched"
+    },
+    {
+      "id": "tomorrowland",
+      "feature_count": 322,
+      "status": "fetched"
+    },
+    {
+      "id": "sziget",
+      "feature_count": 1621,
+      "status": "fetched"
+    },
+    {
+      "id": "roskilde",
+      "feature_count": 488,
+      "status": "fetched"
+    },
+    {
+      "id": "reading",
+      "feature_count": 1032,
+      "status": "fetched"
+    },
+    {
+      "id": "leeds",
+      "feature_count": 45,
+      "status": "fetched"
+    },
+    {
+      "id": "download",
+      "feature_count": 236,
+      "status": "fetched"
+    },
+    {
+      "id": "wacken",
+      "feature_count": 101,
+      "status": "fetched"
+    },
+    {
+      "id": "hellfest",
+      "feature_count": 41,
+      "status": "fetched"
+    },
+    {
+      "id": "lowlands",
+      "feature_count": 8,
+      "status": "fetched"
+    },
+    {
+      "id": "primavera-sound",
+      "feature_count": 2175,
+      "status": "fetched"
+    },
+    {
+      "id": "dgtl-amsterdam",
+      "feature_count": 1209,
+      "status": "fetched"
+    },
+    {
+      "id": "exit",
+      "feature_count": 1642,
+      "status": "fetched"
+    },
+    {
+      "id": "rock-am-ring",
+      "feature_count": 131,
+      "status": "fetched"
+    },
+    {
+      "id": "fuji-rock",
+      "feature_count": 14,
+      "status": "fetched"
+    },
+    {
+      "id": "summer-sonic",
+      "feature_count": 691,
+      "status": "fetched"
+    },
+    {
+      "id": "wonderfruit",
+      "feature_count": 75,
+      "status": "fetched"
+    },
+    {
+      "id": "hadra-trance",
+      "feature_count": 30,
+      "status": "fetched"
+    },
+    {
+      "id": "antaris",
+      "feature_count": 0,
+      "status": "fetched"
+    },
+    {
+      "id": "modem",
+      "feature_count": 1,
+      "status": "fetched"
+    },
+    {
+      "id": "freqs-of-nature",
+      "feature_count": 1,
+      "status": "fetched"
+    },
+    {
+      "id": "splendour-in-the-grass",
+      "feature_count": 13,
+      "status": "fetched"
+    },
+    {
+      "id": "falls-festival",
+      "feature_count": 0,
+      "status": "fetched"
+    },
+    {
+      "id": "strawberry-fields",
+      "feature_count": 0,
+      "status": "fetched"
+    },
+    {
+      "id": "subsonic",
+      "feature_count": 0,
+      "status": "fetched"
+    },
+    {
+      "id": "rock-in-rio",
+      "feature_count": 317,
+      "status": "fetched"
+    },
+    {
+      "id": "lollapalooza-brasil",
+      "feature_count": 127,
+      "status": "fetched"
+    },
+    {
+      "id": "sunburn-goa",
+      "feature_count": 140,
+      "status": "fetched"
+    },
+    {
+      "id": "magnetic-fields",
+      "feature_count": 0,
+      "status": "fetched"
+    },
+    {
+      "id": "ziro",
+      "feature_count": 0,
+      "status": "fetched"
+    },
+    {
+      "id": "afrochella",
+      "feature_count": 191,
+      "status": "fetched"
+    },
+    {
+      "id": "nyege-nyege",
+      "feature_count": 85,
+      "status": "fetched"
+    },
+    {
+      "id": "oasis-marrakech",
+      "feature_count": 164,
+      "status": "fetched"
+    },
+    {
+      "id": "atlas-electronic",
+      "feature_count": 62,
+      "status": "fetched"
+    },
+    {
+      "id": "frendly-gathering",
+      "feature_count": 0,
+      "status": "fetched"
+    },
+    {
+      "id": "pex-summer-festival",
+      "feature_count": 0,
+      "status": "fetched"
+    },
+    {
+      "id": "same-same-but-different",
+      "feature_count": 0,
+      "status": "fetched"
+    },
+    {
+      "id": "joshua-tree-music-festival",
+      "feature_count": 85,
+      "status": "fetched"
+    },
+    {
+      "id": "desert-hearts",
+      "feature_count": 0,
+      "status": "fetched"
+    },
+    {
+      "id": "dirtybird-campout",
+      "feature_count": 0,
+      "status": "fetched"
+    },
+    {
+      "id": "northern-nights",
+      "feature_count": 0,
+      "status": "fetched"
+    },
+    {
+      "id": "the-untz-festival",
+      "feature_count": 0,
+      "status": "fetched"
+    },
+    {
+      "id": "elements-music-festival",
+      "feature_count": 1,
+      "status": "fetched"
+    },
+    {
+      "id": "burning-mountain",
+      "feature_count": 2,
+      "status": "fetched"
+    },
+    {
+      "id": "psy-fi",
+      "feature_count": 16,
+      "status": "fetched"
+    },
+    {
+      "id": "noisily",
+      "feature_count": 1,
+      "status": "fetched"
+    },
+    {
+      "id": "tribal-village",
+      "feature_count": 1,
+      "status": "fetched"
+    },
+    {
+      "id": "beyond-wonderland-gorge",
+      "feature_count": 3,
+      "status": "fetched"
+    },
+    {
+      "id": "paradiso-gorge",
+      "feature_count": 3,
+      "status": "fetched"
+    },
+    {
+      "id": "what-the-festival",
+      "feature_count": 0,
+      "status": "fetched"
+    },
+    {
+      "id": "psycho-las-vegas",
+      "feature_count": 306,
+      "status": "fetched"
+    },
+    {
+      "id": "bukta",
+      "feature_count": 232,
+      "status": "fetched"
+    },
+    {
+      "id": "secret-garden-party",
+      "feature_count": 74,
+      "status": "fetched"
+    },
+    {
+      "id": "shangri-la-frontier",
+      "feature_count": 23,
+      "status": "fetched"
+    }
+  ],
+  "total_features": 12745
+}

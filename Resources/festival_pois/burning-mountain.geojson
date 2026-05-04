@@ -1,0 +1,43 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          150.4049345,
+          -32.3933207
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11287331908",
+        "category": "info",
+        "name": "Welcome to the Upper Hunter Winegrowing Region",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          150.4107149,
+          -32.3901333
+        ]
+      },
+      "properties": {
+        "id": "osm-w-87028686",
+        "category": "parking",
+        "name": "Phipps Cutting Day Use Area",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    }
+  ]
+}

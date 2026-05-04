@@ -1,0 +1,252 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          153.5881468,
+          -28.7918445
+        ]
+      },
+      "properties": {
+        "id": "osm-n-1835338684",
+        "category": "fuel",
+        "name": "Shell",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          153.5284064,
+          -28.8027867
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4338340516",
+        "category": "parking",
+        "name": "Emergency Stopping Bay",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          153.5342623,
+          -28.7645985
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4338341404",
+        "category": "parking",
+        "name": "Truck Stopping Bay",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          153.520517,
+          -28.7699882
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4704787960",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          153.5205496,
+          -28.7702723
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4704802276",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          153.5342673,
+          -28.7635754
+        ]
+      },
+      "properties": {
+        "id": "osm-n-10115986643",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          153.5127892,
+          -28.7969983
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11365934577",
+        "category": "fuel",
+        "name": "Liberty",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          153.5324259,
+          -28.7700008
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11365934582",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          153.5542156,
+          -28.776062
+        ]
+      },
+      "properties": {
+        "id": "osm-w-172645934",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          153.5890789,
+          -28.7847509
+        ]
+      },
+      "properties": {
+        "id": "osm-w-507438249",
+        "category": "toilet",
+        "name": "Family Bathroom",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          153.5345489,
+          -28.7498317
+        ]
+      },
+      "properties": {
+        "id": "osm-w-688774583",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          153.5812136,
+          -28.8060758
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1124582325",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          153.589298,
+          -28.7913334
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1492953371",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    }
+  ]
+}

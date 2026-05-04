@@ -1,0 +1,157 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.8282106,
+          52.5456609
+        ]
+      },
+      "properties": {
+        "id": "osm-n-1695337283",
+        "category": "info",
+        "name": "Info",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.8240389,
+          52.547055
+        ]
+      },
+      "properties": {
+        "id": "osm-n-1792375613",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.8280109,
+          52.5459424
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3642601763",
+        "category": "info",
+        "name": "Nationale Bewegwijzeringsdienst",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.8292286,
+          52.5465726
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3642601764",
+        "category": "info",
+        "name": "Nationale Bewegwijzeringsdienst",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.8361209,
+          52.5076355
+        ]
+      },
+      "properties": {
+        "id": "osm-n-5870709409",
+        "category": "parking",
+        "name": "Parkeerplaats Reve-Abbertbos",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.802887,
+          52.494068
+        ]
+      },
+      "properties": {
+        "id": "osm-n-9091300788",
+        "category": "parking",
+        "name": "Parkeerplaats Torenbosje",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.8391284,
+          52.533277
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1169650660",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.8527744,
+          52.5099644
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1418174554",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "no",
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    }
+  ]
+}

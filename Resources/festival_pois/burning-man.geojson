@@ -1,0 +1,1297 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.2115042,
+          40.7836407
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11149257355",
+        "category": "info",
+        "name": "Black Rock Ranger HQ",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "24/7",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.1938213,
+          40.7797401
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11149323859",
+        "category": "clinic",
+        "name": "Black Rock City Emergency Services Department (ESD)",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "24/7",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.1937361,
+          40.7801981
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11149323860",
+        "category": "info",
+        "name": "Black Rock Ranger Outpost Berlin",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "24/7",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.2123145,
+          40.7938027
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11149323861",
+        "category": "info",
+        "name": "Black Rock Ranger Outpost Tokyo",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "24/7",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.2067662,
+          40.7800658
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11987257932",
+        "category": "hospital",
+        "name": "Rampart Black Rock City Emergency Services Department (ESD)",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "24/7",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.2119704,
+          40.7940895
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11987257933",
+        "category": "clinic",
+        "name": "Black Rock City Emergency Services Department (ESD)",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "24/7",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.2144076,
+          40.8019765
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11987257934",
+        "category": "fuel",
+        "name": "Hell Station",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.2142157,
+          40.7721687
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12037510804",
+        "category": "info",
+        "name": "DPW Depot",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.208169,
+          40.7815803
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12109309452",
+        "category": "info",
+        "name": "Playa Info",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.2065236,
+          40.7805102
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12113338447",
+        "category": "clinic",
+        "name": "Black Rock City Emergency Services Department (ESD)",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "24/7",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.2079097,
+          40.7647858
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1293062168",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.1997529,
+          40.7751424
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1301079244",
+        "category": "cafe",
+        "name": "Sparkadia Leftovers",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "Tu 14:00-15:00; Th 18:00-19:00",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.19919,
+          40.7753042
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1301079264",
+        "category": "cafe",
+        "name": "Asian Fetish Camp",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "Mo-Tu 13:30-14:30; Wed 13:30-15:30",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.2003492,
+          40.775708
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1301079290",
+        "category": "cafe",
+        "name": "Buttercup",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "Tu 15:00-17:00",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.2354665,
+          40.768607
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1306487830",
+        "category": "parking",
+        "name": "D-Lot",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.2372193,
+          40.7688353
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1306487833",
+        "category": "parking",
+        "name": "Will Call parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.235948,
+          40.7690489
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1306513189",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "no",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.2356768,
+          40.7688412
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1306513190",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "no",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.2333112,
+          40.7697607
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1306513191",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "no",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.2062261,
+          40.7772893
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1307430179",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.2157304,
+          40.7845183
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1307430180",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.2118167,
+          40.7988321
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1307430181",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.1994332,
+          40.7773682
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1307430182",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.2162628,
+          40.7766858
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1307430183",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.214462,
+          40.7820926
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1307430184",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.2094149,
+          40.7956643
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1307430185",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.1920401,
+          40.7852119
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1307430186",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.1981864,
+          40.7738399
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1307430187",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.2123993,
+          40.7803926
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1307430188",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.2186225,
+          40.7802688
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1307430189",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.1941209,
+          40.7914338
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1307430190",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.2063984,
+          40.7898186
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1307430191",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.2156327,
+          40.7896836
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1307430193",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.1966168,
+          40.8015138
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1307430194",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.2010226,
+          40.7869635
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1307430195",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.2202748,
+          40.7906269
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1307430197",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.212435,
+          40.7945965
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1307430198",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.1986991,
+          40.8039021
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1307430199",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.1992489,
+          40.7843867
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1307430200",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.1938841,
+          40.7752344
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1307430201",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.2161294,
+          40.7870942
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1307430202",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.2162795,
+          40.7972358
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1307430203",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.186233,
+          40.7841614
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1307430204",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.196288,
+          40.7783917
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1307430205",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.2219446,
+          40.7870973
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1307430206",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.2184403,
+          40.7938957
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1307430207",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.1915574,
+          40.7820901
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1307430208",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.1894947,
+          40.7768777
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1307430209",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.2094135,
+          40.7782575
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1307430210",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.2142837,
+          40.7920773
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1307430211",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.2018078,
+          40.8022698
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1307430212",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.1873929,
+          40.7802676
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1307430213",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.1928925,
+          40.7798518
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1307430214",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.2118152,
+          40.7750931
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1307430215",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.1913244,
+          40.8014493
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1307430216",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.2068048,
+          40.7995745
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1307430217",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.2028306,
+          40.7725712
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1307430218",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.2074634,
+          40.7737647
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1307430219",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.2203709,
+          40.7835734
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1307430220",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.1839147,
+          40.7958534
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1307430221",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.2052223,
+          40.7952188
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1307430222",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.2028303,
+          40.7769874
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1307430223",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.1991007,
+          40.7755373
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1415884393",
+        "category": "cafe",
+        "name": "Hipster Cafe",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "Mo,Tu,Fr 8:00-10:00",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.1996943,
+          40.7749265
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1415884400",
+        "category": "cafe",
+        "name": "Unintentionally Poly",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.2119268,
+          40.7811426
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1418176840",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.2108038,
+          40.7802786
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1418176841",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.2443215,
+          40.7694402
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1418176850",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.2453671,
+          40.7694858
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1418176851",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    }
+  ]
+}

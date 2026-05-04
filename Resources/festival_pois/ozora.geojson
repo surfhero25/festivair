@@ -1,0 +1,1221 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.4356545,
+          46.7645392
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3010667402",
+        "category": "water",
+        "name": "Water",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.4356169,
+          46.7649477
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3010667404",
+        "category": "toilet",
+        "name": "O.Z.O.R.A.",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.4332177,
+          46.7652825
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3010667405",
+        "category": "toilet",
+        "name": "O.Z.O.R.A.",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.4344742,
+          46.7661126
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3010667407",
+        "category": "toilet",
+        "name": "O.Z.O.R.A.",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.4310223,
+          46.7668049
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3010667408",
+        "category": "toilet",
+        "name": "O.Z.O.R.A.",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.4339399,
+          46.7676323
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3010667410",
+        "category": "toilet",
+        "name": "O.Z.O.R.A.",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.4287704,
+          46.7686107
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3010667413",
+        "category": "toilet",
+        "name": "O.Z.O.R.A.",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.434534,
+          46.7686803
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3010667414",
+        "category": "toilet",
+        "name": "O.Z.O.R.A.",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.4339993,
+          46.7697045
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3010667417",
+        "category": "toilet",
+        "name": "O.Z.O.R.A.",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.4371454,
+          46.7701253
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3010667418",
+        "category": "water",
+        "name": "Water",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.438208,
+          46.7701984
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3010667419",
+        "category": "water",
+        "name": "Water",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.4345005,
+          46.7704991
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3010667423",
+        "category": "toilet",
+        "name": "O.Z.O.R.A.",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.4361595,
+          46.7713191
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3010667426",
+        "category": "toilet",
+        "name": "O.Z.O.R.A.",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.4311182,
+          46.7723549
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3010667429",
+        "category": "toilet",
+        "name": "O.Z.O.R.A.",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.4316586,
+          46.7724615
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3010667430",
+        "category": "toilet",
+        "name": "O.Z.O.R.A.",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.4364793,
+          46.7734743
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3010671933",
+        "category": "water",
+        "name": "Water",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.4363315,
+          46.7739985
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3010671937",
+        "category": "toilet",
+        "name": "O.Z.O.R.A.",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.4363182,
+          46.7741492
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3010671939",
+        "category": "toilet",
+        "name": "O.Z.O.R.A.",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.4337218,
+          46.7742665
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3010671940",
+        "category": "toilet",
+        "name": "O.Z.O.R.A.",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.399449,
+          46.7483296
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3446563991",
+        "category": "shop",
+        "name": "ABC",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.39489,
+          46.7409
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3446571341",
+        "category": "water",
+        "name": "Water",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.384115,
+          46.749552
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3446571357",
+        "category": "water",
+        "name": "Water",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.391083,
+          46.750329
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3446571361",
+        "category": "water",
+        "name": "Water",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.388106,
+          46.750492
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3446571362",
+        "category": "water",
+        "name": "Water",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.385616,
+          46.750873
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3446571363",
+        "category": "water",
+        "name": "Water",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.403415,
+          46.753166
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3446571368",
+        "category": "water",
+        "name": "Water",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.458325,
+          46.748563
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3465129284",
+        "category": "shop",
+        "name": "ABC",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.3999315,
+          46.7522861
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4730391793",
+        "category": "water",
+        "name": "Water",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.4316824,
+          46.7690908
+        ]
+      },
+      "properties": {
+        "id": "osm-n-5013673725",
+        "category": "toilet",
+        "name": "O.Z.O.R.A.",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.4309337,
+          46.7701403
+        ]
+      },
+      "properties": {
+        "id": "osm-n-5013751621",
+        "category": "toilet",
+        "name": "O.Z.O.R.A.",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.3976663,
+          46.7537855
+        ]
+      },
+      "properties": {
+        "id": "osm-n-6617477209",
+        "category": "shop",
+        "name": "Pip\u00f3 COOP ABC",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.4350935,
+          46.7552465
+        ]
+      },
+      "properties": {
+        "id": "osm-n-8993879850",
+        "category": "info",
+        "name": "D\u00e1dpuszta",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.4335297,
+          46.7715796
+        ]
+      },
+      "properties": {
+        "id": "osm-n-8993906857",
+        "category": "water",
+        "name": "Water",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.43909,
+          46.768453
+        ]
+      },
+      "properties": {
+        "id": "osm-n-8995649703",
+        "category": "toilet",
+        "name": "O.Z.O.R.A.",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.437042,
+          46.7671902
+        ]
+      },
+      "properties": {
+        "id": "osm-n-8995649707",
+        "category": "toilet",
+        "name": "O.Z.O.R.A.",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.4374684,
+          46.7605273
+        ]
+      },
+      "properties": {
+        "id": "osm-n-8995649714",
+        "category": "toilet",
+        "name": "O.Z.O.R.A.",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.4225789,
+          46.7753202
+        ]
+      },
+      "properties": {
+        "id": "osm-n-8995656774",
+        "category": "toilet",
+        "name": "O.Z.O.R.A.",
+        "wheelchair": "no",
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.4236556,
+          46.7731258
+        ]
+      },
+      "properties": {
+        "id": "osm-n-8995656775",
+        "category": "toilet",
+        "name": "O.Z.O.R.A.",
+        "wheelchair": "no",
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.4253568,
+          46.770176
+        ]
+      },
+      "properties": {
+        "id": "osm-n-8995656776",
+        "category": "toilet",
+        "name": "O.Z.O.R.A.",
+        "wheelchair": "no",
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.4267708,
+          46.7693843
+        ]
+      },
+      "properties": {
+        "id": "osm-n-8995656777",
+        "category": "toilet",
+        "name": "O.Z.O.R.A.",
+        "wheelchair": "no",
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.4370378,
+          46.7625783
+        ]
+      },
+      "properties": {
+        "id": "osm-n-8995692417",
+        "category": "toilet",
+        "name": "O.Z.O.R.A.",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.4347349,
+          46.7704017
+        ]
+      },
+      "properties": {
+        "id": "osm-n-8995943196",
+        "category": "toilet",
+        "name": "O.Z.O.R.A.",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.4337976,
+          46.7735156
+        ]
+      },
+      "properties": {
+        "id": "osm-n-8996393531",
+        "category": "info",
+        "name": "Sz\u00e9lkakas pont",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.4323354,
+          46.7706929
+        ]
+      },
+      "properties": {
+        "id": "osm-n-8996393555",
+        "category": "info",
+        "name": "Info pont",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.4315916,
+          46.7701181
+        ]
+      },
+      "properties": {
+        "id": "osm-n-8996393580",
+        "category": "info",
+        "name": "N\u00e1das pont",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.4369957,
+          46.7715811
+        ]
+      },
+      "properties": {
+        "id": "osm-n-8996440626",
+        "category": "toilet",
+        "name": "O.Z.O.R.A.",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.3881229,
+          46.7582277
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11002804945",
+        "category": "water",
+        "name": "Water",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.4014612,
+          46.7547494
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11032856241",
+        "category": "info",
+        "name": "Info",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.4041649,
+          46.7563812
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11032881264",
+        "category": "info",
+        "name": "Info",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.4092715,
+          46.752256
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12288096336",
+        "category": "water",
+        "name": "Water",
+        "wheelchair": "yes",
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.398242,
+          46.7494747
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12737124865",
+        "category": "water",
+        "name": "Water",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.4037117,
+          46.745203
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12737124866",
+        "category": "water",
+        "name": "Water",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.402077,
+          46.74696
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12737124867",
+        "category": "water",
+        "name": "Water",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.4003486,
+          46.7510577
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12737124868",
+        "category": "water",
+        "name": "Water",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.4323656,
+          46.7702916
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13046459665",
+        "category": "info",
+        "name": "Info",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.4373502,
+          46.7688019
+        ]
+      },
+      "properties": {
+        "id": "osm-w-290329639",
+        "category": "cafe",
+        "name": "VISIUM",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": "open \"O.Z.O.R.A\"",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.4338818,
+          46.7713247
+        ]
+      },
+      "properties": {
+        "id": "osm-w-296951025",
+        "category": "cafe",
+        "name": "Teah\u00e1z",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.4029294,
+          46.7554513
+        ]
+      },
+      "properties": {
+        "id": "osm-w-614039957",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.4037412,
+          46.7556927
+        ]
+      },
+      "properties": {
+        "id": "osm-w-614039958",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.4010666,
+          46.7534572
+        ]
+      },
+      "properties": {
+        "id": "osm-w-614044240",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.4072625,
+          46.7672774
+        ]
+      },
+      "properties": {
+        "id": "osm-w-707646526",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.4326678,
+          46.7700122
+        ]
+      },
+      "properties": {
+        "id": "osm-w-971724817",
+        "category": "info",
+        "name": "info point",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.4375346,
+          46.7695187
+        ]
+      },
+      "properties": {
+        "id": "osm-w-972017309",
+        "category": "parking",
+        "name": "O.Z.O.R.A.",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          18.4039923,
+          46.7565744
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1315721801",
+        "category": "fuel",
+        "name": "Olajporta Kft.",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    }
+  ]
+}

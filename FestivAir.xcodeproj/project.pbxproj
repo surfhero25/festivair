@@ -12,6 +12,7 @@
 		20385D80A6404DC72A781200 /* UWBPrecisionFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31314005F73D742808677D5E /* UWBPrecisionFinder.swift */; };
 		21F3D122C1B22E33BA92E7AB /* festivals.json in Resources */ = {isa = PBXBuildFile; fileRef = 1C80828C3D4A0625C38E2A14 /* festivals.json */; };
 		284E3C76D2C8EA545D5E83EA /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EBDF0112E44416898A7FCC /* Logger.swift */; };
+		2F7F44EDA0DCC2E90FABCC68 /* festival_pois in Resources */ = {isa = PBXBuildFile; fileRef = 79FC6AA9EA7EE76BD8E65866 /* festival_pois */; };
 		3130C2334D8C4D3F2BCA6EEF /* MeetupPinAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DF3A50BE907782B4154A02 /* MeetupPinAnnotationView.swift */; };
 		34C778E2AF623D621FAF0FB0 /* NearestFacilityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9461A15400A977C8CCE3DF8 /* NearestFacilityView.swift */; };
 		39151675CCFF823B0240FC3E /* MeshTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6244C6558688BBDF0B6ADDBB /* MeshTestHelpers.swift */; };
@@ -148,6 +149,7 @@
 		6244C6558688BBDF0B6ADDBB /* MeshTestHelpers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MeshTestHelpers.swift; sourceTree = "<group>"; };
 		6D31BB2C948F6355357CDB65 /* FestivalVenue.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FestivalVenue.swift; sourceTree = "<group>"; };
 		72F32915774BD3B194646905 /* PrivacyPolicyView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PrivacyPolicyView.swift; path = Views/Settings/PrivacyPolicyView.swift; sourceTree = "<group>"; };
+		79FC6AA9EA7EE76BD8E65866 /* festival_pois */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; path = festival_pois; sourceTree = "<group>"; };
 		7B5B92B291AC48A8D6D27A16 /* MeetupPinSheet.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MeetupPinSheet.swift; sourceTree = "<group>"; };
 		7FD7E95BC21472001E4EFE35 /* BLEBeaconService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BLEBeaconService.swift; sourceTree = "<group>"; };
 		82D950024CB9E274C8CDDB8E /* AppleAuthService.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppleAuthService.swift; sourceTree = "<group>"; };
@@ -526,6 +528,7 @@
 				FA100033 /* FestivAir.entitlements */,
 				FA100034 /* Info.plist */,
 				1C80828C3D4A0625C38E2A14 /* festivals.json */,
+				79FC6AA9EA7EE76BD8E65866 /* festival_pois */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -763,6 +766,7 @@
 				FA000031 /* Assets.xcassets in Resources */,
 				FA000032 /* sample_festivals.json in Resources */,
 				21F3D122C1B22E33BA92E7AB /* festivals.json in Resources */,
+				2F7F44EDA0DCC2E90FABCC68 /* festival_pois in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -940,7 +944,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 47;
+				CURRENT_PROJECT_VERSION = 48;
 				DEVELOPMENT_TEAM = 8JZLCG9CS2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FestivAirLiveActivity/Info.plist;
@@ -971,7 +975,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 47;
+				CURRENT_PROJECT_VERSION = 48;
 				DEVELOPMENT_TEAM = 8JZLCG9CS2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = FestivAirLiveActivity/Info.plist;
@@ -1151,7 +1155,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Resources/FestivAir.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 47;
+				CURRENT_PROJECT_VERSION = 48;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -1183,7 +1187,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Resources/FestivAir.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 47;
+				CURRENT_PROJECT_VERSION = 48;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;

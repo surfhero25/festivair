@@ -1,0 +1,575 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.8873928,
+          44.7572179
+        ]
+      },
+      "properties": {
+        "id": "osm-n-1251050307",
+        "category": "info",
+        "name": "Les Gillardes",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9093255,
+          44.7360421
+        ]
+      },
+      "properties": {
+        "id": "osm-n-2109149861",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9309613,
+          44.748673
+        ]
+      },
+      "properties": {
+        "id": "osm-n-2262902189",
+        "category": "info",
+        "name": "Les C\u00f4tes",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.8952868,
+          44.7352095
+        ]
+      },
+      "properties": {
+        "id": "osm-n-2263078850",
+        "category": "info",
+        "name": "Saint-Disdier",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9083958,
+          44.7391716
+        ]
+      },
+      "properties": {
+        "id": "osm-n-2263088550",
+        "category": "info",
+        "name": "Les Hauts Gicons",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9091089,
+          44.7360538
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4420722601",
+        "category": "info",
+        "name": "Le Serre",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9091786,
+          44.736168
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4420723533",
+        "category": "info",
+        "name": "Info",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9156513,
+          44.7351116
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4420725787",
+        "category": "info",
+        "name": "Le Pas de la Tendille",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9281358,
+          44.7576809
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4420740146",
+        "category": "info",
+        "name": "Col de l'Aup",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9009853,
+          44.7403156
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4420769525",
+        "category": "info",
+        "name": "Fountanettes",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.8997813,
+          44.7358254
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4420789161",
+        "category": "info",
+        "name": "M\u00e8re \u00c9glise",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.8994875,
+          44.73555
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4421862941",
+        "category": "info",
+        "name": "Info",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9273543,
+          44.7368003
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4952859170",
+        "category": "info",
+        "name": "Torrent de Queyras",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9012981,
+          44.7676916
+        ]
+      },
+      "properties": {
+        "id": "osm-n-6750519326",
+        "category": "info",
+        "name": "Canyon de l'Infernet",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9010063,
+          44.7678036
+        ]
+      },
+      "properties": {
+        "id": "osm-n-6750519327",
+        "category": "info",
+        "name": "Info",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.8943032,
+          44.7624579
+        ]
+      },
+      "properties": {
+        "id": "osm-n-6750519328",
+        "category": "info",
+        "name": "Info",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.8937293,
+          44.7625087
+        ]
+      },
+      "properties": {
+        "id": "osm-n-6750519331",
+        "category": "info",
+        "name": "Info",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.8897206,
+          44.760858
+        ]
+      },
+      "properties": {
+        "id": "osm-n-6750535396",
+        "category": "info",
+        "name": "Info",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.88685,
+          44.7574582
+        ]
+      },
+      "properties": {
+        "id": "osm-n-6750535401",
+        "category": "info",
+        "name": "Info",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.902189,
+          44.7673745
+        ]
+      },
+      "properties": {
+        "id": "osm-n-7119995138",
+        "category": "info",
+        "name": "Canyon de L\u2019Infernet",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.8948738,
+          44.7344363
+        ]
+      },
+      "properties": {
+        "id": "osm-n-8930672419",
+        "category": "info",
+        "name": "Info",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9024685,
+          44.7384528
+        ]
+      },
+      "properties": {
+        "id": "osm-n-9257835882",
+        "category": "info",
+        "name": "Bas Gicon",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.8880159,
+          44.7584548
+        ]
+      },
+      "properties": {
+        "id": "osm-n-9805555197",
+        "category": "info",
+        "name": "Info",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9044976,
+          44.7697149
+        ]
+      },
+      "properties": {
+        "id": "osm-n-9805573517",
+        "category": "info",
+        "name": "Le Quincet",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.8881064,
+          44.7588336
+        ]
+      },
+      "properties": {
+        "id": "osm-n-9828343208",
+        "category": "info",
+        "name": "Info",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9092432,
+          44.7635521
+        ]
+      },
+      "properties": {
+        "id": "osm-n-9828349165",
+        "category": "info",
+        "name": "Serre du Larron",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.9120793,
+          44.7642625
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12906818868",
+        "category": "info",
+        "name": "Info",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.911696,
+          44.764185
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12906818874",
+        "category": "info",
+        "name": "Info",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.8951826,
+          44.7354064
+        ]
+      },
+      "properties": {
+        "id": "osm-w-216985433",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.8873026,
+          44.7569473
+        ]
+      },
+      "properties": {
+        "id": "osm-w-718969518",
+        "category": "parking",
+        "name": "Parking des Gillardes",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    }
+  ]
+}

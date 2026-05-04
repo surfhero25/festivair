@@ -1,0 +1,2418 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.7010419,
+          -23.6727942
+        ]
+      },
+      "properties": {
+        "id": "osm-n-2572903091",
+        "category": "fuel",
+        "name": "Fuel",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.7057476,
+          -23.7211972
+        ]
+      },
+      "properties": {
+        "id": "osm-n-2573370269",
+        "category": "fuel",
+        "name": "Fuel",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.7052385,
+          -23.681254
+        ]
+      },
+      "properties": {
+        "id": "osm-n-2585824030",
+        "category": "fuel",
+        "name": "Fuel",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6855976,
+          -23.6750741
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3259907564",
+        "category": "hospital",
+        "name": "Hospital Vida's",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6616055,
+          -23.6847725
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4012635597",
+        "category": "clinic",
+        "name": "Unidade B\u00e1sica de Sa\u00fade S\u00e3o Jorge",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "Mo-Sa 07:00-19:00",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6909826,
+          -23.7215949
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4145057871",
+        "category": "fuel",
+        "name": "Fuel",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "24/7",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6961525,
+          -23.6692611
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4547852955",
+        "category": "fuel",
+        "name": "Duque",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6783793,
+          -23.7150508
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4700216393",
+        "category": "cafe",
+        "name": "Casa da Lili",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6787871,
+          -23.7151134
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4700233390",
+        "category": "cafe",
+        "name": "Casa da Mam\u00e3e",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6781615,
+          -23.7154144
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4700293289",
+        "category": "cafe",
+        "name": "Casa da Bel",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6786519,
+          -23.7150204
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4700293290",
+        "category": "cafe",
+        "name": "Casa da Mam\u00e3e",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6768963,
+          -23.729078
+        ]
+      },
+      "properties": {
+        "id": "osm-n-5042205424",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6665127,
+          -23.6736174
+        ]
+      },
+      "properties": {
+        "id": "osm-n-5077703541",
+        "category": "clinic",
+        "name": "UBS Vila Const\u00e2ncia - Dr Vicente Octavio Guida",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6823487,
+          -23.6715401
+        ]
+      },
+      "properties": {
+        "id": "osm-n-5077706598",
+        "category": "clinic",
+        "name": "Ambulat\u00f3rio M\u00e9dico de Especialidades Jardim dos Prados",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6762778,
+          -23.6736345
+        ]
+      },
+      "properties": {
+        "id": "osm-n-5223831296",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6901216,
+          -23.6661321
+        ]
+      },
+      "properties": {
+        "id": "osm-n-5663604972",
+        "category": "fuel",
+        "name": "Extra Posto de Combust\u00edvel - Sabar\u00e1",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6980113,
+          -23.719475
+        ]
+      },
+      "properties": {
+        "id": "osm-n-5850129768",
+        "category": "fuel",
+        "name": "Shell",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6994838,
+          -23.7273991
+        ]
+      },
+      "properties": {
+        "id": "osm-n-5850129769",
+        "category": "fuel",
+        "name": "Shell",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.7022122,
+          -23.7056624
+        ]
+      },
+      "properties": {
+        "id": "osm-n-6090939688",
+        "category": "fuel",
+        "name": "TONINHO TRINTA AUTO POSTO LTDA",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.7021371,
+          -23.7051154
+        ]
+      },
+      "properties": {
+        "id": "osm-n-6090947203",
+        "category": "fuel",
+        "name": "Posto Ipiranga",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.7016975,
+          -23.720561
+        ]
+      },
+      "properties": {
+        "id": "osm-n-6450492440",
+        "category": "info",
+        "name": "Pluvi\u00f4metro",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6622685,
+          -23.6743728
+        ]
+      },
+      "properties": {
+        "id": "osm-n-6833521188",
+        "category": "info",
+        "name": "Pra\u00e7a Joaniza",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.7143639,
+          -23.6954794
+        ]
+      },
+      "properties": {
+        "id": "osm-n-10293003673",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6884604,
+          -23.6824525
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12923802119",
+        "category": "shop",
+        "name": "Hirota Food Express",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.7027903,
+          -23.6708899
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13130130171",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6953673,
+          -23.6794089
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13154246478",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6780725,
+          -23.667906
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13235612198",
+        "category": "charging",
+        "name": "Shell Recharge Solutions",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6787156,
+          -23.7273368
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13447002729",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "limited",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6734164,
+          -23.7274083
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13447002730",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.67755,
+          -23.7266118
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13447002731",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6757032,
+          -23.7276166
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13515911307",
+        "category": "cafe",
+        "name": "Caf\u00e9 Campestre",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6799759,
+          -23.7283495
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13758401428",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "limited",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6783365,
+          -23.7255898
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13758409445",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6989674,
+          -23.6795111
+        ]
+      },
+      "properties": {
+        "id": "osm-w-96097793",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "yes",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6762597,
+          -23.6810854
+        ]
+      },
+      "properties": {
+        "id": "osm-w-112752680",
+        "category": "hospital",
+        "name": "Hospital Geral de Pedreira",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.7023755,
+          -23.6719844
+        ]
+      },
+      "properties": {
+        "id": "osm-w-121546182",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.693415,
+          -23.6824567
+        ]
+      },
+      "properties": {
+        "id": "osm-w-121546183",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6990687,
+          -23.675838
+        ]
+      },
+      "properties": {
+        "id": "osm-w-121546215",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6961838,
+          -23.6792319
+        ]
+      },
+      "properties": {
+        "id": "osm-w-121546217",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6984124,
+          -23.7051739
+        ]
+      },
+      "properties": {
+        "id": "osm-w-191727011",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.7093687,
+          -23.6868405
+        ]
+      },
+      "properties": {
+        "id": "osm-w-211153086",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.659283,
+          -23.6740831
+        ]
+      },
+      "properties": {
+        "id": "osm-w-256250978",
+        "category": "clinic",
+        "name": "Assist\u00eancia M\u00e9dica Ambulatorial Jo\u00e3o Tunes",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6987206,
+          -23.6755457
+        ]
+      },
+      "properties": {
+        "id": "osm-w-303553839",
+        "category": "fuel",
+        "name": "Entre Posto",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6783082,
+          -23.6756859
+        ]
+      },
+      "properties": {
+        "id": "osm-w-317517554",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6760183,
+          -23.675993
+        ]
+      },
+      "properties": {
+        "id": "osm-w-317517555",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.7160879,
+          -23.6928332
+        ]
+      },
+      "properties": {
+        "id": "osm-w-363800486",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6904132,
+          -23.7186427
+        ]
+      },
+      "properties": {
+        "id": "osm-w-377196525",
+        "category": "fuel",
+        "name": "BR",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6890873,
+          -23.721728
+        ]
+      },
+      "properties": {
+        "id": "osm-w-377196526",
+        "category": "fuel",
+        "name": "Fuel",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6991089,
+          -23.7189995
+        ]
+      },
+      "properties": {
+        "id": "osm-w-377196531",
+        "category": "fuel",
+        "name": "Fuel",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6987833,
+          -23.7239934
+        ]
+      },
+      "properties": {
+        "id": "osm-w-377196534",
+        "category": "fuel",
+        "name": "Posto Orion",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6482668,
+          -23.6990407
+        ]
+      },
+      "properties": {
+        "id": "osm-w-435726653",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6781237,
+          -23.6681583
+        ]
+      },
+      "properties": {
+        "id": "osm-w-496313526",
+        "category": "fuel",
+        "name": "Shell",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6780294,
+          -23.6651009
+        ]
+      },
+      "properties": {
+        "id": "osm-w-496313527",
+        "category": "fuel",
+        "name": "Postos Vale+",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.7035384,
+          -23.7298351
+        ]
+      },
+      "properties": {
+        "id": "osm-w-499667434",
+        "category": "clinic",
+        "name": "UBS Jardim Presidente",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": "Mo-Fr 08:00-17:00; PH off",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6908079,
+          -23.729068
+        ]
+      },
+      "properties": {
+        "id": "osm-w-531469578",
+        "category": "hospital",
+        "name": "Hospital Geral do Graja\u00fa Professor Liberato John Alphonse de Dio",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6977311,
+          -23.7305187
+        ]
+      },
+      "properties": {
+        "id": "osm-w-541792791",
+        "category": "fuel",
+        "name": "Ant\u00f4nio Paes",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6877999,
+          -23.685007
+        ]
+      },
+      "properties": {
+        "id": "osm-w-550477978",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6858181,
+          -23.6666104
+        ]
+      },
+      "properties": {
+        "id": "osm-w-554976979",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6881147,
+          -23.6805967
+        ]
+      },
+      "properties": {
+        "id": "osm-w-599008906",
+        "category": "parking",
+        "name": "Habib's",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6866735,
+          -23.6800947
+        ]
+      },
+      "properties": {
+        "id": "osm-w-602254842",
+        "category": "fuel",
+        "name": "Posto Rede S3",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6864594,
+          -23.6802186
+        ]
+      },
+      "properties": {
+        "id": "osm-w-602254845",
+        "category": "shop",
+        "name": "Stop Shop",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6918465,
+          -23.6832455
+        ]
+      },
+      "properties": {
+        "id": "osm-w-603067717",
+        "category": "parking",
+        "name": "C&C",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6931171,
+          -23.6864493
+        ]
+      },
+      "properties": {
+        "id": "osm-w-603067719",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6874735,
+          -23.6870749
+        ]
+      },
+      "properties": {
+        "id": "osm-w-603098264",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6902865,
+          -23.6825015
+        ]
+      },
+      "properties": {
+        "id": "osm-w-603098276",
+        "category": "fuel",
+        "name": "Ipiranga",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6883651,
+          -23.7315844
+        ]
+      },
+      "properties": {
+        "id": "osm-w-618865154",
+        "category": "fuel",
+        "name": "Fuel",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.7109842,
+          -23.7119674
+        ]
+      },
+      "properties": {
+        "id": "osm-w-619035554",
+        "category": "fuel",
+        "name": "Fuel",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.7040762,
+          -23.7149559
+        ]
+      },
+      "properties": {
+        "id": "osm-w-619035712",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6946936,
+          -23.7081611
+        ]
+      },
+      "properties": {
+        "id": "osm-w-619041761",
+        "category": "fuel",
+        "name": "Setee",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6966401,
+          -23.7328851
+        ]
+      },
+      "properties": {
+        "id": "osm-w-619054946",
+        "category": "fuel",
+        "name": "Shell",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6965,
+          -23.7327712
+        ]
+      },
+      "properties": {
+        "id": "osm-w-619054947",
+        "category": "shop",
+        "name": "Shell Select",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.7082096,
+          -23.6754496
+        ]
+      },
+      "properties": {
+        "id": "osm-w-619191498",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.7084093,
+          -23.6751203
+        ]
+      },
+      "properties": {
+        "id": "osm-w-619191499",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.7085301,
+          -23.674848
+        ]
+      },
+      "properties": {
+        "id": "osm-w-619191500",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.7084184,
+          -23.6747928
+        ]
+      },
+      "properties": {
+        "id": "osm-w-619191501",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.7082765,
+          -23.6747081
+        ]
+      },
+      "properties": {
+        "id": "osm-w-619191502",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.7081262,
+          -23.6746447
+        ]
+      },
+      "properties": {
+        "id": "osm-w-619191503",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.7080713,
+          -23.6754029
+        ]
+      },
+      "properties": {
+        "id": "osm-w-619191504",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.7079063,
+          -23.6753237
+        ]
+      },
+      "properties": {
+        "id": "osm-w-619191505",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.7082621,
+          -23.6741875
+        ]
+      },
+      "properties": {
+        "id": "osm-w-619191506",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.7083758,
+          -23.6742455
+        ]
+      },
+      "properties": {
+        "id": "osm-w-619191507",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.7085152,
+          -23.6743147
+        ]
+      },
+      "properties": {
+        "id": "osm-w-619191508",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.7086659,
+          -23.6743735
+        ]
+      },
+      "properties": {
+        "id": "osm-w-619191509",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.7087891,
+          -23.6744016
+        ]
+      },
+      "properties": {
+        "id": "osm-w-619191510",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.7081821,
+          -23.6749879
+        ]
+      },
+      "properties": {
+        "id": "osm-w-619191514",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6989224,
+          -23.6932215
+        ]
+      },
+      "properties": {
+        "id": "osm-w-619307503",
+        "category": "fuel",
+        "name": "Auto Servi\u00e7os Grand Prix Ltda",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.7144375,
+          -23.6895949
+        ]
+      },
+      "properties": {
+        "id": "osm-w-619309377",
+        "category": "fuel",
+        "name": "Auto Posto Portal de Interlagos",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.7029315,
+          -23.6854555
+        ]
+      },
+      "properties": {
+        "id": "osm-w-619315894",
+        "category": "fuel",
+        "name": "BR",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.714621,
+          -23.696585
+        ]
+      },
+      "properties": {
+        "id": "osm-w-619319325",
+        "category": "fuel",
+        "name": "Shell",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "24/7",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.711716,
+          -23.7092506
+        ]
+      },
+      "properties": {
+        "id": "osm-w-675419162",
+        "category": "fuel",
+        "name": "Shell",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6714824,
+          -23.6969669
+        ]
+      },
+      "properties": {
+        "id": "osm-w-679619662",
+        "category": "fuel",
+        "name": "Auto Posto de Servi\u00e7os Navarro & Nogueira",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6604628,
+          -23.6756241
+        ]
+      },
+      "properties": {
+        "id": "osm-w-680113176",
+        "category": "fuel",
+        "name": "Posto Shell - Novo Guerreiro Auto Posto Ltda",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.665394,
+          -23.6734766
+        ]
+      },
+      "properties": {
+        "id": "osm-w-680116953",
+        "category": "fuel",
+        "name": "Auto Posto Dumar Ltda",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6828728,
+          -23.6779737
+        ]
+      },
+      "properties": {
+        "id": "osm-w-680467917",
+        "category": "fuel",
+        "name": "Auto Posto Interlaken Ltda",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.700782,
+          -23.7175728
+        ]
+      },
+      "properties": {
+        "id": "osm-w-682335311",
+        "category": "fuel",
+        "name": "Shell",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.67777,
+          -23.6647366
+        ]
+      },
+      "properties": {
+        "id": "osm-w-836769055",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6701425,
+          -23.6909449
+        ]
+      },
+      "properties": {
+        "id": "osm-w-876263224",
+        "category": "clinic",
+        "name": "USB Vila Aparecida",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6763304,
+          -23.6950519
+        ]
+      },
+      "properties": {
+        "id": "osm-w-876264633",
+        "category": "clinic",
+        "name": "UPA Pedreira",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6762003,
+          -23.6955136
+        ]
+      },
+      "properties": {
+        "id": "osm-w-876266602",
+        "category": "parking",
+        "name": "Restaurante Labopiza",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6778391,
+          -23.6853158
+        ]
+      },
+      "properties": {
+        "id": "osm-w-968107034",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6960873,
+          -23.6692539
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1052344483",
+        "category": "fuel",
+        "name": "Petrobras",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6878351,
+          -23.7168659
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1073032324",
+        "category": "shop",
+        "name": "VR Mini Mercado",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6984077,
+          -23.6929947
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1099913862",
+        "category": "fuel",
+        "name": "Posto Quebec",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6976952,
+          -23.6890616
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1099949862",
+        "category": "fuel",
+        "name": "Box 7 Com\u00e9rcio Combust\u00edveis",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.7008911,
+          -23.6982197
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1099957380",
+        "category": "fuel",
+        "name": "Fuel",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.7142579,
+          -23.6896809
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1178151523",
+        "category": "shop",
+        "name": "ampm",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.7142027,
+          -23.6958078
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1178167136",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6754087,
+          -23.674709
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1313553085",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6880831,
+          -23.7071678
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1334604843",
+        "category": "fuel",
+        "name": "Ipiranga",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6989968,
+          -23.6943318
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1427235725",
+        "category": "fuel",
+        "name": "Atlantis",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6965768,
+          -23.6795068
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1430695972",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6980579,
+          -23.6776381
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1430695973",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.7000003,
+          -23.6764944
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1430695974",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.7006963,
+          -23.6784901
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1430695975",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6986033,
+          -23.6804431
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1430695976",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6732526,
+          -23.6790896
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1430748809",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6743129,
+          -23.6788983
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1430748810",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6816807,
+          -23.72695
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1473249559",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6783261,
+          -23.6661261
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1475566126",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6867575,
+          -23.6727145
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1475566127",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6859611,
+          -23.6771902
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1475566128",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6859327,
+          -23.6781168
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1475566129",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6816796,
+          -23.6844285
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1475566131",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.686293,
+          -23.6915935
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1475566135",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6726355,
+          -23.6689461
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1483888025",
+        "category": "fuel",
+        "name": "Posto Udine",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6727443,
+          -23.6690725
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1483888026",
+        "category": "fuel",
+        "name": "Posto Udine",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.6775191,
+          -23.6717468
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1483889412",
+        "category": "fuel",
+        "name": "Fuel",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    }
+  ]
+}

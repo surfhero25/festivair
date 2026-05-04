@@ -1,0 +1,309 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.8899304,
+          53.0463271
+        ]
+      },
+      "properties": {
+        "id": "osm-n-1364279538",
+        "category": "fuel",
+        "name": "Firezone",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.8965425,
+          53.0491034
+        ]
+      },
+      "properties": {
+        "id": "osm-n-1398504657",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.8903941,
+          53.046347
+        ]
+      },
+      "properties": {
+        "id": "osm-n-2784374612",
+        "category": "info",
+        "name": "Info",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.894906,
+          53.0477627
+        ]
+      },
+      "properties": {
+        "id": "osm-n-2926324485",
+        "category": "shop",
+        "name": "By de Toer",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "Mo-Fr 08:00-18:00; Sa 08:00-17:00",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.8875699,
+          53.0359037
+        ]
+      },
+      "properties": {
+        "id": "osm-n-6571911709",
+        "category": "info",
+        "name": "Nationale Bewegwijzeringsdienst",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.91245,
+          53.03829
+        ]
+      },
+      "properties": {
+        "id": "osm-n-10964815728",
+        "category": "cafe",
+        "name": "Rustpunt Camperplak en Rustpunt it Fj\u00fbrl\u00e2n",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.89337,
+          53.04675
+        ]
+      },
+      "properties": {
+        "id": "osm-n-10964816227",
+        "category": "cafe",
+        "name": "Rustpunt Diniekookt",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.8915446,
+          53.0502606
+        ]
+      },
+      "properties": {
+        "id": "osm-w-107854168",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.8950248,
+          53.0514226
+        ]
+      },
+      "properties": {
+        "id": "osm-w-927363112",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.8893148,
+          53.0457603
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1389028958",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.8991181,
+          53.0480486
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1389028995",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.8980023,
+          53.0475285
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1389029003",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.8936409,
+          53.0463223
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1389044999",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.8953377,
+          53.0476924
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1389045043",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.8967016,
+          53.0472716
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1389045044",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          5.8904325,
+          53.0490627
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1414229473",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    }
+  ]
+}

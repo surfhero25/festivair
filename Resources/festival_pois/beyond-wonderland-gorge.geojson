@@ -1,0 +1,62 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.9901504,
+          47.0002399
+        ]
+      },
+      "properties": {
+        "id": "osm-n-9678768074",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.9840164,
+          46.9919871
+        ]
+      },
+      "properties": {
+        "id": "osm-w-217009711",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -119.9900862,
+          47.0008021
+        ]
+      },
+      "properties": {
+        "id": "osm-w-217009717",
+        "category": "parking",
+        "name": "Quincy Lakes Wildlife Area",
+        "wheelchair": null,
+        "fee": "yes",
+        "opening_hours": "sunrise-sunset",
+        "source": "osm"
+      }
+    }
+  ]
+}

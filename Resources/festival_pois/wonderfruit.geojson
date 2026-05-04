@@ -1,0 +1,1430 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.8954241,
+          12.9044027
+        ]
+      },
+      "properties": {
+        "id": "osm-n-1545678546",
+        "category": "cafe",
+        "name": "Bonus Coffee",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.9170579,
+          12.9095779
+        ]
+      },
+      "properties": {
+        "id": "osm-n-1562521199",
+        "category": "shop",
+        "name": "7-Eleven",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.9153165,
+          12.9162643
+        ]
+      },
+      "properties": {
+        "id": "osm-n-1562521203",
+        "category": "shop",
+        "name": "7-Eleven",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.9196047,
+          12.8841617
+        ]
+      },
+      "properties": {
+        "id": "osm-n-1599794617",
+        "category": "cafe",
+        "name": "Bon Cafe",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.8974612,
+          12.8943278
+        ]
+      },
+      "properties": {
+        "id": "osm-n-1839606891",
+        "category": "shop",
+        "name": "7-Eleven",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.8997209,
+          12.9096256
+        ]
+      },
+      "properties": {
+        "id": "osm-n-1879020276",
+        "category": "shop",
+        "name": "7-Eleven",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.8986008,
+          12.9096618
+        ]
+      },
+      "properties": {
+        "id": "osm-n-1879020277",
+        "category": "shop",
+        "name": "FamilyMart",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.9024975,
+          12.9088806
+        ]
+      },
+      "properties": {
+        "id": "osm-n-1879022215",
+        "category": "shop",
+        "name": "7-Eleven",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.9062438,
+          12.9076507
+        ]
+      },
+      "properties": {
+        "id": "osm-n-1879076936",
+        "category": "shop",
+        "name": "7-Eleven",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.9095349,
+          12.9078729
+        ]
+      },
+      "properties": {
+        "id": "osm-n-1879091890",
+        "category": "shop",
+        "name": "7-Eleven",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.9064463,
+          12.895631
+        ]
+      },
+      "properties": {
+        "id": "osm-n-1911700435",
+        "category": "shop",
+        "name": "7-Eleven",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.9006274,
+          12.8946299
+        ]
+      },
+      "properties": {
+        "id": "osm-n-1911701529",
+        "category": "shop",
+        "name": "FamilyMart",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.9150352,
+          12.9162343
+        ]
+      },
+      "properties": {
+        "id": "osm-n-2064773624",
+        "category": "shop",
+        "name": "Lotus's go fresh",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.9153061,
+          12.9160677
+        ]
+      },
+      "properties": {
+        "id": "osm-n-2064773634",
+        "category": "cafe",
+        "name": "The Village Cafe",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.8999475,
+          12.9095228
+        ]
+      },
+      "properties": {
+        "id": "osm-n-2066813746",
+        "category": "cafe",
+        "name": "Friendship Coffee Shop",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.9063183,
+          12.9078919
+        ]
+      },
+      "properties": {
+        "id": "osm-n-2072726499",
+        "category": "shop",
+        "name": "FamilyMart",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.9043228,
+          12.9079703
+        ]
+      },
+      "properties": {
+        "id": "osm-n-2639576609",
+        "category": "shop",
+        "name": "7-Eleven",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.8976375,
+          12.8919892
+        ]
+      },
+      "properties": {
+        "id": "osm-n-2641802473",
+        "category": "cafe",
+        "name": "Cafe Mississippi",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.8956441,
+          12.9044297
+        ]
+      },
+      "properties": {
+        "id": "osm-n-2641813592",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.8951858,
+          12.8974303
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3100831174",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "no",
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.8978165,
+          12.8920574
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3168120252",
+        "category": "shop",
+        "name": "Mini Big C",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.913371,
+          12.9080854
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3218808285",
+        "category": "cafe",
+        "name": "Livv",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.9109195,
+          12.9077588
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3218808291",
+        "category": "shop",
+        "name": "Lotus's go fresh",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.8959907,
+          12.9071451
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3440255391",
+        "category": "info",
+        "name": "Tesco Lotus",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.9194413,
+          12.9144375
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4102417493",
+        "category": "water",
+        "name": "Water",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.9189685,
+          12.9079326
+        ]
+      },
+      "properties": {
+        "id": "osm-n-6669273685",
+        "category": "shop",
+        "name": "Shop",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "Mo-Su 09:00-20:00",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.8968443,
+          12.9097707
+        ]
+      },
+      "properties": {
+        "id": "osm-n-6760340462",
+        "category": "cafe",
+        "name": "\u0e21\u0e32\u0e19\u0e35 \u0e21\u0e35\u0e19\u0e21",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.9255367,
+          12.9123847
+        ]
+      },
+      "properties": {
+        "id": "osm-n-10236681600",
+        "category": "cafe",
+        "name": "Camellia Matcha Space",
+        "wheelchair": "limited",
+        "fee": null,
+        "opening_hours": "Tu-Su 11:00-18:00",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.9255367,
+          12.9123847
+        ]
+      },
+      "properties": {
+        "id": "osm-n-10236738256",
+        "category": "cafe",
+        "name": "Camellia Matcha Space",
+        "wheelchair": "limited",
+        "fee": null,
+        "opening_hours": "Tu-Su 11:00-18:00",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.903822,
+          12.9121268
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11233757344",
+        "category": "water",
+        "name": "Water",
+        "wheelchair": null,
+        "fee": "yes",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.9037654,
+          12.9121246
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11233757345",
+        "category": "shop",
+        "name": "Shop",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.919874,
+          12.9069116
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11288246247",
+        "category": "shop",
+        "name": "Salumi Thailandia Italian Grocery",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "Mo-Sa 09:00-18:00; Su off",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.897836,
+          12.8990959
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11752349574",
+        "category": "cafe",
+        "name": "Inthanin Coffee",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.897918,
+          12.8920025
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11752349590",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.9119683,
+          12.8838433
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11879492822",
+        "category": "shop",
+        "name": "7-Eleven",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.9131962,
+          12.8836926
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11879536288",
+        "category": "shop",
+        "name": "7-Eleven",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.9363611,
+          12.9099978
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11885843025",
+        "category": "fuel",
+        "name": "Fuel",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.9031945,
+          12.8823554
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11887394782",
+        "category": "shop",
+        "name": "7-Eleven",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.9027025,
+          12.8824234
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11887394799",
+        "category": "shop",
+        "name": "7-Eleven",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.9205178,
+          12.8864124
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11893588234",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.9056386,
+          12.8950408
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11986225895",
+        "category": "shop",
+        "name": "CJ Supermarket",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.8989596,
+          12.90234
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12669837024",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.8966097,
+          12.9079544
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13059485796",
+        "category": "shop",
+        "name": "7-Eleven",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.9028094,
+          12.9086148
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13112267447",
+        "category": "cafe",
+        "name": "Cafe De Puro Pattaya",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.9026884,
+          12.9088505
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13112267448",
+        "category": "cafe",
+        "name": "\u0e04\u0e32\u0e40\u0e1f\u0e48 \u0e2d\u0e40\u0e21\u0e0b\u0e2d\u0e19",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.8950098,
+          12.9059406
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13354552792",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.896695,
+          12.9084374
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13354568704",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.9164825,
+          12.878288
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13483231776",
+        "category": "shop",
+        "name": "Big C Mini",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": "24/7",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.920438,
+          12.8858376
+        ]
+      },
+      "properties": {
+        "id": "osm-w-146452547",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.8957722,
+          12.9081599
+        ]
+      },
+      "properties": {
+        "id": "osm-w-168111815",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.8951135,
+          12.9060012
+        ]
+      },
+      "properties": {
+        "id": "osm-w-168112156",
+        "category": "parking",
+        "name": "Tesco Lotus",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.8973255,
+          12.8878289
+        ]
+      },
+      "properties": {
+        "id": "osm-w-311224111",
+        "category": "fuel",
+        "name": "\u0e1a\u0e32\u0e07\u0e08\u0e32\u0e01",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.8968367,
+          12.9064078
+        ]
+      },
+      "properties": {
+        "id": "osm-w-311224321",
+        "category": "shop",
+        "name": "Jiffy",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.8959985,
+          12.9044801
+        ]
+      },
+      "properties": {
+        "id": "osm-w-311708467",
+        "category": "shop",
+        "name": "FamilyMart",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.906783,
+          12.8830181
+        ]
+      },
+      "properties": {
+        "id": "osm-w-419433474",
+        "category": "parking",
+        "name": "Tesco Lotus Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.9139653,
+          12.9211719
+        ]
+      },
+      "properties": {
+        "id": "osm-w-421219833",
+        "category": "shop",
+        "name": "7-Eleven",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.8971393,
+          12.8879904
+        ]
+      },
+      "properties": {
+        "id": "osm-w-721746853",
+        "category": "cafe",
+        "name": "Inthanin Coffee",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.9016372,
+          12.8948689
+        ]
+      },
+      "properties": {
+        "id": "osm-w-741041237",
+        "category": "shop",
+        "name": "7-Eleven",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.9008557,
+          12.8999138
+        ]
+      },
+      "properties": {
+        "id": "osm-w-744438350",
+        "category": "shop",
+        "name": "7-Eleven",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.9242947,
+          12.9066986
+        ]
+      },
+      "properties": {
+        "id": "osm-w-799286657",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.9345232,
+          12.9014905
+        ]
+      },
+      "properties": {
+        "id": "osm-w-832888582",
+        "category": "parking",
+        "name": "Bus Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.9044875,
+          12.908166
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1081215528",
+        "category": "shop",
+        "name": "7-Eleven",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.8971749,
+          12.9126067
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1202686042",
+        "category": "hospital",
+        "name": "Jomtien Hospital",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.8958958,
+          12.8977929
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1205478783",
+        "category": "parking",
+        "name": "Makro",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.8984172,
+          12.9124318
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1206032451",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.8960342,
+          12.9042923
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1206089003",
+        "category": "fuel",
+        "name": "\u0e04\u0e32\u0e25\u0e40\u0e17\u0e47\u0e01\u0e0b\u0e4c",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.8968183,
+          12.906644
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1206772206",
+        "category": "fuel",
+        "name": "\u0e1b.\u0e15.\u0e17.",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.8971123,
+          12.9064338
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1206772207",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.8971165,
+          12.9067409
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1206772208",
+        "category": "cafe",
+        "name": "\u0e04\u0e32\u0e40\u0e1f\u0e48 \u0e2d\u0e40\u0e21\u0e0b\u0e2d\u0e19",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.9174797,
+          12.9094672
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1218315371",
+        "category": "parking",
+        "name": "Castra Praetoria Gym & Fitness",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.897372,
+          12.8991584
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1265071045",
+        "category": "fuel",
+        "name": "\u0e1a\u0e32\u0e07\u0e08\u0e32\u0e01",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.8977552,
+          12.8921807
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1265071050",
+        "category": "fuel",
+        "name": "Caltex",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.8982393,
+          12.8921877
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1265071051",
+        "category": "fuel",
+        "name": "Caltex",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.9276337,
+          12.9175622
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1451255364",
+        "category": "shop",
+        "name": "7-Eleven",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.9277546,
+          12.9174871
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1451255365",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    }
+  ]
+}

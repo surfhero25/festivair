@@ -1,0 +1,4489 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9764886,
+          -13.5146702
+        ]
+      },
+      "properties": {
+        "id": "osm-n-802826322",
+        "category": "cafe",
+        "name": "Cafe Punchay",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9793481,
+          -13.5132792
+        ]
+      },
+      "properties": {
+        "id": "osm-n-965501710",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9790563,
+          -13.5111872
+        ]
+      },
+      "properties": {
+        "id": "osm-n-967194687",
+        "category": "cafe",
+        "name": "CocaShop2",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9767675,
+          -13.5257309
+        ]
+      },
+      "properties": {
+        "id": "osm-n-993167876",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9749583,
+          -13.5149508
+        ]
+      },
+      "properties": {
+        "id": "osm-n-1055591820",
+        "category": "shop",
+        "name": "Huayruros Market",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9739671,
+          -13.5146524
+        ]
+      },
+      "properties": {
+        "id": "osm-n-1428454140",
+        "category": "cafe",
+        "name": "Bogot\u00e1",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9740785,
+          -13.5136668
+        ]
+      },
+      "properties": {
+        "id": "osm-n-1428454185",
+        "category": "shop",
+        "name": "Shop",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9735361,
+          -13.5140598
+        ]
+      },
+      "properties": {
+        "id": "osm-n-1428454195",
+        "category": "shop",
+        "name": "Shop",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9733663,
+          -13.5144044
+        ]
+      },
+      "properties": {
+        "id": "osm-n-1428454202",
+        "category": "shop",
+        "name": "Shop",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9790986,
+          -13.5179106
+        ]
+      },
+      "properties": {
+        "id": "osm-n-2015932505",
+        "category": "info",
+        "name": "DIRCETUR",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "Mo-Sa 08:00-16:00",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9712344,
+          -13.5203613
+        ]
+      },
+      "properties": {
+        "id": "osm-n-2680854112",
+        "category": "fuel",
+        "name": "Servicentro Americano S.R.L.",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9653128,
+          -13.5217326
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3028748240",
+        "category": "fuel",
+        "name": "Pecsa",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9738596,
+          -13.518797
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3158586750",
+        "category": "cafe",
+        "name": "Qosqo Maki Panaderia",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "Mo-Sa 07:00-21:00",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9765688,
+          -13.5159441
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3158586752",
+        "category": "cafe",
+        "name": "Cocoliso Cafe",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9742646,
+          -13.519844
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3727881297",
+        "category": "cafe",
+        "name": "La Escencia",
+        "wheelchair": "no",
+        "fee": null,
+        "opening_hours": "Mo-Sa 16:00-22:00",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9776669,
+          -13.5179126
+        ]
+      },
+      "properties": {
+        "id": "osm-n-3952821866",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "limited",
+        "fee": "yes",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9790765,
+          -13.5112399
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4150232345",
+        "category": "shop",
+        "name": "Mirador del Inka",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9786484,
+          -13.5143883
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4150235045",
+        "category": "shop",
+        "name": "Minimarket San Cristobal",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9791187,
+          -13.5112221
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4150235335",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": null,
+        "fee": "yes",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9799909,
+          -13.5177216
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4150332990",
+        "category": "cafe",
+        "name": "HelArte",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9798177,
+          -13.5179954
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4159417189",
+        "category": "cafe",
+        "name": "Morchella",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.979038,
+          -13.5113029
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4216553891",
+        "category": "shop",
+        "name": "Shop",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9798157,
+          -13.5169879
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4270671390",
+        "category": "cafe",
+        "name": "Panam",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "Mo-Su 06:00-18:00",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9779475,
+          -13.5172487
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4280647589",
+        "category": "cafe",
+        "name": "Starbucks",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9794212,
+          -13.5154948
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4307462392",
+        "category": "info",
+        "name": "KB Tours",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9763539,
+          -13.5187499
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4313758189",
+        "category": "cafe",
+        "name": "El dorado restaurant",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9797709,
+          -13.5174402
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4348845470",
+        "category": "cafe",
+        "name": "Patapampa",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9785124,
+          -13.5189857
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4348845473",
+        "category": "cafe",
+        "name": "ayllu",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9748707,
+          -13.514847
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4350322180",
+        "category": "cafe",
+        "name": "Eusebi & Manolo - Caf\u00e9 Para Llevar",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9763228,
+          -13.5134734
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4350322183",
+        "category": "cafe",
+        "name": "L'atelier",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9737987,
+          -13.5159174
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4351546344",
+        "category": "shop",
+        "name": "Green Stop Vegan Store",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9802339,
+          -13.5177941
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4354152350",
+        "category": "cafe",
+        "name": "Mare",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9722752,
+          -13.5168303
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4354512754",
+        "category": "shop",
+        "name": "Marquet",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9767498,
+          -13.5157041
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4354512756",
+        "category": "cafe",
+        "name": "Delimonasterio",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9791041,
+          -13.5192414
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4354987554",
+        "category": "cafe",
+        "name": "Aymura Tea & Coffee",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "Mo-Sa 10:30-21:00",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9797153,
+          -13.515274
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4377540290",
+        "category": "info",
+        "name": "Info",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9773377,
+          -13.5153565
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4407144694",
+        "category": "cafe",
+        "name": "El caf\u00e9 de Mam\u00e1 Oli",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "Mo-Fr 09:00-20:00,Sa 09:00-17:00,Su 10:00-17:00",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9795631,
+          -13.5178582
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4442493989",
+        "category": "cafe",
+        "name": "Cafe",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "Mo-Su 08:00-20:00",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9598454,
+          -13.5243084
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4500208191",
+        "category": "clinic",
+        "name": "Salud Ocupacional Cusco / Centro M\u00e9dico Espinar",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "Mo-Fr 07:30-05:30",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9558131,
+          -13.5246651
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4534235490",
+        "category": "clinic",
+        "name": "Clinica MacSalud",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9804046,
+          -13.5187811
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4612557290",
+        "category": "cafe",
+        "name": "Ayllu",
+        "wheelchair": "no",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.973367,
+          -13.516535
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4650343490",
+        "category": "clinic",
+        "name": "Paramatma Healing Center",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9738183,
+          -13.5150508
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4787129033",
+        "category": "cafe",
+        "name": "Kaqlla",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9645222,
+          -13.5247212
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4858506821",
+        "category": "shop",
+        "name": "Orion",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9800135,
+          -13.5167136
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4880248022",
+        "category": "cafe",
+        "name": "Choco Museo",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9741866,
+          -13.5153813
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4929424421",
+        "category": "cafe",
+        "name": "The Meeting Place",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "Mo-Sa 09:00-12:00, 13:00-16:00",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9739305,
+          -13.5152125
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4953856923",
+        "category": "cafe",
+        "name": "Cafe",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9780848,
+          -13.5153782
+        ]
+      },
+      "properties": {
+        "id": "osm-n-4968704723",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "limited",
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9750336,
+          -13.5120377
+        ]
+      },
+      "properties": {
+        "id": "osm-n-5063413963",
+        "category": "shop",
+        "name": "Shop",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9765007,
+          -13.5136975
+        ]
+      },
+      "properties": {
+        "id": "osm-n-5102156821",
+        "category": "cafe",
+        "name": "Cafe",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9724673,
+          -13.5200176
+        ]
+      },
+      "properties": {
+        "id": "osm-n-5127149523",
+        "category": "cafe",
+        "name": "Curros y helado",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9638927,
+          -13.5221356
+        ]
+      },
+      "properties": {
+        "id": "osm-n-5138037121",
+        "category": "cafe",
+        "name": "Santa Fe",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9759327,
+          -13.5158881
+        ]
+      },
+      "properties": {
+        "id": "osm-n-5460763322",
+        "category": "shop",
+        "name": "Shop",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9760564,
+          -13.521318
+        ]
+      },
+      "properties": {
+        "id": "osm-n-5481195421",
+        "category": "cafe",
+        "name": "La Valeriana",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9774194,
+          -13.522764
+        ]
+      },
+      "properties": {
+        "id": "osm-n-5495134572",
+        "category": "shop",
+        "name": "Shop",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9757942,
+          -13.5127934
+        ]
+      },
+      "properties": {
+        "id": "osm-n-5553454024",
+        "category": "cafe",
+        "name": "Monkey Coffee",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9785372,
+          -13.5159772
+        ]
+      },
+      "properties": {
+        "id": "osm-n-5595403456",
+        "category": "cafe",
+        "name": "Oakberry",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "Mo-Su 09:00-21:00",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9763845,
+          -13.5166033
+        ]
+      },
+      "properties": {
+        "id": "osm-n-5608266282",
+        "category": "cafe",
+        "name": "Cappucino",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9798247,
+          -13.5166309
+        ]
+      },
+      "properties": {
+        "id": "osm-n-5640453022",
+        "category": "cafe",
+        "name": "Gabriel 480",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "Mo-Su 07:00-23:00",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9709527,
+          -13.5148597
+        ]
+      },
+      "properties": {
+        "id": "osm-n-5646243646",
+        "category": "shop",
+        "name": "Shop",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9797575,
+          -13.5202527
+        ]
+      },
+      "properties": {
+        "id": "osm-n-5648232929",
+        "category": "cafe",
+        "name": "Cafe Heladeria Mallku",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9784791,
+          -13.5189587
+        ]
+      },
+      "properties": {
+        "id": "osm-n-5648238025",
+        "category": "cafe",
+        "name": "Cafe Ayllu",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "Mo-Sa 06:30-22:30; Su 06:30-13:00",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9797977,
+          -13.5199888
+        ]
+      },
+      "properties": {
+        "id": "osm-n-5668111721",
+        "category": "cafe",
+        "name": "La Francesa",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "Mo-Su 14:30-23:00",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9745557,
+          -13.5166997
+        ]
+      },
+      "properties": {
+        "id": "osm-n-5800357053",
+        "category": "cafe",
+        "name": "La Esquina caf\u00e9",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9690836,
+          -13.5062227
+        ]
+      },
+      "properties": {
+        "id": "osm-n-5857164586",
+        "category": "shop",
+        "name": "Shop",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.970476,
+          -13.5082611
+        ]
+      },
+      "properties": {
+        "id": "osm-n-5857164587",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9702993,
+          -13.5086436
+        ]
+      },
+      "properties": {
+        "id": "osm-n-5857165020",
+        "category": "info",
+        "name": "Circuito Tur\u00edstico Sitio Arqueol\u00f3gico de Q'enqo",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.965446,
+          -13.5222654
+        ]
+      },
+      "properties": {
+        "id": "osm-n-5930480739",
+        "category": "fuel",
+        "name": "Pecsa Petrol station",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "24/7",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9727257,
+          -13.5231786
+        ]
+      },
+      "properties": {
+        "id": "osm-n-6087473181",
+        "category": "shop",
+        "name": "Shop",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9748278,
+          -13.5241192
+        ]
+      },
+      "properties": {
+        "id": "osm-n-6089017836",
+        "category": "fuel",
+        "name": "Repsol",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9735692,
+          -13.5161966
+        ]
+      },
+      "properties": {
+        "id": "osm-n-6121260287",
+        "category": "cafe",
+        "name": "Coffee La Librer\u00eda",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9759726,
+          -13.5153788
+        ]
+      },
+      "properties": {
+        "id": "osm-n-6122221988",
+        "category": "cafe",
+        "name": "Altura Caf\u00e9 & Tostadores",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "Mo-Su 07:00-20:00",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9740997,
+          -13.5231939
+        ]
+      },
+      "properties": {
+        "id": "osm-n-6138363985",
+        "category": "shop",
+        "name": "Daily Market To Go",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9718595,
+          -13.5155872
+        ]
+      },
+      "properties": {
+        "id": "osm-n-6167221188",
+        "category": "cafe",
+        "name": "Caf\u00e9 Tallado",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "Mo-Sa 08:00-18:00",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9736888,
+          -13.5193165
+        ]
+      },
+      "properties": {
+        "id": "osm-n-6169828885",
+        "category": "cafe",
+        "name": "Vlue Caf\u00e9 & Lounge",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9753103,
+          -13.516462
+        ]
+      },
+      "properties": {
+        "id": "osm-n-6261025286",
+        "category": "cafe",
+        "name": "Cafe",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9697012,
+          -13.5231837
+        ]
+      },
+      "properties": {
+        "id": "osm-n-6286422986",
+        "category": "clinic",
+        "name": "Medical Cusco Central",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9791425,
+          -13.5179367
+        ]
+      },
+      "properties": {
+        "id": "osm-n-6340509390",
+        "category": "shop",
+        "name": "Casa Market",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9719201,
+          -13.5250449
+        ]
+      },
+      "properties": {
+        "id": "osm-n-6347936165",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "yes",
+        "fee": "yes",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9721739,
+          -13.5244246
+        ]
+      },
+      "properties": {
+        "id": "osm-n-6347936166",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9741994,
+          -13.5233323
+        ]
+      },
+      "properties": {
+        "id": "osm-n-6433318885",
+        "category": "cafe",
+        "name": "Cafe",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9762365,
+          -13.5186697
+        ]
+      },
+      "properties": {
+        "id": "osm-n-6481692585",
+        "category": "cafe",
+        "name": "Cafe",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9746295,
+          -13.516787
+        ]
+      },
+      "properties": {
+        "id": "osm-n-6514248185",
+        "category": "shop",
+        "name": "Tito Market",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9719422,
+          -13.5232503
+        ]
+      },
+      "properties": {
+        "id": "osm-n-6515785485",
+        "category": "clinic",
+        "name": "Odontotal",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "24/7",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9756192,
+          -13.5157634
+        ]
+      },
+      "properties": {
+        "id": "osm-n-6551231786",
+        "category": "cafe",
+        "name": "acai",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9703195,
+          -13.5087866
+        ]
+      },
+      "properties": {
+        "id": "osm-n-6662887293",
+        "category": "info",
+        "name": "Info",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.979166,
+          -13.5173811
+        ]
+      },
+      "properties": {
+        "id": "osm-n-6871464885",
+        "category": "cafe",
+        "name": "Capuchino",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9778758,
+          -13.520277
+        ]
+      },
+      "properties": {
+        "id": "osm-n-6944294686",
+        "category": "clinic",
+        "name": "Casa Hogar del Campesino",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9619439,
+          -13.5234547
+        ]
+      },
+      "properties": {
+        "id": "osm-n-7112940350",
+        "category": "clinic",
+        "name": "Umso Peru",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9765028,
+          -13.5182391
+        ]
+      },
+      "properties": {
+        "id": "osm-n-7223874466",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9764954,
+          -13.5183233
+        ]
+      },
+      "properties": {
+        "id": "osm-n-7223879804",
+        "category": "cafe",
+        "name": "Pacawi",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9761199,
+          -13.5125333
+        ]
+      },
+      "properties": {
+        "id": "osm-n-9039050579",
+        "category": "cafe",
+        "name": "Sanble\u00f1a",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9781691,
+          -13.5158763
+        ]
+      },
+      "properties": {
+        "id": "osm-n-9039171481",
+        "category": "cafe",
+        "name": "La Catedral",
+        "wheelchair": "no",
+        "fee": null,
+        "opening_hours": "Mo-Su 06:00-18:00",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9737398,
+          -13.5151536
+        ]
+      },
+      "properties": {
+        "id": "osm-n-9039181319",
+        "category": "shop",
+        "name": "Abarrotes Alejandra",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9769658,
+          -13.5120946
+        ]
+      },
+      "properties": {
+        "id": "osm-n-9042030185",
+        "category": "shop",
+        "name": "Shop",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9776566,
+          -13.5126114
+        ]
+      },
+      "properties": {
+        "id": "osm-n-9042126285",
+        "category": "shop",
+        "name": "Minimarket Habibi",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9702159,
+          -13.5268469
+        ]
+      },
+      "properties": {
+        "id": "osm-n-9042129713",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "limited",
+        "fee": "yes",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9744426,
+          -13.5143881
+        ]
+      },
+      "properties": {
+        "id": "osm-n-9230400605",
+        "category": "shop",
+        "name": "Minimarket El Arbolito",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9638407,
+          -13.5048154
+        ]
+      },
+      "properties": {
+        "id": "osm-n-9284579835",
+        "category": "info",
+        "name": "Mapa - rutas Qapaq \u00f1an",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9755428,
+          -13.5163979
+        ]
+      },
+      "properties": {
+        "id": "osm-n-9325162443",
+        "category": "cafe",
+        "name": "Cicciolina Caf\u00e9",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "Mo-Su,PH 07:30-21:30",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9724323,
+          -13.5225054
+        ]
+      },
+      "properties": {
+        "id": "osm-n-9395604006",
+        "category": "cafe",
+        "name": "Bas\u00edlica",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9780072,
+          -13.5201003
+        ]
+      },
+      "properties": {
+        "id": "osm-n-9395630185",
+        "category": "hospital",
+        "name": "Hospital",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9644081,
+          -13.5214907
+        ]
+      },
+      "properties": {
+        "id": "osm-n-9527257862",
+        "category": "cafe",
+        "name": "4 Gatos Caf\u00e9 L\u00fadico",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "Mo-Su 15:00-21:00",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9726721,
+          -13.51576
+        ]
+      },
+      "properties": {
+        "id": "osm-n-9702214471",
+        "category": "shop",
+        "name": "Shop",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9780197,
+          -13.5205719
+        ]
+      },
+      "properties": {
+        "id": "osm-n-9709704662",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "no",
+        "fee": "yes",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9636546,
+          -13.5221827
+        ]
+      },
+      "properties": {
+        "id": "osm-n-9709718417",
+        "category": "cafe",
+        "name": "Basilica",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9770925,
+          -13.5174266
+        ]
+      },
+      "properties": {
+        "id": "osm-n-9854619117",
+        "category": "shop",
+        "name": "Central Market 369",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9767907,
+          -13.5182774
+        ]
+      },
+      "properties": {
+        "id": "osm-n-9870719418",
+        "category": "cafe",
+        "name": "Qura",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9779293,
+          -13.51976
+        ]
+      },
+      "properties": {
+        "id": "osm-n-9900847218",
+        "category": "cafe",
+        "name": "Chef El Luchit",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "Mo-Su 19:00-00:00",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9706129,
+          -13.5205075
+        ]
+      },
+      "properties": {
+        "id": "osm-n-9984447818",
+        "category": "cafe",
+        "name": "Cafe",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.972113,
+          -13.5205368
+        ]
+      },
+      "properties": {
+        "id": "osm-n-9995739517",
+        "category": "cafe",
+        "name": "Cafe",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9750273,
+          -13.5183388
+        ]
+      },
+      "properties": {
+        "id": "osm-n-10069559217",
+        "category": "cafe",
+        "name": "Miski Nusta",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9726461,
+          -13.5152672
+        ]
+      },
+      "properties": {
+        "id": "osm-n-10170207318",
+        "category": "cafe",
+        "name": "Cafe",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.974305,
+          -13.5179366
+        ]
+      },
+      "properties": {
+        "id": "osm-n-10189628567",
+        "category": "shop",
+        "name": "EcoMarker",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9741118,
+          -13.5151854
+        ]
+      },
+      "properties": {
+        "id": "osm-n-10250544989",
+        "category": "cafe",
+        "name": "Xapiri Ground",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9748108,
+          -13.5178453
+        ]
+      },
+      "properties": {
+        "id": "osm-n-10728654905",
+        "category": "cafe",
+        "name": "Three Monkeys",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9747406,
+          -13.5228226
+        ]
+      },
+      "properties": {
+        "id": "osm-n-10943202242",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9755491,
+          -13.5155564
+        ]
+      },
+      "properties": {
+        "id": "osm-n-10964063111",
+        "category": "cafe",
+        "name": "Local",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9774158,
+          -13.5207772
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11006321154",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "limited",
+        "fee": "yes",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9630473,
+          -13.5186459
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11006338958",
+        "category": "shop",
+        "name": "Shop",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9770053,
+          -13.5176155
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11006348187",
+        "category": "cafe",
+        "name": "Cercan\u00eda",
+        "wheelchair": "no",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9705953,
+          -13.5221302
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11296519618",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "limited",
+        "fee": "yes",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9714315,
+          -13.5220905
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11296519619",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "limited",
+        "fee": "yes",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9752754,
+          -13.5162323
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11302595969",
+        "category": "cafe",
+        "name": "Jack\u2019s Cafe & Bar",
+        "wheelchair": "limited",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9739826,
+          -13.5158932
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11303551769",
+        "category": "cafe",
+        "name": "Cafe",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9685022,
+          -13.5261246
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11378784717",
+        "category": "hospital",
+        "name": "Clinica Peruano Suiza",
+        "wheelchair": "limited",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9743185,
+          -13.514603
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11495749169",
+        "category": "cafe",
+        "name": "Dr. Beer & Miss Potato",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "Mo-Sa 08:00-22:00",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.969942,
+          -13.5152518
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11522058750",
+        "category": "cafe",
+        "name": "Bunnu Caf\u00e9",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "Mo-Su 07:00-21:30",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9753677,
+          -13.5135312
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11524924969",
+        "category": "cafe",
+        "name": "Barrio Cafe",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "Mo-Fr 07:30-19:30;\nSa-Su 08:30-15:30",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9750971,
+          -13.5146912
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11544698769",
+        "category": "shop",
+        "name": "Vegetariana NaturLandia",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9765661,
+          -13.515735
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11544768069",
+        "category": "cafe",
+        "name": "Indie Caf\u00e9 & Concept Store",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9799901,
+          -13.5185178
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11552886769",
+        "category": "cafe",
+        "name": "La Causita de Marquez",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9746017,
+          -13.522586
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11638566470",
+        "category": "cafe",
+        "name": "Per\u00f9 Caf\u00e8",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9790199,
+          -13.5158586
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11749118770",
+        "category": "info",
+        "name": "iPer\u00fa",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9759888,
+          -13.5169744
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11862760873",
+        "category": "water",
+        "name": "Water",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9726432,
+          -13.5239054
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11937539200",
+        "category": "cafe",
+        "name": "Caf\u00e9 7",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "Mo-Sa 09:00-21:00",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9791069,
+          -13.5191883
+        ]
+      },
+      "properties": {
+        "id": "osm-n-11965382269",
+        "category": "cafe",
+        "name": "Picarones Peruanisima",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9780155,
+          -13.5136038
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12067285669",
+        "category": "cafe",
+        "name": "Voghera Gelater\u00eda",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "Mo-Su 08:00-18:30",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9800626,
+          -13.5180556
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12157905005",
+        "category": "cafe",
+        "name": "D'wasi Cafe",
+        "wheelchair": "limited",
+        "fee": null,
+        "opening_hours": "Mo-Su 07:00-22:30",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9795507,
+          -13.5171233
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12324268639",
+        "category": "info",
+        "name": "Rio Saphy",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9785946,
+          -13.521695
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12359588768",
+        "category": "shop",
+        "name": "Tambo+",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "Mo-Su 06:00-22:00",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.975022,
+          -13.5200193
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12400772265",
+        "category": "info",
+        "name": "Info",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9750508,
+          -13.5199595
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12400812631",
+        "category": "info",
+        "name": "Info",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9623087,
+          -13.523433
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12400925636",
+        "category": "shop",
+        "name": "Tambo",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9650063,
+          -13.523568
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12402894214",
+        "category": "shop",
+        "name": "Shop",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9779348,
+          -13.52355
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12404250624",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": "no",
+        "fee": "yes",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9801399,
+          -13.5159328
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12479674625",
+        "category": "cafe",
+        "name": "La Boulangerie de Par\u00eds",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9786295,
+          -13.5216521
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12525237567",
+        "category": "shop",
+        "name": "Huayruros Market",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9798262,
+          -13.5163957
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12525244100",
+        "category": "shop",
+        "name": "Qolqa Market",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9802068,
+          -13.5160356
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12525269125",
+        "category": "shop",
+        "name": "Kantu Market",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9770792,
+          -13.5136401
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12570909601",
+        "category": "cafe",
+        "name": "Nicolay cafe",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9717868,
+          -13.5168453
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12650566377",
+        "category": "cafe",
+        "name": "Coffee Refill",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9735488,
+          -13.515316
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12652975702",
+        "category": "cafe",
+        "name": "Roots",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9768942,
+          -13.5122986
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12791905418",
+        "category": "shop",
+        "name": "The beagle",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9728642,
+          -13.5157815
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12796305480",
+        "category": "toilet",
+        "name": "Toilet",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9764963,
+          -13.5159338
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12897874784",
+        "category": "cafe",
+        "name": "Hoseg Cafe",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9616951,
+          -13.5289901
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12903835439",
+        "category": "shop",
+        "name": "Shop",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9775372,
+          -13.5169691
+        ]
+      },
+      "properties": {
+        "id": "osm-n-12943630401",
+        "category": "cafe",
+        "name": "Ruru Coffee",
+        "wheelchair": "limited",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9730272,
+          -13.5155154
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13110743302",
+        "category": "cafe",
+        "name": "Brew Brothers",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.978867,
+          -13.5175203
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13205684202",
+        "category": "cafe",
+        "name": "Plaza Caf\u00e9",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9662355,
+          -13.523645
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13205685902",
+        "category": "cafe",
+        "name": "Frulay",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9773061,
+          -13.5172466
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13246209401",
+        "category": "cafe",
+        "name": "Cafe d Wasi",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9790647,
+          -13.517249
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13246209602",
+        "category": "cafe",
+        "name": "Experiences Coffee",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9790276,
+          -13.5172986
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13246209702",
+        "category": "cafe",
+        "name": "Cappucino Cafe",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.975462,
+          -13.5137091
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13246423502",
+        "category": "cafe",
+        "name": "Nova Luz",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9749162,
+          -13.5163827
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13247672301",
+        "category": "cafe",
+        "name": "Apice",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9784402,
+          -13.5129508
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13273096190",
+        "category": "cafe",
+        "name": "The Meeting Place",
+        "wheelchair": "no",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9791814,
+          -13.5154721
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13273096191",
+        "category": "cafe",
+        "name": "Van Gogh",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9767882,
+          -13.5160883
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13273110014",
+        "category": "cafe",
+        "name": "Shaman Caf\u00e9 Story Telling",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9771019,
+          -13.5121933
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13289790872",
+        "category": "shop",
+        "name": "Shop",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.976826,
+          -13.5180549
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13306594452",
+        "category": "shop",
+        "name": "Shop",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9767535,
+          -13.5182286
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13306706070",
+        "category": "cafe",
+        "name": "Taiyaki Express",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9758835,
+          -13.5155285
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13307126912",
+        "category": "shop",
+        "name": "Mukis Market",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9757552,
+          -13.5154809
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13307126914",
+        "category": "shop",
+        "name": "Shop",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.975872,
+          -13.5153225
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13307126916",
+        "category": "cafe",
+        "name": "On\u00edrica",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9743224,
+          -13.5142317
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13309234372",
+        "category": "cafe",
+        "name": "Kaldi Coffee",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9753802,
+          -13.5196457
+        ]
+      },
+      "properties": {
+        "id": "osm-n-13458380401",
+        "category": "cafe",
+        "name": "Cercan\u00eda Obrador Cusco",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "Mo-Sa 08:30-20:30",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9784658,
+          -13.5094193
+        ]
+      },
+      "properties": {
+        "id": "osm-w-23909417",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9754482,
+          -13.5235638
+        ]
+      },
+      "properties": {
+        "id": "osm-w-90185811",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "yes",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9615603,
+          -13.5206228
+        ]
+      },
+      "properties": {
+        "id": "osm-w-224670868",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9629815,
+          -13.5219042
+        ]
+      },
+      "properties": {
+        "id": "osm-w-224674210",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9627963,
+          -13.5207635
+        ]
+      },
+      "properties": {
+        "id": "osm-w-224674212",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9634389,
+          -13.5202772
+        ]
+      },
+      "properties": {
+        "id": "osm-w-224674214",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9647005,
+          -13.5192979
+        ]
+      },
+      "properties": {
+        "id": "osm-w-224678769",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9612749,
+          -13.5218092
+        ]
+      },
+      "properties": {
+        "id": "osm-w-225278332",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9695118,
+          -13.5157348
+        ]
+      },
+      "properties": {
+        "id": "osm-w-261158011",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9624783,
+          -13.5211088
+        ]
+      },
+      "properties": {
+        "id": "osm-w-262424688",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9692224,
+          -13.5230258
+        ]
+      },
+      "properties": {
+        "id": "osm-w-271666235",
+        "category": "fuel",
+        "name": "Grifo repuestos Lima",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9593507,
+          -13.5253157
+        ]
+      },
+      "properties": {
+        "id": "osm-w-329586110",
+        "category": "hospital",
+        "name": "Hospital Nivel IV Adolfo Guevara Velasco - Essalud",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9607686,
+          -13.5255165
+        ]
+      },
+      "properties": {
+        "id": "osm-w-366571670",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9606567,
+          -13.5247531
+        ]
+      },
+      "properties": {
+        "id": "osm-w-366571671",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9536696,
+          -13.5220025
+        ]
+      },
+      "properties": {
+        "id": "osm-w-367133843",
+        "category": "hospital",
+        "name": "San Juan de Dios",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9779258,
+          -13.5183718
+        ]
+      },
+      "properties": {
+        "id": "osm-w-584928771",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9756517,
+          -13.5155759
+        ]
+      },
+      "properties": {
+        "id": "osm-w-584936253",
+        "category": "cafe",
+        "name": "& Jill's by Jack's",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9791092,
+          -13.5153511
+        ]
+      },
+      "properties": {
+        "id": "osm-w-644564369",
+        "category": "cafe",
+        "name": "Florencia y Fortunata",
+        "wheelchair": "no",
+        "fee": null,
+        "opening_hours": "Mo-Sa 08:30-19:30; Su 12:00-20:30",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9786973,
+          -13.5220153
+        ]
+      },
+      "properties": {
+        "id": "osm-w-647527224",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "yes",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9740537,
+          -13.5204782
+        ]
+      },
+      "properties": {
+        "id": "osm-w-648297080",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9684503,
+          -13.5208751
+        ]
+      },
+      "properties": {
+        "id": "osm-w-648600808",
+        "category": "fuel",
+        "name": "Repsol",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9684594,
+          -13.5222734
+        ]
+      },
+      "properties": {
+        "id": "osm-w-648600826",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9550369,
+          -13.52352
+        ]
+      },
+      "properties": {
+        "id": "osm-w-668575501",
+        "category": "hospital",
+        "name": "Hospital Regional del Cusco",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": "24/7",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9640458,
+          -13.5188784
+        ]
+      },
+      "properties": {
+        "id": "osm-w-670831653",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9705119,
+          -13.5085126
+        ]
+      },
+      "properties": {
+        "id": "osm-w-690832061",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9656231,
+          -13.5226948
+        ]
+      },
+      "properties": {
+        "id": "osm-w-699806316",
+        "category": "hospital",
+        "name": "SISOL Salud Cusco - Wanchaq",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9717152,
+          -13.5266676
+        ]
+      },
+      "properties": {
+        "id": "osm-w-700088640",
+        "category": "fuel",
+        "name": "Repsol",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9706159,
+          -13.5224032
+        ]
+      },
+      "properties": {
+        "id": "osm-w-775738440",
+        "category": "clinic",
+        "name": "Posta Medica wanchaq",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9678285,
+          -13.5223522
+        ]
+      },
+      "properties": {
+        "id": "osm-w-787288647",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.968337,
+          -13.5295652
+        ]
+      },
+      "properties": {
+        "id": "osm-w-928654599",
+        "category": "fuel",
+        "name": "Repsol",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "24/7",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9562931,
+          -13.5235251
+        ]
+      },
+      "properties": {
+        "id": "osm-w-956526862",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9745588,
+          -13.5152064
+        ]
+      },
+      "properties": {
+        "id": "osm-w-964334542",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9600342,
+          -13.5238621
+        ]
+      },
+      "properties": {
+        "id": "osm-w-972985601",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9657472,
+          -13.5217081
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1014525560",
+        "category": "hospital",
+        "name": "Clinica Pardo",
+        "wheelchair": "yes",
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9774152,
+          -13.520887
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1068103061",
+        "category": "parking",
+        "name": "Municipalidad de Cusco",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9800503,
+          -13.5177851
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1068104314",
+        "category": "parking",
+        "name": "Municipalidad de Cusco",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "Mo-Sa 07:00-20:00",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9801028,
+          -13.5178191
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1068104315",
+        "category": "parking",
+        "name": "Municipalidad de Cusco",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": "Mo-Sa 07:00-20:00",
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9752024,
+          -13.5162686
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1068105132",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9792085,
+          -13.5195217
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1068105399",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9598924,
+          -13.5221071
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1125285418",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9599377,
+          -13.5223222
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1125285425",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9666826,
+          -13.5217625
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1154868033",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.955524,
+          -13.5243813
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1157687065",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9565808,
+          -13.5240735
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1157687066",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9581383,
+          -13.5238716
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1157687180",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9586015,
+          -13.5237296
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1157687181",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9571438,
+          -13.5241846
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1157687846",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9566267,
+          -13.5243437
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1157687847",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9547612,
+          -13.5231391
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1177937112",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9731678,
+          -13.5220158
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1178011116",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9732142,
+          -13.5205727
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1178011118",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9732356,
+          -13.5204094
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1178011120",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "yes",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9753083,
+          -13.5197782
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1181927302",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9772995,
+          -13.5239852
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1340833673",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9774048,
+          -13.5236704
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1340836631",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9764627,
+          -13.5220186
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1340840928",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9593881,
+          -13.5184997
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1341050670",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9771129,
+          -13.5154156
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1341055325",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": null,
+        "opening_hours": null,
+        "source": "osm"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.9798859,
+          -13.5203926
+        ]
+      },
+      "properties": {
+        "id": "osm-w-1353668661",
+        "category": "parking",
+        "name": "Parking",
+        "wheelchair": null,
+        "fee": "no",
+        "opening_hours": null,
+        "source": "osm"
+      }
+    }
+  ]
+}
