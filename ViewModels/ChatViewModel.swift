@@ -175,7 +175,8 @@ final class ChatViewModel: ObservableObject {
                     squadId: cloudId,
                     senderId: userId,
                     senderName: currentUserName,
-                    text: trimmedText
+                    text: trimmedText,
+                    joinCode: joinCode
                 )
                 message.isSynced = true
                 do {
@@ -214,7 +215,7 @@ final class ChatViewModel: ObservableObject {
               cloudKit.isAvailable else { return }
 
         do {
-            let remoteMessages = try await cloudKit.getMessages(squadId: cloudId)
+            let remoteMessages = try await cloudKit.getMessages(squadId: cloudId, joinCode: joinCode)
 
             for msg in remoteMessages {
                 // Skip if we already have this message

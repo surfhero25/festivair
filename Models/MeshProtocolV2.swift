@@ -5,6 +5,9 @@ import Foundation
 /// Protocol for signing mesh messages. Implemented by MessageSigner (Task 3).
 protocol MessageSignerProtocol {
     func sign(_ data: Data) throws -> Data
+    /// DER-encoded P-256 public key (X.509 SubjectPublicKeyInfo). Receivers TOFU-cache this
+    /// keyed by the sender's userId on first verified envelope.
+    var publicKeyData: Data { get }
 }
 
 // MARK: - V2 Message Types
@@ -176,6 +179,54 @@ struct V2Envelope: Codable {
     var ttl: Int
     var visitedPeers: [String]
     let signature: Data
+    /// DER-encoded P-256 public key of the originating peer, embedded so receivers can TOFU-cache and verify.
+    /// Optional in the schema for forward-compatibility, but every envelope produced by this build includes it.
+    let senderPublicKey: Data?
+
+    // MARK: Signing input
+    /// Deterministic byte sequence covered by `signature`. Includes every field that affects message
+    /// integrity or routing: anyone tampering with `type`, `originPeerId`, `targetPeerId`, `squadId`,
+    /// `timestamp`, `ttl`, `messageId`, or `payload` invalidates the signature.
+    /// Excludes `signature` itself, `senderPublicKey` (TOFU lookup key), and `visitedPeers` (mutated by relay).
+    static func signingInput(
+        version: Int,
+        messageId: UUID,
+        type: V2MessageType,
+        originPeerId: String,
+        targetPeerId: String?,
+        squadId: String,
+        timestamp: Date,
+        ttl: Int,
+        payload: Data
+    ) -> Data {
+        var data = Data()
+        data.append("v=\(version)\n".data(using: .utf8)!)
+        data.append("id=\(messageId.uuidString)\n".data(using: .utf8)!)
+        data.append("type=\(type.rawValue)\n".data(using: .utf8)!)
+        data.append("origin=\(originPeerId)\n".data(using: .utf8)!)
+        data.append("target=\(targetPeerId ?? "")\n".data(using: .utf8)!)
+        data.append("squad=\(squadId)\n".data(using: .utf8)!)
+        data.append("ts=\(ISO8601DateFormatter().string(from: timestamp))\n".data(using: .utf8)!)
+        data.append("ttl=\(ttl)\n".data(using: .utf8)!)
+        data.append("payload=".data(using: .utf8)!)
+        data.append(payload)
+        return data
+    }
+
+    /// The signing-input bytes that this envelope's signature must verify against.
+    var signingInput: Data {
+        Self.signingInput(
+            version: version,
+            messageId: messageId,
+            type: type,
+            originPeerId: originPeerId,
+            targetPeerId: targetPeerId,
+            squadId: squadId,
+            timestamp: timestamp,
+            ttl: ttl,
+            payload: payload
+        )
+    }
 
     // MARK: Validation
 
@@ -305,6 +356,8 @@ struct V2Envelope: Codable {
 enum V2EnvelopeBuilder {
 
     /// Builds a signed V2Envelope.
+    /// The signer's public key is embedded in the envelope so receivers can TOFU-cache it and verify
+    /// every subsequent message from this userId.
     static func build<Payload: Encodable>(
         type: V2MessageType,
         payload: Payload,
@@ -319,13 +372,19 @@ enum V2EnvelopeBuilder {
 
         let messageId = UUID()
         let timestamp = Date()
+        let ttl = Constants.Mesh.messageTTL
 
-        // Build signing input: messageId + payload + timestamp
-        var signingData = Data()
-        signingData.append(messageId.uuidString.data(using: .utf8)!)
-        signingData.append(payloadData)
-        let timestampString = ISO8601DateFormatter().string(from: timestamp)
-        signingData.append(timestampString.data(using: .utf8)!)
+        let signingData = V2Envelope.signingInput(
+            version: Constants.ProtocolV2.version,
+            messageId: messageId,
+            type: type,
+            originPeerId: originPeerId,
+            targetPeerId: targetPeerId,
+            squadId: squadId,
+            timestamp: timestamp,
+            ttl: ttl,
+            payload: payloadData
+        )
 
         let signature = try signer.sign(signingData)
 
@@ -338,9 +397,10 @@ enum V2EnvelopeBuilder {
             targetPeerId: targetPeerId,
             squadId: squadId,
             timestamp: timestamp,
-            ttl: Constants.Mesh.messageTTL,
+            ttl: ttl,
             visitedPeers: [originPeerId],
-            signature: signature
+            signature: signature,
+            senderPublicKey: signer.publicKeyData
         )
     }
 }

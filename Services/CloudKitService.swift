@@ -387,16 +387,37 @@ final class CloudKitService: ObservableObject {
     }
 
     // MARK: - Message Operations (PUBLIC database for squad chat)
+    //
+    // Chat text is encrypted at the application layer with `SquadCrypto` (AES-256-GCM, key derived
+    // from the squad's join code via HKDF-SHA256). The PUBLIC CloudKit DB only ever sees ciphertext.
+    // Legacy plaintext records written before this change are still readable — `getMessages` treats
+    // anything without the `v1:` prefix as plaintext and returns it as-is during the transition.
 
-    func sendMessage(squadId: String, senderId: String, senderName: String, text: String) async throws -> String {
+    /// Persists a chat message to CloudKit. `joinCode` is the 6-digit squad join code; if non-empty
+    /// the text is encrypted before save. Empty/missing join code falls back to plaintext (used only
+    /// for tests and for installs that haven't completed onboarding).
+    func sendMessage(squadId: String, senderId: String, senderName: String, text: String, joinCode: String? = nil) async throws -> String {
         let messageId = UUID().uuidString
         let recordID = CKRecord.ID(recordName: messageId)
         let record = CKRecord(recordType: RecordType.message, recordID: recordID)
 
+        let storedText: String
+        if let code = joinCode, !code.isEmpty {
+            do {
+                storedText = try SquadCrypto.encrypt(text, joinCode: code)
+            } catch {
+                // Encryption shouldn't fail in practice (HKDF + AES-GCM are deterministic).
+                // If it does, refuse to save plaintext rather than leaking the message.
+                throw error
+            }
+        } else {
+            storedText = text
+        }
+
         record["squadId"] = squadId
         record["senderId"] = senderId
         record["senderName"] = senderName
-        record["text"] = text
+        record["text"] = storedText
         record["timestamp"] = Date()
 
         // Use PUBLIC database so all squad members can see messages
@@ -404,7 +425,7 @@ final class CloudKitService: ObservableObject {
         return messageId
     }
 
-    func getMessages(squadId: String, since: Date? = nil) async throws -> [(id: String, senderId: String, senderName: String, text: String, timestamp: Date)] {
+    func getMessages(squadId: String, since: Date? = nil, joinCode: String? = nil) async throws -> [(id: String, senderId: String, senderName: String, text: String, timestamp: Date)] {
         var predicateFormat = "squadId == %@"
         var arguments: [Any] = [squadId]
 
@@ -427,9 +448,25 @@ final class CloudKitService: ObservableObject {
                 let id = record.recordID.recordName
                 let senderId = record["senderId"] as? String ?? ""
                 let senderName = record["senderName"] as? String ?? "Unknown"
-                let text = record["text"] as? String ?? ""
+                let storedText = record["text"] as? String ?? ""
                 let timestamp = record["timestamp"] as? Date ?? Date()
-                messages.append((id, senderId, senderName, text, timestamp))
+
+                // Decrypt if (a) we have a join code and (b) the record is in the v1 envelope format.
+                // Anything else passes through as plaintext (legacy records).
+                let resolvedText: String
+                if let code = joinCode, !code.isEmpty, SquadCrypto.isEncrypted(storedText) {
+                    if let decoded = try? SquadCrypto.decrypt(storedText, joinCode: code) {
+                        resolvedText = decoded
+                    } else {
+                        // Wrong key, tampered data, or schema drift — surface as a sentinel so the UI
+                        // can show "[encrypted message]" rather than blanking the row.
+                        resolvedText = "[encrypted message]"
+                    }
+                } else {
+                    resolvedText = storedText
+                }
+
+                messages.append((id, senderId, senderName, resolvedText, timestamp))
             }
         }
 
