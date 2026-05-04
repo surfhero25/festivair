@@ -38,6 +38,14 @@ final class MeshNetworkManager: NSObject, ObservableObject {
         peerConnectedSubject.eraseToAnyPublisher()
     }
 
+    // MARK: - UWB Inbound (NearbyInteraction control frames)
+    /// Emits UWB control payloads (kind byte + body) routed off the mesh side-channel.
+    /// Frames carry the magic prefix `FAUWB!\0\0` and bypass V1/V2 envelope decoding.
+    private let uwbInboundSubject = PassthroughSubject<(Data, MCPeerID), Never>()
+    var uwbInboundPublisher: AnyPublisher<(Data, MCPeerID), Never> {
+        uwbInboundSubject.eraseToAnyPublisher()
+    }
+
     // Track seen messages to prevent duplicates (Set + timestamp-based expiration)
     private var seenMessageIds: Set<UUID> = []
     private var seenMessageTimestamps: [UUID: Date] = [:]
@@ -336,6 +344,17 @@ extension MeshNetworkManager: MCSessionDelegate {
     }
 
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
+        // UWB side-channel: detect "FAUWB!\0\0" prefix (8 bytes) and route directly.
+        let uwbPrefix = UWBPrecisionFinder.framePrefix
+        if data.count > uwbPrefix.count,
+           data.prefix(uwbPrefix.count).elementsEqual(uwbPrefix) {
+            let body = data.suffix(from: data.startIndex + uwbPrefix.count)
+            DispatchQueue.main.async {
+                self.uwbInboundSubject.send((Data(body), peerID))
+            }
+            return
+        }
+
         do {
             // Decode as generic dictionary first, then as MeshEnvelope
             guard let json = try JSONSerialization.jsonObject(with: data) as? [String: Any],

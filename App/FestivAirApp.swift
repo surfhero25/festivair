@@ -80,6 +80,7 @@ final class AppState: ObservableObject {
     let cloudKit: CloudKitService
     let havenTransport: HavenTransportService
     let sosManager: SOSManager
+    let uwbFinder: UWBPrecisionFinder
 
     // MARK: - Singleton Services
     let subscriptionManager = SubscriptionManager.shared
@@ -142,11 +143,14 @@ final class AppState: ObservableObject {
         cloudKit = CloudKitService.shared
         havenTransport = HavenTransportService()
         sosManager = SOSManager(meshManager: meshManager, locationManager: locationManager)
+        uwbFinder = UWBPrecisionFinder()
+        uwbFinder.attach(to: meshManager)
 
         // Initialize ViewModels
         squadViewModel = SquadViewModel(cloudKit: cloudKit, meshManager: meshManager, peerTracker: peerTracker)
         chatViewModel = ChatViewModel(cloudKit: cloudKit, meshManager: meshManager, notificationManager: notificationManager)
         mapViewModel = MapViewModel(locationManager: locationManager, meshManager: meshManager, peerTracker: peerTracker)
+        mapViewModel.configureUWB(uwbFinder)
         setTimesViewModel = SetTimesViewModel(notificationManager: notificationManager)
         partiesViewModel = PartiesViewModel()
 

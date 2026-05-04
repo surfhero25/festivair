@@ -24,6 +24,17 @@ final class MapViewModel: ObservableObject {
     @Published var isHeadingUnavailable = false // True if device doesn't support heading
     let proximityManager = ProximityHapticsManager()
 
+    // MARK: - UWB Precision State
+    /// True while NearbyInteraction is producing fresh direction for the active target.
+    /// When true, `bearingToTarget` reflects UWB direction (sub-meter precision); when false, it's the GPS-derived bearing.
+    @Published var isPrecisionMode: Bool = false
+    /// UWB distance in metres for the active target when `isPrecisionMode == true`.
+    @Published var uwbDistance: Float?
+    private var uwbFinder: UWBPrecisionFinder?
+    private var uwbDirectionSubscription: AnyCancellable?
+    private var uwbDistanceSubscription: AnyCancellable?
+    private var uwbLockSubscription: AnyCancellable?
+
     // MARK: - Meetup Pins
     @Published var activeMeetupPins: [MeetupPin] = []
     @Published var selectedPin: MeetupPin?
@@ -66,6 +77,25 @@ final class MapViewModel: ObservableObject {
     /// Configure the MapViewModel (called from AppState)
     func configure(peerTracker: PeerTracker) {
         // Already configured in init - this is a hook for future configuration needs
+    }
+
+    /// Wires the UWB precision finder. Call once after init when the finder is available.
+    func configureUWB(_ finder: UWBPrecisionFinder) {
+        self.uwbFinder = finder
+        // Mirror direction → bearingToTarget when UWB is producing data.
+        uwbDirectionSubscription = finder.$direction
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] dir in
+                guard let self = self, let dir = dir else { return }
+                let degrees = Double(atan2(dir.x, -dir.z)) * 180 / .pi
+                self.bearingToTarget = (degrees + 360).truncatingRemainder(dividingBy: 360)
+            }
+        uwbDistanceSubscription = finder.$distance
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.uwbDistance, on: self)
+        uwbLockSubscription = finder.$isPrecisionLocked
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.isPrecisionMode, on: self)
     }
 
     /// Clear all squad-related data (called when leaving squad)
@@ -209,14 +239,23 @@ final class MapViewModel: ObservableObject {
         if headingStarted {
             setupBearingUpdates()
         }
+
+        // Kick off UWB precision ranging — silent no-op on devices without U1/U2 hardware.
+        // Uses MCPeerID display name as the routing key (the same string each peer's MeshNetworkManager registers with).
+        uwbFinder?.startRanging(to: member.displayName)
     }
 
     /// Stop navigation
     func stopNavigating() {
+        if let target = navigationTarget {
+            uwbFinder?.stopRanging(to: target.displayName)
+        }
         navigationTarget = nil
         isNavigating = false
         bearingToTarget = 0
         isHeadingUnavailable = false
+        isPrecisionMode = false
+        uwbDistance = nil
 
         // Cancel bearing updates subscription to prevent memory leak
         bearingSubscription?.cancel()
@@ -261,6 +300,9 @@ final class MapViewModel: ObservableObject {
     }
 
     private func updateBearing(deviceHeading: Double?, location: Location?) {
+        // UWB precision mode owns the bearing while a U1/U2 lock is active.
+        guard !isPrecisionMode else { return }
+
         guard let target = navigationTarget,
               let location = location,
               let heading = deviceHeading else { return }

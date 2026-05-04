@@ -41,6 +41,10 @@
     <key>NSBluetoothPeripheralUsageDescription</key>
     <string>FestivAir uses Bluetooth to let your squad members find you nearby.</string>
 
+    <!-- Nearby Interaction (Ultra Wideband precision finding) -->
+    <key>NSNearbyInteractionUsageDescription</key>
+    <string>FestivAir uses Ultra Wideband to point you to your squad members with sub-meter accuracy when you're close.</string>
+
     <!-- Local Network Permission -->
     <key>NSLocalNetworkUsageDescription</key>
     <string>FestivAir uses local networking to connect with your squad members nearby.</string>

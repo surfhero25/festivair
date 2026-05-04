@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		191063C0FB80E6BB52A1E3D0 /* FacilityAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC0F56E579DF515E3C30C55F /* FacilityAnnotationView.swift */; };
 		1D2B4A0ED605A544A10CEE2C /* BLEBeaconService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD7E95BC21472001E4EFE35 /* BLEBeaconService.swift */; };
+		20385D80A6404DC72A781200 /* UWBPrecisionFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31314005F73D742808677D5E /* UWBPrecisionFinder.swift */; };
+		21F3D122C1B22E33BA92E7AB /* festivals.json in Resources */ = {isa = PBXBuildFile; fileRef = 1C80828C3D4A0625C38E2A14 /* festivals.json */; };
 		284E3C76D2C8EA545D5E83EA /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35EBDF0112E44416898A7FCC /* Logger.swift */; };
 		3130C2334D8C4D3F2BCA6EEF /* MeetupPinAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DF3A50BE907782B4154A02 /* MeetupPinAnnotationView.swift */; };
 		34C778E2AF623D621FAF0FB0 /* NearestFacilityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9461A15400A977C8CCE3DF8 /* NearestFacilityView.swift */; };
@@ -33,7 +35,7 @@
 		D1B8D73A257EBA46E0E9003B /* OfflineMapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED423ECB54015D8469849A7E /* OfflineMapService.swift */; };
 		D95786093BF97D77316E6BDA /* ProximityHapticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31DAA4D43D20183091F3EAE /* ProximityHapticsManager.swift */; };
 		E1D7A3E9088291E95CC419E6 /* StatusPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4173C3AFFFF0D531044B121B /* StatusPickerView.swift */; };
-		ECBEAE1171025181F9BA70BE /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = 801D6E2945AA49DC840D540A /* Sentry */; };
+		ECBEAE1171025181F9BA70BE /* Sentry-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 801D6E2945AA49DC840D540A /* Sentry-Dynamic */; };
 		F80DF14C344780E2743AA3F4 /* FacilityDetailSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EAC8CAB10A1319CA039C7D /* FacilityDetailSheet.swift */; };
 		FA000001 /* FestivAirApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100001 /* FestivAirApp.swift */; };
 		FA000002 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA100002 /* AppDelegate.swift */; };
@@ -134,7 +136,9 @@
 
 /* Begin PBXFileReference section */
 		1559BEEC51BB1B6BD87AB51B /* UserStatus.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UserStatus.swift; sourceTree = "<group>"; };
+		1C80828C3D4A0625C38E2A14 /* festivals.json */ = {isa = PBXFileReference; includeInIndex = 1; path = festivals.json; sourceTree = "<group>"; };
 		3032CF85A85E48273BE1F9A7 /* TermsOfServiceView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TermsOfServiceView.swift; path = Views/Settings/TermsOfServiceView.swift; sourceTree = "<group>"; };
+		31314005F73D742808677D5E /* UWBPrecisionFinder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = UWBPrecisionFinder.swift; sourceTree = "<group>"; };
 		32811D64DD5DAF9365935C02 /* Facility.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Facility.swift; sourceTree = "<group>"; };
 		35EBDF0112E44416898A7FCC /* Logger.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		4173C3AFFFF0D531044B121B /* StatusPickerView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = StatusPickerView.swift; sourceTree = "<group>"; };
@@ -270,7 +274,7 @@
 			files = (
 				9792002F2F8D98F300058D69 /* SwiftUI.framework in Frameworks */,
 				9792002D2F8D98F300058D69 /* WidgetKit.framework in Frameworks */,
-				ECBEAE1171025181F9BA70BE /* Sentry in Frameworks */,
+				ECBEAE1171025181F9BA70BE /* Sentry-Dynamic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -469,6 +473,7 @@
 				FA100083 /* ClusterManager.swift */,
 				7FD7E95BC21472001E4EFE35 /* BLEBeaconService.swift */,
 				FA100096 /* SOSManager.swift */,
+				31314005F73D742808677D5E /* UWBPrecisionFinder.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -520,6 +525,7 @@
 				FA100032 /* sample_festivals.json */,
 				FA100033 /* FestivAir.entitlements */,
 				FA100034 /* Info.plist */,
+				1C80828C3D4A0625C38E2A14 /* festivals.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -665,7 +671,7 @@
 			);
 			name = FestivAirLiveActivityExtension;
 			packageProductDependencies = (
-				801D6E2945AA49DC840D540A /* Sentry */,
+				801D6E2945AA49DC840D540A /* Sentry-Dynamic */,
 			);
 			productName = FestivAirLiveActivityExtension;
 			productReference = 9792002A2F8D98F200058D69 /* FestivAirLiveActivityExtension.appex */;
@@ -688,7 +694,7 @@
 			);
 			name = FestivAir;
 			packageProductDependencies = (
-				801D6E2945AA49DC840D540A /* Sentry */,
+				801D6E2945AA49DC840D540A /* Sentry-Dynamic */,
 			);
 			productName = FestivAir;
 			productReference = FA200000 /* FestivAir.app */;
@@ -756,6 +762,7 @@
 			files = (
 				FA000031 /* Assets.xcassets in Resources */,
 				FA000032 /* sample_festivals.json in Resources */,
+				21F3D122C1B22E33BA92E7AB /* festivals.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -884,6 +891,7 @@
 				FA000094 /* StaleAnnotationView.swift in Sources */,
 				FA000095 /* AnnouncementBannerView.swift in Sources */,
 				FA000096 /* SOSManager.swift in Sources */,
+				20385D80A6404DC72A781200 /* UWBPrecisionFinder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1253,7 +1261,7 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		801D6E2945AA49DC840D540A /* Sentry */ = {
+		801D6E2945AA49DC840D540A /* Sentry-Dynamic */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 00E5F7857DF046EC928B11AD /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
 			productName = "Sentry-Dynamic";
