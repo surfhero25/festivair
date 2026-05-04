@@ -42,7 +42,7 @@ fastlane is configured at `fastlane/Appfile` + `fastlane/Fastfile`. Three lanes:
 
 ASC API key: `BYF7TNAA54` at `~/private_keys/AuthKey_BYF7TNAA54.p8` (mode 600, copied from iMac on 2026-05-02).
 Issuer: `69a6de85-e2c7-47e3-e053-5b8c7c11a4d1`. Team: `8JZLCG9CS2`. Bundle: `com.festivair.app`.
-Last verified TestFlight build: **45** (shipped 2026-05-03 from Mac mini via raw `xcodebuild archive` + `-exportArchive`; fastlane path also works).
+Last verified TestFlight build: **46** (shipped 2026-05-03 from Mac mini, ~3 min total). Build 45 crashed at launch on real devices via `CBUUID.__allocating_init` (invalid hex 'R' in `BLEBeaconService` UUIDs); 46 fixes that. With `Sentry-Dynamic` in place the upload no longer warns about a missing Sentry.framework dSYM.
 
 The legacy manual flow in `~/.claude/skills/ios-release/SKILL.md` still works as a fallback. Prefer `fastlane beta` for routine ships.
 
