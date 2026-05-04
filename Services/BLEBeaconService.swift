@@ -12,11 +12,11 @@ final class BLEBeaconService: NSObject, ObservableObject {
     // MARK: - Constants
 
     /// FestivAir BLE service UUID — unique to this app
-    static let serviceUUID = CBUUID(string: "FA57A1R0-BEEF-CAFE-0001-000000000001")
+    static let serviceUUID = CBUUID(string: "FA57A1A0-BEEF-CAFE-0001-000000000001")
     /// Characteristic for wake-up signals
-    static let wakeCharacteristicUUID = CBUUID(string: "FA57A1R0-BEEF-CAFE-0001-000000000002")
+    static let wakeCharacteristicUUID = CBUUID(string: "FA57A1A0-BEEF-CAFE-0001-000000000002")
     /// Characteristic for status flags (SOS, pending messages)
-    static let statusCharacteristicUUID = CBUUID(string: "FA57A1R0-BEEF-CAFE-0001-000000000003")
+    static let statusCharacteristicUUID = CBUUID(string: "FA57A1A0-BEEF-CAFE-0001-000000000003")
 
     // MARK: - Status Flags (advertised in characteristic)
 
