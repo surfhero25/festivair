@@ -164,32 +164,6 @@ private struct SquadMapContentView: View {
                     ConnectionStatusBar()
                         .padding(.horizontal)
 
-                    // Facility filter bar (collapsible)
-                    if showFacilityFilters {
-                        VStack(spacing: 0) {
-                            FacilityFilterBar(
-                                selectedTypes: $selectedFacilityTypes,
-                                onFilterChange: nil
-                            )
-
-                            // Quick nearest facility row
-                            if let userLocation = appState.locationManager.currentLocation {
-                                NearestFacilityView(
-                                    userLocation: CLLocationCoordinate2D(
-                                        latitude: userLocation.latitude,
-                                        longitude: userLocation.longitude
-                                    ),
-                                    onNavigate: { facility in
-                                        selectedFacility = facility
-                                    }
-                                )
-                                .padding(.vertical, 8)
-                                .background(.ultraThinMaterial)
-                            }
-                        }
-                        .transition(.move(edge: .top).combined(with: .opacity))
-                    }
-
                     // Compact compass when navigating (if not expanded)
                     if mapViewModel.isNavigating,
                        let target = mapViewModel.navigationTarget,
@@ -299,6 +273,43 @@ private struct SquadMapContentView: View {
             }
             .sheet(isPresented: $showJoinSquad) {
                 JoinSquadView()
+            }
+            .sheet(isPresented: $showFacilityFilters) {
+                NavigationStack {
+                    ScrollView {
+                        VStack(spacing: 16) {
+                            FacilityFilterBar(
+                                selectedTypes: $selectedFacilityTypes,
+                                onFilterChange: nil
+                            )
+                            .padding(.top, 4)
+
+                            if let userLocation = appState.locationManager.currentLocation {
+                                NearestFacilityView(
+                                    userLocation: CLLocationCoordinate2D(
+                                        latitude: userLocation.latitude,
+                                        longitude: userLocation.longitude
+                                    ),
+                                    onNavigate: { facility in
+                                        selectedFacility = facility
+                                        showFacilityFilters = false
+                                    }
+                                )
+                            }
+                        }
+                        .padding(.bottom, 24)
+                    }
+                    .navigationTitle("Places")
+                    .navigationBarTitleDisplayMode(.inline)
+                    .toolbar {
+                        ToolbarItem(placement: .topBarTrailing) {
+                            Button("Done") { showFacilityFilters = false }
+                        }
+                    }
+                }
+                .presentationDetents([.medium, .large])
+                .presentationDragIndicator(.visible)
+                .presentationBackgroundInteraction(.enabled(upThrough: .medium))
             }
             .sheet(isPresented: $showFullCompass) {
                 if let target = mapViewModel.navigationTarget {
