@@ -284,12 +284,6 @@ struct SettingsView: View {
                             .foregroundStyle(.secondary)
                     }
 
-                    NavigationLink {
-                        DebugLogView()
-                    } label: {
-                        Label("Debug Logs", systemImage: "doc.text.magnifyingglass")
-                    }
-
                     Button {
                         showPrivacyPolicy = true
                     } label: {
