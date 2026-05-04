@@ -42,7 +42,18 @@ fastlane is configured at `fastlane/Appfile` + `fastlane/Fastfile`. Three lanes:
 
 ASC API key: `BYF7TNAA54` at `~/private_keys/AuthKey_BYF7TNAA54.p8` (mode 600, copied from iMac on 2026-05-02).
 Issuer: `69a6de85-e2c7-47e3-e053-5b8c7c11a4d1`. Team: `8JZLCG9CS2`. Bundle: `com.festivair.app`.
-Last verified TestFlight build: **49** (shipped 2026-05-03 from Mac mini). 49 reworked the Places overlay on `SquadMapView` from a floating inline VStack to a proper bottom sheet (`.presentationDetents([.medium, .large])`, `.presentationBackgroundInteraction(.enabled(upThrough: .medium))`) so the map stays interactive while filters/Find-Nearest are open. 48 added NearbyInteraction (UWB precision finder) for sub-meter squad-finding on iPhone 11+, bundled 89 festivals (`Resources/festivals.json`) and 12,745 OSM-derived POIs across 53 of them (`Resources/festival_pois/<id>.geojson` + manifest), and an `NSNearbyInteractionUsageDescription`. UWB ranging uses a magic-prefix side-channel on MultipeerConnectivity (frame `FAUWB!\0\0`) that bypasses V1/V2 envelope decoding — see `Services/UWBPrecisionFinder.swift` and the sniff in `MeshNetworkManager.session(_:didReceive:fromPeer:)`. 47 dropped the in-app Debug Logs viewer in favour of Sentry breadcrumbs. 46 fixed the BLE-UUID launch crash from 45.
+Last verified TestFlight build: **50** (shipped 2026-05-03 from Mac mini, security hardening from OpenAI cross-review).
+
+50 changes that touch the protocol — **NOT backward compatible with 45-49**:
+- `MCPeerID` now embeds a stable userId in `displayName` ("Bob|abc-123"); look-up via `peerById(_:)` is now a real userId lookup. See `MCPeerID` extension in `Services/MeshNetworkManager.swift`.
+- V2 signing input now covers `version|messageId|type|originPeerId|targetPeerId|squadId|timestamp|ttl|payload` — see `V2Envelope.signingInput(...)` in `Models/MeshProtocolV2.swift`. Every envelope carries the originator's DER public key (`senderPublicKey`).
+- `MeshCoordinator.handleV2Message` now requires a verified signature; bootstrapping is TOFU via `Services/PublicKeyDirectory.swift` (UserDefaults-persisted). Conflicting key claims for the same userId are dropped as hostile.
+- CloudKit chat (`CloudKitService.sendMessage` / `getMessages`) is now encrypted with `SquadCrypto` — AES-256-GCM keyed via HKDF-SHA256 from the squad join code. Wire format is `v1:<base64>`; legacy plaintext records still decode for the transition window.
+- `preciseLocationRequest` in `MeshCoordinator.handleV2Message` gates on `payload.targetMemberID == currentUserId` so non-target peers no longer enter high-accuracy mode.
+- `UWBPrecisionFinder` keys sessions by userId, rejects peers without an embedded userId, and honours an optional `currentSquadMemberIds` allow-list synced from `MapViewModel.memberAnnotations`.
+- `OfflineMapService` now actually loads `Resources/festivals.json` + `Resources/festival_pois/<slug>.geojson`. Sample-data path retained as fallback.
+
+49 reworked the Places overlay on `SquadMapView` from a floating inline VStack to a proper bottom sheet (`.presentationDetents([.medium, .large])`, `.presentationBackgroundInteraction(.enabled(upThrough: .medium))`). 48 added NearbyInteraction (UWB) for sub-meter squad-finding on iPhone 11+, bundled 89 festivals + 12,745 OSM POIs, added `NSNearbyInteractionUsageDescription`. UWB ranging uses a magic-prefix side-channel on MultipeerConnectivity (frame `FAUWB!\0\0`). 47 dropped the in-app Debug Logs viewer in favour of Sentry breadcrumbs. 46 fixed the BLE-UUID launch crash from 45.
 
 The legacy manual flow in `~/.claude/skills/ios-release/SKILL.md` still works as a fallback. Prefer `fastlane beta` for routine ships.
 
